@@ -23,7 +23,7 @@ import {
     Loader2,
     Globe
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Translation {
     key: string;
@@ -51,6 +51,7 @@ const DEFAULT_TRANSLATIONS: Record<string, Translation[]> = {
 };
 
 export default function TranslationsPage() {
+    const { showSuccess, showError } = useNotification();
     const [locale, setLocale] = useState('en');
     const [translations, setTranslations] = useState<Translation[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
@@ -105,12 +106,12 @@ export default function TranslationsPage() {
             });
             
             if (response.ok) {
-                toast.success('Translations updated successfully');
+                showSuccess('Translations updated successfully');
             } else {
                 throw new Error('Failed to save');
             }
         } catch (error) {
-            toast.error('Failed to update translations');
+            showError('Failed to update translations');
         } finally {
             setIsSaving(false);
         }

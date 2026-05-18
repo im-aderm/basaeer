@@ -25,10 +25,12 @@ import {
     XCircle,
     AlertCircle,
 } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function AdmissionExamsPage() {
     const { resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [exams, setExams] = useState<AdmissionExam[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
     const [loading, setLoading] = useState(true);
@@ -39,6 +41,8 @@ export default function AdmissionExamsPage() {
     const [rankings, setRankings] = useState<RankedScore[]>([]);
     const [view, setView] = useState<"list" | "detail" | "rankings">("list");
     const [creating, setCreating] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         examDate: "",
@@ -68,7 +72,7 @@ export default function AdmissionExamsPage() {
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch:", error);
             setError("Failed to load exam data. Please try again.");
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -83,12 +87,12 @@ export default function AdmissionExamsPage() {
                 ...formData,
                 branchId: resolvedBranchId,
             });
-            toast.success("Exam created successfully");
+            showSuccess("Exam created successfully");
             setShowCreateForm(false);
             setFormData({ name: "", examDate: "", startTime: "", endTime: "", venue: "", description: "", maxScore: 100, academicSessionId: "" });
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to create exam");
+            showError(error.response?.data?.message || "Failed to create exam");
         } finally {
             setCreating(false);
         }
@@ -101,7 +105,7 @@ export default function AdmissionExamsPage() {
             const detail = await AdmissionExamService.getById(exam.id);
             setExamDetail(detail);
         } catch (error: any) {
-            toast.error("Failed to load exam detail");
+            showError("Failed to load exam detail");
         }
     };
 
@@ -112,18 +116,26 @@ export default function AdmissionExamsPage() {
             const data = await AdmissionExamService.getRankings(exam.id);
             setRankings(data);
         } catch (error: any) {
-            toast.error("Failed to load rankings");
+            showError("Failed to load rankings");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this exam?")) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await AdmissionExamService.delete(id);
-            toast.success("Exam deleted");
+            await AdmissionExamService.delete(confirmDeleteId);
+            showSuccess("Exam deleted");
             fetchData();
         } catch (error: any) {
-            toast.error("Failed to delete exam");
+            showError("Failed to delete exam");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -453,6 +465,15 @@ export default function AdmissionExamsPage() {
                     ))
                 )}
             </div>
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Exam"
+                message="Are you sure you want to delete this exam? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
             </div>
         </RequireBranch>
     );

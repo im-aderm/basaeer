@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 import { useRealtimeEvent } from '@/hooks/useRealtime';
 
@@ -15,6 +15,7 @@ export default function QRAttendanceScanner() {
     const searchParams = useSearchParams();
     const sessionId = searchParams.get('sessionId');
 
+    const { showSuccess, showError, showInfo } = useNotification();
     const [scanning, setScanning] = useState(false);
     const [lastScan, setLastScan] = useState<any>(null);
     const [scanStatus, setScanStatus] = useState<'IDLE' | 'SUCCESS' | 'ERROR' | 'OFFLINE_QUEUED'>('IDLE');
@@ -52,7 +53,7 @@ export default function QRAttendanceScanner() {
             const res = await api.get(`/attendance/sessions/${sessionId}`);
             setSessionDetails(res.data);
         } catch (error) {
-            toast.error("Failed to load session details");
+            showError("Failed to load session details");
         }
     };
 
@@ -60,7 +61,7 @@ export default function QRAttendanceScanner() {
     useRealtimeEvent('attendance_update', (data: any) => {
         if (data.sessionId === sessionId) {
             // We could update a local roster here
-            toast.info(`${data.studentName} marked ${data.status}`);
+            showInfo(`${data.studentName} marked ${data.status}`);
         }
     });
 
@@ -105,12 +106,12 @@ export default function QRAttendanceScanner() {
             });
 
             if (res.data.alreadyScanned) {
-                toast.warning("Student already scanned recently");
+                showInfo("Student already scanned recently");
                 setScanStatus('IDLE');
             } else {
                 setLastScan(res.data.attendance);
                 setScanStatus('SUCCESS');
-                toast.success(`Marked: ${res.data.attendance.student.firstName}`);
+                showSuccess(`Marked: ${res.data.attendance.student.firstName}`);
             }
 
             setTimeout(async () => {
@@ -120,7 +121,7 @@ export default function QRAttendanceScanner() {
 
         } catch (error: any) {
             setScanStatus('ERROR');
-            toast.error(error.response?.data?.message || 'Invalid QR or Access Denied');
+            showError(error.response?.data?.message || 'Invalid QR or Access Denied');
             setTimeout(async () => {
                 setScanStatus('IDLE');
                 if (scannerRef.current) await scannerRef.current.resume();
@@ -135,7 +136,7 @@ export default function QRAttendanceScanner() {
         localStorage.setItem('attendance_offline_queue', JSON.stringify(updatedQueue));
         
         setScanStatus('OFFLINE_QUEUED');
-        toast.info("Offline: Scan queued for sync");
+        showInfo("Offline: Scan queued for sync");
 
         setTimeout(async () => {
             setScanStatus('IDLE');
@@ -146,14 +147,13 @@ export default function QRAttendanceScanner() {
     const syncOfflineQueue = async () => {
         if (offlineQueue.length === 0) return;
         
-        const loadingToast = toast.loading(`Syncing ${offlineQueue.length} scans...`);
         try {
             await api.post('/attendance/scan/bulk', { scans: offlineQueue });
             setOfflineQueue([]);
             localStorage.removeItem('attendance_offline_queue');
-            toast.success("Sync complete!", { id: loadingToast });
+        showSuccess("Sync complete!");
         } catch (error) {
-            toast.error("Sync failed", { id: loadingToast });
+            showError("Sync failed");
         }
     };
 

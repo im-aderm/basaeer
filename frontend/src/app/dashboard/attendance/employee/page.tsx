@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import { AttendanceService } from "@/services/attendanceService";
 
 export default function StaffAttendancePage() {
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(true);
 
@@ -50,7 +51,7 @@ export default function StaffAttendancePage() {
             setAttendanceData(initialData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data", error);
-            toast.error("Failed to load staff list");
+            showError("Failed to load staff list");
         } finally {
             setFetching(false);
         }
@@ -81,10 +82,10 @@ export default function StaffAttendancePage() {
             }));
 
             await AttendanceService.markStaffBulk(records);
-            toast.success("Staff attendance saved successfully");
+            showSuccess("Staff attendance saved successfully");
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save", error);
-            toast.error("Failed to save attendance");
+            showError("Failed to save attendance");
         } finally {
             setLoading(false);
         }

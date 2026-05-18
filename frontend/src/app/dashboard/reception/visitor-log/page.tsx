@@ -15,16 +15,20 @@ import { Textarea } from '@/components/ui/textarea';
 import { UserPlus, Search, Calendar, Clock, BookOpen, MoreHorizontal, UserCheck, ShieldCheck, Trash2, Edit3, LogOut, Loader2 } from 'lucide-react';
 import { ReceptionService, VisitorLog } from '@/services/receptionService';
 import { SettingsService } from '@/services/settingsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function VisitorLogPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [logs, setLogs] = useState<VisitorLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingLog, setEditingLog] = useState<VisitorLog | null>(null);
     const [purposes, setPurposes] = useState<string[]>(["Meeting", "Delivery", "Personal", "Admission", "Vendor", "Other"]);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+    const [confirmCheckout, setConfirmCheckout] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         purpose: '',
@@ -57,7 +61,7 @@ export default function VisitorLogPage() {
             const data = await ReceptionService.getVisitorLogs(resolvedBranchId);
             setLogs(data);
         } catch (error) {
-            toast.error('Failed to load logs');
+            showError('Failed to load logs');
         } finally {
             setLoading(false);
         }
@@ -72,12 +76,12 @@ export default function VisitorLogPage() {
         e.preventDefault();
         try {
             await ReceptionService.createVisitorLog({ ...formData, numPerson: Number(formData.numPerson), branchId: resolvedBranchId });
-            toast.success('Visitor entry recorded');
+            showSuccess('Visitor entry recorded');
             setIsAddDialogOpen(false);
             fetchLogs();
             resetForm();
         } catch (error) {
-            toast.error('Failed to record visitor');
+            showError('Failed to record visitor');
         }
     };
 
@@ -86,34 +90,47 @@ export default function VisitorLogPage() {
         if (!editingLog) return;
         try {
             await ReceptionService.updateVisitorLog(editingLog.id, { ...formData, numPerson: Number(formData.numPerson) });
-            toast.success('Visitor entry updated');
+            showSuccess('Visitor entry updated');
             setEditingLog(null);
             fetchLogs();
             resetForm();
         } catch (error) {
-            toast.error('Failed to update entry');
+            showError('Failed to update entry');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this log?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await ReceptionService.deleteVisitorLog(id);
-            toast.success('Log deleted successfully');
+            await ReceptionService.deleteVisitorLog(confirmDelete);
+            showSuccess('Log deleted successfully');
             fetchLogs();
         } catch (error) {
-            toast.error('Failed to delete log');
+            showError('Failed to delete log');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
     const handleCheckOut = async (log: VisitorLog) => {
+        setConfirmCheckout(log.id);
+    };
+
+    const handleConfirmCheckout = async () => {
+        if (!confirmCheckout) return;
         const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
         try {
-            await ReceptionService.updateVisitorLog(log.id, { outTime: currentTime });
-            toast.success(`Visitor checked out at ${currentTime}`);
+            await ReceptionService.updateVisitorLog(confirmCheckout, { outTime: currentTime });
+            showSuccess(`Visitor checked out at ${currentTime}`);
             fetchLogs();
         } catch (error) {
-            toast.error('Failed to check out visitor');
+            showError('Failed to check out visitor');
+        } finally {
+            setConfirmCheckout(null);
         }
     };
 
@@ -186,12 +203,12 @@ export default function VisitorLogPage() {
                                 Add Entry
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle className="text-h3 font-semibold">Visitor Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Record new visitor credentials.</DialogDescription>
                             </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-6 pt-4">
+                            <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
                                 <VisitorForm formData={formData} setFormData={setFormData} purposes={purposes} />
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Authorize Visitor</Button>
@@ -276,12 +293,12 @@ export default function VisitorLogPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-h3 font-semibold">Edit Visitor Entry</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingLog?.name}</DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
+                    <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
                         <VisitorForm formData={formData} setFormData={setFormData} purposes={purposes} />
                         <DialogFooter>
                             <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Entry</Button>
@@ -289,6 +306,24 @@ export default function VisitorLogPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Visitor Log"
+                message="Are you sure you want to delete this log? This action cannot be undone."
+                confirmLabel="Delete"
+            />
+
+            <ConfirmDialog
+                isOpen={!!confirmCheckout}
+                onConfirm={handleConfirmCheckout}
+                onCancel={() => setConfirmCheckout(null)}
+                title="Check Out Visitor"
+                message="Are you sure you want to check out this visitor?"
+                confirmLabel="Check Out"
+            />
         </div>
           </RequireBranch>
   );
@@ -297,7 +332,7 @@ export default function VisitorLogPage() {
 function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFormData: any, purposes: string[] }) {
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Visitor Name</Label>
                     <Input
@@ -319,7 +354,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Purpose of Visit</Label>
                     <Select value={formData.purpose} onValueChange={(v) => setFormData({ ...formData, purpose: v })}>
@@ -343,7 +378,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">No. Persons</Label>
                     <Input
@@ -373,7 +408,7 @@ function VisitorForm({ formData, setFormData, purposes }: { formData: any, setFo
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Out Time</Label>
                     <Input

@@ -60,6 +60,7 @@ model Branch {
   onlineAdmissions              OnlineAdmission[]
   onlineExams                   OnlineExam[]
   postalRecords                 PostalRecord[]
+  studentAccounts               StudentAccount[]
   questionGroups                QuestionGroup[]
   students                      Student[]
   studentCategories             StudentCategory[]
@@ -98,6 +99,7 @@ model Branch {
   providerFailoverEvents        ProviderFailoverEvent[]
   messageRetryEvents            MessageRetryEvent[]
   providerBalanceSnapshots      ProviderBalanceSnapshot[]
+  creditTransactions            CreditTransaction[]
   counters                      Counter[]
   notificationDeliveryEvents    NotificationDeliveryEvent[]
   academicExports               AcademicExport[]
@@ -406,6 +408,8 @@ model Student {
   bookReservations          BookReservation[]
   transportAttendances      TransportAttendance[]
   assessmentScores          AssessmentScore[]
+  studentAccount            StudentAccount?
+  vouchers                  Voucher[]
   loginDeactivations        LoginDeactivation[]
 
   @@index([branchId])
@@ -796,7 +800,7 @@ model OnlineExam {
   description     String?
   scheduledDate   DateTime
   durationMinutes Int
-  passPercentage  Float               @default(40.0)
+  passPercentage  Decimal             @default(40.0) @db.Decimal(5, 2)
   status          ExamStatus          @default(PUBLISHED)
   classId         String
   sectionId       String?
@@ -840,7 +844,7 @@ model QuestionAnswer {
   questionId       String
   selectedOptionId String?
   textAnswer       String?
-  marksAwarded     Float?
+  marksAwarded     Decimal?          @db.Decimal(5, 2)
   isCorrect        Boolean?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -962,7 +966,7 @@ model Assignment {
 model Submission {
   id           String           @id @default(uuid())
   contentUrl   String?
-  grade        Float?
+  grade        Decimal?         @db.Decimal(5, 2)
   feedback     String?
   status       SubmissionStatus @default(SUBMITTED)
   assignmentId String
@@ -999,6 +1003,9 @@ model AcademicSession {
   resultSummaries    ResultSummary[]
   admissionExams     AdmissionExam[]
   exams              Exam[]
+  vouchers           Voucher[]
+  studentAccounts    StudentAccount[]
+  creditTransactions CreditTransaction[]
 
   @@index([branchId])
 }
@@ -1014,9 +1021,9 @@ model AssessmentRecord {
   grade           String?
   position        Int?
   outOf           Int?
-  lowScore        Float?
-  highScore       Float?
-  classAvg        Float?
+  lowScore        Decimal?          @db.Decimal(5, 2)
+  highScore       Decimal?          @db.Decimal(5, 2)
+  classAvg        Decimal?          @db.Decimal(5, 2)
   remark          String?
   studentId       String
   subjectId       String
@@ -1070,16 +1077,16 @@ model BehaviouralRating {
 
 model ResultSummary {
   id                String          @id @default(uuid())
-  totalScore        Float?
-  average           Float?
+  totalScore        Decimal?        @db.Decimal(5, 2)
+  average           Decimal?        @db.Decimal(5, 2)
   classPosition     Int?
-  highestAvg        Float?
-  lowestAvg         Float?
+  highestAvg        Decimal?        @db.Decimal(5, 2)
+  lowestAvg         Decimal?        @db.Decimal(5, 2)
   countInClass      Int?
   finalGrade        String?
   finalRemark       String?
   promotionStatus   String?
-  cgpa              Float?
+  cgpa              Decimal?        @db.Decimal(3, 2)
   classOfResult     String?
   attendanceOpen    Int?
   attendancePresent Int?
@@ -1105,10 +1112,10 @@ model GradingScale {
   id            String   @id @default(uuid())
   name          String
   scaleType     String   @default("PERCENTAGE")
-  minScore      Float
-  maxScore      Float
+  minScore      Decimal  @db.Decimal(5, 2)
+  maxScore      Decimal  @db.Decimal(5, 2)
   grade         String
-  gradePoint    Float?
+  gradePoint    Decimal? @db.Decimal(3, 2)
   remark        String?
   classOfResult String?
   isActive      Boolean  @default(true)
@@ -1157,7 +1164,7 @@ model ExamType {
   id          String   @id @default(uuid())
   name        String
   description String?
-  weight      Float
+  weight      Decimal  @db.Decimal(5, 2)
   branchId    String
   classId     String?
   level       String?
@@ -1174,8 +1181,8 @@ model AssessmentComponent {
   id         String            @id @default(uuid())
   name       String
   component  String
-  weight     Float
-  maxScore   Float             @default(100)
+  weight     Decimal           @db.Decimal(5, 2)
+  maxScore   Decimal           @default(100) @db.Decimal(5, 2)
   isExam     Boolean           @default(false)
   branchId   String
   classId    String?
@@ -1193,7 +1200,7 @@ model AssessmentComponent {
 
 model AssessmentScore {
   id          String              @id @default(uuid())
-  score       Float               @default(0)
+  score       Decimal             @default(0) @db.Decimal(5, 2)
   studentId   String
   componentId String
   recordId    String
@@ -1258,10 +1265,10 @@ model GPARecord {
   studentId       String
   sessionId       String
   term            Term
-  totalGradePoint Float
-  creditUnits     Float    @default(0)
-  gpa             Float
-  cgpa            Float?
+  totalGradePoint Decimal  @db.Decimal(5, 2)
+  creditUnits     Decimal  @default(0) @db.Decimal(4, 2)
+  gpa             Decimal  @db.Decimal(3, 2)
+  cgpa            Decimal? @db.Decimal(3, 2)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   branch          Branch   @relation(fields: [branchId], references: [id])
@@ -1278,7 +1285,7 @@ model StudentRanking {
   term      Term
   scope     RankingScope
   scopeId   String
-  score     Float
+  score     Decimal      @db.Decimal(5, 2)
   rank      Int
   outOf     Int
   tieGroup  String?
@@ -1314,7 +1321,7 @@ model Transcript {
   studentId     String
   transcriptNo  String                   @unique
   status        TranscriptStatus         @default(DRAFT)
-  cumulativeGpa Float?
+  cumulativeGpa Decimal?                 @db.Decimal(3, 2)
   checksum      String
   data          Json
   approvedById  String?
@@ -1368,7 +1375,7 @@ model SubjectPosition {
   sectionId String
   sessionId String
   term      Term
-  score     Float
+  score     Decimal  @db.Decimal(5, 2)
   position  Int
   outOf     Int
   createdAt DateTime @default(now())
@@ -1392,11 +1399,11 @@ model TahfeezAssessment {
   juz               String?
   fromAyah          Int?
   toAyah            Int?
-  memorizationScore Float
-  tajweedScore      Float
-  fluencyScore      Float
-  revisionScore     Float?
-  totalScore        Float
+  memorizationScore Decimal  @db.Decimal(5, 2)
+  tajweedScore      Decimal  @db.Decimal(5, 2)
+  fluencyScore      Decimal  @db.Decimal(5, 2)
+  revisionScore     Decimal? @db.Decimal(5, 2)
+  totalScore        Decimal  @db.Decimal(5, 2)
   grade             String?
   remark            String?
   assessedAt        DateTime @default(now())
@@ -1416,7 +1423,7 @@ model TahfeezMemorizationProgress {
   currentJuz     String?
   completedAyahs Int       @default(0)
   totalAyahs     Int       @default(0)
-  completionRate Float     @default(0)
+  completionRate Decimal   @default(0) @db.Decimal(5, 2)
   lastReviewedAt DateTime?
   teacherRemark  String?
   createdAt      DateTime  @default(now())
@@ -1500,23 +1507,28 @@ model ExpenseCategory {
 }
 
 model Voucher {
-  id                String          @id @default(uuid())
-  voucherNumber     String          @unique
+  id                String           @id @default(uuid())
+  voucherNumber     String           @unique
   date              DateTime
-  amount            Decimal         @db.Decimal(12, 2)
+  amount            Decimal          @db.Decimal(12, 2)
   description       String
-  expenseCategoryId String
+  type              VoucherType      @default(EXPENSE)
+  expenseCategoryId String?
+  studentId         String?
   paidTo            String
   approvedByUserId  String?
   branchId          String
-  status            VoucherStatus   @default(PENDING)
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
+  sessionId         String?
+  status            VoucherStatus    @default(PENDING)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
   createdByUserId   String?
   updatedByUserId   String?
-  approvedBy        User?           @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
-  branch            Branch          @relation(fields: [branchId], references: [id])
-  category          ExpenseCategory @relation(fields: [expenseCategoryId], references: [id])
+  approvedBy        User?            @relation("VoucherApprover", fields: [approvedByUserId], references: [id])
+  branch            Branch           @relation(fields: [branchId], references: [id])
+  category          ExpenseCategory? @relation(fields: [expenseCategoryId], references: [id])
+  student           Student?         @relation(fields: [studentId], references: [id])
+  session           AcademicSession? @relation(fields: [sessionId], references: [id])
 
   @@index([branchId])
   @@index([branchId, date])
@@ -1821,7 +1833,7 @@ model OnlineAdmission {
   desiredSectionId          String?
   admissionType             String?
   transferReason            String?
-  assessmentScore           Float?
+  assessmentScore           Decimal?        @db.Decimal(5, 2)
   status                    AdmissionStatus @default(APPLICATION_RECEIVED)
   rejectionReason           String?
   guardianName              String
@@ -2506,6 +2518,7 @@ enum InvoiceStatus {
   PARTIALLY_PAID
   PAID
   OVERDUE
+  VOIDED
 }
 
 enum QuestionType {
@@ -2531,6 +2544,13 @@ enum VoucherStatus {
   PENDING
   APPROVED
   REJECTED
+}
+
+enum VoucherType {
+  EXPENSE
+  PAYMENT_ON_ACCOUNT
+  REFUND
+  CREDIT_NOTE
 }
 
 enum StaffStatus {
@@ -3212,6 +3232,51 @@ model Counter {
   @@index([branchId])
 }
 
+model StudentAccount {
+  id            String              @id @default(uuid())
+  studentId     String              @unique
+  branchId      String
+  sessionId     String?
+  creditBalance Decimal             @default(0) @db.Decimal(12, 2)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  deletedAt     DateTime?
+  student       Student             @relation(fields: [studentId], references: [id])
+  branch        Branch              @relation(fields: [branchId], references: [id])
+  transactions  CreditTransaction[]
+  session       AcademicSession?    @relation(fields: [sessionId], references: [id])
+
+  @@index([studentId])
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([deletedAt])
+}
+
+model CreditTransaction {
+  id               String           @id @default(uuid())
+  studentAccountId String
+  type             String
+  amount           Decimal          @db.Decimal(12, 2)
+  description      String?
+  referenceId      String?
+  branchId         String
+  sessionId        String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  deletedAt        DateTime?
+  account          StudentAccount   @relation(fields: [studentAccountId], references: [id])
+  branch           Branch           @relation(fields: [branchId], references: [id])
+  session          AcademicSession? @relation(fields: [sessionId], references: [id])
+
+  @@index([studentAccountId])
+  @@index([createdAt])
+  @@index([branchId])
+  @@index([sessionId])
+  @@index([type])
+  @@index([referenceId])
+  @@index([deletedAt])
+}
+
 model AdmissionExam {
   id                String               @id @default(uuid())
   name              String
@@ -3223,7 +3288,7 @@ model AdmissionExam {
   endTime           DateTime
   description       String?
   status            AdmissionExamStatus  @default(DRAFT)
-  maxScore          Float                @default(100)
+  maxScore          Decimal              @default(100) @db.Decimal(5, 2)
   createdAt         DateTime             @default(now())
   updatedAt         DateTime             @updatedAt
   branch            Branch               @relation(fields: [branchId], references: [id])
@@ -3239,8 +3304,8 @@ model AdmissionExamScore {
   id          String          @id @default(uuid())
   admissionId String
   examId      String
-  score       Float
-  maxScore    Float           @default(100)
+  score       Decimal         @db.Decimal(5, 2)
+  maxScore    Decimal         @default(100) @db.Decimal(5, 2)
   grade       String?
   notes       String?
   gradedById  String?

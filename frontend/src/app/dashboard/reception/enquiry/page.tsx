@@ -15,20 +15,23 @@ import { Textarea } from '@/components/ui/textarea';
 import { Users, UserPlus, Phone, Calendar, Search, Filter, MessageSquare, MoreHorizontal, CheckCircle2, AlertCircle, Clock, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, AdmissionEnquiry } from '@/services/receptionService';
 import { SettingsService } from '@/services/settingsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import SharableLink from '@/components/admission/SharableLink';
 
 export default function AdmissionEnquiryPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [enquiries, setEnquiries] = useState<AdmissionEnquiry[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingEnquiry, setEditingEnquiry] = useState<AdmissionEnquiry | null>(null);
     const [sources, setSources] = useState<string[]>(["Advertisement", "Walk-in", "Referral", "Social Media", "Newspaper", "Other"]);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
-    // Form State
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -56,7 +59,7 @@ export default function AdmissionEnquiryPage() {
             const data = await ReceptionService.getEnquiries(branchId);
             setEnquiries(data);
         } catch (error) {
-            toast.error('Failed to load enquiries');
+            showError('Failed to load enquiries');
         } finally {
             setLoading(false);
         }
@@ -75,12 +78,12 @@ export default function AdmissionEnquiryPage() {
         e.preventDefault();
         try {
             await ReceptionService.createEnquiry({ ...formData, branchId: resolvedBranchId });
-            toast.success('Enquiry recorded successfully');
+            showSuccess('Enquiry recorded successfully');
             setIsAddDialogOpen(false);
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
             resetForm();
         } catch (error) {
-            toast.error('Failed to save enquiry');
+            showError('Failed to save enquiry');
         }
     };
 
@@ -89,33 +92,41 @@ export default function AdmissionEnquiryPage() {
         if (!editingEnquiry) return;
         try {
             await ReceptionService.updateEnquiry(editingEnquiry.id, formData);
-            toast.success('Enquiry updated successfully');
+            showSuccess('Enquiry updated successfully');
             setEditingEnquiry(null);
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
             resetForm();
         } catch (error) {
-            toast.error('Failed to update enquiry');
+            showError('Failed to update enquiry');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this enquiry?')) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await ReceptionService.deleteEnquiry(id);
-            toast.success('Enquiry deleted successfully');
+            await ReceptionService.deleteEnquiry(confirmDeleteId);
+            showSuccess('Enquiry deleted successfully');
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
         } catch (error) {
-            toast.error('Failed to delete enquiry');
+            showError('Failed to delete enquiry');
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
     const handleStatusUpdate = async (id: string, status: string) => {
         try {
             await ReceptionService.updateEnquiry(id, { status });
-            toast.success(`Status updated to ${status}`);
+            showSuccess(`Status updated to ${status}`);
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
         } catch (error) {
-            toast.error('Failed to update status');
+            showError('Failed to update status');
         }
     };
 
@@ -171,160 +182,165 @@ export default function AdmissionEnquiryPage() {
     }
 
     return (
-            <RequireBranch requireSpecificBranch>
-        <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
-            <BranchContextBanner />
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-                <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Enquiries</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Track prospective student leads and follow-ups.</p>
-                </div>
-
-                <div className="flex gap-4 w-full md:w-auto">
-                    <div className="relative flex-1 md:w-80">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                            placeholder="Search leads..."
-                            className="pl-9 h-12 rounded-2xl bg-white border border-primary/90 shadow-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+        <RequireBranch requireSpecificBranch>
+            <div className="max-w-7xl mx-auto space-y-8 pb-20 animate-in fade-in duration-500">
+                <BranchContextBanner />
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                    <div>
+                        <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Enquiries</h1>
+                        <p className="text-muted-foreground font-medium mt-1">Track prospective student leads and follow-ups.</p>
                     </div>
-                    <Dialog open={isAddDialogOpen} onOpenChange={(open) => { setIsAddDialogOpen(open); if (!open) resetForm(); }}>
-                        <DialogTrigger asChild>
-                            <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
-                                <UserPlus className="h-5 w-5" />
-                                New Enquiry
-                            </Button>
-                        </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
-                            <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">Record New Enquiry</DialogTitle>
-                                <DialogDescription className="font-bold">Enter prospective student or guardian details.</DialogDescription>
-                            </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-6 pt-4">
-                                <EnquiryForm formData={formData} setFormData={setFormData} sources={sources} />
-                                <DialogFooter>
-                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Save Enquiry</Button>
-                                </DialogFooter>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
-                </div>
-            </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <StatCard title="Total Enquiries" value={enquiries.length} icon={Users} color="primary" />
-                <StatCard title="Pending Follow-ups" value={(enquiries ?? []).filter(e => e.status === 'PENDING' || e.status === 'FOLLOW_UP').length} icon={Clock} color="amber" />
-                <StatCard title="Converted (Won)" value={(enquiries ?? []).filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
-                <StatCard title="Dropped (Lost)" value={(enquiries ?? []).filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
-            </div>
-
-            {/* Sharable Link */}
-            {resolvedBranchId && (
-                <SharableLink branchId={resolvedBranchId} />
-            )}
-
-            {/* Main Table */}
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
-                <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <MessageSquare className="h-8 w-8 text-primary" />
-                        Lead Roster
-                    </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Lead Name</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Contact</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Source</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Last Activity</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filtered.map((e) => (
-                                <TableRow key={e.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
-                                        {e.name}
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1 text-xs">
-                                            <span className="font-bold flex items-center gap-1.5"><Phone className="h-3 w-3 text-primary" /> {e.phone}</span>
-                                            <span className="font-medium text-muted-foreground opacity-70">{e.email || 'No Email'}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="px-8 font-semibold text-[10px] uppercase opacity-50">
-                                        {e.source || 'Direct'}
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1">
-                                            <span className="font-bold text-xs flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(e.date).toLocaleDateString()}</span>
-                                            {e.nextFollowUpDate && (
-                                                <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-tighter">Follow up: {new Date(e.nextFollowUpDate).toLocaleDateString()}</span>
-                                            )}
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="px-8 text-center">
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <button className={`inline-flex px-3 py-1 rounded-full border border-current font-semibold text-[10px] uppercase transition-all hover:scale-105 active:scale-95 ${getStatusStyle(e.status)}`}>
-                                                    {e.status}
-                                                </button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent className="rounded-xl font-bold text-xs">
-                                                <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'PENDING')}>PENDING</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'FOLLOW_UP')}>FOLLOW_UP</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'WON')} className="text-emerald-600">WON</DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'LOST')} className="text-destructive">LOST</DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <div className="flex justify-end gap-2">
-                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(e)}>
-                                                <Edit3 className="h-4 w-4" />
-                                            </Button>
-                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive" onClick={() => handleDelete(e.id)}>
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                    {filtered.length === 0 && (
-                        <div className="p-20 text-center flex flex-col items-center gap-4 opacity-20">
-                            <Users className="h-20 w-20 stroke-[1]" />
-                            <p className="font-semibold text-h3 uppercase tracking-tighter">No admission enquiries found</p>
+                    <div className="flex gap-4 w-full md:w-auto">
+                        <div className="relative flex-1 md:w-80">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input
+                                placeholder="Search leads..."
+                                className="pl-9 h-12 rounded-2xl bg-white border border-primary/90 shadow-sm font-bold focus:ring-2 focus:ring-primary/20 outline-none"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                         </div>
-                    )}
-                </CardContent>
-            </Card>
+                        <Dialog open={isAddDialogOpen} onOpenChange={(open) => { setIsAddDialogOpen(open); if (!open) resetForm(); }}>
+                            <DialogTrigger asChild>
+                                <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">
+                                    <UserPlus className="h-5 w-5" />
+                                    New Enquiry
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                                <DialogHeader>
+                                    <DialogTitle className="text-h3 font-semibold">Record New Enquiry</DialogTitle>
+                                    <DialogDescription className="font-bold">Enter prospective student or guardian details.</DialogDescription>
+                                </DialogHeader>
+                                <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
+                                    <EnquiryForm formData={formData} setFormData={setFormData} sources={sources} />
+                                    <DialogFooter>
+                                        <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Save Enquiry</Button>
+                                    </DialogFooter>
+                                </form>
+                            </DialogContent>
+                        </Dialog>
+                    </div>
+                </div>
 
-            {/* Edit Dialog */}
-            <Dialog open={!!editingEnquiry} onOpenChange={(open) => { if (!open) setEditingEnquiry(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl">
-                    <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Enquiry</DialogTitle>
-                        <DialogDescription className="font-semibold opacity-60">Update details for {editingEnquiry?.name}</DialogDescription>
-                    </DialogHeader>
-                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
-                        <EnquiryForm formData={formData} setFormData={setFormData} sources={sources} />
-                        <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Enquiry</Button>
-                        </DialogFooter>
-                    </form>
-                </DialogContent>
-            </Dialog>
-        </div>
-          </RequireBranch>
-  );
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <StatCard title="Total Enquiries" value={enquiries.length} icon={Users} color="primary" />
+                    <StatCard title="Pending Follow-ups" value={(enquiries ?? []).filter(e => e.status === 'PENDING' || e.status === 'FOLLOW_UP').length} icon={Clock} color="amber" />
+                    <StatCard title="Converted (Won)" value={(enquiries ?? []).filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
+                    <StatCard title="Dropped (Lost)" value={(enquiries ?? []).filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
+                </div>
+
+                {resolvedBranchId && (
+                    <SharableLink branchId={resolvedBranchId} />
+                )}
+
+                <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
+                    <CardHeader className="p-8 border-b border-border bg-muted/20">
+                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
+                            <MessageSquare className="h-8 w-8 text-primary" />
+                            Lead Roster
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <Table>
+                            <TableHeader className="bg-muted/30 h-16">
+                                <TableRow className="border-border/50 hover:bg-transparent">
+                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Lead Name</TableHead>
+                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Contact</TableHead>
+                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Source</TableHead>
+                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Last Activity</TableHead>
+                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
+                                    <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filtered.map((e) => (
+                                    <TableRow key={e.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
+                                        <TableCell className="px-8 font-semibold uppercase leading-tight">
+                                            {e.name}
+                                        </TableCell>
+                                        <TableCell className="px-8">
+                                            <div className="flex flex-col gap-1 text-xs">
+                                                <span className="font-bold flex items-center gap-1.5"><Phone className="h-3 w-3 text-primary" /> {e.phone}</span>
+                                                <span className="font-medium text-muted-foreground opacity-70">{e.email || 'No Email'}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="px-8 font-semibold text-[10px] uppercase opacity-50">
+                                            {e.source || 'Direct'}
+                                        </TableCell>
+                                        <TableCell className="px-8">
+                                            <div className="flex flex-col gap-1">
+                                                <span className="font-bold text-xs flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(e.date).toLocaleDateString()}</span>
+                                                {e.nextFollowUpDate && (
+                                                    <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-tighter">Follow up: {new Date(e.nextFollowUpDate).toLocaleDateString()}</span>
+                                                )}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="px-8 text-center">
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <button className={`inline-flex px-3 py-1 rounded-full border border-current font-semibold text-[10px] uppercase transition-all hover:scale-105 active:scale-95 ${getStatusStyle(e.status)}`}>
+                                                        {e.status}
+                                                    </button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent className="rounded-xl font-bold text-xs">
+                                                    <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'PENDING')}>PENDING</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'FOLLOW_UP')}>FOLLOW_UP</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'WON')} className="text-emerald-600">WON</DropdownMenuItem>
+                                                    <DropdownMenuItem onClick={() => handleStatusUpdate(e.id, 'LOST')} className="text-destructive">LOST</DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                        <TableCell className="text-right px-8">
+                                            <div className="flex justify-end gap-2">
+                                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(e)}>
+                                                    <Edit3 className="h-4 w-4" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-destructive/10 hover:text-destructive" onClick={() => handleDelete(e.id)}>
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                        {filtered.length === 0 && (
+                            <div className="p-20 text-center flex flex-col items-center gap-4 opacity-20">
+                                <Users className="h-20 w-20 stroke-[1]" />
+                                <p className="font-semibold text-h3 uppercase tracking-tighter">No admission enquiries found</p>
+                            </div>
+                        )}
+                    </CardContent>
+                </Card>
+
+                <Dialog open={!!editingEnquiry} onOpenChange={(open) => { if (!open) setEditingEnquiry(null); }}>
+                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                        <DialogHeader>
+                            <DialogTitle className="text-h3 font-semibold">Edit Enquiry</DialogTitle>
+                            <DialogDescription className="font-semibold opacity-60">Update details for {editingEnquiry?.name}</DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
+                            <EnquiryForm formData={formData} setFormData={setFormData} sources={sources} />
+                            <DialogFooter>
+                                <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Enquiry</Button>
+                            </DialogFooter>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+                <ConfirmDialog
+                    isOpen={!!confirmDeleteId}
+                    onConfirm={handleConfirmDelete}
+                    onCancel={() => setConfirmDeleteId(null)}
+                    title="Delete Enquiry"
+                    message="Are you sure you want to delete this enquiry? This action cannot be undone."
+                    confirmLabel="Delete"
+                    loading={deleting}
+                />
+            </div>
+        </RequireBranch>
+    );
 }
 
 function StatCard({ title, value, icon: Icon, color }: { title: string, value: number, icon: any, color: string }) {
@@ -351,7 +367,7 @@ function StatCard({ title, value, icon: Icon, color }: { title: string, value: n
 function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFormData: any, sources: string[] }) {
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Name</Label>
                     <Input
@@ -373,7 +389,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Email</Label>
                     <Input
@@ -398,7 +414,7 @@ function EnquiryForm({ formData, setFormData, sources }: { formData: any, setFor
                     </Select>
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Enquiry Date</Label>
                     <div className="relative">

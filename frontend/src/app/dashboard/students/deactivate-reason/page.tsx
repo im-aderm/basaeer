@@ -10,14 +10,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import api from "@/lib/api";
 
 export default function DeactivationReasonPage() {
+    const { showSuccess, showError } = useNotification();
     const [reasons, setReasons] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingReason, setEditingReason] = useState<any>(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -32,7 +35,7 @@ export default function DeactivationReasonPage() {
             const response = await api.get("/students/deactivation-reasons");
             setReasons(response.data);
         } catch (error) {
-            toast.error("Failed to load deactivation reasons");
+            showError("Failed to load deactivation reasons");
         } finally {
             setLoading(false);
         }
@@ -43,17 +46,17 @@ export default function DeactivationReasonPage() {
         try {
             if (editingReason) {
                 await api.patch(`/students/deactivation-reasons/${editingReason.id}`, formData);
-                toast.success("Reason updated successfully!");
+                showSuccess("Reason updated successfully!");
             } else {
                 await api.post("/students/deactivation-reasons", formData);
-                toast.success("Reason created successfully!");
+                showSuccess("Reason created successfully!");
             }
             setIsDialogOpen(false);
             setEditingReason(null);
             setFormData({ title: "", description: "" });
             fetchReasons();
         } catch (error) {
-            toast.error("Failed to save reason");
+            showError("Failed to save reason");
         }
     };
 
@@ -67,14 +70,19 @@ export default function DeactivationReasonPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this reason?")) return;
+        setConfirmDeleteId(id);
+    };
 
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
         try {
-            await api.delete(`/students/deactivation-reasons/${id}`);
-            toast.success("Reason deleted successfully!");
+            await api.delete(`/students/deactivation-reasons/${confirmDeleteId}`);
+            showSuccess("Reason deleted successfully!");
             fetchReasons();
         } catch (error) {
-            toast.error("Failed to delete reason");
+            showError("Failed to delete reason");
+        } finally {
+            setConfirmDeleteId(null);
         }
     };
 
@@ -290,6 +298,15 @@ export default function DeactivationReasonPage() {
                 </div>
             )}
         </div>
+
+        <ConfirmDialog
+            isOpen={!!confirmDeleteId}
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setConfirmDeleteId(null)}
+            title="Delete Reason"
+            message="Are you sure you want to delete this reason?"
+            confirmLabel="Delete"
+        />
         </RequireBranch>
     );
 }

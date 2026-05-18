@@ -23,6 +23,7 @@ export class AssessmentService {
         classId: dto.classId,
         subjectId: dto.subjectId,
         branchId,
+        sessionId: context.sessionId,
       },
     });
   }

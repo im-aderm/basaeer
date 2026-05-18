@@ -24,10 +24,11 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { ExamService } from '@/services/examService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ExamMasterDashboard() {
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const [sessions, setSessions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -52,7 +53,7 @@ export default function ExamMasterDashboard() {
             setError(null);
         } catch (error) {
             setError("Could not load academic sessions");
-            toast.error('Failed to load academic sessions');
+            showError('Failed to load academic sessions');
         } finally {
             setLoading(false);
         }
@@ -60,17 +61,17 @@ export default function ExamMasterDashboard() {
 
     const handleCreateSession = async () => {
         if (!formData.name || !formData.startDate || !formData.endDate) {
-            toast.error('Please fill all required fields');
+            showError('Please fill all required fields');
             return;
         }
 
         try {
             await ExamService.createSession(formData);
-            toast.success('Academic session created successfully');
+            showSuccess('Academic session created successfully');
             setIsDialogOpen(false);
             fetchSessions();
         } catch (error) {
-            toast.error('Failed to create session');
+            showError('Failed to create session');
         }
     };
 

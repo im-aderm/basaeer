@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { AutomationEventsService, AutomationConfig } from '@/services/automationEventsService';
 
 export default function QRSettingsPage() {
+    const { showSuccess, showError } = useNotification();
     const [configs, setConfigs] = useState<AutomationConfig[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -17,7 +18,7 @@ export default function QRSettingsPage() {
             const data = await AutomationEventsService.getConfigs();
             setConfigs(data);
         } catch (error) {
-            toast.error('Failed to load settings');
+            showError('Failed to load settings');
         } finally {
             setLoading(false);
         }
@@ -33,9 +34,9 @@ export default function QRSettingsPage() {
             setConfigs(prev => prev.map(c => c.type === type ? { ...c, isEnabled: !currentValue } : c));
 
             await AutomationEventsService.updateConfig(type, { isEnabled: !currentValue });
-            toast.success('Settings updated');
+            showSuccess('Settings updated');
         } catch (error) {
-            toast.error('Failed to update settings');
+            showError('Failed to update settings');
             fetchConfigs(); // Revert
         }
     };

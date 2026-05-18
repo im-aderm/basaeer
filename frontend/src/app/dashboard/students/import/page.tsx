@@ -9,10 +9,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Upload, Download, AlertCircle, CheckCircle2, XCircle, FileSpreadsheet } from 'lucide-react';
 import { StudentService } from '@/services/studentService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function BulkImportPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [file, setFile] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const [results, setResults] = useState<any>(null);
@@ -32,14 +33,14 @@ export default function BulkImportPage() {
             const data = await StudentService.importStudents(file, resolvedBranchId);
             setResults(data);
             if (data.success > 0) {
-                toast.success(`Successfully imported ${data.success} students`);
+                showSuccess(`Successfully imported ${data.success} students`);
             }
             if (data.failed > 0) {
-                toast.error(`Failed to import ${data.failed} students`);
+                showError(`Failed to import ${data.failed} students`);
             }
         } catch (error: any) {
             if (process.env.NODE_ENV === 'development') console.error('Import failed', error);
-            toast.error(error.response?.data?.message || 'Import failed');
+            showError(error.response?.data?.message || 'Import failed');
         } finally {
             setIsUploading(false);
         }

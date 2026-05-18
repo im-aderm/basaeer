@@ -22,11 +22,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { DataTable } from '@/components/DataTable';
 import { cn } from '@/lib/utils';
 
 export default function StaffAttendancePage() {
+    const { showSuccess, showError } = useNotification();
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -56,7 +57,7 @@ export default function StaffAttendancePage() {
             setAttendanceData(attendanceMap);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch attendance data', error);
-            toast.error('Failed to load records');
+            showError('Failed to load records');
         } finally {
             setLoading(false);
         }
@@ -72,7 +73,7 @@ export default function StaffAttendancePage() {
     const handleSaveSingle = async (staffId: string) => {
         const record = attendanceData[staffId];
         if (!record?.status) {
-            toast.error('Please select a status');
+            showError('Please select a status');
             return;
         }
 
@@ -83,9 +84,9 @@ export default function StaffAttendancePage() {
                 status: record.status,
                 remarks: record.remarks
             });
-            toast.success('Attendance updated');
+            showSuccess('Attendance updated');
         } catch (error) {
-            toast.error('Failed to save attendance');
+            showError('Failed to save attendance');
         }
     };
 
@@ -98,10 +99,10 @@ export default function StaffAttendancePage() {
                 date,
                 status
             });
-            toast.success(`All staff marked as ${status.toLowerCase()}`);
+            showSuccess(`All staff marked as ${status.toLowerCase()}`);
             fetchData();
         } catch (error) {
-            toast.error('Failed to update bulk attendance');
+            showError('Failed to update bulk attendance');
         } finally {
             setSaving(false);
         }

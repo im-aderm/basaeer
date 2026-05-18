@@ -26,13 +26,15 @@ import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
 import { BranchService, Branch } from "@/services/branchService";
 import { UserRole } from "@/types/enums";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function GradingPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [activeTab, setActiveTab] = useState<"scales" | "components">("scales");
     
     // Grading Scales State
@@ -41,6 +43,9 @@ export default function GradingPage() {
     const [selectedBranchId, setSelectedBranchId] = useState<string>("");
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
+    const [confirmDeleteName, setConfirmDeleteName] = useState("");
 
     const [newScale, setNewScale] = useState<Partial<GradingScale>>({
         name: "Standard",
@@ -105,25 +110,35 @@ export default function GradingPage() {
                 maxScore: editingComponent.maxScore,
                 isExam: editingComponent.isExam,
             });
-            toast.success("Component updated");
+            showSuccess("Component updated");
             setEditDialogOpen(false);
             setEditingComponent(null);
             await fetchData();
         } catch (error) {
-            toast.error("Failed to update component");
+            showError("Failed to update component");
         } finally {
             setSaving(false);
         }
     };
 
     const handleDeleteComponent = async (id: string, name: string) => {
-        if (!confirm(`Delete "${name}"? This will deactivate the component but keep existing scores.`)) return;
+        setConfirmDeleteId(id);
+        setConfirmDeleteName(name);
+    };
+
+    const handleConfirmDeleteComponent = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await AcademicService.deleteAssessmentComponent(id);
-            toast.success("Component deactivated");
+            await AcademicService.deleteAssessmentComponent(confirmDeleteId);
+            showSuccess("Component deactivated");
             await fetchData();
         } catch (error) {
-            toast.error("Failed to delete component");
+            showError("Failed to delete component");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
+            setConfirmDeleteName("");
         }
     };
 
@@ -132,7 +147,7 @@ export default function GradingPage() {
         setSaving(true);
         try {
             await ExamService.createGradingScale(newScale as GradingScale);
-            toast.success("Grading rule added");
+            showSuccess("Grading rule added");
             await fetchData();
             setNewScale({
                 name: "Standard",
@@ -142,7 +157,7 @@ export default function GradingPage() {
                 remark: ""
             });
         } catch (error) {
-            toast.error("Failed to create scale");
+            showError("Failed to create scale");
         } finally {
             setSaving(false);
         }
@@ -153,7 +168,7 @@ export default function GradingPage() {
         setSaving(true);
         try {
             await AcademicService.createAssessmentComponent(newComponent);
-            toast.success("Assessment component added");
+            showSuccess("Assessment component added");
             await fetchData();
             setNewComponent({
                 name: "",
@@ -163,7 +178,7 @@ export default function GradingPage() {
                 isExam: false,
             });
         } catch (error) {
-            toast.error("Failed to create component");
+            showError("Failed to create component");
         } finally {
             setSaving(false);
         }
@@ -527,6 +542,15 @@ export default function GradingPage() {
                     </div>
                 </DialogContent>
             </Dialog>
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDeleteComponent}
+                onCancel={() => { setConfirmDeleteId(null); setConfirmDeleteName(""); }}
+                title="Delete Component"
+                message={`Delete "${confirmDeleteName}"? This will deactivate the component but keep existing scores.`}
+                confirmLabel="Delete"
+                loading={deleting}
+            />
         </div>
         </RequireBranch>
     );

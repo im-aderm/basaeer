@@ -18,10 +18,12 @@ import {
     AlertCircle,
     Eye,
 } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function AdmissionInterviewsPage() {
     const { resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [interviews, setInterviews] = useState<AdmissionInterview[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -31,6 +33,8 @@ export default function AdmissionInterviewsPage() {
     const [filterStatus, setFilterStatus] = useState("ALL");
     const [applicants, setApplicants] = useState<OnlineAdmission[]>([]);
     const [loadingApplicants, setLoadingApplicants] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
     const [formData, setFormData] = useState({
         admissionId: "",
         interviewDate: "",
@@ -53,7 +57,7 @@ export default function AdmissionInterviewsPage() {
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch:", error);
             setError("Failed to load interview data. Please try again.");
-            toast.error("Failed to load interviews");
+            showError("Failed to load interviews");
         } finally {
             setLoading(false);
         }
@@ -77,12 +81,12 @@ export default function AdmissionInterviewsPage() {
         e.preventDefault();
         if (!resolvedBranchId) return;
         if (!formData.admissionId) {
-            toast.error("Please select an applicant");
+            showError("Please select an applicant");
             return;
         }
         const interviewDate = new Date(formData.interviewDate);
         if (interviewDate <= new Date()) {
-            toast.error("Interview date must be in the future");
+            showError("Interview date must be in the future");
             return;
         }
         setScheduling(true);
@@ -91,12 +95,12 @@ export default function AdmissionInterviewsPage() {
                 ...formData,
                 branchId: resolvedBranchId,
             });
-            toast.success("Interview scheduled successfully");
+            showSuccess("Interview scheduled successfully");
             setShowScheduleForm(false);
             setFormData({ admissionId: "", interviewDate: "", venue: "", interviewerName: "", notes: "" });
             fetchInterviews();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to schedule interview");
+            showError(error.response?.data?.message || "Failed to schedule interview");
         } finally {
             setScheduling(false);
         }
@@ -105,21 +109,29 @@ export default function AdmissionInterviewsPage() {
     const handleComplete = async (id: string, outcome: string) => {
         try {
             await AdmissionInterviewService.complete(id, { outcome });
-            toast.success(`Interview marked as ${outcome.toLowerCase()}`);
+            showSuccess(`Interview marked as ${outcome.toLowerCase()}`);
             fetchInterviews();
         } catch (error: any) {
-            toast.error("Failed to update interview");
+            showError("Failed to update interview");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Cancel this interview?")) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await AdmissionInterviewService.delete(id);
-            toast.success("Interview cancelled");
+            await AdmissionInterviewService.delete(confirmDeleteId);
+            showSuccess("Interview cancelled");
             fetchInterviews();
         } catch (error: any) {
-            toast.error("Failed to cancel interview");
+            showError("Failed to cancel interview");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -345,6 +357,15 @@ export default function AdmissionInterviewsPage() {
                     ))
                 )}
             </div>
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Cancel Interview"
+                message="Are you sure you want to cancel this interview? This action cannot be undone."
+                confirmLabel="Cancel"
+                loading={deleting}
+            />
             </div>
         </RequireBranch>
     );

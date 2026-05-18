@@ -10,10 +10,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Loader2, FileText, TrendingUp, BookOpen, Award } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export function PortalUI() {
+  const { showError } = useNotification();
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [form, setForm] = useState({ studentId: '', sessionId: '', term: 'FIRST' });
@@ -25,7 +26,7 @@ export function PortalUI() {
       const data = await AcademicService.portalResult(form.studentId, form.sessionId, form.term);
       setResult(data);
     } catch {
-      toast.error('Unable to load results');
+      showError('Unable to load results');
       setResult(null);
     } finally {
       setLoading(false);

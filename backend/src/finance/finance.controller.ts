@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   Patch,
+  Delete,
   UseGuards,
   Query,
 } from '@nestjs/common';
@@ -89,6 +90,19 @@ export class FinanceController {
     @GetTenantContext() context: TenantContext,
   ) {
     return this.financeService.createInvoice(dto, context);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Invoice voided successfully' })
+  @ApiOperation({ summary: 'Void Invoice' })
+  @Delete('invoices/:id')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
+  voidInvoice(
+    @Param('id') id: string,
+    @GetTenantContext() context: TenantContext,
+    @Body('reason') reason?: string,
+  ) {
+    return this.financeService.voidInvoice(id, context, reason);
   }
 
   @ApiBearerAuth()

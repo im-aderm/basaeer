@@ -12,10 +12,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Award, BarChart3, Search, ChevronRight, CheckCircle2, AlertCircle, FileText, UserCheck, TrendingUp, Trophy, Users, Activity } from 'lucide-react';
 import { OnlineExamService, OnlineExam } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function OnlineExamResultsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [selectedExamId, setSelectedExamId] = useState<string>('');
     const [attempts, setAttempts] = useState<any[]>([]);
@@ -40,7 +41,7 @@ export default function OnlineExamResultsPage() {
                 fetchAttempts(examsData[0].id);
             }
         } catch (error) {
-            toast.error('Failed to load exams');
+            showError('Failed to load exams');
         } finally {
             setLoading(false);
         }
@@ -60,7 +61,7 @@ export default function OnlineExamResultsPage() {
             const data = await OnlineExamService.getAttempts(examId);
             setAttempts(data);
         } catch (error) {
-            toast.error('Failed to load attempts');
+            showError('Failed to load attempts');
         }
     };
 
@@ -78,10 +79,10 @@ export default function OnlineExamResultsPage() {
         setGradingLoading(key);
         try {
             await OnlineExamService.gradeAnswer(attemptId, questionId, marks);
-            toast.success('Grade updated');
+            showSuccess('Grade updated');
             fetchAttempts(selectedExamId);
         } catch (error) {
-            toast.error('Failed to update grade');
+            showError('Failed to update grade');
         } finally {
             setGradingLoading(null);
         }
@@ -92,10 +93,10 @@ export default function OnlineExamResultsPage() {
 
         try {
             await OnlineExamService.generatePositions(selectedExamId);
-            toast.success('Positions generated and saved successfully');
+            showSuccess('Positions generated and saved successfully');
             fetchAttempts(selectedExamId); // Re-fetch to get saved ranks
         } catch (error) {
-            toast.error('Failed to generate positions');
+            showError('Failed to generate positions');
         }
     };
 

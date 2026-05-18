@@ -39,7 +39,7 @@ export class AttachmentsService {
     branchId: string,
   ) {
     const activeSession = await this.prisma.academicSession.findFirst({
-      where: { branchId, isActive: true },
+      where: { branchId, status: "CURRENT" },
     });
     const sessionId = activeSession?.id ?? '';
 

@@ -12,7 +12,7 @@ export class AccessControlService {
     private automationService: AutomationService,
   ) {}
 
-  async logAccess(branchId: string, dto: CreateAccessLogDto) {
+  async logAccess(branchId: string, dto: CreateAccessLogDto, sessionId?: string) {
     const user = await this.prisma.user.findUnique({
       where: { id: dto.userId },
     });
@@ -33,13 +33,14 @@ export class AccessControlService {
           await this.attendanceService.markAttendance(
             {
               studentId: student.id,
-              date: new Date().toISOString(), // Use ISO string or Date object depending on DTO
+              date: new Date().toISOString(),
               status: 'PRESENT',
               remarks: 'Auto-marked via QR Entry',
               sectionId: student.sectionId,
             },
             {
               branchId,
+              sessionId: sessionId || null,
               userId: user.id,
               isSuperAdmin: false,
               role: user.role,
@@ -53,6 +54,7 @@ export class AccessControlService {
       data: {
         ...dto,
         branchId,
+        sessionId: sessionId,
       },
       include: {
         user: {

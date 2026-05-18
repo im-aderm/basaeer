@@ -20,10 +20,11 @@ import {
     RefreshCcw
 } from 'lucide-react';
 import { AutomationEventsService, AccessLog } from '@/services/automationEventsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AccessControlPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [logs, setLogs] = useState<AccessLog[]>([]);
     const [scanning, setScanning] = useState(false);
     const [direction, setDirection] = useState<'ENTRY' | 'EXIT'>('ENTRY');
@@ -35,7 +36,7 @@ export default function AccessControlPage() {
             const data = await AutomationEventsService.getLogs();
             setLogs(data);
         } catch (error) {
-            toast.error('Failed to load access logs');
+            showError('Failed to load access logs');
         }
     };
 
@@ -75,11 +76,11 @@ export default function AccessControlPage() {
                 location: 'Main Entrance'
             });
             setLastScan(log);
-            toast.success(`${log.user?.firstName} ${log.direction} LOGGED`);
+            showSuccess(`${log.user?.firstName} ${log.direction} LOGGED`);
             fetchLogs();
             // Audio feedback would be nice here
         } catch (error) {
-            toast.error('Invalid ID or Access Denied');
+            showError('Invalid ID or Access Denied');
         }
     };
 

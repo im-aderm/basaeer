@@ -24,10 +24,11 @@ import {
     Check
 } from 'lucide-react';
 import { AutomationEventsService, CampusEvent } from '@/services/automationEventsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function EventsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [events, setEvents] = useState<CampusEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function EventsPage() {
             const data = await AutomationEventsService.getEvents();
             setEvents(data);
         } catch (error) {
-            toast.error('Failed to load events');
+            showError('Failed to load events');
         } finally {
             setLoading(false);
         }
@@ -58,18 +59,18 @@ export default function EventsPage() {
         e.preventDefault();
         try {
             await AutomationEventsService.createEvent(eventForm);
-            toast.success('Event scheduled successfully');
+            showSuccess('Event scheduled successfully');
             setIsCreateOpen(false);
             fetchData();
-        } catch (error) { toast.error('Failed to schedule event'); }
+        } catch (error) { showError('Failed to schedule event'); }
     };
 
     const handleRSVP = async (id: string, status: string) => {
         try {
             await AutomationEventsService.rsvpEvent(id, status);
-            toast.success('RSVP updated');
+            showSuccess('RSVP updated');
             fetchData();
-        } catch (error) { toast.error('Failed to update RSVP'); }
+        } catch (error) { showError('Failed to update RSVP'); }
     };
 
     const getCategoryColor = (cat: string) => {

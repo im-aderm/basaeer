@@ -3,7 +3,9 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
+  Logger,
 } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateFeeCategoryDto } from './dto/create-fee-category.dto';
 import { CreateFeeStructureDto } from './dto/create-fee-structure.dto';
@@ -15,16 +17,22 @@ import {
   InvoiceStatus,
   PaymentMethod,
   VoucherStatus,
+  VoucherType,
 } from '../generated/client/client';
+import { Decimal } from '@prisma/client/runtime/library';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { RealtimeService } from '../realtime/realtime.service';
+import { AuditService } from '../audit/audit.service';
 
 @Injectable()
 export class FinanceService {
+  private readonly logger = new Logger(FinanceService.name);
+
   constructor(
     private prisma: PrismaService,
     private realtime: RealtimeService,
+    private audit: AuditService,
   ) {}
 
   async createFeeCategory(dto: CreateFeeCategoryDto, context: TenantContext) {
@@ -57,7 +65,10 @@ export class FinanceService {
     if (!branchId) throw new ForbiddenException('Branch context required');
 
     const { studentId, dueDate, items } = dto;
-    const totalAmount = items.reduce((sum, item) => sum + item.amount, 0);
+    const totalAmount = items.reduce(
+      (sum, item) => sum.plus(new Decimal(item.amount)),
+      new Decimal(0),
+    );
 
     return this.prisma
       .$transaction(async (tx) => {
@@ -107,6 +118,13 @@ export class FinanceService {
           totalAmount,
           dueDate: new Date(dueDate).toISOString(),
         });
+        await this.audit.logAction(
+          context.userId,
+          'INVOICE_CREATED',
+          'FINANCE',
+          branchId,
+          { invoiceId: invoice.id, invoiceNumber: invoice.invoiceNumber, studentId, totalAmount: totalAmount.toString() },
+        );
         return invoice;
       });
   }
@@ -162,6 +180,13 @@ export class FinanceService {
             status,
           },
         );
+        await this.audit.logAction(
+          context.userId,
+          'PAYMENT_RECORDED',
+          'FINANCE',
+          context.branchId || undefined,
+          { paymentId: payment.id, invoiceId, amount, method, status },
+        );
         return payment;
       });
   }
@@ -174,14 +199,22 @@ export class FinanceService {
     const invoice = await tx.invoice.findUnique({ where: { id: invoiceId } });
     if (!invoice) return;
 
-    const paid = Number(amountPaid);
-    const balance = Number(invoice.balance);
-    const newBalance = Math.max(0, balance - paid);
+    const paid = new Decimal(amountPaid);
+    const balance = new Decimal(invoice.balance);
+    const total = new Decimal(invoice.totalAmount);
+
+    // Detect overpayment and credit excess to student account
+    if (paid.gt(balance)) {
+      const excess = paid.minus(balance);
+      await this.creditStudentAccount(tx, invoice.studentId, invoice.branchId, excess, invoiceId);
+    }
+
+    const newBalance = Decimal.max(0, balance.minus(paid));
 
     let newStatus: InvoiceStatus = InvoiceStatus.PARTIALLY_PAID;
-    if (newBalance === 0) {
+    if (newBalance.eq(0)) {
       newStatus = InvoiceStatus.PAID;
-    } else if (newBalance === Number(invoice.totalAmount)) {
+    } else if (newBalance.eq(total)) {
       newStatus = InvoiceStatus.UNPAID;
     }
 
@@ -190,6 +223,33 @@ export class FinanceService {
       data: {
         balance: newBalance,
         status: newStatus,
+      },
+    });
+  }
+
+  private async creditStudentAccount(
+    tx: any,
+    studentId: string,
+    branchId: string,
+    amount: Decimal,
+    referenceInvoiceId: string,
+  ) {
+    const numericAmount = amount.toNumber();
+
+    const account = await tx.studentAccount.upsert({
+      where: { studentId },
+      update: { creditBalance: { increment: numericAmount } },
+      create: { studentId, branchId, creditBalance: amount },
+    });
+
+    await tx.creditTransaction.create({
+      data: {
+        studentAccountId: account.id,
+        type: 'OVERPAYMENT',
+        amount,
+        description: `Excess payment credited from invoice ${referenceInvoiceId}`,
+        referenceId: referenceInvoiceId,
+        branchId,
       },
     });
   }
@@ -254,6 +314,13 @@ export class FinanceService {
             approved: isApproved,
           },
         );
+        await this.audit.logAction(
+          context.userId,
+          'PAYMENT_VERIFIED',
+          'FINANCE',
+          context.branchId || undefined,
+          { paymentId, approved: isApproved },
+        );
         return result;
       });
   }
@@ -273,19 +340,17 @@ export class FinanceService {
   }
 
   async getBranchFinancials(context: TenantContext) {
-    const invoices = await this.prisma.invoice.findMany({
-      where: TenantHelper.applyIsolation({}, context),
-      select: { totalAmount: true, balance: true },
-    });
+    const invoices = await this.prisma.$queryRaw<{ totalInvoiced: number; totalOutstanding: number }[]>`
+      SELECT 
+        COALESCE(SUM("totalAmount"), 0)::FLOAT as "totalInvoiced",
+        COALESCE(SUM("balance"), 0)::FLOAT as "totalOutstanding"
+      FROM "Invoice"
+      WHERE "branchId" = ${context.branchId || ''}
+    `;
 
-    const totalInvoiced = invoices.reduce(
-      (acc, inv) => acc + Number(inv.totalAmount),
-      0,
-    );
-    const totalOutstanding = invoices.reduce(
-      (acc, inv) => acc + Number(inv.balance),
-      0,
-    );
+    const totals = invoices[0];
+    const totalInvoiced = Number(totals.totalInvoiced);
+    const totalOutstanding = Number(totals.totalOutstanding);
     const totalCollected = totalInvoiced - totalOutstanding;
 
     const paymentMethodBreakdown = await this.prisma.payment.groupBy({
@@ -331,7 +396,7 @@ export class FinanceService {
     const branchId = dto.branchId || context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
 
-    return this.prisma.$transaction(async (tx) => {
+    const voucher = await this.prisma.$transaction(async (tx) => {
       const counter = await tx.counter.upsert({
         where: { branchId_model: { branchId, model: 'Voucher' } },
         update: { lastValue: { increment: 1 } },
@@ -345,10 +410,21 @@ export class FinanceService {
           ...dto,
           branchId,
           voucherNumber,
+          type: dto.type || VoucherType.EXPENSE,
           status: 'PENDING',
         },
       });
     });
+
+    await this.audit.logAction(
+      context.userId,
+      'VOUCHER_CREATED',
+      'FINANCE',
+      branchId,
+      { voucherId: voucher.id, voucherNumber: voucher.voucherNumber, amount: dto.amount },
+    );
+
+    return voucher;
   }
 
   async updateVoucherStatus(
@@ -361,13 +437,43 @@ export class FinanceService {
     });
     if (!voucher) throw new NotFoundException('Voucher not found');
 
-    return this.prisma.voucher.update({
+    const updated = await this.prisma.voucher.update({
       where: { id },
       data: {
         status,
         approvedByUserId: status === 'APPROVED' ? context.userId : null,
       },
     });
+
+    // Post PAYMENT_ON_ACCOUNT vouchers to student account when approved
+    if (status === VoucherStatus.APPROVED && voucher.type === VoucherType.PAYMENT_ON_ACCOUNT && voucher.studentId) {
+      const amount = new Decimal(voucher.amount);
+      const account = await this.prisma.studentAccount.upsert({
+        where: { studentId: voucher.studentId },
+        update: { creditBalance: { increment: amount } },
+        create: { studentId: voucher.studentId, branchId: voucher.branchId, creditBalance: amount },
+      });
+      await this.prisma.creditTransaction.create({
+        data: {
+          studentAccountId: account.id,
+          type: 'OVERPAYMENT',
+          amount,
+          description: `Payment on account — voucher ${voucher.voucherNumber}`,
+          referenceId: voucher.id,
+          branchId: voucher.branchId,
+        },
+      });
+    }
+
+    await this.audit.logAction(
+      context.userId,
+      'VOUCHER_STATUS_UPDATED',
+      'FINANCE',
+      voucher.branchId,
+      { voucherId: id, newStatus: status, previousStatus: voucher.status },
+    );
+
+    return updated;
   }
 
   async getVouchers(context: TenantContext, skip?: number, take: number = 100) {
@@ -430,5 +536,53 @@ export class FinanceService {
         expenses: data.expenses,
       }))
       .reverse();
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_3AM)
+  async markOverdueInvoices() {
+    const now = new Date();
+    const result = await this.prisma.invoice.updateMany({
+      where: {
+        status: { in: [InvoiceStatus.UNPAID, InvoiceStatus.PARTIALLY_PAID] },
+        dueDate: { lt: now },
+      },
+      data: { status: InvoiceStatus.OVERDUE },
+    });
+    if (result.count > 0) {
+      this.logger.log(`Marked ${result.count} invoices as OVERDUE`);
+    }
+  }
+
+  async voidInvoice(invoiceId: string, context: TenantContext, reason?: string) {
+    const invoice = await this.prisma.invoice.findFirst({
+      where: TenantHelper.applyIsolation({ id: invoiceId }, context),
+      include: { payments: { where: { status: PaymentStatus.COMPLETED } } },
+    });
+
+    if (!invoice) throw new NotFoundException('Invoice not found');
+    if (invoice.status === InvoiceStatus.PAID) {
+      throw new BadRequestException('Cannot void a fully paid invoice');
+    }
+    if (invoice.status === InvoiceStatus.VOIDED) {
+      throw new BadRequestException('Invoice is already voided');
+    }
+
+    const updated = await this.prisma.invoice.update({
+      where: { id: invoiceId },
+      data: {
+        status: InvoiceStatus.VOIDED,
+        balance: new Decimal(0),
+      },
+    });
+
+    await this.audit.logAction(
+      context.userId,
+      'INVOICE_VOIDED',
+      'FINANCE',
+      invoice.branchId,
+      { invoiceId, invoiceNumber: invoice.invoiceNumber, reason },
+    );
+
+    return updated;
   }
 }

@@ -1,48 +1,38 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
-import { Building2, Globe, ShieldAlert, ArrowLeft } from "lucide-react";
+import { useAuth, isAllCampuses } from "@/context/AuthContext";
+import { Building2, Plus, Check, ArrowRight, Globe, Info } from "lucide-react";
 import Link from "next/link";
 
 interface RequireBranchProps {
     children: React.ReactNode;
-    message?: string;
-    /**
-     * When true, Super Admin in "All Campuses" mode is blocked
-     * and must select a specific branch. Used for write-heavy pages
-     * like Inventory to prevent accidental cross-branch modifications.
-     */
+    requireForWrite?: boolean;
     requireSpecificBranch?: boolean;
 }
 
-export default function RequireBranch({ children, message, requireSpecificBranch }: RequireBranchProps) {
-    const { user, activeBranchId, resolvedBranchId, isAllCampusesMode, switchBranch, availableBranches } = useAuth();
+export default function RequireBranch({ children, requireForWrite = true, requireSpecificBranch }: RequireBranchProps) {
+    const { user, activeBranchId, availableBranches, switchBranch } = useAuth();
 
-    const hasSpecificBranch = resolvedBranchId !== undefined;
-
-    const canView = hasSpecificBranch || (!requireSpecificBranch && isAllCampusesMode);
-
-    if (canView) {
+    // Non-SuperAdmin always has a branch assigned
+    if (user?.role !== "SUPER_ADMIN") {
         return <>{children}</>;
     }
 
-    if (requireSpecificBranch && isAllCampusesMode) {
+    // Super Admin without branch selected
+    const noBranch = !activeBranchId || isAllCampuses(activeBranchId);
+
+    // If requireSpecificBranch is set, block "All Campuses" mode for all operations
+    if (requireSpecificBranch && noBranch) {
         return (
             <div className="flex h-[60vh] items-center justify-center">
                 <div className="text-center max-w-lg p-8">
-                    <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-amber-500/10 flex items-center justify-center">
-                        <ShieldAlert className="w-8 h-8 text-amber-600" />
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-amber-500/10 flex items-center justify-center">
+                        <Building2 className="w-10 h-10 text-amber-600" />
                     </div>
-                    <h2 className="text-h2 font-bold tracking-tight text-primary mb-2">Campus Selection Required</h2>
-                    <p className="text-muted-foreground text-sm mb-2">
-                        You are currently viewing <strong>All Campuses</strong>. To manage inventory records, you must select a specific campus.
+                    <h2 className="text-2xl font-bold tracking-tight text-foreground mb-2">Select a Specific Branch</h2>
+                    <p className="text-muted-foreground text-sm mb-8">
+                        This feature requires you to work with a specific branch. &quot;All Campuses&quot; mode is not supported.
                     </p>
-                    <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl mb-8 text-left">
-                        <p className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-1">Recommendation</p>
-                        <p className="text-sm text-muted-foreground">
-                            We recommend letting each campus&apos;s Branch Admin manage their own inventory records to avoid accidentally modifying records for the wrong campus.
-                        </p>
-                    </div>
                     <div className="flex flex-col gap-3">
                         {availableBranches.map((branch) => (
                             <button
@@ -53,35 +43,55 @@ export default function RequireBranch({ children, message, requireSpecificBranch
                                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                     <Building2 className="w-5 h-5" />
                                 </div>
-                                <div>
+                                <div className="flex-1">
                                     <p className="font-bold text-foreground">{branch.name}</p>
                                     <p className="text-xs text-muted-foreground font-mono uppercase">{branch.code}</p>
                                 </div>
+                                <ArrowRight className="w-4 h-4 text-muted-foreground" />
                             </button>
                         ))}
-                        <Link
-                            href="/dashboard/inventory"
-                            className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl border border-dashed border-border/50 hover:border-primary/30 transition-all text-left group"
-                        >
-                            <ArrowLeft className="w-4 h-4 text-muted-foreground" />
-                            <span className="text-sm text-muted-foreground">Back to Inventory Overview</span>
-                        </Link>
                     </div>
                 </div>
             </div>
         );
     }
 
+    if (!noBranch) {
+        return <>{children}</>;
+    }
+
+    // If only reading is required, allow "All Campuses" mode
+    if (!requireForWrite) {
+        return <>{children}</>;
+    }
+
     return (
         <div className="flex h-[60vh] items-center justify-center">
-            <div className="text-center max-w-md p-8">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/5 flex items-center justify-center">
-                    <Building2 className="w-8 h-8 text-primary/40" />
+            <div className="text-center max-w-lg p-8">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <Building2 className="w-10 h-10 text-primary" />
                 </div>
-                <h2 className="text-h2 font-bold tracking-tight text-primary mb-2">Select a Campus</h2>
-                <p className="text-muted-foreground text-sm mb-8">
-                    {message || "Please select a campus to view and manage data."}
+                <h2 className="text-2xl font-bold tracking-tight text-foreground mb-2">Select a Branch</h2>
+                <p className="text-muted-foreground text-sm mb-2">
+                    You need to select a branch before managing records.
                 </p>
+                <p className="text-muted-foreground text-sm mb-8">
+                    Choose a campus to work with, or create a new one.
+                </p>
+
+                {/* Info Banner */}
+                <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl mb-8 text-left">
+                    <div className="flex gap-3">
+                        <Info className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                        <div>
+                            <p className="text-sm font-semibold text-blue-600 mb-1">Why select a branch?</p>
+                            <p className="text-xs text-muted-foreground">
+                                All academic records (students, classes, exams, finances) belong to a specific branch. Selecting a branch ensures your changes are applied to the right campus.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="flex flex-col gap-3">
                     {availableBranches.map((branch) => (
                         <button
@@ -92,24 +102,33 @@ export default function RequireBranch({ children, message, requireSpecificBranch
                             <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                 <Building2 className="w-5 h-5" />
                             </div>
-                            <div>
+                            <div className="flex-1">
                                 <p className="font-bold text-foreground">{branch.name}</p>
                                 <p className="text-xs text-muted-foreground font-mono uppercase">{branch.code}</p>
                             </div>
+                            <ArrowRight className="w-4 h-4 text-muted-foreground" />
                         </button>
                     ))}
-                    <button
-                        onClick={() => switchBranch(null)}
-                        className="w-full flex items-center gap-4 p-4 rounded-2xl border border-dashed border-border/50 hover:border-primary/30 transition-all text-left group"
-                    >
-                        <div className="w-10 h-10 rounded-xl bg-muted/30 flex items-center justify-center text-muted-foreground group-hover:text-primary transition-colors">
-                            <Globe className="w-5 h-5" />
-                        </div>
-                        <div>
-                            <p className="font-semibold text-foreground">All Campuses</p>
-                            <p className="text-xs text-muted-foreground/60">View system-wide overview</p>
-                        </div>
-                    </button>
+
+                    {availableBranches.length === 0 && (
+                        <Link
+                            href="/dashboard/branches/new"
+                            className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-white hover:bg-primary/90 transition-all font-semibold"
+                        >
+                            <Plus className="w-5 h-5" />
+                            <span>Create Your First Branch</span>
+                        </Link>
+                    )}
+
+                    {availableBranches.length > 0 && (
+                        <Link
+                            href="/dashboard/branches"
+                            className="w-full flex items-center justify-center gap-2 p-4 rounded-2xl border border-border/50 hover:bg-muted transition-all font-medium text-foreground"
+                        >
+                            <Globe className="w-4 h-4" />
+                            <span>Manage Branches</span>
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

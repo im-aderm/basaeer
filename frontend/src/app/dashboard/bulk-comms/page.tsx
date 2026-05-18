@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 
 export default function BulkCommsPage() {
+    const { showError, showSuccess } = useNotification();
     const [mode, setMode] = useState<'SMS' | 'EMAIL'>('EMAIL');
     const [recipientGroup, setRecipientGroup] = useState('ALL_PARENTS');
     const [subject, setSubject] = useState('');
@@ -19,12 +20,12 @@ export default function BulkCommsPage() {
 
     const handleSend = async () => {
         if (!message) {
-            toast.error("Message content cannot be empty.");
+            showError("Message content cannot be empty.");
             return;
         }
 
         if (mode === 'EMAIL' && !subject) {
-            toast.error("Subject is required for emails.");
+            showError("Subject is required for emails.");
             return;
         }
 
@@ -37,12 +38,12 @@ export default function BulkCommsPage() {
 
             const response = await api.post(endpoint, payload);
             
-            toast.success(response.data.message || `Bulk ${mode} scheduled successfully.`);
+            showSuccess(response.data.message || `Bulk ${mode} scheduled successfully.`);
             setSubject('');
             setMessage('');
         } catch (error: any) {
             if (process.env.NODE_ENV === 'development') console.error("Bulk comms failed:", error);
-            toast.error(error.response?.data?.message || "Failed to schedule bulk communication.");
+            showError(error.response?.data?.message || "Failed to schedule bulk communication.");
         } finally {
             setIsSending(false);
         }

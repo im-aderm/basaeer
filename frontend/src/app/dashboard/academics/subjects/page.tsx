@@ -18,8 +18,11 @@ import {
     Hash
 } from "lucide-react";
 import { clsx } from "clsx";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function SubjectsPage() {
+    const { showSuccess, showError } = useNotification();
     const [subjects, setSubjects] = useState<Subject[]>([]);
     const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [loading, setLoading] = useState(true);
@@ -28,6 +31,8 @@ export default function SubjectsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
     const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({ name: "", code: "" });
     const [selectedTeacherId, setSelectedTeacherId] = useState("");
@@ -74,13 +79,22 @@ export default function SubjectsPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this subject?")) {
-            try {
-                await SubjectService.delete(id);
-                fetchData();
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error("Failed to delete subject:", error);
-            }
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
+        try {
+            await SubjectService.delete(confirmDeleteId);
+            showSuccess("Subject deleted successfully");
+            fetchData();
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete subject:", error);
+            showError("Failed to delete subject");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -317,6 +331,15 @@ export default function SubjectsPage() {
                     </div>
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Subject"
+                message="Are you sure you want to delete this subject? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
         </div>
         </RequireBranch>
     );

@@ -26,7 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 
 interface Student {
@@ -98,6 +98,7 @@ const PaginationControls = ({ currentPage, totalPages, onPageChange }: { current
 );
 
 export default function StudentLoginDeactivationPage() {
+    const { showSuccess, showError } = useNotification();
     const [activeStudents, setActiveStudents] = useState<Student[]>([]);
     const [inactiveStudents, setInactiveStudents] = useState<Student[]>([]);
     const [activeTotal, setActiveTotal] = useState(0);
@@ -153,7 +154,7 @@ export default function StudentLoginDeactivationPage() {
             setDeactivations(deactivationsRes.data || []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to load deactivation data:", error);
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -183,11 +184,11 @@ export default function StudentLoginDeactivationPage() {
 
     const handleDeactivate = async () => {
         if (!deactivationReason.trim()) {
-            toast.error("Please provide a reason for deactivation");
+            showError("Please provide a reason for deactivation");
             return;
         }
         if (selectedStudents.length === 0) {
-            toast.error("No students selected");
+            showError("No students selected");
             return;
         }
 
@@ -197,13 +198,13 @@ export default function StudentLoginDeactivationPage() {
                 studentIds: selectedStudents,
                 reason: deactivationReason,
             });
-            toast.success(result.data.message || `${selectedStudents.length} student(s) deactivated`);
+            showSuccess(result.data.message || `${selectedStudents.length} student(s) deactivated`);
             setShowDeactivateDialog(false);
             setSelectedStudents([]);
             setDeactivationReason("");
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to deactivate login");
+            showError(error.response?.data?.message || "Failed to deactivate login");
         } finally {
             setDeactivating(false);
         }
@@ -219,12 +220,12 @@ export default function StudentLoginDeactivationPage() {
         setReactivating(true);
         try {
             await api.post(`/students/${reactivateStudent.id}/reactivate-login`);
-            toast.success(`${reactivateStudent.firstName} ${reactivateStudent.lastName} login reactivated`);
+            showSuccess(`${reactivateStudent.firstName} ${reactivateStudent.lastName} login reactivated`);
             setShowReactivateDialog(false);
             setReactivateStudent(null);
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to reactivate login");
+            showError(error.response?.data?.message || "Failed to reactivate login");
         } finally {
             setReactivating(false);
         }
@@ -232,7 +233,7 @@ export default function StudentLoginDeactivationPage() {
 
     const handleBulkReactivate = async () => {
         if (selectedStudents.length === 0) {
-            toast.error("No students selected");
+            showError("No students selected");
             return;
         }
 
@@ -241,11 +242,11 @@ export default function StudentLoginDeactivationPage() {
             const result = await api.post("/students/bulk-reactivate-login", {
                 studentIds: selectedStudents,
             });
-            toast.success(result.data.message || `${selectedStudents.length} student(s) reactivated`);
+            showSuccess(result.data.message || `${selectedStudents.length} student(s) reactivated`);
             setSelectedStudents([]);
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to bulk reactivate");
+            showError(error.response?.data?.message || "Failed to bulk reactivate");
         } finally {
             setReactivating(false);
         }

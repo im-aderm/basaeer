@@ -14,11 +14,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { GraduationCap, Plus, Calendar, Clock, BookOpen, Users, Activity, BarChart3, MoreVertical, Send, Eye } from 'lucide-react';
 import { OnlineExamService, OnlineExam, QuestionGroup, ExamStatus } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 
 export default function OnlineExamsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const router = useRouter();
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
@@ -52,7 +53,7 @@ export default function OnlineExamsPage() {
             setClasses(classesData.data);
             setSubjects(subjectsData.data);
         } catch (error) {
-            toast.error('Failed to load initial data');
+            showError('Failed to load initial data');
         } finally {
             setLoading(false);
         }
@@ -64,7 +65,7 @@ export default function OnlineExamsPage() {
 
     const handleCreateExam = async () => {
         if (!formData.title || !formData.classId || !formData.subjectId || !formData.groupId) {
-            toast.error('Please fill all required fields');
+            showError('Please fill all required fields');
             return;
         }
 
@@ -75,11 +76,11 @@ export default function OnlineExamsPage() {
                 passPercentage: parseFloat(formData.passPercentage),
                 branchId: resolvedBranchId
             });
-            toast.success('Exam scheduled successfully');
+            showSuccess('Exam scheduled successfully');
             setIsDialogOpen(false);
             setExams(await OnlineExamService.getExams());
         } catch (error) {
-            toast.error('Failed to schedule exam');
+            showError('Failed to schedule exam');
         }
     };
 

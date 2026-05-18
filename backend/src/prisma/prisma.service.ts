@@ -3,6 +3,7 @@ import {
   OnModuleInit,
   OnModuleDestroy,
   Logger,
+  BadRequestException,
 } from '@nestjs/common';
 import { PrismaClient } from '../generated/client/client';
 import { Pool } from 'pg';
@@ -10,13 +11,27 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { AsyncLocalStorage } from 'async_hooks';
 import 'dotenv/config';
 
-interface TenantStore {
+class ContextRequiredError extends BadRequestException {
+  constructor(
+    code: 'BRANCH_CONTEXT_REQUIRED' | 'SESSION_CONTEXT_REQUIRED',
+    message: string,
+  ) {
+    super({
+      code,
+      message,
+      timestamp: new Date().toISOString(),
+    });
+  }
+}
+
+export interface TenantStore {
   branchId: string | null;
+  sessionId: string | null;
   userId: string;
   isSuperAdmin?: boolean;
 }
 
-const tenantStorage = new AsyncLocalStorage<TenantStore>();
+export const tenantStorage = new AsyncLocalStorage<TenantStore>();
 
 @Injectable()
 export class PrismaService
@@ -52,21 +67,27 @@ export class PrismaService
           async $allOperations({ args, query, operation, model }: any) {
             const store = tenantStorage.getStore();
             let branchId = store?.branchId ?? null;
+            let sessionId = store?.sessionId ?? null;
             const userId = store?.userId ?? '';
             const isSuperAdmin = store?.isSuperAdmin ?? false;
 
             // Block writes when no branch context is set
             // Exception: Branch model creates define the tenant boundary itself
             // Exception: If args.data already has branchId (set by controller), allow it
+            // Exception: If args.where already has branchId (set by service/TenantHelper), allow it
             if (!branchId && model !== 'Branch') {
               const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
               if (writeOps.includes(operation)) {
                 const dataBranchId = args.data?.branchId;
-                if (!dataBranchId) {
-                  throw new Error('Branch context is required to modify data. Please select a branch.');
+                const whereBranchId = args.where?.branchId;
+                if (!dataBranchId && !whereBranchId) {
+                  throw new ContextRequiredError(
+                    'BRANCH_CONTEXT_REQUIRED',
+                    'Branch context is required to modify data. Please select a branch first.',
+                  );
                 }
-                // Use the branchId from the data payload
-                branchId = dataBranchId;
+                // Use the branchId from the data or where payload
+                branchId = dataBranchId || whereBranchId;
               }
               // Read operations without branch — return ALL data (for SA dashboard/reports)
               if (!writeOps.includes(operation)) {
@@ -74,13 +95,48 @@ export class PrismaService
               }
             }
 
-            // Apply branch isolation for ALL users
-            // Exception: Branch model is the tenant boundary source, don't inject branchId
-            if (branchId && model !== 'Branch') {
+            // Block writes when no session context is set
+            // Exception: System-level models that exist independently of academic sessions
+            // Exception: If args.data already has sessionId, allow it
+            // Exception: If args.where already has sessionId, allow it
+            const systemModels = [
+              'AcademicSession', 'Branch', 'User', 'UserPreference',
+              'Role', 'RolePermission', 'CustomRolePermission',
+              'GlobalSetting', 'Translation', 'ScheduledJob', 'ModuleConfiguration',
+              'AuditLog', 'EmailTemplate', 'SmsTemplate',
+              'Notification', 'NotificationPreference',
+              'Campaign', 'CampaignRecipient',
+              'QueueJobLog', 'AutomationExecution', 'MessageDeliveryLog',
+              'ProviderHealthLog', 'WebhookEvent', 'DeliveryWebhookLog',
+              'RealtimeConnection', 'QueueMetric', 'ProviderFailoverEvent',
+              'MessageRetryEvent', 'ProviderBalanceSnapshot', 'NotificationDeliveryEvent',
+              'ApiKey', 'WebhookEndpoint', 'WebhookDeliveryLog',
+              'Counter', 'PaymentWebhookLog',
+            ];
+            if (!sessionId && !systemModels.includes(model)) {
+              const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
+              if (writeOps.includes(operation)) {
+                const dataSessionId = args.data?.sessionId;
+                const whereSessionId = args.where?.sessionId;
+                if (!dataSessionId && !whereSessionId) {
+                  throw new ContextRequiredError(
+                    'SESSION_CONTEXT_REQUIRED',
+                    'Session context is required to modify data. Please select a session first.',
+                  );
+                }
+                // Use the sessionId from the data or where payload
+                sessionId = dataSessionId || whereSessionId;
+              }
+            }
+
+            // Apply branch and session isolation for ALL users
+            // Exception: System-level models are not scoped to branch/session
+            if ((branchId || sessionId) && !systemModels.includes(model)) {
               if (operation === 'create') {
                 args.data = {
                   ...args.data,
-                  branchId,
+                  ...(branchId && { branchId }),
+                  ...(sessionId && { sessionId }),
                 };
               } else if (
                 operation === 'findUnique' ||
@@ -91,7 +147,8 @@ export class PrismaService
               ) {
                 args.where = {
                   ...args.where,
-                  branchId,
+                  ...(branchId && { branchId }),
+                  ...(sessionId && { sessionId }),
                 };
               } else if (
                 operation === 'delete' ||
@@ -99,32 +156,50 @@ export class PrismaService
               ) {
                 args.where = {
                   ...args.where,
-                  branchId,
+                  ...(branchId && { branchId }),
+                  ...(sessionId && { sessionId }),
                 };
               } else if (
                 operation === 'update' ||
                 operation === 'updateMany'
               ) {
-                // Skip branchId WHERE injection when the data explicitly changes branchId
-                // (e.g. SUPER_ADMIN reassigning a user to a new branch)
+                // Skip branchId/sessionId WHERE injection when the data explicitly changes them
                 if (!args.data?.branchId) {
                   args.where = {
                     ...args.where,
-                    branchId,
+                    ...(branchId && { branchId }),
+                  };
+                }
+                if (!args.data?.sessionId) {
+                  args.where = {
+                    ...args.where,
+                    ...(sessionId && { sessionId }),
                   };
                 }
               } else if (operation === 'upsert') {
-                // For upsert: inject branchId into both where AND create.data
+                // For upsert: inject branchId/sessionId into both where AND create.data
                 if (!args.data?.branchId) {
                   args.where = {
                     ...args.where,
-                    branchId,
+                    ...(branchId && { branchId }),
                   };
                 }
                 if (!args.create?.branchId) {
                   args.create = {
                     ...args.create,
-                    branchId,
+                    ...(branchId && { branchId }),
+                  };
+                }
+                if (!args.data?.sessionId) {
+                  args.where = {
+                    ...args.where,
+                    ...(sessionId && { sessionId }),
+                  };
+                }
+                if (!args.create?.sessionId) {
+                  args.create = {
+                    ...args.create,
+                    ...(sessionId && { sessionId }),
                   };
                 }
               }
@@ -135,6 +210,16 @@ export class PrismaService
                 await (PrismaClient.prototype as any).$executeRawUnsafe?.(
                   `SELECT set_config('app.current_branch_id', $1, true)`,
                   [branchId],
+                );
+              } catch (_err) {
+                // ignore
+              }
+            }
+            if (sessionId) {
+              try {
+                await (PrismaClient.prototype as any).$executeRawUnsafe?.(
+                  `SELECT set_config('app.current_session_id', $1, true)`,
+                  [sessionId],
                 );
               } catch (_err) {
                 // ignore
@@ -154,6 +239,7 @@ export class PrismaService
           prop === 'tenantStorage' ||
           prop === 'logger' ||
           prop === 'setTenantContext' ||
+          prop === 'runInTenantContext' ||
           prop === 'onModuleInit' ||
           prop === 'onModuleDestroy' ||
           prop === 'constructor' ||
@@ -167,8 +253,14 @@ export class PrismaService
     }) as PrismaService;
   }
 
-  setTenantContext(branchId: string | null, userId: string) {
-    tenantStorage.enterWith({ branchId, userId });
+  runInTenantContext<T>(branchId: string | null, sessionId: string | null, userId: string, fn: () => T): T {
+    return tenantStorage.run({ branchId, sessionId, userId }, fn);
+  }
+
+  setTenantContext(branchId: string | null, sessionId: string | null, userId: string) {
+    this.logger.warn(
+      'setTenantContext() is deprecated. Context is now managed via TenantContextInterceptor.',
+    );
   }
 
   async onModuleInit() {

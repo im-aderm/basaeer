@@ -28,13 +28,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { LibraryService, Book as BookType, BorrowRecord } from "@/services/libraryService";
 import { StudentService, Student } from "@/services/studentService";
 
 type Tab = "active" | "issue";
 
 export default function BookIssueReturnPage() {
+    const { showSuccess, showError } = useNotification();
     const [tab, setTab] = useState<Tab>("active");
     const [records, setRecords] = useState<BorrowRecord[]>([]);
     const [books, setBooks] = useState<BookType[]>([]);
@@ -62,7 +63,7 @@ export default function BookIssueReturnPage() {
             setBooks(Array.isArray(bookData) ? bookData : []);
             setStudents(Array.isArray(studentsRes) ? studentsRes : []);
         } catch (error) {
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -75,13 +76,13 @@ export default function BookIssueReturnPage() {
     const handleIssueBook = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!formData.bookId || !formData.studentId || !formData.dueDate) {
-            toast.error("Please fill all required fields");
+            showError("Please fill all required fields");
             return;
         }
         setSubmitting(true);
         try {
             await LibraryService.borrowBook(formData);
-            toast.success("Book issued successfully");
+            showSuccess("Book issued successfully");
             setFormData({
                 bookId: "",
                 studentId: "",
@@ -90,7 +91,7 @@ export default function BookIssueReturnPage() {
             fetchData();
             setTab("active");
         } catch (error) {
-            toast.error("Failed to issue book");
+            showError("Failed to issue book");
         } finally {
             setSubmitting(false);
         }
@@ -101,13 +102,13 @@ export default function BookIssueReturnPage() {
             const result = await LibraryService.returnBook(recordId);
             const fineAmount = (result as any).fineAmount || 0;
             if (fineAmount > 0) {
-                toast.success(`Book returned successfully. Fine amount: ₦${fineAmount.toLocaleString()}`);
+                showSuccess(`Book returned successfully. Fine amount: ₦${fineAmount.toLocaleString()}`);
             } else {
-                toast.success("Book returned successfully");
+                showSuccess("Book returned successfully");
             }
             fetchData();
         } catch (error) {
-            toast.error("Failed to return book");
+            showError("Failed to return book");
         }
     };
 

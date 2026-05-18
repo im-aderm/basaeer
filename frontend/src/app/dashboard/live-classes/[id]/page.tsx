@@ -15,7 +15,7 @@ import {
     MessageSquare, Settings, Download, Share2
 } from 'lucide-react';
 import { LiveClassesService, LiveClassSession, ReportItem } from '@/services/liveClassesService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { format } from 'date-fns';
 
 // No local Participant interface needed
@@ -24,6 +24,8 @@ export default function ClassDetailsPage() {
     const { id } = useParams();
     const router = useRouter();
     const { user, resolvedBranchId } = useAuth();
+
+    const { showError } = useNotification();
 
     const [session, setSession] = useState<LiveClassSession | null>(null);
     const [attendance, setAttendance] = useState<ReportItem[]>([]);
@@ -39,7 +41,7 @@ export default function ClassDetailsPage() {
             setSession(sessionData);
             setAttendance(attendanceData || []);
         } catch (error) {
-            toast.error('Failed to load session details');
+            showError('Failed to load session details');
             router.push('/dashboard/live-classes');
         } finally {
             setLoading(false);
@@ -56,7 +58,7 @@ export default function ClassDetailsPage() {
             window.open(updated.hostUrl, '_blank');
             fetchData();
         } catch (error) {
-            toast.error('Failed to start session');
+            showError('Failed to start session');
         }
     };
 

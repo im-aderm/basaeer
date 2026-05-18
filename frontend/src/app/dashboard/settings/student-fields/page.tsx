@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { Badge } from "@/components/ui/badge";
 import { SettingsService } from "@/services/settingsService";
 
@@ -33,6 +33,7 @@ const defaultFields: StudentFieldConfig[] = [
 ];
 
 export default function StudentFieldsPage() {
+    const { showSuccess, showError } = useNotification();
     const [fields, setFields] = useState<StudentFieldConfig[]>(defaultFields);
     const [searchTerm, setSearchTerm] = useState("");
     const [isSaving, setIsSaving] = useState(false);
@@ -52,7 +53,7 @@ export default function StudentFieldsPage() {
                     setFields(merged);
                 }
             } catch {
-                toast.error("Failed to load field configuration");
+                showError("Failed to load field configuration");
             } finally {
                 setIsLoading(false);
             }
@@ -72,9 +73,9 @@ export default function StudentFieldsPage() {
         setIsSaving(true);
         try {
             await SettingsService.updateSetting('student_fields_config', JSON.stringify(fields));
-            toast.success("Student field configurations saved successfully");
+            showSuccess("Student field configurations saved successfully");
         } catch {
-            toast.error("Failed to save configuration");
+            showError("Failed to save configuration");
         } finally {
             setIsSaving(false);
         }

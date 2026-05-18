@@ -22,10 +22,11 @@ import {
     Video
 } from 'lucide-react';
 import { StakeholderService, Conversation, Message } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function CommunicationPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showError } = useNotification();
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
@@ -42,7 +43,7 @@ export default function CommunicationPage() {
                 setMessages(data[0].messages || []);
             }
         } catch (error) {
-            toast.error('Failed to load messages');
+            showError('Failed to load messages');
         } finally {
             setLoading(false);
         }
@@ -68,7 +69,7 @@ export default function CommunicationPage() {
             setNewMessage('');
             fetchData(); // Refresh conversation list
         } catch (error) {
-            toast.error('Failed to send message');
+            showError('Failed to send message');
         }
     };
 

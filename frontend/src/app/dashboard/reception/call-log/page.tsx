@@ -14,15 +14,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { PhoneOutgoing, Search, Calendar, PhoneCall, MoreHorizontal, History, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, CallLog } from '@/services/receptionService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function CallLogPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [logs, setLogs] = useState<CallLog[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingLog, setEditingLog] = useState<CallLog | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -42,7 +45,7 @@ export default function CallLogPage() {
             const data = await ReceptionService.getCallLogs(resolvedBranchId);
             setLogs(data);
         } catch (error) {
-            toast.error('Failed to load logs');
+            showError('Failed to load logs');
         } finally {
             setLoading(false);
         }
@@ -56,12 +59,12 @@ export default function CallLogPage() {
         e.preventDefault();
         try {
             await ReceptionService.createCallLog({ ...formData, branchId: resolvedBranchId });
-            toast.success('Call log saved');
+            showSuccess('Call log saved');
             setIsAddDialogOpen(false);
             fetchLogs();
             resetForm();
         } catch (error) {
-            toast.error('Failed to save log');
+            showError('Failed to save log');
         }
     };
 
@@ -70,23 +73,29 @@ export default function CallLogPage() {
         if (!editingLog) return;
         try {
             await ReceptionService.updateCallLog(editingLog.id, formData);
-            toast.success('Call log updated');
+            showSuccess('Call log updated');
             setEditingLog(null);
             fetchLogs();
             resetForm();
         } catch (error) {
-            toast.error('Failed to update log');
+            showError('Failed to update log');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this log?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await ReceptionService.deleteCallLog(id);
-            toast.success('Log deleted successfully');
+            await ReceptionService.deleteCallLog(confirmDelete);
+            showSuccess('Log deleted successfully');
             fetchLogs();
         } catch (error) {
-            toast.error('Failed to delete log');
+            showError('Failed to delete log');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -153,12 +162,12 @@ export default function CallLogPage() {
                                 Record Call
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle className="text-h3 font-semibold">Call Interaction</DialogTitle>
                                 <DialogDescription className="font-bold">Log details of the phone conversation.</DialogDescription>
                             </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-6 pt-4">
+                            <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
                                 <CallLogForm formData={formData} setFormData={setFormData} />
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Save Call Log</Button>
@@ -229,12 +238,12 @@ export default function CallLogPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-h3 font-semibold">Edit Call Log</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingLog?.name}</DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
+                    <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
                         <CallLogForm formData={formData} setFormData={setFormData} />
                         <DialogFooter>
                             <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Call Log</Button>
@@ -242,6 +251,15 @@ export default function CallLogPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Call Log"
+                message="Are you sure you want to delete this log? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );
@@ -250,7 +268,7 @@ export default function CallLogPage() {
 function CallLogForm({ formData, setFormData }: { formData: any, setFormData: any }) {
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Caller / Recipient</Label>
                     <Input
@@ -272,7 +290,7 @@ function CallLogForm({ formData, setFormData }: { formData: any, setFormData: an
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Call Type</Label>
                     <Select value={formData.callType} onValueChange={(v) => setFormData({ ...formData, callType: v })}>

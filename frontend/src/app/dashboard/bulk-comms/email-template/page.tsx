@@ -5,9 +5,10 @@ import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Mail, Plus, Edit2, Trash2, Save, X, Search, FileText } from "lucide-react";
 import { commsService, EmailTemplate } from "@/services/commsService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function EmailTemplatesPage() {
+    const { showSuccess, showError } = useNotification();
     const [templates, setTemplates] = useState<EmailTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -25,7 +26,7 @@ export default function EmailTemplatesPage() {
             const res = await commsService.getEmailTemplates();
             setTemplates(res.data);
         } catch (error) {
-            toast.error("Failed to load email templates");
+            showError("Failed to load email templates");
         } finally {
             setLoading(false);
         }
@@ -40,16 +41,16 @@ export default function EmailTemplatesPage() {
         try {
             if (currentTemplate.id) {
                 await commsService.updateEmailTemplate(currentTemplate.id, currentTemplate);
-                toast.success("Template updated successfully");
+                showSuccess("Template updated successfully");
             } else {
                 await commsService.createEmailTemplate(currentTemplate);
-                toast.success("Template created successfully");
+                showSuccess("Template created successfully");
             }
             setIsEditing(false);
             setCurrentTemplate({ name: "", subject: "", body: "", type: "GENERAL" });
             fetchTemplates();
         } catch (error) {
-            toast.error("Failed to save template");
+            showError("Failed to save template");
         }
     };
 

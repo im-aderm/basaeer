@@ -8,10 +8,11 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import api from "@/lib/api";
 import { AttendanceService } from "@/services/attendanceService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AttendanceDashboard() {
     const router = useRouter();
+    const { showError } = useNotification();
     const [stats, setStats] = useState({
         studentsPresent: 0,
         staffPresent: 0,
@@ -28,7 +29,7 @@ export default function AttendanceDashboard() {
                 setStats(data);
             } catch (error) {
                 setError("Could not load attendance data");
-                toast.error("Failed to fetch attendance statistics");
+                showError("Failed to fetch attendance statistics");
             } finally {
                 setLoading(false);
             }

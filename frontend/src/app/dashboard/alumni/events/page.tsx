@@ -25,10 +25,11 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AlumniEventsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [events, setEvents] = useState<AlumniEvent[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function AlumniEventsPage() {
             const data = await StakeholderService.getEvents(resolvedBranchId);
             setEvents(data);
         } catch (error) {
-            toast.error("Failed to load events");
+            showError("Failed to load events");
         } finally {
             setLoading(false);
         }
@@ -61,22 +62,22 @@ export default function AlumniEventsPage() {
         e.preventDefault();
         try {
             await StakeholderService.createEvent({ ...formData, branchId: resolvedBranchId });
-            toast.success("Event created successfully");
+            showSuccess("Event created successfully");
             setIsDialogOpen(false);
             setFormData({ title: "", description: "", eventDate: "", location: "", isOnline: false, meetingUrl: "" });
             fetchEvents();
         } catch (error) {
-            toast.error("Failed to create event");
+            showError("Failed to create event");
         }
     };
 
     const handleRsvp = async (eventId: string) => {
         try {
             await StakeholderService.rsvpEvent(eventId, "ATTENDING");
-            toast.success("RSVP confirmed!");
+            showSuccess("RSVP confirmed!");
             fetchEvents();
         } catch (error) {
-            toast.error("Failed to RSVP");
+            showError("Failed to RSVP");
         }
     };
 

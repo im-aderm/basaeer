@@ -15,11 +15,12 @@ import {
     AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { financeService } from '@/services/financeService';
 
 export default function FinanceDashboard() {
     const { user, resolvedBranchId } = useAuth();
+    const { showError } = useNotification();
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -33,7 +34,7 @@ export default function FinanceDashboard() {
                 setStats(data);
             } catch (error) {
                 setError("Could not load financial data");
-                toast.error("Failed to load finance statistics");
+                showError("Failed to load finance statistics");
             } finally {
                 setLoading(false);
             }

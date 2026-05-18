@@ -16,12 +16,16 @@ import {
     Check
 } from "lucide-react";
 import { clsx } from "clsx";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function SessionsPage() {
+    const { showSuccess, showError } = useNotification();
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingSession, setEditingSession] = useState<AcademicSession | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: "",
         startDate: "",
@@ -82,14 +86,20 @@ export default function SessionsPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (confirm("Are you sure you want to delete this session? This may affect academic records.")) {
-            try {
-                await SessionService.delete(id);
-                fetchSessions();
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error("Failed to delete session:", error);
-            }
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
+        try {
+            await SessionService.delete(confirmDelete);
+            showSuccess('Session deleted successfully');
+            fetchSessions();
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Failed to delete session:", error);
+            showError('Failed to delete session');
         }
+        setConfirmDelete(null);
     };
 
     const toggleActive = async (session: AcademicSession) => {
@@ -276,6 +286,14 @@ export default function SessionsPage() {
                     </div>
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Session"
+                message="Are you sure you want to delete this session? This may affect academic records."
+                confirmLabel="Delete"
+            />
             </div>
         </RequireBranch>
     );

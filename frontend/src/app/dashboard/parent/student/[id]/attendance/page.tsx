@@ -14,11 +14,12 @@ import {
     Filter
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ChildAttendancePage() {
     const { id } = useParams();
     const router = useRouter();
+    const { showError } = useNotification();
     const [attendance, setAttendance] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ export default function ChildAttendancePage() {
                 const data = await StakeholderService.getChildAttendance(id as string);
                 setAttendance(data);
             } catch (error) {
-                toast.error('Failed to load attendance records');
+                showError('Failed to load attendance records');
             } finally {
                 setLoading(false);
             }

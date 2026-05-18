@@ -5,12 +5,13 @@ import { BarChart3, TrendingUp, Users, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { AcademicOpsService } from "@/services/academicOpsService";
 import { ClassService } from "@/services/classService";
 import { SubjectService } from "@/services/subjectService";
 
 export default function HomeworkEvaluationReport() {
+    const { showError } = useNotification();
     const [assignments, setAssignments] = useState<any[]>([]);
     const [classes, setClasses] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<any[]>([]);
@@ -37,7 +38,7 @@ export default function HomeworkEvaluationReport() {
             setClasses(classesData);
             setSubjects(subjectsData);
         } catch (error) {
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }

@@ -11,9 +11,8 @@ const stepFields: Record<number, FieldKey[]> = {
   4: [],
   5: [],
   6: [],
-  7: ["desiredClassId"],
-  8: [],
-  9: ["schoolRulesAgreement"],
+  7: [],
+  8: ["desiredClassId"],
 };
 
 interface AdmissionState {

@@ -10,12 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function AdvanceSalaryPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [advances, setAdvances] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function AdvanceSalaryPage() {
             const response = await api.get(endpoint);
             setAdvances(response.data);
         } catch (error) {
-            toast.error("Failed to load advance salary requests");
+            showError("Failed to load advance salary requests");
         } finally {
             setLoading(false);
         }
@@ -49,32 +50,32 @@ export default function AdvanceSalaryPage() {
                 amount: parseFloat(formData.amount),
                 reason: formData.reason,
             });
-            toast.success("Advance salary request submitted!");
+            showSuccess("Advance salary request submitted!");
             setIsDialogOpen(false);
             setFormData({ amount: "", reason: "" });
             fetchAdvances();
         } catch (error) {
-            toast.error("Failed to submit request");
+            showError("Failed to submit request");
         }
     };
 
     const handleApprove = async (id: string) => {
         try {
             await api.patch(`/employees/advance-salary/${id}/approve`);
-            toast.success("Request approved!");
+            showSuccess("Request approved!");
             fetchAdvances();
         } catch (error) {
-            toast.error("Failed to approve request");
+            showError("Failed to approve request");
         }
     };
 
     const handleReject = async (id: string) => {
         try {
             await api.patch(`/employees/advance-salary/${id}/reject`);
-            toast.success("Request rejected!");
+            showSuccess("Request rejected!");
             fetchAdvances();
         } catch (error) {
-            toast.error("Failed to reject request");
+            showError("Failed to reject request");
         }
     };
 

@@ -14,15 +14,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Search, Send, FileText, ArrowUpLeft, ArrowDownRight, Package, Trash2, Edit3, Loader2, Calendar } from 'lucide-react';
 import { ReceptionService, PostalRecord } from '@/services/receptionService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function PostalRecordPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [records, setRecords] = useState<PostalRecord[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingRecord, setEditingRecord] = useState<PostalRecord | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         fromTitle: '',
@@ -43,7 +46,7 @@ export default function PostalRecordPage() {
             const data = await ReceptionService.getPostalRecords(resolvedBranchId);
             setRecords(data);
         } catch (error) {
-            toast.error('Failed to load postal records');
+            showError('Failed to load postal records');
         } finally {
             setLoading(false);
         }
@@ -57,12 +60,12 @@ export default function PostalRecordPage() {
         e.preventDefault();
         try {
             await ReceptionService.createPostalRecord({ ...formData, branchId: resolvedBranchId });
-            toast.success('Postal record saved');
+            showSuccess('Postal record saved');
             setIsAddDialogOpen(false);
             fetchRecords();
             resetForm();
         } catch (error) {
-            toast.error('Failed to save record');
+            showError('Failed to save record');
         }
     };
 
@@ -71,23 +74,29 @@ export default function PostalRecordPage() {
         if (!editingRecord) return;
         try {
             await ReceptionService.updatePostalRecord(editingRecord.id, formData);
-            toast.success('Postal record updated');
+            showSuccess('Postal record updated');
             setEditingRecord(null);
             fetchRecords();
             resetForm();
         } catch (error) {
-            toast.error('Failed to update record');
+            showError('Failed to update record');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this record?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await ReceptionService.deletePostalRecord(id);
-            toast.success('Record deleted successfully');
+            await ReceptionService.deletePostalRecord(confirmDelete);
+            showSuccess('Record deleted successfully');
             fetchRecords();
         } catch (error) {
-            toast.error('Failed to delete record');
+            showError('Failed to delete record');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -159,12 +168,12 @@ export default function PostalRecordPage() {
                                 New Record
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle className="text-h3 font-semibold">Postal Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Log details of the physical mail/courier.</DialogDescription>
                             </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-6 pt-4">
+                            <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
                                 <PostalForm formData={formData} setFormData={setFormData} />
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Record Dispatch/Receipt</Button>
@@ -236,12 +245,12 @@ export default function PostalRecordPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingRecord} onOpenChange={(open) => { if (!open) setEditingRecord(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-h3 font-semibold">Edit Postal Record</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for this entry</DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
+                    <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
                         <PostalForm formData={formData} setFormData={setFormData} />
                         <DialogFooter>
                             <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Record</Button>
@@ -249,6 +258,15 @@ export default function PostalRecordPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Postal Record"
+                message="Are you sure you want to delete this record? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );
@@ -257,7 +275,7 @@ export default function PostalRecordPage() {
 function PostalForm({ formData, setFormData }: { formData: any, setFormData: any }) {
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">From Title</Label>
                     <Input
@@ -279,7 +297,7 @@ function PostalForm({ formData, setFormData }: { formData: any, setFormData: any
                     />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Reference Number</Label>
                     <Input

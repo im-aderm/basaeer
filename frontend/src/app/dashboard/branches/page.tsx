@@ -23,9 +23,10 @@ import {
     ShieldAlert,
 } from "lucide-react";
 import { clsx } from "clsx";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function BranchesPage() {
+    const { showSuccess, showError } = useNotification();
     const [branches, setBranches] = useState<Branch[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -119,7 +120,7 @@ export default function BranchesPage() {
             setIsModalOpen(false);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save branch:", error);
-            alert("An error occurred while saving the branch.");
+            showError("An error occurred while saving the branch.");
         } finally {
             setSubmitting(false);
         }
@@ -141,11 +142,11 @@ export default function BranchesPage() {
                 setDeleteTarget(null);
                 setDeleting(false);
                 setDeleteSuccess(false);
-                toast.success(`${deleteTarget.name} deleted successfully`);
+                showSuccess(`${deleteTarget.name} deleted successfully`);
             }, 1200);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to delete branch:", error);
-            toast.error("Failed to delete branch. Please try again.");
+            showError("Failed to delete branch. Please try again.");
             setDeleting(false);
         }
     };
@@ -164,11 +165,11 @@ export default function BranchesPage() {
     const handleReassignAdmin = async () => {
         if (!adminTarget) return;
         if (adminMode === "select" && !adminUserId) {
-            toast.error("Please select a user to assign as admin");
+            showError("Please select a user to assign as admin");
             return;
         }
         if (adminMode === "create" && (!newAdminForm.email || !newAdminForm.firstName || !newAdminForm.lastName)) {
-            toast.error("Please fill in all required fields");
+            showError("Please fill in all required fields");
             return;
         }
         setAdminSubmitting(true);
@@ -186,12 +187,12 @@ export default function BranchesPage() {
                 };
             }
             await BranchService.reassignAdmin(adminTarget.id, payload);
-            toast.success("Branch admin reassigned successfully. The previous admin has been notified.");
+            showSuccess("Branch admin reassigned successfully. The previous admin has been notified.");
             setShowAdminModal(false);
             setAdminTarget(null);
         } catch (error: any) {
             const msg = error.response?.data?.message || "Failed to reassign admin";
-            toast.error(msg);
+            showError(msg);
         } finally {
             setAdminSubmitting(false);
         }

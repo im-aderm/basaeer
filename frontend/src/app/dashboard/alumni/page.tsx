@@ -28,10 +28,11 @@ import {
     CheckCircle2
 } from 'lucide-react';
 import { StakeholderService, Alumni, AlumniEvent } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AlumniPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [alumni, setAlumni] = useState<Alumni[]>([]);
     const [events, setEvents] = useState<AlumniEvent[]>([]);
     const [loading, setLoading] = useState(true);
@@ -57,7 +58,7 @@ export default function AlumniPage() {
             setAlumni(alumniData);
             setEvents(eventsData);
         } catch (error) {
-            toast.error('Failed to load alumni data');
+            showError('Failed to load alumni data');
         } finally {
             setLoading(false);
         }
@@ -71,20 +72,20 @@ export default function AlumniPage() {
         e.preventDefault();
         try {
             await StakeholderService.createAlumni({ ...alumniForm, branchId: resolvedBranchId });
-            toast.success('Alumni added successfully');
+            showSuccess('Alumni added successfully');
             setIsAddAlumniOpen(false);
             fetchData();
-        } catch (error) { toast.error('Failed to add alumni'); }
+        } catch (error) { showError('Failed to add alumni'); }
     };
 
     const handleAddEvent = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             await StakeholderService.createEvent({ ...eventForm, branchId: resolvedBranchId });
-            toast.success('Event scheduled successfully');
+            showSuccess('Event scheduled successfully');
             setIsAddEventOpen(false);
             fetchData();
-        } catch (error) { toast.error('Failed to schedule event'); }
+        } catch (error) { showError('Failed to schedule event'); }
     };
 
     return (

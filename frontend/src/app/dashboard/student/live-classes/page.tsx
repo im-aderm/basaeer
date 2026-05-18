@@ -3,11 +3,12 @@
 import { useState, useEffect } from "react";
 import { Video, Clock, Calendar, Users, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function StudentLiveClassesPage() {
+    const { showSuccess, showError } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [sessions, setSessions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ export default function StudentLiveClassesPage() {
             const response = await api.get(`/live-classes/sessions/student/${user.student.id}`);
             setSessions(response.data);
         } catch (error) {
-            toast.error("Failed to load live classes");
+            showError("Failed to load live classes");
         } finally {
             setLoading(false);
         }
@@ -34,10 +35,10 @@ export default function StudentLiveClassesPage() {
         try {
             await api.post(`/live-classes/sessions/${session.id}/join`);
             window.open(session.meetingUrl, "_blank");
-            toast.success("Joined meeting!");
+            showSuccess("Joined meeting!");
             fetchSessions();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to join meeting");
+            showError(error.response?.data?.message || "Failed to join meeting");
         }
     };
 

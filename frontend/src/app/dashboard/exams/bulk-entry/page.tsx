@@ -12,9 +12,10 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Table2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function BulkMarkEntryPage() {
+    const { showSuccess, showError } = useNotification();
     const [view, setView] = useState<'select' | 'entry'>('select');
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ export default function BulkMarkEntryPage() {
 
     const handleStartEntry = async () => {
         if (!formData.sectionId || !formData.subjectId || !formData.sessionId) {
-            toast.error('Please select all required fields');
+            showError('Please select all required fields');
             return;
         }
 
@@ -51,7 +52,7 @@ export default function BulkMarkEntryPage() {
             setStudents(formatted);
             setView('entry');
         } catch (error) {
-            toast.error('Failed to load students');
+            showError('Failed to load students');
         } finally {
             setLoading(false);
         }
@@ -64,7 +65,7 @@ export default function BulkMarkEntryPage() {
                 scores: updates,
                 examTerm: 'END_OF_TERM'
             });
-            toast.success('Batch marks saved successfully');
+            showSuccess('Batch marks saved successfully');
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Save failed:', error);
             throw error;

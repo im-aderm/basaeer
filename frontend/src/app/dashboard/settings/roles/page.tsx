@@ -24,7 +24,8 @@ import {
     Lock,
 } from "lucide-react";
 import { clsx } from "clsx";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 const FALLBACK_MODULES = [
     "Dashboard", "Core Administration", "Branches", "Academic Sessions",
@@ -40,6 +41,7 @@ const ACTIONS = ["CREATE", "READ", "UPDATE", "DELETE"];
 
 export default function RolesPage() {
     const { resolvedBranchId, activeBranchId, user } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const allCampuses = isAllCampuses(activeBranchId);
     const isSuperAdmin = user?.role === "SUPER_ADMIN";
     const [roles, setRoles] = useState<Role[]>([]);
@@ -62,6 +64,7 @@ export default function RolesPage() {
     const [assigning, setAssigning] = useState(false);
     const [modules, setModules] = useState<string[]>([]);
     const [seeding, setSeeding] = useState(false);
+    const [confirmSeed, setConfirmSeed] = useState<boolean>(false);
 
     const fetchRoles = async () => {
         setLoading(true);
@@ -79,19 +82,23 @@ export default function RolesPage() {
         }
     };
     const handleSeed = async () => {
-        if (!confirm("This will sync all system role permissions from the legacy permission set. Are you sure?")) return;
+        setConfirmSeed(true);
+    };
+
+    const handleConfirmSeed = async () => {
         setSeeding(true);
         try {
             await RoleService.seedPermissions();
-            toast.success("Permissions synced successfully");
+            showSuccess("Permissions synced successfully");
             if (selectedRole) {
                 const perms = await RoleService.getPermissions(selectedRole.id);
                 setPermissions(perms);
             }
         } catch {
-            toast.error("Failed to sync permissions");
+            showError("Failed to sync permissions");
         }
         setSeeding(false);
+        setConfirmSeed(false);
     };
 
     useEffect(() => {
@@ -129,7 +136,7 @@ export default function RolesPage() {
             );
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to update permission:", error);
-            toast.error("Failed to update permission");
+            showError("Failed to update permission");
         }
     };
 
@@ -144,9 +151,9 @@ export default function RolesPage() {
             setRoles(prev => [...prev, role]);
             setShowCreateModal(false);
             setCreateForm({ name: "", slug: "", description: "" });
-            toast.success("Role created successfully");
+            showSuccess("Role created successfully");
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to create role");
+            showError(error.response?.data?.message || "Failed to create role");
         } finally {
             setCreating(false);
         }
@@ -160,9 +167,9 @@ export default function RolesPage() {
                 setSelectedRole(null);
                 setTab("overview");
             }
-            toast.success("Role deleted");
+            showSuccess("Role deleted");
         } catch (error) {
-            toast.error("Failed to delete role");
+            showError("Failed to delete role");
         }
         setShowDeleteConfirm(null);
     };
@@ -412,7 +419,7 @@ export default function RolesPage() {
                                             onClick={async () => {
                                                 await RoleService.removeRole(u.id);
                                                 setRoleUsers(prev => prev.filter(x => x.id !== u.id));
-                                                toast.success("Role removed from user");
+                                                showSuccess("Role removed from user");
                                             }}
                                             className="p-2 hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-colors"
                                         >
@@ -550,9 +557,9 @@ export default function RolesPage() {
                                                         await RoleService.assignRole(u.id, selectedRole.id);
                                                         setRoleUsers(prev => [...prev, u]);
                                                         setAllUsers(prev => prev.filter(x => x.id !== u.id));
-                                                        toast.success(`${u.firstName} ${u.lastName} assigned ${selectedRole.name}`);
+                                                        showSuccess(`${u.firstName} ${u.lastName} assigned ${selectedRole.name}`);
                                                     } catch (e: any) {
-                                                        toast.error(e.response?.data?.message || "Failed to assign role");
+                                                        showError(e.response?.data?.message || "Failed to assign role");
                                                     }
                                                     setAssigning(false);
                                                 }}
@@ -586,16 +593,26 @@ export default function RolesPage() {
 
             {/* Delete Confirmation */}
             {showDeleteConfirm && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="bg-white/95 w-full max-w-md rounded-3xl border border-border shadow-2xl p-8 animate-in zoom-in-95 duration-200">
-                        <h3 className="text-xl font-bold">Delete Role?</h3>
-                        <p className="text-muted-foreground text-sm mt-2">This will unlink all users from this role. System roles cannot be deleted.</p>
-                        <div className="flex items-center justify-end gap-3 mt-6">
-                            <button onClick={() => setShowDeleteConfirm(null)} className="px-6 py-2.5 text-sm font-semibold rounded-xl border border-border hover:bg-muted transition-colors">Cancel</button>
-                            <button onClick={() => handleDelete(showDeleteConfirm)} className="px-6 py-2.5 text-sm font-semibold text-white bg-red-600 rounded-xl hover:bg-red-700 transition-all">Delete</button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmDialog
+                    isOpen={!!showDeleteConfirm}
+                    onConfirm={() => handleDelete(showDeleteConfirm)}
+                    onCancel={() => setShowDeleteConfirm(null)}
+                    title="Delete Role?"
+                    message="This will unlink all users from this role. System roles cannot be deleted."
+                    confirmLabel="Delete"
+                />
+            )}
+
+            {/* Seed Confirmation */}
+            {confirmSeed && (
+                <ConfirmDialog
+                    isOpen={confirmSeed}
+                    onConfirm={handleConfirmSeed}
+                    onCancel={() => setConfirmSeed(false)}
+                    title="Sync Modules"
+                    message="This will sync all system role permissions from the legacy permission set. Are you sure?"
+                    confirmLabel="Sync"
+                />
             )}
             </div>
         </RequireBranch>

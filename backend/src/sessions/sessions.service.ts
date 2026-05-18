@@ -9,11 +9,11 @@ export class SessionsService {
   async create(
     data: Prisma.AcademicSessionCreateInput,
   ): Promise<AcademicSession> {
-    // If this session is active, deactivate all others
-    if (data.isActive) {
+    // If this session is CURRENT, deactivate all others
+    if ((data as any).status === 'CURRENT') {
       await this.prisma.academicSession.updateMany({
-        where: { isActive: true },
-        data: { isActive: false },
+        where: { branchId: (data as any).branchId, status: 'CURRENT' },
+        data: { status: 'COMPLETED' },
       });
     }
     return this.prisma.academicSession.create({ data });
@@ -31,7 +31,7 @@ export class SessionsService {
 
   async findActive(): Promise<AcademicSession | null> {
     return this.prisma.academicSession.findFirst({
-      where: { isActive: true },
+      where: { status: "CURRENT" },
     });
   }
 
@@ -39,10 +39,10 @@ export class SessionsService {
     id: string,
     data: Prisma.AcademicSessionUpdateInput,
   ): Promise<AcademicSession> {
-    if (data.isActive === true) {
+    if ((data as any).status === 'CURRENT') {
       await this.prisma.academicSession.updateMany({
-        where: { isActive: true, NOT: { id } },
-        data: { isActive: false },
+        where: { branchId: (data as any).branchId || undefined, NOT: { id } },
+        data: { status: 'COMPLETED' },
       });
     }
     return this.prisma.academicSession.update({

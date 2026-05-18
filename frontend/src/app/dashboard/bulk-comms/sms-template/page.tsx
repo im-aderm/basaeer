@@ -5,9 +5,10 @@ import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { MessageSquare, Plus, Edit2, Trash2, Save, X, Search, Smartphone } from "lucide-react";
 import { commsService, SmsTemplate } from "@/services/commsService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function SmsTemplatesPage() {
+    const { showSuccess, showError } = useNotification();
     const [templates, setTemplates] = useState<SmsTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +25,7 @@ export default function SmsTemplatesPage() {
             const res = await commsService.getSmsTemplates();
             setTemplates(res.data);
         } catch (error) {
-            toast.error("Failed to load SMS templates");
+            showError("Failed to load SMS templates");
         } finally {
             setLoading(false);
         }
@@ -39,16 +40,16 @@ export default function SmsTemplatesPage() {
         try {
             if (currentTemplate.id) {
                 await commsService.updateSmsTemplate(currentTemplate.id, currentTemplate);
-                toast.success("Template updated successfully");
+                showSuccess("Template updated successfully");
             } else {
                 await commsService.createSmsTemplate(currentTemplate);
-                toast.success("Template created successfully");
+                showSuccess("Template created successfully");
             }
             setIsEditing(false);
             setCurrentTemplate({ name: "", content: "", type: "GENERAL" });
             fetchTemplates();
         } catch (error) {
-            toast.error("Failed to save template");
+            showError("Failed to save template");
         }
     };
 

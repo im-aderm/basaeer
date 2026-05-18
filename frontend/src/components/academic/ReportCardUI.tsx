@@ -10,9 +10,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, FileText, Download, Printer } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export function ReportCardUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({ studentId: '', sessionId: '', term: 'FIRST' });
@@ -35,10 +36,10 @@ export function ReportCardUI() {
     setBusy(true);
     try {
       await academicExportService.startExport('REPORT_CARD', form);
-      toast.success('Report card export queued');
+      showSuccess('Report card export queued');
       await load();
     } catch {
-      toast.error('Export failed');
+      showError('Export failed');
     } finally {
       setBusy(false);
     }

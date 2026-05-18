@@ -18,7 +18,7 @@ import {
     MessageSquare,
     Globe
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 
 interface ProviderStatus {
@@ -40,6 +40,7 @@ interface FailoverEvent {
 }
 
 export default function ProvidersPage() {
+    const { showSuccess, showInfo } = useNotification();
     const [providers, setProviders] = useState<ProviderStatus[]>([]);
     const [events, setEvents] = useState<FailoverEvent[]>([]);
     const [loading, setLoading] = useState(true);
@@ -85,13 +86,13 @@ export default function ProvidersPage() {
 
     const handleCheckStatus = async () => {
         setIsChecking(true);
-        toast.info('Running health checks for all providers...');
+        showInfo('Running health checks for all providers...');
         
         await new Promise(resolve => setTimeout(resolve, 1500));
         
         setProviders(prev => prev.map(p => ({ ...p, lastChecked: 'Just now' })));
         setIsChecking(false);
-        toast.success('Health checks completed. All systems operational.');
+        showSuccess('Health checks completed. All systems operational.');
     };
 
     if (loading) {

@@ -172,6 +172,28 @@ export class AuthController {
     return result;
   }
 
+  @UseGuards(JwtAuthGuard, BranchGuard)
+  @ApiBearerAuth()
+  @ApiBody({ schema: { type: 'object', properties: { sessionId: { type: 'string' } } } })
+  @ApiResponse({ status: 200, description: 'Session context selected' })
+  @ApiOperation({ summary: 'Select Session Context' })
+  @Post('select-session')
+  async selectSession(
+    @Body('sessionId') sessionId: string,
+    @GetTenantContext() tenantContext: TenantContext,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const result = await this.authService.updateSelectedSession(tenantContext.userId, sessionId, tenantContext);
+    // Update the httpOnly cookie with the new JWT
+    response.cookie('access_token', result.access_token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    return result;
+  }
+
   @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()

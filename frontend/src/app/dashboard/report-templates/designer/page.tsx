@@ -17,11 +17,12 @@ import {
     Loader2,
     Layout
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function TemplateDesignerPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const id = searchParams.get('id');
 
     const [loading, setLoading] = useState(!!id);
@@ -54,7 +55,7 @@ export default function TemplateDesignerPage() {
             const data = await reportTemplateService.getTemplateById(id!);
             setTemplate(data);
         } catch (error) {
-            toast.error('Failed to load template');
+            showError('Failed to load template');
             router.push('/dashboard/report-templates');
         } finally {
             setLoading(false);
@@ -66,14 +67,14 @@ export default function TemplateDesignerPage() {
             setSaving(true);
             if (id) {
                 await reportTemplateService.updateTemplate(id, template);
-                toast.success('Template updated');
+                showSuccess('Template updated');
             } else {
                 await reportTemplateService.createTemplate(template);
-                toast.success('Template created');
+                showSuccess('Template created');
                 router.push('/dashboard/report-templates');
             }
         } catch (error) {
-            toast.error('Failed to save template');
+            showError('Failed to save template');
         } finally {
             setSaving(false);
         }

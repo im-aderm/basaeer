@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import { QRCodeCanvas } from "qrcode.react";
 
 export default function QRIDCardsPage() {
     const router = useRouter();
+    const { showError } = useNotification();
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(false);
     
@@ -35,7 +36,7 @@ export default function QRIDCardsPage() {
             const res = await api.get('/classes');
             setClasses(res.data);
         } catch (error) {
-            toast.error("Failed to load classes");
+            showError("Failed to load classes");
         }
     };
 
@@ -46,7 +47,7 @@ export default function QRIDCardsPage() {
             const res = await api.get(`/sections/class/${classId}`);
             setSections(res.data);
         } catch (error) {
-            toast.error("Failed to load sections");
+            showError("Failed to load sections");
         }
     };
 
@@ -68,7 +69,7 @@ export default function QRIDCardsPage() {
             });
             setQrData(qrMap);
         } catch (error) {
-            toast.error("Failed to load students or QR data");
+            showError("Failed to load students or QR data");
         } finally {
             setFetching(false);
         }

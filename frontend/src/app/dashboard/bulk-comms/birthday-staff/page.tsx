@@ -5,9 +5,10 @@ import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Cake, Save, RefreshCcw, Bell, Mail, Smartphone, AlertCircle } from "lucide-react";
 import { commsService, AutomationConfig, EmailTemplate, SmsTemplate } from "@/services/commsService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function StaffBirthdayPage() {
+    const { showSuccess, showError } = useNotification();
     const [config, setConfig] = useState<Partial<AutomationConfig>>({
         type: "STAFF_BIRTHDAY",
         isEnabled: false,
@@ -34,7 +35,7 @@ export default function StaffBirthdayPage() {
                 setEmailTemplates(emailRes.data.filter(t => t.type === "BIRTHDAY"));
                 setSmsTemplates(smsRes.data.filter(t => t.type === "BIRTHDAY"));
             } catch (error) {
-                toast.error("Failed to load birthday settings");
+                showError("Failed to load birthday settings");
             } finally {
                 setLoading(false);
             }
@@ -46,9 +47,9 @@ export default function StaffBirthdayPage() {
         setSaving(true);
         try {
             await commsService.upsertAutomationConfig(config);
-            toast.success("Birthday settings saved successfully");
+            showSuccess("Birthday settings saved successfully");
         } catch (error) {
-            toast.error("Failed to save settings");
+            showError("Failed to save settings");
         } finally {
             setSaving(false);
         }

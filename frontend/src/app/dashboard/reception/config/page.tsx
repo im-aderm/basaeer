@@ -5,9 +5,10 @@ import { SettingsService } from "@/services/settingsService";
 import { Save, Loader2, Settings2, Users, MessageSquare, Info, Plus, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import RequireBranch from "@/components/RequireBranch";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ReceptionConfigPage() {
+    const { showSuccess, showError, showInfo } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -49,10 +50,10 @@ export default function ReceptionConfigPage() {
             await SettingsService.updateSetting("reception_enquiry_sources", JSON.stringify(config.reception_enquiry_sources));
             await SettingsService.updateSetting("reception_visitor_purposes", JSON.stringify(config.reception_visitor_purposes));
             await SettingsService.updateSetting("reception_complaint_types", JSON.stringify(config.reception_complaint_types));
-            toast.success("Reception configuration saved successfully!");
+            showSuccess("Reception configuration saved successfully!");
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save config:", error);
-            toast.error("Failed to save configuration.");
+            showError("Failed to save configuration.");
         } finally {
             setSaving(false);
         }
@@ -64,7 +65,7 @@ export default function ReceptionConfigPage() {
             activeTab === "purposes" ? "reception_visitor_purposes" : "reception_complaint_types";
 
         if (config[key].includes(newItem.trim())) {
-            toast.warning("Item already exists!");
+            showInfo("Item already exists!");
             return;
         }
 

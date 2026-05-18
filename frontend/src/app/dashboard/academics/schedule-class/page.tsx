@@ -9,7 +9,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { AcademicService } from "@/services/academicService";
 import { StaffService } from "@/services/staffService";
 import { SubjectService } from "@/services/subjectService";
@@ -21,6 +22,7 @@ const TIME_SLOTS = [
 ];
 
 export default function ClassSchedulePage() {
+    const { showSuccess, showError } = useNotification();
     const [classes, setClasses] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<any[]>([]);
     const [teachers, setTeachers] = useState<any[]>([]);
@@ -29,6 +31,8 @@ export default function ClassSchedulePage() {
     const [selectedClass, setSelectedClass] = useState("");
     const [selectedSection, setSelectedSection] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
     const [formData, setFormData] = useState({
         dayOfWeek: 0,
         startTime: "",
@@ -59,7 +63,7 @@ export default function ClassSchedulePage() {
             setSubjects(subjectsData);
             setTeachers(teachersData);
         } catch (error) {
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -73,7 +77,7 @@ export default function ClassSchedulePage() {
             });
             setSchedules(data);
         } catch (error) {
-            toast.error("Failed to load schedules");
+            showError("Failed to load schedules");
         }
     };
 
@@ -84,7 +88,7 @@ export default function ClassSchedulePage() {
                 classId: selectedClass,
                 sectionId: selectedSection,
             });
-            toast.success("Schedule added successfully!");
+            showSuccess("Schedule added successfully!");
             setIsDialogOpen(false);
             setFormData({
                 dayOfWeek: 0,
@@ -96,19 +100,26 @@ export default function ClassSchedulePage() {
             });
             fetchSchedules();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to add schedule");
+            showError(error.response?.data?.message || "Failed to add schedule");
         }
     };
 
     const handleDeleteSchedule = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this schedule?")) return;
+        setConfirmDeleteId(id);
+    };
 
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await AcademicService.deleteSchedule(id);
-            toast.success("Schedule deleted");
+            await AcademicService.deleteSchedule(confirmDeleteId);
+            showSuccess("Schedule deleted");
             fetchSchedules();
         } catch (error) {
-            toast.error("Failed to delete schedule");
+            showError("Failed to delete schedule");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -407,6 +418,15 @@ export default function ClassSchedulePage() {
                     </p>
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Schedule"
+                message="Are you sure you want to delete this schedule? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
         </div>
         </RequireBranch>
     );

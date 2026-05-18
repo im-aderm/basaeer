@@ -15,11 +15,12 @@ import {
     Eye
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ChildFinancialsPage() {
     const { id } = useParams();
     const router = useRouter();
+    const { showError } = useNotification();
     const [invoices, setInvoices] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +30,7 @@ export default function ChildFinancialsPage() {
                 const data = await StakeholderService.getChildFinancials(id as string);
                 setInvoices(data);
             } catch (error) {
-                toast.error('Failed to load financial records');
+                showError('Failed to load financial records');
             } finally {
                 setLoading(false);
             }

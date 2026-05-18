@@ -6,12 +6,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ShieldAlert, Lock, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 import MotionWrapper from '@/components/ui/MotionWrapper';
 
 export default function ChangePasswordPage() {
   const router = useRouter();
+  const { showSuccess, showError } = useNotification();
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,20 +21,20 @@ export default function ChangePasswordPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      toast.error('New passwords do not match');
+      showError('New passwords do not match');
       return;
     }
     if (newPassword.length < 8) {
-      toast.error('Password must be at least 8 characters');
+      showError('Password must be at least 8 characters');
       return;
     }
     setSubmitting(true);
     try {
       await api.post('/auth/change-password', { currentPassword, newPassword });
-      toast.success('Password changed successfully');
+      showSuccess('Password changed successfully');
       router.push('/dashboard');
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Failed to change password');
+      showError(error?.response?.data?.message || 'Failed to change password');
     } finally {
       setSubmitting(false);
     }

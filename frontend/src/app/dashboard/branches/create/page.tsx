@@ -7,10 +7,11 @@ import { UserService, User } from "@/services/userService";
 import { ArrowLeft, Save, Building2, MapPin, Phone, Mail, Hash, Image, Palette, UserCog, Users } from "lucide-react";
 import Link from "next/link";
 import { clsx } from "clsx";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function CreateBranchPage() {
     const router = useRouter();
+    const { showError } = useNotification();
     const [submitting, setSubmitting] = useState(false);
     const [existingUsers, setExistingUsers] = useState<User[]>([]);
     const [adminMode, setAdminMode] = useState<"select" | "create">("select");
@@ -66,7 +67,7 @@ export default function CreateBranchPage() {
             router.push("/dashboard/branches");
         } catch (error: any) {
             const msg = error.response?.data?.message || "Check for duplicate code.";
-            toast.error("Failed to create branch. " + msg);
+            showError("Failed to create branch. " + msg);
         } finally {
             setSubmitting(false);
         }

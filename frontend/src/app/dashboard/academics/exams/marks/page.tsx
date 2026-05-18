@@ -24,9 +24,10 @@ import {
 } from "lucide-react";
 import { clsx } from "clsx";
 import { Term } from "@/types/enums";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ScoreEntryPage() {
+    const { showSuccess, showError } = useNotification();
     // Selection state
     const [classes, setClasses] = useState<any[]>([]);
     const [sections, setSections] = useState<any[]>([]);
@@ -111,7 +112,7 @@ export default function ScoreEntryPage() {
             setScores(initialScores);
         } catch (error) {
             console.error("Failed to fetch students:", error);
-            toast.error("Failed to load student data");
+            showError("Failed to load student data");
         } finally {
             setLoading(false);
         }
@@ -121,7 +122,7 @@ export default function ScoreEntryPage() {
         const num = parseFloat(value) || 0;
         const component = components.find(c => c.id === componentId);
         if (component && num > component.maxScore) {
-            toast.error(`Score cannot exceed max score (${component.maxScore})`);
+            showError(`Score cannot exceed max score (${component.maxScore})`);
             return;
         }
 
@@ -158,11 +159,11 @@ export default function ScoreEntryPage() {
             }));
 
             setSuccess(true);
-            toast.success("Marks saved successfully!");
+            showSuccess("Marks saved successfully!");
             setTimeout(() => setSuccess(false), 3000);
         } catch (error) {
             console.error("Save failed:", error);
-            toast.error("Failed to save marks");
+            showError("Failed to save marks");
         } finally {
             setSaving(false);
         }

@@ -11,12 +11,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
 
 export default function StaffAwardsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [awards, setAwards] = useState<any[]>([]);
     const [staff, setStaff] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -43,7 +44,7 @@ export default function StaffAwardsPage() {
             setAwards(awardsData.data);
             setStaff(staffData.data);
         } catch (error) {
-            toast.error("Failed to load awards");
+            showError("Failed to load awards");
         } finally {
             setLoading(false);
         }
@@ -56,7 +57,7 @@ export default function StaffAwardsPage() {
                 ...formData,
                 awardDate: new Date(formData.awardDate).toISOString(),
             });
-            toast.success("Award created successfully!");
+            showSuccess("Award created successfully!");
             setIsDialogOpen(false);
             setFormData({
                 staffId: "",
@@ -66,7 +67,7 @@ export default function StaffAwardsPage() {
             });
             fetchData();
         } catch (error) {
-            toast.error("Failed to create award");
+            showError("Failed to create award");
         }
     };
 

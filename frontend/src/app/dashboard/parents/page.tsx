@@ -22,10 +22,11 @@ import {
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
 import { UserService } from '@/services/userService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import Link from 'next/link';
 
 export default function ParentsListPage() {
+    const { showSuccess, showError } = useNotification();
     const [parents, setParents] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -36,7 +37,7 @@ export default function ParentsListPage() {
             const data = await StakeholderService.getAllParentsAdmin();
             setParents(data);
         } catch (error) {
-            toast.error('Failed to fetch parents');
+            showError('Failed to fetch parents');
         } finally {
             setLoading(false);
         }
@@ -49,10 +50,10 @@ export default function ParentsListPage() {
     const toggleStatus = async (id: string, currentStatus: boolean) => {
         try {
             await UserService.toggleStatus(id, !currentStatus);
-            toast.success('Parent status updated');
+            showSuccess('Parent status updated');
             fetchParents();
         } catch (error) {
-            toast.error('Failed to update status');
+            showError('Failed to update status');
         }
     };
 

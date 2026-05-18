@@ -11,16 +11,19 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { HelpCircle, Plus, Search, Trash2, CheckCircle2, Circle, FileText, ChevronRight, Hash, Edit2 } from 'lucide-react';
 import { OnlineExamService, Question, QuestionGroup, QuestionType } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function QuestionBankPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
     const [selectedGroupId, setSelectedGroupId] = useState<string>('');
     const [questions, setQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     // Form state
     const [qType, setQType] = useState<QuestionType>(QuestionType.MCQ);
@@ -40,7 +43,7 @@ export default function QuestionBankPage() {
                     setSelectedGroupId(groupsData[0].id);
                 }
             } catch (error) {
-                toast.error('Failed to load question groups');
+                showError('Failed to load question groups');
             } finally {
                 setLoading(false);
             }
@@ -59,7 +62,7 @@ export default function QuestionBankPage() {
             const data = await OnlineExamService.getQuestions(selectedGroupId);
             setQuestions(data);
         } catch (error) {
-            toast.error('Failed to load questions');
+            showError('Failed to load questions');
         }
     };
 
@@ -107,13 +110,19 @@ export default function QuestionBankPage() {
     };
 
     const handleDeleteQuestion = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this question?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await OnlineExamService.deleteQuestion(id);
-            toast.success('Question deleted');
+            await OnlineExamService.deleteQuestion(confirmDelete);
+            showSuccess('Question deleted');
             fetchQuestions();
         } catch (error) {
-            toast.error('Failed to delete question');
+            showError('Failed to delete question');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -131,17 +140,17 @@ export default function QuestionBankPage() {
 
             if (editingQuestionId) {
                 await OnlineExamService.updateQuestion(editingQuestionId, payload as any);
-                toast.success('Question updated');
+                showSuccess('Question updated');
             } else {
                 await OnlineExamService.createQuestion(payload as any);
-                toast.success('Question added to bank');
+                showSuccess('Question added to bank');
             }
 
             setIsDialogOpen(false);
             resetForm();
             fetchQuestions();
         } catch (error) {
-            toast.error(editingQuestionId ? 'Failed to update question' : 'Failed to add question');
+            showError(editingQuestionId ? 'Failed to update question' : 'Failed to add question');
         }
     };
 
@@ -333,6 +342,15 @@ export default function QuestionBankPage() {
                     )}
                 </div>
             </div>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Question"
+                message="Are you sure you want to delete this question? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
     );
 }

@@ -9,20 +9,23 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Database, Download, Trash2, Plus, Clock, FileType, HardDrive } from 'lucide-react';
 import { SettingsService, Backup } from '@/services/settingsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function BackupManagementPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [backups, setBackups] = useState<Backup[]>([]);
     const [loading, setLoading] = useState(true);
     const [isCreating, setIsCreating] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchBackups = async () => {
         try {
             const data = await SettingsService.getBackups();
             setBackups(data);
         } catch (error) {
-            toast.error('Failed to load backups');
+            showError('Failed to load backups');
         } finally {
             setLoading(false);
         }
@@ -36,24 +39,29 @@ export default function BackupManagementPage() {
         setIsCreating(true);
         try {
             await SettingsService.createBackup();
-            toast.success('Database backup created successfully');
+            showSuccess('Database backup created successfully');
             fetchBackups();
         } catch (error) {
-            toast.error('Failed to create backup');
+            showError('Failed to create backup');
         } finally {
             setIsCreating(false);
         }
     };
 
     const handleDeleteBackup = async (filename: string) => {
-        if (!confirm('Are you sure you want to delete this backup?')) return;
+        setConfirmDelete(filename);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await SettingsService.deleteBackup(filename);
-            toast.success('Backup deleted');
+            await SettingsService.deleteBackup(confirmDelete);
+            showSuccess('Backup deleted');
             fetchBackups();
         } catch (error) {
-            toast.error('Failed to delete backup');
+            showError('Failed to delete backup');
         }
+        setConfirmDelete(null);
     };
 
     const formatSize = (bytes: number) => {
@@ -195,6 +203,14 @@ export default function BackupManagementPage() {
                     </Table>
                 </CardContent>
             </Card>
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Backup"
+                message="Are you sure you want to delete this backup? This action cannot be undone."
+                confirmLabel="Delete"
+            />
             </div>
         </RequireBranch>
     );

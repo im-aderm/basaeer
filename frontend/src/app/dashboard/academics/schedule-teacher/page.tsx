@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { Calendar, Clock, BookOpen, AlertTriangle, TrendingUp } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { AcademicService } from "@/services/academicService";
 import { StaffService } from "@/services/staffService";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 export default function TeacherSchedulePage() {
+    const { showError } = useNotification();
     const [teachers, setTeachers] = useState<any[]>([]);
     const [selectedTeacher, setSelectedTeacher] = useState("");
     const [schedule, setSchedule] = useState<any[]>([]);
@@ -31,7 +32,7 @@ export default function TeacherSchedulePage() {
             const data = await StaffService.getAllTeachers();
             setTeachers(data);
         } catch (error) {
-            toast.error("Failed to load teachers");
+            showError("Failed to load teachers");
         } finally {
             setLoading(false);
         }
@@ -42,7 +43,7 @@ export default function TeacherSchedulePage() {
             const data = await AcademicService.getSchedules({ teacherId: selectedTeacher });
             setSchedule(data);
         } catch (error) {
-            toast.error("Failed to load schedule");
+            showError("Failed to load schedule");
         }
     };
 

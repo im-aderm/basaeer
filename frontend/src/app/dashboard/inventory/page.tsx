@@ -22,20 +22,21 @@ import {
     Globe
 } from 'lucide-react';
 import { InventoryService, InventoryProduct } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import Link from 'next/link';
 
 export default function InventoryOverviewPage() {
     const { user, resolvedBranchId, isAllCampusesMode } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
         try {
-            const data = await InventoryService.getProducts(resolvedBranchId);
+            const data = await InventoryService.getProducts();
             setProducts(data);
         } catch (error) {
-            toast.error('Failed to load inventory overview');
+            showError('Failed to load inventory overview');
         } finally {
             setLoading(false);
         }
@@ -45,7 +46,7 @@ export default function InventoryOverviewPage() {
         fetchData();
     }, [resolvedBranchId]);
 
-    const lowStock = products.filter(p => p.stock <= 5);
+    const lowStock = products.filter(p => p.stock <= (p.lowStockThreshold ?? 5));
     const totalStockValue = products.reduce((sum, p) => sum + (p.stock * (p.costPrice || 0)), 0);
 
     const quickActions = [
@@ -171,7 +172,7 @@ export default function InventoryOverviewPage() {
                                 <div key={p.id} className="p-6 flex items-center justify-between hover:bg-destructive/5 transition-colors">
                                     <div className="flex flex-col">
                                         <span className="font-semibold uppercase text-sm">{p.name}</span>
-                                        <span className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase tracking-widest">{p.category?.name}</span>
+                                        <span className="text-[10px] font-bold text-muted-foreground opacity-50 uppercase tracking-widest">{p.category?.name} · Alert at {p.lowStockThreshold ?? 5}</span>
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <span className="text-h3 font-semibold text-destructive">{p.stock}</span>

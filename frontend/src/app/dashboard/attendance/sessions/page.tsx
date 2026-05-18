@@ -9,18 +9,21 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import api from "@/lib/api";
 import { format } from "date-fns";
 import { useRouter } from "next/navigation";
 
 export default function AttendanceSessionsPage() {
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const [loading, setLoading] = useState(false);
     const [sessions, setSessions] = useState<any[]>([]);
     const [classes, setClasses] = useState<any[]>([]);
     const [sections, setSections] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<any[]>([]);
+    const [confirmLock, setConfirmLock] = useState<string | null>(null);
 
     // Create Session Form
     const [newSession, setNewSession] = useState({
@@ -45,7 +48,7 @@ export default function AttendanceSessionsPage() {
             setClasses(classesRes.data);
             setSubjects(subjectsRes.data);
         } catch (error) {
-            toast.error("Failed to load initial data");
+            showError("Failed to load initial data");
         }
     };
 
@@ -55,7 +58,7 @@ export default function AttendanceSessionsPage() {
             const res = await api.get(`/sections/class/${classId}`);
             setSections(res.data);
         } catch (error) {
-            toast.error("Failed to load sections");
+            showError("Failed to load sections");
         }
     };
 
@@ -65,7 +68,7 @@ export default function AttendanceSessionsPage() {
             const res = await api.get('/attendance/sessions/active');
             setSessions(res.data);
         } catch (error) {
-            toast.error("Failed to load sessions");
+            showError("Failed to load sessions");
         } finally {
             setLoading(false);
         }
@@ -73,13 +76,13 @@ export default function AttendanceSessionsPage() {
 
     const handleCreateSession = async () => {
         if (!newSession.classId || !newSession.sectionId) {
-            toast.error("Please select class and section");
+            showError("Please select class and section");
             return;
         }
 
         try {
             const res = await api.post('/attendance/sessions', newSession);
-            toast.success("Session started successfully");
+            showSuccess("Session started successfully");
             fetchSessions();
             setNewSession({
                 name: "",
@@ -89,29 +92,34 @@ export default function AttendanceSessionsPage() {
                 date: new Date().toISOString().split('T')[0]
             });
         } catch (error) {
-            toast.error("Failed to start session");
+            showError("Failed to start session");
         }
     };
 
     const handleCloseSession = async (id: string) => {
         try {
             await api.patch(`/attendance/sessions/${id}/close`);
-            toast.success("Session closed");
+            showSuccess("Session closed");
             fetchSessions();
         } catch (error) {
-            toast.error("Failed to close session");
+            showError("Failed to close session");
         }
     };
 
     const handleLockSession = async (id: string) => {
-        if (!confirm("Are you sure? Locking will prevent any further attendance changes for this session.")) return;
+        setConfirmLock(id);
+    };
+
+    const handleConfirmLock = async () => {
+        if (!confirmLock) return;
         try {
-            await api.post(`/attendance/sessions/${id}/lock`);
-            toast.success("Session locked permanently");
+            await api.post(`/attendance/sessions/${confirmLock}/lock`);
+            showSuccess("Session locked permanently");
             fetchSessions();
         } catch (error) {
-            toast.error("Failed to lock session");
+            showError("Failed to lock session");
         }
+        setConfirmLock(null);
     };
 
     return (
@@ -238,46 +246,59 @@ export default function AttendanceSessionsPage() {
                                             )}
                                         </div>
 
-                                        <div className="grid grid-cols-2 gap-3 pt-4">
-                                            <Button 
-                                                variant="outline" 
-                                                className="rounded-2xl h-12 font-bold border-border/50 hover:bg-muted group-hover:border-primary/20"
-                                                onClick={() => router.push(`/dashboard/qr-attendance?sessionId=${session.id}`)}
+                                        <div className="flex gap-3 pt-2">
+                                            <Button
+                                                variant="outline"
+                                                className="flex-1 h-10 rounded-xl gap-2"
+                                                onClick={() => router.push(`/dashboard/attendance/sessions/${session.id}`)}
                                             >
-                                                Scan QR
+                                                <ChevronRight className="w-4 h-4" />
+                                                Take Attendance
                                             </Button>
-                                            <div className="flex gap-2">
-                                                <Button 
-                                                    className="flex-1 rounded-2xl h-12 font-bold bg-slate-100 text-slate-600 hover:bg-slate-200"
-                                                    onClick={() => handleCloseSession(session.id)}
-                                                    title="Close Session (Still Editable)"
-                                                >
-                                                    End
-                                                </Button>
-                                                <Button 
-                                                    className="flex-1 rounded-2xl h-12 font-bold bg-slate-900 text-white hover:bg-red-500 transition-colors gap-2"
-                                                    onClick={() => handleLockSession(session.id)}
-                                                    title="Lock Session (Permanent)"
-                                                >
-                                                    <Lock className="w-4 h-4" />
-                                                </Button>
-                                            </div>
+                                            {!session.locked && (
+                                                <>
+                                                    <Button
+                                                        variant="secondary"
+                                                        className="h-10 rounded-xl gap-2"
+                                                        onClick={() => handleLockSession(session.id)}
+                                                    >
+                                                        <Lock className="w-4 h-4" />
+                                                        Lock
+                                                    </Button>
+                                                    <Button
+                                                        variant="destructive"
+                                                        className="h-10 rounded-xl gap-2"
+                                                        onClick={() => handleCloseSession(session.id)}
+                                                    >
+                                                        <Clock className="w-4 h-4" />
+                                                        Close
+                                                    </Button>
+                                                </>
+                                            )}
                                         </div>
                                     </CardContent>
                                 </Card>
                             ))}
                         </div>
                     ) : (
-                        <div className="bg-muted/10 rounded-[3rem] border-2 border-dashed border-border p-20 text-center space-y-4">
-                            <Clock className="w-16 h-16 mx-auto text-muted-foreground/20" />
-                            <div>
-                                <h4 className="text-xl font-bold text-slate-400">No Active Sessions</h4>
-                                <p className="text-muted-foreground max-w-xs mx-auto">Start a session to begin marking attendance via QR or Manual Roster.</p>
-                            </div>
-                        </div>
+                        <Card className="rounded-[2.5rem] border-border/50">
+                            <CardContent className="p-12 flex flex-col items-center justify-center text-center">
+                                <Clock className="w-12 h-12 text-muted-foreground mb-4 opacity-20" />
+                                <p className="text-muted-foreground font-medium">No active sessions</p>
+                            </CardContent>
+                        </Card>
                     )}
                 </div>
             </div>
+
+            <ConfirmDialog
+                isOpen={!!confirmLock}
+                onConfirm={handleConfirmLock}
+                onCancel={() => setConfirmLock(null)}
+                title="Lock Session"
+                message="Are you sure? Locking will prevent any further attendance changes for this session."
+                confirmLabel="Lock"
+            />
         </div>
     </RequireBranch>
     );

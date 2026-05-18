@@ -53,8 +53,8 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create Assignment' })
   @Post('assignments')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  createAssignment(@Body() dto: CreateAssignmentDto) {
-    return this.academicsService.createAssignment(dto);
+  createAssignment(@Body() dto: CreateAssignmentDto, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.createAssignment(dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -63,8 +63,8 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create Assignment' })
   @Post('submissions')
   @Roles(UserRole.STUDENT)
-  submitAssignment(@Body() dto: SubmitAssignmentDto) {
-    return this.academicsService.submitAssignment(dto);
+  submitAssignment(@Body() dto: SubmitAssignmentDto, @GetTenantContext() ctx: TenantContext) {
+    return this.academicsService.submitAssignment(dto, ctx);
   }
 
   @ApiBearerAuth()

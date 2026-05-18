@@ -3,8 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Send, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { useNotification } from "@/context/NotificationContext";
 
 export function Footer() {
+  const { showSuccess } = useNotification();
   return (
     <footer id="contact" className="relative border-t border-border bg-surface-container-low text-text-secondary pt-20 pb-10 overflow-hidden">
       {/* Background aurora blurs */}
@@ -99,7 +101,7 @@ export function Footer() {
               className="relative"
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Thank you for subscribing!");
+                showSuccess("Thank you for subscribing!");
               }}
             >
               <label htmlFor="newsletter-email" className="sr-only">Email address</label>

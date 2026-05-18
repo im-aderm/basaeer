@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
-import { toast } from "sonner";
+import { useNotification } from "@/context/NotificationContext";
 import { Bell, CreditCard, UserPlus, Bus, FileText, AlertCircle, CheckCircle2, X } from "lucide-react";
 
 interface Notification {
@@ -17,6 +17,7 @@ interface Notification {
 export function RealtimeNotificationCenter() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const { showInfo } = useNotification();
 
   const addNotification = useCallback((event: string, title: string, message: string) => {
     const notification: Notification = {
@@ -28,8 +29,8 @@ export function RealtimeNotificationCenter() {
       read: false,
     };
     setNotifications((prev) => [notification, ...prev].slice(0, 50));
-    toast(title, { description: message });
-  }, []);
+    showInfo(`${title}: ${message}`);
+  }, [showInfo]);
 
   useRealtimeEvent("finance.invoice_created", (data) => {
     addNotification("finance.invoice_created", "Invoice Created", `Invoice ${data.invoiceNumber} generated for student.`);

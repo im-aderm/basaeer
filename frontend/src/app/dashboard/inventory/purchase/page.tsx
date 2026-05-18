@@ -13,10 +13,11 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingBag, Plus, Search, Truck, Calendar, Receipt, Package } from 'lucide-react';
 import { InventoryService, InventoryPurchase, InventoryProduct, InventorySupplier } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function InventoryPurchasePage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [purchases, setPurchases] = useState<InventoryPurchase[]>([]);
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [suppliers, setSuppliers] = useState<InventorySupplier[]>([]);
@@ -31,15 +32,15 @@ export default function InventoryPurchasePage() {
     const fetchData = async () => {
         try {
             const [pur, prod, sup] = await Promise.all([
-                InventoryService.getPurchases(resolvedBranchId),
-                InventoryService.getProducts(resolvedBranchId),
-                InventoryService.getSuppliers(resolvedBranchId)
+                InventoryService.getPurchases(),
+                InventoryService.getProducts(),
+                InventoryService.getSuppliers()
             ]);
             setPurchases(pur);
             setProducts(prod);
             setSuppliers(sup);
         } catch (error) {
-            toast.error('Failed to load purchase data');
+            showError('Failed to load purchase data');
         } finally {
             setLoading(false);
         }
@@ -54,15 +55,14 @@ export default function InventoryPurchasePage() {
         try {
             await InventoryService.createPurchase({
                 ...formData,
-                branchId: resolvedBranchId,
                 quantity: Number(formData.quantity),
                 unitPrice: Number(formData.unitPrice)
             });
-            toast.success('Purchase recorded and stock updated');
+            showSuccess('Purchase recorded and stock updated');
             setIsAddDialogOpen(false);
             setFormData({ productId: '', supplierId: '', quantity: 0, unitPrice: 0, voucherNo: '', date: new Date().toISOString().split('T')[0] });
             fetchData();
-        } catch (error) { toast.error('Failed to record purchase'); }
+        } catch (error) { showError('Failed to record purchase'); }
     };
 
     return (

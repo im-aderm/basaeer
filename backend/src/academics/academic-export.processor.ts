@@ -140,7 +140,7 @@ export class AcademicExportProcessor extends WorkerHost {
   ) {
     const { sectionId, sessionId, term } = params;
     await this.updateProgress(exportId, 20);
-    const ctx: TenantContext = { userId: userId, branchId, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
+    const ctx: TenantContext = { userId: userId, branchId, sessionId: params.sessionId || null, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
     const result = await this.examsService.generateBatchZip(
       sectionId,
       sessionId,
@@ -162,7 +162,7 @@ export class AcademicExportProcessor extends WorkerHost {
   ) {
     const { studentId } = params;
     await this.updateProgress(exportId, 20);
-    const ctx: TenantContext = { userId, branchId, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
+    const ctx: TenantContext = { userId, branchId, sessionId: null, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
     const transcript = await this.transcriptService.generate(studentId, ctx);
     return { fileName: `transcript-${studentId}.pdf` };
   }

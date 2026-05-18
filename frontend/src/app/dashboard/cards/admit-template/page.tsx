@@ -16,6 +16,8 @@ import {
     BookOpen
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,12 +27,14 @@ import TemplateDesigner from "@/components/cards/TemplateDesigner";
 
 export default function AdmitTemplatesPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [templates, setTemplates] = useState<IdCardTemplate[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isDesignerOpen, setIsDesignerOpen] = useState(false);
     const [selectedTemplate, setSelectedTemplate] = useState<IdCardTemplate | null>(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: "",
         type: IdCardType.ADMIT,
@@ -79,12 +83,20 @@ export default function AdmitTemplatesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this template?")) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
         try {
-            await CardService.deleteTemplate(id);
+            await CardService.deleteTemplate(confirmDeleteId);
+            showSuccess("Template deleted successfully");
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to delete template:", error);
+            showError("Failed to delete template");
+        } finally {
+            setConfirmDeleteId(null);
         }
     };
 
@@ -255,6 +267,15 @@ export default function AdmitTemplatesPage() {
                 />
             )}
         </div>
+
+        <ConfirmDialog
+            isOpen={!!confirmDeleteId}
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setConfirmDeleteId(null)}
+            title="Delete Template"
+            message="Are you sure you want to delete this template?"
+            confirmLabel="Delete"
+        />
         </RequireBranch>
     );
 }

@@ -5,9 +5,9 @@ import { AdmissionStepper } from "./AdmissionStepper";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Loader2, ArrowRight, ArrowLeft, Send } from "lucide-react";
+import { Loader2, ArrowRight, ArrowLeft, Send, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 import { IntroStep } from "./steps/IntroStep";
 import { CandidateInfo } from "./steps/CandidateInfo";
@@ -18,20 +18,39 @@ import { DocumentUpload } from "./steps/DocumentUpload";
 import { ConductStep } from "./steps/ConductStep";
 import { PaymentStep } from "./steps/PaymentStep";
 import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
-import { CheckCircle2 } from "lucide-react";
+
+const stepTitles: Record<number, string> = {
+  1: "Getting Started",
+  2: "Student Information",
+  3: "Parent / Guardian",
+  4: "Previous School",
+  5: "Medical & Additional",
+  6: "Document Uploads",
+  7: "Code of Conduct",
+  8: "Payment & Submit",
+};
 
 export function MultiStepAdmissionForm() {
-  const { currentStep, nextStep, prevStep, formData, resetForm, stepErrors } = useAdmissionStore();
+  const { currentStep, setStep, nextStep, prevStep, formData, resetForm, stepErrors, validateCurrentStep } = useAdmissionStore();
+  const { showSuccess, showError } = useNotification();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleFinalSubmit = async () => {
-    if (!formData.paymentProofUrl) {
-      toast.error("Please upload your payment proof first");
-      return;
+  const handleStepClick = (step: number) => {
+    if (step < currentStep) {
+      setStep(step);
     }
+  };
+
+  const handleNext = () => {
+    if (validateCurrentStep()) {
+      nextStep();
+    }
+  };
+
+  const handleFinalSubmit = async () => {
     if (!formData.schoolRulesAgreement) {
-      toast.error("You must accept the school rules to proceed");
+      showError("You must accept the school rules to proceed");
       return;
     }
 
@@ -41,19 +60,18 @@ export function MultiStepAdmissionForm() {
       setIsSuccess(true);
       resetForm();
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      toast.success("Application submitted successfully!");
+      showSuccess("Application submitted successfully!");
     } catch (error: any) {
       if (process.env.NODE_ENV === 'development') console.error("Submission error:", error);
       const errorMessage = error.response?.data?.message || 
         (error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : "Failed to submit application. Please try again.");
       
-      // Show specific validation errors if available
       if (Array.isArray(error.response?.data?.message)) {
-        toast.error(`Validation failed: ${error.response.data.message.slice(0, 3).join(", ")}`);
+        showError(`Validation failed: ${error.response.data.message.slice(0, 3).join(", ")}`);
       } else if (typeof error.response?.data?.message === "string") {
-        toast.error(errorMessage);
+        showError(errorMessage);
       } else {
-        toast.error("Failed to submit application. Please check all fields and try again.");
+        showError("Failed to submit application. Please check all fields and try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -62,20 +80,20 @@ export function MultiStepAdmissionForm() {
 
   if (isSuccess) {
     return (
-      <Card className="border-none shadow-2xl bg-card rounded-[3rem] overflow-hidden p-16 text-center space-y-8 animate-in zoom-in duration-500">
-        <div className="inline-flex items-center justify-center w-32 h-32 rounded-full bg-green-500/10 text-green-500 shadow-2xl">
-          <CheckCircle2 size={64} />
+      <Card className="border border-border/50 shadow-xl bg-white rounded-2xl overflow-hidden p-12 text-center space-y-8">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-50 text-emerald-600">
+          <CheckCircle2 size={40} />
         </div>
-        <div className="space-y-4">
-          <h2 className="text-5xl font-black tracking-tight italic uppercase">Application Received!</h2>
-          <p className="text-xl text-muted-foreground font-medium max-w-lg mx-auto italic">
-            Thank you for applying to Basaer Quranic College. Our registrar will review your documents and payment shortly. You will receive an email update soon.
+        <div className="space-y-3">
+          <h2 className="text-3xl font-bold tracking-tight">Application Received!</h2>
+          <p className="text-muted-foreground max-w-md mx-auto">
+            Thank you for applying to Basaer Quranic and Science College. Our registrar will review your documents and payment shortly.
           </p>
         </div>
         <Button 
           variant="outline" 
           onClick={() => setIsSuccess(false)}
-          className="rounded-2xl px-8 h-12 font-bold italic"
+          className="rounded-lg px-6"
         >
           Submit Another Application
         </Button>
@@ -100,59 +118,76 @@ export function MultiStepAdmissionForm() {
   const totalSteps = 8;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-20">
-      <AdmissionStepper currentStep={currentStep} />
+    <div className="max-w-3xl mx-auto space-y-6 pb-20">
+      {/* Stepper */}
+      <div className="bg-white rounded-xl border border-border/50 shadow-sm px-4 py-4">
+        <AdmissionStepper currentStep={currentStep} onStepClick={handleStepClick} />
+      </div>
 
-      <Card className="border-none shadow-2xl bg-card rounded-[3rem] overflow-hidden">
+      {/* Step title */}
+      <div className="flex items-center gap-3 px-1">
+        <span className="text-xs font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
+          Step {currentStep} of {totalSteps}
+        </span>
+        <h2 className="text-lg font-semibold text-foreground">
+          {stepTitles[currentStep]}
+        </h2>
+      </div>
+
+      {/* Form card */}
+      <Card className="border border-border/50 shadow-sm bg-white rounded-xl overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 12 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, x: -12 }}
+            transition={{ duration: 0.2 }}
           >
             {renderStep()}
           </motion.div>
         </AnimatePresence>
 
-        <div className="p-8 bg-muted/30 flex justify-between items-center border-t border-border">
+        {/* Footer */}
+        <div className="px-6 py-4 bg-muted/30 border-t border-border/50 flex items-center justify-between gap-4">
           {stepErrors[currentStep]?.length > 0 && (
-            <div className="text-sm text-destructive font-medium mr-auto pr-4">
+            <div className="text-sm text-destructive font-medium">
               {stepErrors[currentStep].join('. ')}
             </div>
           )}
 
-          <Button
-            variant="ghost"
-            onClick={prevStep}
-            disabled={currentStep === 1 || isSubmitting}
-            className="rounded-2xl px-6 h-12 font-bold italic"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" /> Back
-          </Button>
+          <div className="flex items-center gap-3 ml-auto">
+            <Button
+              variant="outline"
+              onClick={prevStep}
+              disabled={currentStep === 1 || isSubmitting}
+              className="rounded-lg px-4"
+            >
+              <ArrowLeft className="mr-1.5 h-4 w-4" /> Back
+            </Button>
 
-          {currentStep < totalSteps ? (
-            <Button
-              onClick={nextStep}
-              className="rounded-2xl px-8 h-12 font-black italic shadow-lg shadow-primary/30"
-            >
-              Next Step <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          ) : (
-            <Button
-              disabled={isSubmitting}
-              onClick={handleFinalSubmit}
-              className="rounded-2xl px-12 h-14 font-black italic shadow-xl shadow-primary/40 text-lg bg-primary hover:bg-primary/90"
-            >
-              {isSubmitting ? (
-                <Loader2 className="animate-spin mr-2" />
-              ) : (
-                <Send className="mr-2 h-5 w-5" />
-              )}
-              Submit Application
-            </Button>
-          )}
+            {currentStep < totalSteps ? (
+              <Button
+                onClick={handleNext}
+                className="rounded-lg px-6 bg-primary hover:bg-primary/90"
+              >
+                Next <ArrowRight className="ml-1.5 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button
+                disabled={isSubmitting}
+                onClick={handleFinalSubmit}
+                className="rounded-lg px-8 bg-primary hover:bg-primary/90"
+              >
+                {isSubmitting ? (
+                  <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                ) : (
+                  <Send className="mr-2 h-4 w-4" />
+                )}
+                Submit Application
+              </Button>
+            )}
+          </div>
         </div>
       </Card>
     </div>

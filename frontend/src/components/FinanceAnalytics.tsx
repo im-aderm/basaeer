@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, TrendingUp, TrendingDown, DollarSign, AlertCircle } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend } from "recharts";
 import api from "@/lib/api";
 
@@ -26,6 +26,7 @@ interface CashflowData {
 }
 
 export function FinanceAnalytics() {
+  const { showError } = useNotification();
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState<FinanceStats | null>(null);
   const [cashflow, setCashflow] = useState<CashflowData[]>([]);
@@ -52,7 +53,7 @@ export function FinanceAnalytics() {
         setPaymentMethods([]);
       }
     } catch {
-      toast.error("Unable to load finance data");
+      showError("Unable to load finance data");
     } finally {
       setLoading(false);
     }

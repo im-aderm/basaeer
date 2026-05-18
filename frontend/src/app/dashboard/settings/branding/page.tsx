@@ -10,10 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Palette, Save, Image, Mail, MessageSquare, School } from 'lucide-react';
 import api from '@/lib/api';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function BrandingSettingsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     const [form, setForm] = useState({
@@ -41,7 +42,7 @@ export default function BrandingSettingsPage() {
                     smsSenderId: data.smsSenderId || 'BASAER',
                 });
             } catch {
-                toast.error('Failed to load branding');
+                showError('Failed to load branding');
             } finally {
                 setLoading(false);
             }
@@ -63,9 +64,9 @@ export default function BrandingSettingsPage() {
                 emailFooter: form.emailFooter || undefined,
                 smsSenderId: form.smsSenderId,
             });
-            toast.success('Branding settings saved');
+            showSuccess('Branding settings saved');
         } catch {
-            toast.error('Failed to save branding');
+            showError('Failed to save branding');
         } finally {
             setIsSaving(false);
         }

@@ -3,6 +3,9 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { BrandingProvider } from "@/components/BrandingProvider";
+import { NotificationProvider } from "@/context/NotificationContext";
+import { ContextErrorModalProvider } from "@/context/ContextErrorModalContext";
+import ContextErrorModal from "@/components/ContextErrorModal";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -48,9 +51,14 @@ export default function RootLayout({
         </a>
         <div id="main-content" className="outline-none">
           <Providers>
-            <BrandingProvider>
-              {children}
-            </BrandingProvider>
+            <NotificationProvider>
+              <ContextErrorModalProvider>
+                <BrandingProvider>
+                  {children}
+                  <ContextErrorModal />
+                </BrandingProvider>
+              </ContextErrorModalProvider>
+            </NotificationProvider>
           </Providers>
         </div>
       </body>

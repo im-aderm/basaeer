@@ -8,9 +8,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, CheckCircle2, Settings } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export function PublicationUI() {
+  const { showSuccess, showError, showInfo } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [items, setItems] = useState<any[]>([]);
@@ -24,7 +25,7 @@ export function PublicationUI() {
       // Publication items may come from a specific endpoint; reusing broad data
       setItems(await AcademicService.approvals());
     } catch {
-      toast.error('Unable to load publications');
+      showError('Unable to load publications');
     } finally {
       setLoading(false);
     }
@@ -40,7 +41,7 @@ export function PublicationUI() {
         setComputeStatus(status);
         if (status.status === 'completed' || status.status === 'failed') {
           setComputeJobId(null);
-          status.status === 'completed' ? toast.success('Computation completed') : toast.error('Computation failed');
+          status.status === 'completed' ? showSuccess('Computation completed') : showError('Computation failed');
           if (status.status === 'completed') load();
         }
       } catch { /* ignore */ }
@@ -52,10 +53,10 @@ export function PublicationUI() {
     setBusy(true);
     try {
       await AcademicService.publish(form);
-      toast.success('Results published successfully');
+      showSuccess('Results published successfully');
       await load();
     } catch {
-      toast.error('Publication failed');
+      showError('Publication failed');
     } finally {
       setBusy(false);
     }
@@ -66,9 +67,9 @@ export function PublicationUI() {
     try {
       const { jobId } = await AcademicService.computeSection(form);
       setComputeJobId(jobId);
-      toast.info('Computation started');
+      showInfo('Computation started');
     } catch {
-      toast.error('Failed to start computation');
+      showError('Failed to start computation');
     } finally {
       setBusy(false);
     }

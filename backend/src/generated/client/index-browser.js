@@ -1058,10 +1058,13 @@ exports.Prisma.VoucherScalarFieldEnum = {
   date: 'date',
   amount: 'amount',
   description: 'description',
+  type: 'type',
   expenseCategoryId: 'expenseCategoryId',
+  studentId: 'studentId',
   paidTo: 'paidTo',
   approvedByUserId: 'approvedByUserId',
   branchId: 'branchId',
+  sessionId: 'sessionId',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -2106,6 +2109,31 @@ exports.Prisma.CounterScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StudentAccountScalarFieldEnum = {
+  id: 'id',
+  studentId: 'studentId',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  creditBalance: 'creditBalance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
+exports.Prisma.CreditTransactionScalarFieldEnum = {
+  id: 'id',
+  studentAccountId: 'studentAccountId',
+  type: 'type',
+  amount: 'amount',
+  description: 'description',
+  referenceId: 'referenceId',
+  branchId: 'branchId',
+  sessionId: 'sessionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+};
+
 exports.Prisma.AdmissionExamScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -2254,7 +2282,8 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   UNPAID: 'UNPAID',
   PARTIALLY_PAID: 'PARTIALLY_PAID',
   PAID: 'PAID',
-  OVERDUE: 'OVERDUE'
+  OVERDUE: 'OVERDUE',
+  VOIDED: 'VOIDED'
 };
 
 exports.QuestionType = exports.$Enums.QuestionType = {
@@ -2350,6 +2379,13 @@ exports.TranscriptStatus = exports.$Enums.TranscriptStatus = {
   APPROVED: 'APPROVED',
   LOCKED: 'LOCKED',
   REVOKED: 'REVOKED'
+};
+
+exports.VoucherType = exports.$Enums.VoucherType = {
+  EXPENSE: 'EXPENSE',
+  PAYMENT_ON_ACCOUNT: 'PAYMENT_ON_ACCOUNT',
+  REFUND: 'REFUND',
+  CREDIT_NOTE: 'CREDIT_NOTE'
 };
 
 exports.VoucherStatus = exports.$Enums.VoucherStatus = {
@@ -2596,6 +2632,8 @@ exports.Prisma.ModelName = {
   WebhookDeliveryLog: 'WebhookDeliveryLog',
   PaymentWebhookLog: 'PaymentWebhookLog',
   Counter: 'Counter',
+  StudentAccount: 'StudentAccount',
+  CreditTransaction: 'CreditTransaction',
   AdmissionExam: 'AdmissionExam',
   AdmissionExamScore: 'AdmissionExamScore',
   AdmissionInterview: 'AdmissionInterview'

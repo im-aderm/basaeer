@@ -33,12 +33,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { HostelService, Hostel, MaintenanceRequest } from "@/services/hostelService";
 import Link from "next/link";
 import { format } from "date-fns";
 
 export default function HostelOverviewPage() {
+    const { showSuccess, showError } = useNotification();
     const [hostels, setHostels] = useState<Hostel[]>([]);
     const [stats, setStats] = useState<any>(null);
     const [maintenanceRequests, setMaintenanceRequests] = useState<MaintenanceRequest[]>([]);
@@ -69,7 +70,7 @@ export default function HostelOverviewPage() {
             setMaintenanceRequests(maintenanceData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -83,13 +84,13 @@ export default function HostelOverviewPage() {
         e.preventDefault();
         try {
             await HostelService.createHostel(formData);
-            toast.success("Hostel registered successfully");
+            showSuccess("Hostel registered successfully");
             setIsCreateModalOpen(false);
             setFormData({ id: "", name: "", type: "COED", address: "" });
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Creation failed:", error);
-            toast.error("Failed to register hostel");
+            showError("Failed to register hostel");
         }
     };
 
@@ -97,35 +98,35 @@ export default function HostelOverviewPage() {
         e.preventDefault();
         try {
             await HostelService.updateHostel(formData.id, formData);
-            toast.success("Hostel updated successfully");
+            showSuccess("Hostel updated successfully");
             setIsEditModalOpen(false);
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Update failed:", error);
-            toast.error("Failed to update hostel");
+            showError("Failed to update hostel");
         }
     };
 
     const handleDeleteHostel = async () => {
         try {
             await HostelService.deleteHostel(formData.id);
-            toast.success("Hostel deleted successfully");
+            showSuccess("Hostel deleted successfully");
             setIsDeleteAlertOpen(false);
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Deletion failed:", error);
-            toast.error("Failed to delete hostel");
+            showError("Failed to delete hostel");
         }
     };
 
     const handleUpdateMaintenanceStatus = async (id: string, status: string) => {
         try {
             await HostelService.updateMaintenanceStatus(id, status);
-            toast.success(`Maintenance request marked as ${status.toLowerCase()}`);
+            showSuccess(`Maintenance request marked as ${status.toLowerCase()}`);
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to update status:", error);
-            toast.error("Failed to update status");
+            showError("Failed to update status");
         }
     };
 
@@ -515,6 +516,7 @@ export default function HostelOverviewPage() {
 }
 
 function LeaveManagementTab() {
+    const { showSuccess, showError } = useNotification();
     const [leaves, setLeaves] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -524,7 +526,7 @@ function LeaveManagementTab() {
             setLeaves(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error(error);
-            toast.error("Failed to fetch leaves");
+            showError("Failed to fetch leaves");
         } finally {
             setLoading(false);
         }
@@ -537,11 +539,11 @@ function LeaveManagementTab() {
     const handleUpdateStatus = async (id: string, status: string) => {
         try {
             await HostelService.updateLeaveStatus(id, status);
-            toast.success(`Leave request ${status.toLowerCase()}`);
+            showSuccess(`Leave request ${status.toLowerCase()}`);
             fetchLeaves();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error(error);
-            toast.error("Failed to update status");
+            showError("Failed to update status");
         }
     };
 

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Upload, Download, AlertCircle, CheckCircle2, XCircle, FileSpreadsheet, FileArchive, Info, Image as ImageIcon, FileText, Loader2, Clock } from 'lucide-react';
 import { OnlineAdmissionService } from '@/services/onlineAdmissionService';
 import api from '@/lib/api';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface ImportJobStatus {
     jobId: string;
@@ -29,6 +29,7 @@ interface ImportJobStatus {
 
 export default function AdmissionImportPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError, showInfo } = useNotification();
     const [file, setFile] = useState<File | null>(null);
     const [isUploading, setIsUploading] = useState(false);
     const [results, setResults] = useState<any>(null);
@@ -41,11 +42,11 @@ export default function AdmissionImportPage() {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
             if (!selectedFile.name.toLowerCase().endsWith('.zip')) {
-                toast.error('Only ZIP files are supported');
+                showError('Only ZIP files are supported');
                 return;
             }
             if (selectedFile.size > 50 * 1024 * 1024) {
-                toast.error('ZIP file must be under 50MB');
+                showError('ZIP file must be under 50MB');
                 return;
             }
             setFile(selectedFile);
@@ -64,19 +65,19 @@ export default function AdmissionImportPage() {
             if (data.jobId) {
                 setJobId(data.jobId);
                 setIsPolling(true);
-                toast.info('Import job started. Processing in background...');
+                showInfo('Import job started. Processing in background...');
             } else {
                 setResults(data);
                 if (data.success > 0) {
-                    toast.success(`Successfully imported ${data.success} admissions`);
+                    showSuccess(`Successfully imported ${data.success} admissions`);
                 }
                 if (data.failed > 0) {
-                    toast.error(`Failed to import ${data.failed} admissions`);
+                    showError(`Failed to import ${data.failed} admissions`);
                 }
             }
         } catch (error: any) {
             if (process.env.NODE_ENV === 'development') console.error('Import failed', error);
-            toast.error(error.response?.data?.message || 'Import failed');
+            showError(error.response?.data?.message || 'Import failed');
         } finally {
             setIsUploading(false);
         }
@@ -93,15 +94,15 @@ export default function AdmissionImportPage() {
                 setIsPolling(false);
                 setResults(status.result);
                 if (status.result && status.result.success > 0) {
-                    toast.success(`Import completed: ${status.result.success} admissions imported`);
+                    showSuccess(`Import completed: ${status.result.success} admissions imported`);
                 }
                 if (status.result && status.result.failed > 0) {
-                    toast.error(`Import had ${status.result.failed} failures`);
+                    showError(`Import had ${status.result.failed} failures`);
                 }
                 if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
             } else if (status.status === 'failed') {
                 setIsPolling(false);
-                toast.error(`Import failed: ${status.error || 'Unknown error'}`);
+                showError(`Import failed: ${status.error || 'Unknown error'}`);
                 if (pollIntervalRef.current) clearInterval(pollIntervalRef.current);
             }
         } catch (error) {
@@ -340,7 +341,7 @@ export default function AdmissionImportPage() {
                                     if (e.dataTransfer.files[0]) {
                                         const droppedFile = e.dataTransfer.files[0];
                                         if (!droppedFile.name.toLowerCase().endsWith('.zip')) {
-                                            toast.error('Only ZIP files are supported');
+                                            showError('Only ZIP files are supported');
                                             return;
                                         }
                                         setFile(droppedFile);

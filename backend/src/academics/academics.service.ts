@@ -20,7 +20,7 @@ export class AcademicsService {
   constructor(private prisma: PrismaService) {}
 
   // Assignments
-  async createAssignment(dto: CreateAssignmentDto) {
+  async createAssignment(dto: CreateAssignmentDto, context: TenantContext) {
     const teacher = await this.prisma.staff.findUnique({
       where: { id: dto.teacherId },
       include: { user: true },
@@ -37,11 +37,12 @@ export class AcademicsService {
         ...dto,
         dueDate: new Date(dto.dueDate),
         branchId: teacher.user.branchId,
+        sessionId: context.sessionId,
       },
     });
   }
 
-  async submitAssignment(dto: SubmitAssignmentDto) {
+  async submitAssignment(dto: SubmitAssignmentDto, context: TenantContext) {
     const student = await this.prisma.student.findUnique({
       where: { id: dto.studentId },
     });
@@ -63,6 +64,7 @@ export class AcademicsService {
         studentId: dto.studentId,
         contentUrl: dto.contentUrl,
         branchId: student.branchId,
+        sessionId: context.sessionId,
       },
     });
   }

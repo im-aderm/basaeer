@@ -84,20 +84,11 @@ ALTER TABLE "IdCard" ADD COLUMN "branchId" TEXT NOT NULL DEFAULT '';
 CREATE INDEX "IdCard_branchId_idx" ON "IdCard"("branchId");
 ALTER TABLE "IdCard" ADD CONSTRAINT "IdCard_branchId_fkey" FOREIGN KEY ("branchId") REFERENCES "Branch"("id") ON UPDATE CASCADE ON DELETE RESTRICT;
 
--- BookCopy
-ALTER TABLE "BookCopy" ADD COLUMN "branchId" TEXT NOT NULL DEFAULT '';
-CREATE INDEX "BookCopy_branchId_idx" ON "BookCopy"("branchId");
-ALTER TABLE "BookCopy" ADD CONSTRAINT "BookCopy_branchId_fkey" FOREIGN KEY ("branchId") REFERENCES "Branch"("id") ON UPDATE CASCADE ON DELETE RESTRICT;
+-- BookCopy - model removed from schema, skip
 
--- BookReservation
-ALTER TABLE "BookReservation" ADD COLUMN "branchId" TEXT NOT NULL DEFAULT '';
-CREATE INDEX "BookReservation_branchId_idx" ON "BookReservation"("branchId");
-ALTER TABLE "BookReservation" ADD CONSTRAINT "BookReservation_branchId_fkey" FOREIGN KEY ("branchId") REFERENCES "Branch"("id") ON UPDATE CASCADE ON DELETE RESTRICT;
+-- BookReservation - table not created yet, skip
 
--- HostelMaintenanceTicket
-ALTER TABLE "HostelMaintenanceTicket" ADD COLUMN "branchId" TEXT NOT NULL DEFAULT '';
-CREATE INDEX "HostelMaintenanceTicket_branchId_idx" ON "HostelMaintenanceTicket"("branchId");
-ALTER TABLE "HostelMaintenanceTicket" ADD CONSTRAINT "HostelMaintenanceTicket_branchId_fkey" FOREIGN KEY ("branchId") REFERENCES "Branch"("id") ON UPDATE CASCADE ON DELETE RESTRICT;
+-- HostelMaintenanceTicket - table not created yet, skip
 
 -- Remove temporary defaults from new branchId columns
 ALTER TABLE "SalaryTemplate" ALTER COLUMN "branchId" DROP DEFAULT;
@@ -113,9 +104,6 @@ ALTER TABLE "LibraryFine" ALTER COLUMN "branchId" DROP DEFAULT;
 ALTER TABLE "Submission" ALTER COLUMN "branchId" DROP DEFAULT;
 ALTER TABLE "ClassSchedule" ALTER COLUMN "branchId" DROP DEFAULT;
 ALTER TABLE "IdCard" ALTER COLUMN "branchId" DROP DEFAULT;
-ALTER TABLE "BookCopy" ALTER COLUMN "branchId" DROP DEFAULT;
-ALTER TABLE "BookReservation" ALTER COLUMN "branchId" DROP DEFAULT;
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "branchId" DROP DEFAULT;
 
 -- Phase 5.4: Convert String status fields to Enums
 -- Create new enum types
@@ -130,7 +118,6 @@ CREATE TYPE "SubmissionStatus" AS ENUM ('SUBMITTED', 'GRADED', 'LATE', 'MISSING'
 CREATE TYPE "IdCardStatusEnum" AS ENUM ('CREATED', 'PRINTED', 'ISSUED', 'EXPIRED');
 CREATE TYPE "MaintenanceStatus" AS ENUM ('OPEN', 'IN_PROGRESS', 'RESOLVED', 'CLOSED');
 CREATE TYPE "MaintenancePriority" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'CRITICAL');
-CREATE TYPE "BookCopyStatus" AS ENUM ('AVAILABLE', 'BORROWED', 'LOST', 'DAMAGED', 'RESERVED');
 CREATE TYPE "ReservationStatus" AS ENUM ('PENDING', 'FULFILLED', 'CANCELLED', 'EXPIRED');
 CREATE TYPE "HostelLeaveStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED', 'CANCELLED');
 CREATE TYPE "EventParticipationStatus" AS ENUM ('INTERESTED', 'GOING', 'NOT_GOING', 'REGISTERED', 'DECLINED');
@@ -193,15 +180,9 @@ ALTER TABLE "IdCard" ALTER COLUMN "status" DROP DEFAULT;
 ALTER TABLE "IdCard" ALTER COLUMN "status" TYPE "IdCardStatusEnum" USING ("status"::"IdCardStatusEnum");
 ALTER TABLE "IdCard" ALTER COLUMN "status" SET DEFAULT 'CREATED';
 
--- Alter BookCopy.status to BookCopyStatus
-ALTER TABLE "BookCopy" ALTER COLUMN "status" DROP DEFAULT;
-ALTER TABLE "BookCopy" ALTER COLUMN "status" TYPE "BookCopyStatus" USING ("status"::"BookCopyStatus");
-ALTER TABLE "BookCopy" ALTER COLUMN "status" SET DEFAULT 'AVAILABLE';
+-- Alter BookCopy.status - model removed from schema, skip
 
--- Alter BookReservation.status to ReservationStatus
-ALTER TABLE "BookReservation" ALTER COLUMN "status" DROP DEFAULT;
-ALTER TABLE "BookReservation" ALTER COLUMN "status" TYPE "ReservationStatus" USING ("status"::"ReservationStatus");
-ALTER TABLE "BookReservation" ALTER COLUMN "status" SET DEFAULT 'PENDING';
+-- Alter BookReservation.status - table not created yet, skip
 
 -- Alter HostelLeave.status to HostelLeaveStatus
 ALTER TABLE "HostelLeave" ALTER COLUMN "status" DROP DEFAULT;
@@ -218,15 +199,7 @@ ALTER TABLE "MaintenanceRequest" ALTER COLUMN "priority" DROP DEFAULT;
 ALTER TABLE "MaintenanceRequest" ALTER COLUMN "priority" TYPE "MaintenancePriority" USING ("priority"::"MaintenancePriority");
 ALTER TABLE "MaintenanceRequest" ALTER COLUMN "priority" SET DEFAULT 'MEDIUM';
 
--- Alter HostelMaintenanceTicket.status to MaintenanceStatus
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "status" DROP DEFAULT;
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "status" TYPE "MaintenanceStatus" USING ("status"::"MaintenanceStatus");
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "status" SET DEFAULT 'OPEN';
-
--- Alter HostelMaintenanceTicket.priority to MaintenancePriority
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "priority" DROP DEFAULT;
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "priority" TYPE "MaintenancePriority" USING ("priority"::"MaintenancePriority");
-ALTER TABLE "HostelMaintenanceTicket" ALTER COLUMN "priority" SET DEFAULT 'MEDIUM';
+-- Alter HostelMaintenanceTicket - table not created yet, skip
 
 -- Alter AlumniEventParticipant.status to EventParticipationStatus
 ALTER TABLE "AlumniEventParticipant" ALTER COLUMN "status" DROP DEFAULT;

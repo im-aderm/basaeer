@@ -12,10 +12,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Ruler, Plus, Search, MoreHorizontal } from 'lucide-react';
 import { InventoryService, InventoryUnit } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventoryUnitPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [units, setUnits] = useState<InventoryUnit[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -23,13 +25,14 @@ export default function InventoryUnitPage() {
     const [selectedUnit, setSelectedUnit] = useState<InventoryUnit | null>(null);
     const [newName, setNewName] = useState('');
     const [editName, setEditName] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchUnits = async () => {
         try {
-            const data = await InventoryService.getUnits(resolvedBranchId);
+            const data = await InventoryService.getUnits();
             setUnits(data);
         } catch (error) {
-            toast.error('Failed to load units');
+            showError('Failed to load units');
         } finally {
             setLoading(false);
         }
@@ -42,13 +45,13 @@ export default function InventoryUnitPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createUnit({ name: newName, branchId: resolvedBranchId });
-            toast.success('Unit of measure added');
+            await InventoryService.createUnit({ name: newName });
+            showSuccess('Unit of measure added');
             setIsAddDialogOpen(false);
             setNewName('');
             fetchUnits();
         } catch (error) {
-            toast.error('Failed to add unit');
+            showError('Failed to add unit');
         }
     };
 
@@ -57,23 +60,28 @@ export default function InventoryUnitPage() {
         if (!selectedUnit) return;
         try {
             await InventoryService.updateUnit(selectedUnit.id, { name: editName });
-            toast.success('Unit updated');
+            showSuccess('Unit updated');
             setIsEditDialogOpen(false);
             fetchUnits();
         } catch (error) {
-            toast.error('Failed to update unit');
+            showError('Failed to update unit');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this unit?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await InventoryService.deleteUnit(id);
-            toast.success('Unit deleted');
+            await InventoryService.deleteUnit(confirmDelete);
+            showSuccess('Unit deleted');
             fetchUnits();
         } catch (error) {
-            toast.error('Failed to delete unit');
+            showError('Failed to delete unit');
         }
+        setConfirmDelete(null);
     };
 
     return (
@@ -187,6 +195,15 @@ export default function InventoryUnitPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Unit"
+                message="Are you sure you want to delete this unit? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );

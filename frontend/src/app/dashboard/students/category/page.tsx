@@ -11,13 +11,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Trash2, Tag } from 'lucide-react';
 import { StudentService, StudentCategory } from '@/services/studentService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function StudentCategoryPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [categories, setCategories] = useState<StudentCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -34,7 +38,7 @@ export default function StudentCategoryPage() {
             setCategories(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch categories', error);
-            toast.error('Failed to load student categories');
+            showError('Failed to load student categories');
         } finally {
             setLoading(false);
         }
@@ -60,23 +64,30 @@ export default function StudentCategoryPage() {
             setIsDialogOpen(false);
             fetchCategories();
             setFormData({ name: '', description: '' });
-            toast.success('Category created successfully');
+            showSuccess('Category created successfully');
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to create category', error);
-            toast.error('Failed to create student category');
+            showError('Failed to create student category');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (confirm('Are you sure you want to delete this category?')) {
-            try {
-                await StudentService.deleteCategory(id);
-                fetchCategories();
-                toast.success('Category deleted successfully');
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error('Failed to delete category', error);
-                toast.error('Failed to delete student category');
-            }
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
+        try {
+            await StudentService.deleteCategory(confirmDeleteId);
+            fetchCategories();
+            showSuccess('Category deleted successfully');
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error('Failed to delete category', error);
+            showError('Failed to delete student category');
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -181,6 +192,15 @@ export default function StudentCategoryPage() {
                     </div>
                 </CardContent>
             </Card>
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Category"
+                message="Are you sure you want to delete this category? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
             </div>
         </RequireBranch>
     );

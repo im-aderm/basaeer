@@ -18,7 +18,7 @@ import {
     Loader2,
     RefreshCw
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface CronJob {
     id: string;
@@ -73,6 +73,7 @@ const DEFAULT_JOBS: CronJob[] = [
 ];
 
 export default function CronJobsPage() {
+    const { showSuccess, showError, showInfo } = useNotification();
     const [jobs, setJobs] = useState<CronJob[]>(DEFAULT_JOBS);
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -107,16 +108,16 @@ export default function CronJobsPage() {
     };
 
     const handleRunNow = async (id: string) => {
-        toast.info(`Triggering job: ${id}...`);
+        showInfo(`Triggering job: ${id}...`);
         try {
             const response = await fetch(`/api/cron-jobs/${id}/run`, { method: 'POST' });
             if (response.ok) {
-                toast.success('Job started successfully');
+                showSuccess('Job started successfully');
             } else {
                 throw new Error('Failed to run job');
             }
         } catch (error) {
-            toast.error('Failed to trigger job');
+            showError('Failed to trigger job');
         }
     };
 
@@ -130,12 +131,12 @@ export default function CronJobsPage() {
             });
             
             if (response.ok) {
-                toast.success('Cron jobs updated successfully');
+                showSuccess('Cron jobs updated successfully');
             } else {
                 throw new Error('Failed to save');
             }
         } catch (error) {
-            toast.error('Failed to save cron configurations');
+            showError('Failed to save cron configurations');
         } finally {
             setIsSaving(false);
         }

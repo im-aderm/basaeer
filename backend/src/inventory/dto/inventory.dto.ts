@@ -72,6 +72,12 @@ export class CreateInventoryProductDto {
   @IsOptional()
   @IsNumber()
   sellingPrice?: number;
+  @IsOptional()
+  @IsNumber()
+  initialStock?: number;
+  @IsOptional()
+  @IsNumber()
+  lowStockThreshold?: number;
 }
 
 export class CreateInventoryPurchaseDto {
@@ -152,6 +158,9 @@ export class UpdateInventoryProductDto {
   @IsOptional()
   @IsNumber()
   sellingPrice?: number;
+  @IsOptional()
+  @IsNumber()
+  lowStockThreshold?: number;
 }
 
 export class UpdateInventoryCategoryDto {

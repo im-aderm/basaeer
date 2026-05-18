@@ -10,14 +10,18 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import api from "@/lib/api";
 
 export default function ExamTypesPage() {
+    const { showSuccess, showError } = useNotification();
     const [examTypes, setExamTypes] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingType, setEditingType] = useState<any>(null);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -33,7 +37,7 @@ export default function ExamTypesPage() {
             const response = await api.get("/exams/types");
             setExamTypes(response.data);
         } catch (error) {
-            toast.error("Failed to load exam types");
+            showError("Failed to load exam types");
         } finally {
             setLoading(false);
         }
@@ -44,17 +48,17 @@ export default function ExamTypesPage() {
         try {
             if (editingType) {
                 await api.patch(`/exams/types/${editingType.id}`, formData);
-                toast.success("Exam type updated successfully!");
+                showSuccess("Exam type updated successfully!");
             } else {
                 await api.post("/exams/types", formData);
-                toast.success("Exam type created successfully!");
+                showSuccess("Exam type created successfully!");
             }
             setIsDialogOpen(false);
             setEditingType(null);
             setFormData({ name: "", description: "", weightage: 0 });
             fetchExamTypes();
         } catch (error) {
-            toast.error("Failed to save exam type");
+            showError("Failed to save exam type");
         }
     };
 
@@ -69,14 +73,21 @@ export default function ExamTypesPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this exam type?")) return;
+        setConfirmDeleteId(id);
+    };
 
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
         try {
-            await api.delete(`/exams/types/${id}`);
-            toast.success("Exam type deleted successfully!");
+            await api.delete(`/exams/types/${confirmDeleteId}`);
+            showSuccess("Exam type deleted successfully!");
             fetchExamTypes();
         } catch (error) {
-            toast.error("Failed to delete exam type");
+            showError("Failed to delete exam type");
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -332,6 +343,15 @@ export default function ExamTypesPage() {
                     </div>
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Exam Type"
+                message="Are you sure you want to delete this exam type? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
         </div>
         </RequireBranch>
     );

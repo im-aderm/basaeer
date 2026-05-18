@@ -11,12 +11,14 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Package, Plus, Search, Pencil, Trash2, Warehouse, Layers, Ruler } from 'lucide-react';
+import { Package, Plus, Search, Pencil, Trash2, Warehouse, Layers, Ruler, AlertTriangle } from 'lucide-react';
 import { InventoryService, InventoryProduct } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventoryProductPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +26,7 @@ export default function InventoryProductPage() {
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<InventoryProduct | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const [categories, setCategories] = useState<any[]>([]);
     const [stores, setStores] = useState<any[]>([]);
@@ -31,15 +34,15 @@ export default function InventoryProductPage() {
 
     const [formData, setFormData] = useState({
         name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '',
-        costPrice: 0, sellingPrice: 0
+        costPrice: 0, sellingPrice: 0, initialStock: 0, lowStockThreshold: 5
     });
 
     const fetchProducts = async () => {
         try {
-            const data = await InventoryService.getProducts(resolvedBranchId);
+            const data = await InventoryService.getProducts();
             setProducts(data);
         } catch (error) {
-            toast.error('Failed to load products');
+            showError('Failed to load products');
         } finally {
             setLoading(false);
         }
@@ -48,15 +51,15 @@ export default function InventoryProductPage() {
     const fetchDependencies = async () => {
         try {
             const [c, s, u] = await Promise.all([
-                InventoryService.getCategories(resolvedBranchId),
-                InventoryService.getStores(resolvedBranchId),
-                InventoryService.getUnits(resolvedBranchId)
+                InventoryService.getCategories(),
+                InventoryService.getStores(),
+                InventoryService.getUnits()
             ]);
             setCategories(c);
             setStores(s);
             setUnits(u);
         } catch (error) {
-            toast.error('Failed to load inventory dependencies');
+            showError('Failed to load inventory dependencies');
         }
     };
 
@@ -68,12 +71,12 @@ export default function InventoryProductPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createProduct({ ...formData, branchId: resolvedBranchId });
-            toast.success('Product added successfully');
+            await InventoryService.createProduct({ ...formData });
+            showSuccess('Product added successfully');
             setIsAddDialogOpen(false);
-            setFormData({ name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '', costPrice: 0, sellingPrice: 0 });
+            setFormData({ name: '', categoryId: '', storeId: '', unitId: '', code: '', description: '', costPrice: 0, sellingPrice: 0, initialStock: 0, lowStockThreshold: 5 });
             fetchProducts();
-        } catch (error) { toast.error('Failed to add product'); }
+        } catch (error) { showError('Failed to add product'); }
     };
 
     const handleUpdate = async (e: React.FormEvent) => {
@@ -81,19 +84,24 @@ export default function InventoryProductPage() {
         if (!selectedProduct) return;
         try {
             await InventoryService.updateProduct(selectedProduct.id, formData);
-            toast.success('Product updated successfully');
+            showSuccess('Product updated successfully');
             setIsEditDialogOpen(false);
             fetchProducts();
-        } catch (error) { toast.error('Failed to update product'); }
+        } catch (error) { showError('Failed to update product'); }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this product?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await InventoryService.deleteProduct(id);
-            toast.success('Product deleted');
+            await InventoryService.deleteProduct(confirmDelete);
+            showSuccess('Product deleted');
             fetchProducts();
-        } catch (error) { toast.error('Failed to delete product'); }
+        } catch (error) { showError('Failed to delete product'); }
+        setConfirmDelete(null);
     };
 
     return (
@@ -167,6 +175,16 @@ export default function InventoryProductPage() {
                                     </Select>
                                 </div>
                             </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Initial Stock</Label>
+                                    <Input type="number" min={0} className="h-12 rounded-xl font-bold" value={formData.initialStock} onChange={(e) => setFormData({ ...formData, initialStock: parseInt(e.target.value) || 0 })} />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1 flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Low Stock Alert Level</Label>
+                                    <Input type="number" min={0} className="h-12 rounded-xl font-bold" value={formData.lowStockThreshold} onChange={(e) => setFormData({ ...formData, lowStockThreshold: parseInt(e.target.value) || 0 })} />
+                                </div>
+                            </div>
                             <div className="space-y-2">
                                 <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Description</Label>
                                 <Input className="h-12 rounded-xl font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
@@ -224,7 +242,7 @@ export default function InventoryProductPage() {
                                     </TableCell>
                                     <TableCell className="px-8 text-center">
                                         <div className="inline-flex flex-col items-center">
-                                            <span className={`text-h3 font-semibold ${p.stock <= 5 ? 'text-destructive' : 'text-primary'}`}>{p.stock}</span>
+                                            <span className={`text-h3 font-semibold ${p.stock <= (p.lowStockThreshold ?? 5) ? 'text-destructive' : 'text-primary'}`}>{p.stock}</span>
                                             <span className="text-[10px] font-semibold uppercase opacity-30">{p.unit?.name}</span>
                                         </div>
                                     </TableCell>
@@ -242,10 +260,11 @@ export default function InventoryProductPage() {
                                                         storeId: p.storeId || '',
                                                         unitId: p.unitId,
                                                         code: p.code || '',
-
                                                         description: p.description || '',
                                                         costPrice: p.costPrice || 0,
-                                                        sellingPrice: p.sellingPrice || 0
+                                                        sellingPrice: p.sellingPrice || 0,
+                                                        initialStock: p.stock,
+                                                        lowStockThreshold: p.lowStockThreshold ?? 5
                                                     });
                                                     setIsEditDialogOpen(true);
                                                 }}
@@ -319,6 +338,10 @@ export default function InventoryProductPage() {
                             </div>
                         </div>
                         <div className="space-y-2">
+                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1 flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Low Stock Alert Level</Label>
+                            <Input type="number" min={0} className="h-12 rounded-xl font-bold" value={formData.lowStockThreshold} onChange={(e) => setFormData({ ...formData, lowStockThreshold: parseInt(e.target.value) || 0 })} />
+                        </div>
+                        <div className="space-y-2">
                             <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Description</Label>
                             <Input className="h-12 rounded-xl font-bold" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
                         </div>
@@ -326,6 +349,15 @@ export default function InventoryProductPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Product"
+                message="Are you sure you want to delete this product? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );

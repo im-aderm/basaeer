@@ -13,11 +13,12 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingBag, Plus, Search, CreditCard, ArrowLeft, TrendingUp } from 'lucide-react';
 import { InventoryService, InventoryProduct } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import Link from 'next/link';
 
 export default function InventorySalesPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [sales, setSales] = useState<any[]>([]);
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
@@ -31,13 +32,13 @@ export default function InventorySalesPage() {
     const fetchData = async () => {
         try {
             const [s, p] = await Promise.all([
-                InventoryService.getSales(resolvedBranchId),
-                InventoryService.getProducts(resolvedBranchId)
+                InventoryService.getSales(),
+                InventoryService.getProducts()
             ]);
             setSales(s);
             setProducts(p);
         } catch (error) {
-            toast.error('Failed to load sales data');
+            showError('Failed to load sales data');
         } finally {
             setLoading(false);
         }
@@ -52,16 +53,15 @@ export default function InventorySalesPage() {
         try {
             await InventoryService.createSale({
                 ...saleForm,
-                branchId: resolvedBranchId,
                 quantity: Number(saleForm.quantity),
                 unitPrice: Number(saleForm.unitPrice)
             });
-            toast.success('Sale recorded');
+            showSuccess('Sale recorded');
             setIsSaleDialogOpen(false);
             setSaleForm({ productId: '', quantity: 0, unitPrice: 0, customerName: '', invoiceNo: '' });
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to record sale');
+            showError(error.response?.data?.message || 'Failed to record sale');
         }
     };
 

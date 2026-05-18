@@ -73,8 +73,13 @@ export class InventoryService {
 
   // Products
   createProduct(dto: CreateInventoryProductDto) {
+    const { initialStock, ...rest } = dto;
     return this.prisma.inventoryProduct.create({
-      data: { ...dto, branchId: dto.branchId! },
+      data: {
+        ...rest,
+        branchId: rest.branchId!,
+        stock: initialStock ?? 0,
+      },
     });
   }
 
@@ -98,7 +103,7 @@ export class InventoryService {
 
       // Update product stock
       await tx.inventoryProduct.update({
-        where: { id: dto.productId },
+        where: { id: dto.productId, branchId: dto.branchId },
         data: { stock: { increment: dto.quantity } },
       });
 
@@ -110,7 +115,7 @@ export class InventoryService {
   async issueItem(dto: IssueItemDto) {
     return this.prisma.$transaction(async (tx) => {
       const product = await tx.inventoryProduct.findUnique({
-        where: { id: dto.productId },
+        where: { id: dto.productId, branchId: dto.branchId },
       });
 
       if (!product || product.stock < dto.quantity) {
@@ -129,7 +134,7 @@ export class InventoryService {
 
       // Update product stock
       await tx.inventoryProduct.update({
-        where: { id: dto.productId },
+        where: { id: dto.productId, branchId: dto.branchId },
         data: { stock: { decrement: dto.quantity } },
       });
 
@@ -163,7 +168,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Category not found');
-    return this.prisma.inventoryCategory.update({ where: { id }, data: dto });
+    return this.prisma.inventoryCategory.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteCategory(id: string, context: TenantContext) {
@@ -171,7 +176,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Category not found');
-    return this.prisma.inventoryCategory.delete({ where: { id } });
+    return this.prisma.inventoryCategory.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   async updateStore(id: string, dto: UpdateInventoryStoreDto, context: TenantContext) {
@@ -179,7 +184,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Store not found');
-    return this.prisma.inventoryStore.update({ where: { id }, data: dto });
+    return this.prisma.inventoryStore.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteStore(id: string, context: TenantContext) {
@@ -187,7 +192,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Store not found');
-    return this.prisma.inventoryStore.delete({ where: { id } });
+    return this.prisma.inventoryStore.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   async updateSupplier(id: string, dto: UpdateInventorySupplierDto, context: TenantContext) {
@@ -195,7 +200,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Supplier not found');
-    return this.prisma.inventorySupplier.update({ where: { id }, data: dto });
+    return this.prisma.inventorySupplier.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteSupplier(id: string, context: TenantContext) {
@@ -203,7 +208,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Supplier not found');
-    return this.prisma.inventorySupplier.delete({ where: { id } });
+    return this.prisma.inventorySupplier.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   async updateUnit(id: string, dto: UpdateInventoryUnitDto, context: TenantContext) {
@@ -211,7 +216,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Unit not found');
-    return this.prisma.inventoryUnit.update({ where: { id }, data: dto });
+    return this.prisma.inventoryUnit.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteUnit(id: string, context: TenantContext) {
@@ -219,7 +224,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Unit not found');
-    return this.prisma.inventoryUnit.delete({ where: { id } });
+    return this.prisma.inventoryUnit.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   async updateProduct(id: string, dto: UpdateInventoryProductDto, context: TenantContext) {
@@ -227,7 +232,7 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Product not found');
-    return this.prisma.inventoryProduct.update({ where: { id }, data: dto });
+    return this.prisma.inventoryProduct.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteProduct(id: string, context: TenantContext) {
@@ -235,14 +240,14 @@ export class InventoryService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Product not found');
-    return this.prisma.inventoryProduct.delete({ where: { id } });
+    return this.prisma.inventoryProduct.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   // Sales
   async createSale(dto: CreateInventorySaleDto) {
     return this.prisma.$transaction(async (tx) => {
       const product = await tx.inventoryProduct.findUnique({
-        where: { id: dto.productId },
+        where: { id: dto.productId, branchId: dto.branchId },
       });
       if (!product || product.stock < dto.quantity) {
         throw new BadRequestException('Insufficient stock');
@@ -257,7 +262,7 @@ export class InventoryService {
       });
 
       await tx.inventoryProduct.update({
-        where: { id: dto.productId },
+        where: { id: dto.productId, branchId: dto.branchId },
         data: { stock: { decrement: dto.quantity } },
       });
 
@@ -285,7 +290,7 @@ export class InventoryService {
       }
 
       const updatedIssue = await tx.inventoryIssue.update({
-        where: { id: issueId },
+        where: { id: issueId, branchId: context.branchId || undefined },
         data: {
           status: 'RETURNED',
           returnDate: new Date(),
@@ -293,7 +298,7 @@ export class InventoryService {
       });
 
       await tx.inventoryProduct.update({
-        where: { id: issue.productId },
+        where: { id: issue.productId, branchId: context.branchId || undefined },
         data: { stock: { increment: issue.quantity } },
       });
 

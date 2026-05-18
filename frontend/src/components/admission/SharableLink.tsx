@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Copy, Check, Share2, ExternalLink } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 interface SharableLinkProps {
     branchId: string;
@@ -10,6 +10,7 @@ interface SharableLinkProps {
 }
 
 export default function SharableLink({ branchId, label = "Online Admission Link" }: SharableLinkProps) {
+    const { showSuccess, showError } = useNotification();
     const [copied, setCopied] = useState(false);
 
     const getPublicUrl = () => {
@@ -25,7 +26,7 @@ export default function SharableLink({ branchId, label = "Online Admission Link"
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 await navigator.clipboard.writeText(url);
                 setCopied(true);
-                toast.success("Link copied to clipboard!");
+                showSuccess("Link copied to clipboard!");
             } else {
                 throw new Error("Clipboard API not available");
             }
@@ -40,10 +41,10 @@ export default function SharableLink({ branchId, label = "Online Admission Link"
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
                 setCopied(true);
-                toast.success("Link copied to clipboard!");
+                showSuccess("Link copied to clipboard!");
             } catch (fallbackErr) {
                 if (process.env.NODE_ENV === 'development') console.error("Copy failed:", fallbackErr);
-                toast.error("Could not copy link. Please copy it manually.");
+                showError("Could not copy link. Please copy it manually.");
             }
         }
 

@@ -11,16 +11,19 @@ import { Label } from "@/components/ui/label";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { LibraryService, Book as BookType } from "@/services/libraryService";
 import api from "@/lib/api";
 
 export default function LibraryBooksPage() {
+    const { showSuccess, showError } = useNotification();
     const [books, setBooks] = useState<BookType[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [expandedId, setExpandedId] = useState<string | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<{ id: string; title: string } | null>(null);
     const [form, setForm] = useState({
         title: "",
         author: "",
@@ -36,7 +39,7 @@ export default function LibraryBooksPage() {
             const data = await LibraryService.getAllBooks({ search });
             setBooks(Array.isArray(data) ? data : data.data);
         } catch {
-            toast.error("Failed to load books");
+            showError("Failed to load books");
         } finally {
             setLoading(false);
         }
@@ -60,21 +63,27 @@ export default function LibraryBooksPage() {
             });
             setIsAddOpen(false);
             setForm({ title: "", author: "", isbn: "", category: "", quantity: 1, description: "" });
-            toast.success("Book added successfully");
+            showSuccess("Book added successfully");
             fetchBooks();
         } catch {
-            toast.error("Failed to add book");
+            showError("Failed to add book");
         }
     };
 
     const handleDelete = async (id: string, title: string) => {
-        if (!confirm(`Delete "${title}"? This action cannot be undone.`)) return;
+        setConfirmDelete({ id, title });
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await api.delete(`/library/books/${id}`);
-            toast.success("Book deleted successfully");
+            await api.delete(`/library/books/${confirmDelete.id}`);
+            showSuccess("Book deleted successfully");
             fetchBooks();
         } catch {
-            toast.error("Failed to delete book");
+            showError("Failed to delete book");
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -301,6 +310,15 @@ export default function LibraryBooksPage() {
                 </CardContent>
             </Card>
         </div>
+
+        <ConfirmDialog
+            isOpen={!!confirmDelete}
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setConfirmDelete(null)}
+            title="Delete Book"
+            message={`Delete "${confirmDelete?.title}"? This action cannot be undone.`}
+            confirmLabel="Delete"
+        />
     </RequireBranch>
     );
 }

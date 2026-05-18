@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
 import { StudentService } from '@/services/studentService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import Link from 'next/link';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -31,6 +31,8 @@ export default function ParentDetailsPage() {
     const params = useParams();
     const router = useRouter();
     const id = params.id as string;
+
+    const { showSuccess, showError } = useNotification();
 
     const [parent, setParent] = useState<any>(null);
     const [allStudents, setAllStudents] = useState<any[]>([]);
@@ -50,7 +52,7 @@ export default function ParentDetailsPage() {
             const linkedIds = new Set(parentData.parentOf.map((s: any) => s.id));
             setAllStudents(studentsData.filter((s: any) => !linkedIds.has(s.id)));
         } catch (error) {
-            toast.error('Failed to fetch data');
+            showError('Failed to fetch data');
         } finally {
             setLoading(false);
         }
@@ -65,11 +67,11 @@ export default function ParentDetailsPage() {
         try {
             setLinking(true);
             await StakeholderService.linkStudent(id, selectedStudent);
-            toast.success('Student linked successfully');
+            showSuccess('Student linked successfully');
             setSelectedStudent('');
             fetchData();
         } catch (error) {
-            toast.error('Failed to link student');
+            showError('Failed to link student');
         } finally {
             setLinking(false);
         }
@@ -78,10 +80,10 @@ export default function ParentDetailsPage() {
     const handleUnlinkStudent = async (studentId: string) => {
         try {
             await StakeholderService.unlinkStudent(studentId);
-            toast.success('Student unlinked');
+            showSuccess('Student unlinked');
             fetchData();
         } catch (error) {
-            toast.error('Failed to unlink student');
+            showError('Failed to unlink student');
         }
     };
 

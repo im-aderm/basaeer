@@ -22,7 +22,7 @@ import {
     PhoneCall,
     Loader2
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Module {
     id: string;
@@ -46,6 +46,7 @@ const DEFAULT_MODULES: Module[] = [
 ];
 
 export default function ModulesSettingsPage() {
+    const { showSuccess, showError } = useNotification();
     const [modules, setModules] = useState<Module[]>(DEFAULT_MODULES);
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
@@ -89,12 +90,12 @@ export default function ModulesSettingsPage() {
             });
             
             if (response.ok) {
-                toast.success('Module configuration saved successfully');
+                showSuccess('Module configuration saved successfully');
             } else {
                 throw new Error('Failed to save');
             }
         } catch (error) {
-            toast.error('Failed to save module configuration');
+            showError('Failed to save module configuration');
         } finally {
             setIsSaving(false);
         }

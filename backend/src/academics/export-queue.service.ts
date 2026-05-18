@@ -13,7 +13,7 @@ export class ExportQueueService {
     @InjectQueue('academic-exports') private readonly exportQueue: Queue,
   ) {}
 
-  async startExport(dto: StartExportDto, userId: string, branchId: string) {
+  async startExport(dto: StartExportDto, userId: string, branchId: string, sessionId?: string) {
     const academicExport = await this.prisma.academicExport.create({
       data: {
         type: dto.type,
@@ -21,6 +21,7 @@ export class ExportQueueService {
         parameters: dto.parameters || {},
         userId,
         branchId,
+        sessionId: sessionId,
       },
     });
 

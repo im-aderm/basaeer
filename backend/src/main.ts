@@ -11,6 +11,7 @@ import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
+import { TenantContextInterceptor } from './common/interceptors/tenant-context.interceptor';
 import { PrismaService } from './prisma/prisma.service';
 import { WINSTON_MODULE_NEST_PROVIDER, WinstonModule, utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import * as winston from 'winston';
@@ -60,6 +61,7 @@ async function bootstrap() {
 
   // ── Logging ─────────────────────────────────────────────────────────────────
   app.useGlobalInterceptors(
+    new TenantContextInterceptor(),
     new LoggingInterceptor(),
     new ResponseTransformInterceptor(),
   );

@@ -13,15 +13,18 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowDownRight, Plus, Search, User, RotateCcw, Calendar, Package, ArrowUpRight } from 'lucide-react';
 import { InventoryService, InventoryIssue, InventoryProduct } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventoryIssuePage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [issues, setIssues] = useState<InventoryIssue[]>([]);
     const [products, setProducts] = useState<InventoryProduct[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+    const [confirmReturn, setConfirmReturn] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         productId: '', issuedTo: '', quantity: 0, studentId: '', staffId: '', note: ''
@@ -30,13 +33,13 @@ export default function InventoryIssuePage() {
     const fetchData = async () => {
         try {
             const [iss, prod] = await Promise.all([
-                InventoryService.getIssues(resolvedBranchId),
-                InventoryService.getProducts(resolvedBranchId)
+                InventoryService.getIssues(),
+                InventoryService.getProducts()
             ]);
             setIssues(iss);
             setProducts(prod);
         } catch (error) {
-            toast.error('Failed to load issuance data');
+            showError('Failed to load issuance data');
         } finally {
             setLoading(false);
         }
@@ -55,24 +58,28 @@ export default function InventoryIssuePage() {
                 quantity: Number(formData.quantity),
                 studentId: formData.studentId || undefined,
                 staffId: formData.staffId || undefined,
-                branchId: resolvedBranchId,
             });
-            toast.success('Items issued and stock updated');
+            showSuccess('Items issued and stock updated');
             setIsAddDialogOpen(false);
             setFormData({ productId: '', issuedTo: '', quantity: 0, studentId: '', staffId: '', note: '' });
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to issue items');
+            showError(error.response?.data?.message || 'Failed to issue items');
         }
     };
 
     const handleReturn = async (id: string) => {
-        if (!confirm('Mark these items as returned to stock?')) return;
+        setConfirmReturn(id);
+    };
+
+    const handleConfirmReturn = async () => {
+        if (!confirmReturn) return;
         try {
-            await InventoryService.returnItem(id);
-            toast.success('Items returned to stock');
+            await InventoryService.returnItem(confirmReturn);
+            showSuccess('Items returned to stock');
             fetchData();
-        } catch (error) { toast.error('Failed to process return'); }
+        } catch (error) { showError('Failed to process return'); }
+        setConfirmReturn(null);
     };
 
     return (
@@ -199,6 +206,15 @@ export default function InventoryIssuePage() {
                     </Table>
                 </CardContent>
             </Card>
+
+            <ConfirmDialog
+                isOpen={!!confirmReturn}
+                onConfirm={handleConfirmReturn}
+                onCancel={() => setConfirmReturn(null)}
+                title="Return Items"
+                message="Mark these items as returned to stock?"
+                confirmLabel="Return"
+            />
         </div>
           </RequireBranch>
   );

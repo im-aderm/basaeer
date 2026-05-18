@@ -9,11 +9,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Plus, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { financeService } from '@/services/financeService';
 
 export default function FeeSetupPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -25,7 +26,7 @@ export default function FeeSetupPage() {
             setCategories(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch fee categories', error);
-            toast.error('Failed to load fee categories');
+            showError('Failed to load fee categories');
         } finally {
             setLoading(false);
         }
@@ -40,10 +41,10 @@ export default function FeeSetupPage() {
             await financeService.createFeeCategory({ ...newCategory, branchId: resolvedBranchId || '' });
             setNewCategory({ name: '', description: '' });
             fetchCategories();
-            toast.success('Fee category added');
+            showSuccess('Fee category added');
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to add category', error);
-            toast.error('Failed to add fee category');
+            showError('Failed to add fee category');
         } finally {
             setSubmitting(false);
         }

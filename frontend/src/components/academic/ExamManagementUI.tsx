@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, GraduationCap, Calendar } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Exam {
   id: string;
@@ -23,6 +23,7 @@ interface Exam {
 }
 
 export function ExamManagementUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [items, setItems] = useState<Exam[]>([]);
@@ -33,7 +34,7 @@ export function ExamManagementUI() {
     try {
       setItems(await AcademicService.listExams());
     } catch {
-      toast.error('Unable to load exams');
+      showError('Unable to load exams');
     } finally {
       setLoading(false);
     }
@@ -46,11 +47,11 @@ export function ExamManagementUI() {
     setBusy(true);
     try {
       await AcademicService.createExam(form);
-      toast.success('Exam created');
+      showSuccess('Exam created');
       setForm({ title: '', sessionId: '', term: 'FIRST', classId: '', sectionId: '', startsAt: '' });
       await load();
     } catch {
-      toast.error('Failed to create exam');
+      showError('Failed to create exam');
     } finally {
       setBusy(false);
     }

@@ -9,12 +9,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, BarChart3, Users, BookOpen, TrendingUp, AlertCircle } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 
 const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6'];
 
 export function AnalyticsUI() {
+  const { showError } = useNotification();
   const [loading, setLoading] = useState(false);
   const [analytics, setAnalytics] = useState<any>(null);
   const [form, setForm] = useState({ sessionId: '', term: 'FIRST' });
@@ -26,7 +27,7 @@ export function AnalyticsUI() {
       const data = await AcademicService.analytics({ sessionId: form.sessionId, term: form.term });
       setAnalytics(data);
     } catch {
-      toast.error('Unable to load analytics');
+      showError('Unable to load analytics');
     } finally {
       setLoading(false);
     }

@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import { format } from "date-fns";
 
 export default function QRSubmissionsPage() {
+    const { showError } = useNotification();
     const [loading, setLoading] = useState(true);
     const [scans, setScans] = useState<any[]>([]);
 
@@ -25,7 +26,7 @@ export default function QRSubmissionsPage() {
             const res = await api.get('/access-control/logs');
             setScans(res.data);
         } catch (error) {
-            toast.error("Failed to load scan history");
+            showError("Failed to load scan history");
         } finally {
             setLoading(false);
         }

@@ -17,11 +17,14 @@ import {
     Loader2
 } from 'lucide-react';
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function ReportTemplatesPage() {
+    const { showSuccess, showError } = useNotification();
     const [templates, setTemplates] = useState<ReportTemplate[]>([]);
     const [loading, setLoading] = useState(true);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
     useEffect(() => {
         loadTemplates();
@@ -34,20 +37,26 @@ export default function ReportTemplatesPage() {
             setTemplates(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to load templates:', error);
-            toast.error('Failed to load report templates');
+            showError('Failed to load report templates');
         } finally {
             setLoading(false);
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to deactivate this template?')) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
         try {
-            await reportTemplateService.deleteTemplate(id);
-            toast.success('Template deactivated');
+            await reportTemplateService.deleteTemplate(confirmDeleteId);
+            showSuccess('Template deactivated');
             loadTemplates();
         } catch (error) {
-            toast.error('Failed to delete template');
+            showError('Failed to delete template');
+        } finally {
+            setConfirmDeleteId(null);
         }
     };
 
@@ -142,6 +151,15 @@ export default function ReportTemplatesPage() {
                 </div>
             )}
         </div>
+
+        <ConfirmDialog
+            isOpen={!!confirmDeleteId}
+            onConfirm={handleConfirmDelete}
+            onCancel={() => setConfirmDeleteId(null)}
+            title="Deactivate Template"
+            message="Are you sure you want to deactivate this template?"
+            confirmLabel="Deactivate"
+        />
         </RequireBranch>
     );
 }

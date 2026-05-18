@@ -21,7 +21,8 @@ import {
     CheckCircle2, AlertCircle, RefreshCcw, MoreVertical, Link
 } from 'lucide-react';
 import { LiveClassesService, LiveClassSession, GoogleMeetConfig } from '@/services/liveClassesService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import api from '@/lib/api';
 import { format } from 'date-fns';
 import { Suspense } from 'react';
@@ -38,6 +39,7 @@ interface SimpleSubject {
 
 function LiveClassesContent() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -48,6 +50,7 @@ function LiveClassesContent() {
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isConfigOpen, setIsConfigOpen] = useState(false);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
     // Form state
     const [formData, setFormData] = useState({
@@ -67,11 +70,11 @@ function LiveClassesContent() {
     useEffect(() => {
         const authStatus = searchParams.get('auth');
         if (authStatus === 'success') {
-            toast.success('Successfully authorized Google Meet');
+            showSuccess('Successfully authorized Google Meet');
             router.replace('/dashboard/live-classes');
             fetchInitialData();
         } else if (authStatus === 'error') {
-            toast.error(searchParams.get('message') || 'Failed to authorize Google Meet');
+            showError(searchParams.get('message') || 'Failed to authorize Google Meet');
             router.replace('/dashboard/live-classes');
         }
     }, [searchParams]);
@@ -104,7 +107,7 @@ function LiveClassesContent() {
 
     const handleCreateSession = async () => {
         if (!formData.title || !formData.classId || !formData.subjectId || !formData.scheduledStart) {
-            toast.error('Please fill all required fields');
+            showError('Please fill all required fields');
             return;
         }
 
@@ -114,12 +117,12 @@ function LiveClassesContent() {
                 ...formData,
                 branchId: resolvedBranchId
             });
-            toast.success('Live class scheduled successfully');
+            showSuccess('Live class scheduled successfully');
             setIsDialogOpen(false);
             fetchInitialData();
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : 'Failed to schedule live class';
-            toast.error(message);
+            showError(message);
         }
     };
 
@@ -128,7 +131,7 @@ function LiveClassesContent() {
             const { url } = await LiveClassesService.getAuthUrl(resolvedBranchId!);
             window.location.href = url;
         } catch (error) {
-            toast.error('Failed to initiate authorization');
+            showError('Failed to initiate authorization');
         }
     };
 
@@ -138,18 +141,24 @@ function LiveClassesContent() {
             window.open(session.hostUrl, '_blank');
             fetchInitialData();
         } catch (error) {
-            toast.error('Failed to start session');
+            showError('Failed to start session');
         }
     };
 
     const handleDeleteSession = async (id: string) => {
-        if (!confirm('Are you sure you want to cancel this session?')) return;
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDeleteSession = async () => {
+        if (!confirmDeleteId) return;
         try {
-            await LiveClassesService.cancelSession(id);
-            toast.success('Session cancelled');
+            await LiveClassesService.cancelSession(confirmDeleteId);
+            showSuccess('Session cancelled');
             fetchInitialData();
         } catch (error) {
-            toast.error('Failed to cancel session');
+            showError('Failed to cancel session');
+        } finally {
+            setConfirmDeleteId(null);
         }
     };
 
@@ -475,6 +484,15 @@ function LiveClassesContent() {
                     </div>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDeleteSession}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Cancel Session"
+                message="Are you sure you want to cancel this session?"
+                confirmLabel="Cancel Session"
+            />
         </div>
     </RequireBranch>
     );

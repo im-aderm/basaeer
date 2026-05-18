@@ -17,7 +17,7 @@ import {
     Play,
     Trash2
 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 
 interface QueueMetrics {
@@ -31,6 +31,7 @@ interface QueueMetrics {
 }
 
 export default function QueuesPage() {
+    const { showSuccess, showError, showInfo } = useNotification();
     const [queues, setQueues] = useState<QueueMetrics[]>([]);
     const [loading, setLoading] = useState(true);
     const [isRefreshing, setIsRefreshing] = useState(false);
@@ -66,11 +67,12 @@ export default function QueuesPage() {
     }, []);
 
     const handleAction = (queueName: string, action: 'pause' | 'resume' | 'clean') => {
-        toast.promise(new Promise(resolve => setTimeout(resolve, 1000)), {
-            loading: `${action === 'clean' ? 'Cleaning' : action === 'pause' ? 'Pausing' : 'Resuming'} queue ${queueName}...`,
-            success: `Queue ${queueName} ${action === 'clean' ? 'cleaned' : action === 'pause' ? 'paused' : 'resumed'} successfully`,
-            error: `Failed to ${action} queue ${queueName}`,
-        });
+        const actionLabel = action === 'clean' ? 'Cleaning' : action === 'pause' ? 'Pausing' : 'Resuming';
+        const successLabel = action === 'clean' ? 'cleaned' : action === 'pause' ? 'paused' : 'resumed';
+        showInfo(`${actionLabel} queue ${queueName}...`);
+        setTimeout(() => {
+            showSuccess(`Queue ${queueName} ${successLabel} successfully`);
+        }, 1000);
     };
 
     if (loading) {

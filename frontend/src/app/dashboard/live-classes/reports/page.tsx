@@ -8,10 +8,11 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { BookOpen, Users, Activity, BarChart3, Download, Search, ChevronRight, FileText, Timer, UserCheck, Calendar } from 'lucide-react';
 import { LiveClassesService, LiveClassSession, ReportItem } from '@/services/liveClassesService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function LiveClassReportsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showError } = useNotification();
     const [sessions, setSessions] = useState<LiveClassSession[]>([]);
     const [selectedSessionId, setSelectedSessionId] = useState<string | null>(null);
     const [reports, setReports] = useState<ReportItem[]>([]);
@@ -27,7 +28,7 @@ export default function LiveClassReportsPage() {
                 fetchReport(data[0].id);
             }
         } catch (error: unknown) {
-            toast.error('Failed to load classes');
+            showError('Failed to load classes');
         } finally {
             setLoading(false);
         }
@@ -38,7 +39,7 @@ export default function LiveClassReportsPage() {
             const data = await LiveClassesService.getAttendanceReport(sessionId);
             setReports(data || []);
         } catch (error: unknown) {
-            toast.error('Failed to load participation report');
+            showError('Failed to load participation report');
         }
     };
 

@@ -18,10 +18,11 @@ import {
     ShieldCheck
 } from 'lucide-react';
 import { UserService } from '@/services/userService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AddParentPage() {
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
@@ -37,10 +38,10 @@ export default function AddParentPage() {
         try {
             setLoading(true);
             const newUser = await UserService.create(formData);
-            toast.success('Parent created successfully');
+            showSuccess('Parent created successfully');
             router.push(`/dashboard/parents/${newUser.id}`);
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to create parent');
+            showError(error.response?.data?.message || 'Failed to create parent');
         } finally {
             setLoading(false);
         }

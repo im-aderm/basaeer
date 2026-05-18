@@ -115,7 +115,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Enquiry not found');
-    return this.prisma.admissionEnquiry.update({ where: { id }, data: dto });
+    return this.prisma.admissionEnquiry.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+  }
+
+  async deleteEnquiry(id: string, context: TenantContext) {
+    const existing = await this.prisma.admissionEnquiry.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Enquiry not found');
+    return this.prisma.admissionEnquiry.delete({ where: { id, branchId: context.branchId || undefined } });
   }
 
   async updateCallLog(id: string, dto: UpdateCallLogDto, context: TenantContext) {
@@ -123,40 +131,7 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Call log not found');
-    return this.prisma.callLog.update({ where: { id }, data: dto });
-  }
-
-  async updateVisitorLog(id: string, dto: UpdateVisitorLogDto, context: TenantContext) {
-    const existing = await this.prisma.visitorLog.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context),
-    });
-    if (!existing) throw new NotFoundException('Visitor log not found');
-    return this.prisma.visitorLog.update({ where: { id }, data: dto });
-  }
-
-  async updateComplaint(id: string, dto: UpdateComplaintDto, context: TenantContext) {
-    const existing = await this.prisma.complaint.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context),
-    });
-    if (!existing) throw new NotFoundException('Complaint not found');
-    return this.prisma.complaint.update({ where: { id }, data: dto });
-  }
-
-  async updatePostalRecord(id: string, dto: UpdatePostalRecordDto, context: TenantContext) {
-    const existing = await this.prisma.postalRecord.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context),
-    });
-    if (!existing) throw new NotFoundException('Postal record not found');
-    return this.prisma.postalRecord.update({ where: { id }, data: dto });
-  }
-
-  // Deletes
-  async deleteEnquiry(id: string, context: TenantContext) {
-    const existing = await this.prisma.admissionEnquiry.findFirst({
-      where: TenantHelper.applyIsolation({ id }, context),
-    });
-    if (!existing) throw new NotFoundException('Enquiry not found');
-    return this.prisma.admissionEnquiry.delete({ where: { id } });
+    return this.prisma.callLog.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteCallLog(id: string, context: TenantContext) {
@@ -164,7 +139,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Call log not found');
-    return this.prisma.callLog.delete({ where: { id } });
+    return this.prisma.callLog.delete({ where: { id, branchId: context.branchId || undefined } });
+  }
+
+  async updateVisitorLog(id: string, dto: UpdateVisitorLogDto, context: TenantContext) {
+    const existing = await this.prisma.visitorLog.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Visitor log not found');
+    return this.prisma.visitorLog.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteVisitorLog(id: string, context: TenantContext) {
@@ -172,7 +155,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Visitor log not found');
-    return this.prisma.visitorLog.delete({ where: { id } });
+    return this.prisma.visitorLog.delete({ where: { id, branchId: context.branchId || undefined } });
+  }
+
+  async updateComplaint(id: string, dto: UpdateComplaintDto, context: TenantContext) {
+    const existing = await this.prisma.complaint.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Complaint not found');
+    return this.prisma.complaint.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deleteComplaint(id: string, context: TenantContext) {
@@ -180,7 +171,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Complaint not found');
-    return this.prisma.complaint.delete({ where: { id } });
+    return this.prisma.complaint.delete({ where: { id, branchId: context.branchId || undefined } });
+  }
+
+  async updatePostalRecord(id: string, dto: UpdatePostalRecordDto, context: TenantContext) {
+    const existing = await this.prisma.postalRecord.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!existing) throw new NotFoundException('Postal record not found');
+    return this.prisma.postalRecord.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
   }
 
   async deletePostalRecord(id: string, context: TenantContext) {
@@ -188,6 +187,7 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Postal record not found');
-    return this.prisma.postalRecord.delete({ where: { id } });
+    return this.prisma.postalRecord.delete({ where: { id, branchId: context.branchId || undefined } });
   }
+
 }

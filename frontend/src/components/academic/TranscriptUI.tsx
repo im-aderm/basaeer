@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Loader2, FileText, Download, QrCode, CheckCircle2, XCircle, RefreshCw, Eye } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Transcript {
   id: string;
@@ -26,6 +26,7 @@ interface Transcript {
 }
 
 export function TranscriptUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<Transcript[]>([]);
   const [studentId, setStudentId] = useState('');
@@ -37,7 +38,7 @@ export function TranscriptUI() {
     try {
       setItems(await AcademicService.transcripts());
     } catch {
-      toast.error('Unable to load transcripts');
+      showError('Unable to load transcripts');
     } finally {
       setLoading(false);
     }
@@ -50,11 +51,11 @@ export function TranscriptUI() {
     setBusy(true);
     try {
       await AcademicService.generateTranscript(studentId.trim());
-      toast.success('Transcript generated successfully');
+      showSuccess('Transcript generated successfully');
       setStudentId('');
       await load();
     } catch {
-      toast.error('Failed to generate transcript');
+      showError('Failed to generate transcript');
     } finally {
       setBusy(false);
     }
@@ -63,9 +64,9 @@ export function TranscriptUI() {
   const handleExport = async (type: string) => {
     try {
       await academicExportService.startExport(type, { studentId: studentId || undefined });
-      toast.success(`Export ${type} queued`);
+      showSuccess(`Export ${type} queued`);
     } catch {
-      toast.error('Export failed');
+      showError('Export failed');
     }
   };
 

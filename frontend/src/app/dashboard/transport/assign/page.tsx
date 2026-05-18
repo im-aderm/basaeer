@@ -24,10 +24,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StudentService, Student } from "@/services/studentService";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function TransportAssignmentPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [students, setStudents] = useState<Student[]>([]);
     const [routes, setRoutes] = useState<any[]>([]);
     const [vehicles, setVehicles] = useState<any[]>([]);
@@ -36,6 +38,7 @@ export default function TransportAssignmentPage() {
     const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
     const [selectedRoute, setSelectedRoute] = useState("");
     const [selectedVehicle, setSelectedVehicle] = useState("");
+    const [confirmRemove, setConfirmRemove] = useState<string | null>(null);
 
     const fetchData = async () => {
         if (!user) return;
@@ -51,7 +54,7 @@ export default function TransportAssignmentPage() {
             setVehicles(vhData.data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load transport data");
+            showError("Failed to load transport data");
         } finally {
             setLoading(false);
         }
@@ -70,27 +73,32 @@ export default function TransportAssignmentPage() {
                 routeId: selectedRoute,
                 vehicleId: selectedVehicle
             });
-            toast.success("Transport assigned successfully!");
+            showSuccess("Transport assigned successfully!");
             setSelectedStudent(null);
             setSelectedRoute("");
             setSelectedVehicle("");
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to assign transport:", error);
-            toast.error("Failed to assign transport");
+            showError("Failed to assign transport");
         }
     };
 
     const handleRemoveAssignment = async (studentId: string) => {
-        if (!confirm("Are you sure you want to remove this transport assignment?")) return;
+        setConfirmRemove(studentId);
+    };
+
+    const handleConfirmRemove = async () => {
+        if (!confirmRemove) return;
         try {
-            await api.delete(`/transport/assign/${studentId}`);
-            toast.success("Assignment removed successfully");
+            await api.delete(`/transport/assign/${confirmRemove}`);
+            showSuccess("Assignment removed successfully");
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to remove assignment:", error);
-            toast.error("Failed to remove assignment");
+            showError("Failed to remove assignment");
         }
+        setConfirmRemove(null);
     };
 
     const unassignedStudents = (students ?? []).filter(s =>
@@ -314,6 +322,14 @@ export default function TransportAssignmentPage() {
                     </Card>
                 </TabsContent>
             </Tabs>
+            <ConfirmDialog
+                isOpen={!!confirmRemove}
+                onConfirm={handleConfirmRemove}
+                onCancel={() => setConfirmRemove(null)}
+                title="Remove Assignment"
+                message="Are you sure you want to remove this transport assignment?"
+                confirmLabel="Remove"
+            />
         </div>
         </RequireBranch>
     );

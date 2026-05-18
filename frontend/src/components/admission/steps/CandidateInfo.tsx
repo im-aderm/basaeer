@@ -25,7 +25,6 @@ export function CandidateInfo() {
     defaultValues: formData,
   });
 
-  // Sync with store on change (debounced to avoid re-render loops)
   const watchedFields = watch();
   const debouncedFields = useDebounce(watchedFields, 500);
 
@@ -34,47 +33,58 @@ export function CandidateInfo() {
   }, [debouncedFields, updateFormData]);
 
   return (
-    <CardContent className="p-8 space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <CardContent className="p-6 md:p-8 space-y-6">
+      {/* Section header */}
+      <div className="space-y-1">
+        <h3 className="text-lg font-semibold text-foreground">Student Information</h3>
+        <p className="text-sm text-muted-foreground">Enter the applicant's personal details as they appear on official documents.</p>
+      </div>
+
+      {/* Name fields */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">First Name *</Label>
+          <Label htmlFor="firstName">First Name</Label>
           <Input 
+            id="firstName"
             {...register("firstName")} 
             placeholder="John" 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
-          {errors.firstName && <p className="text-red-500 text-[10px] font-bold uppercase ml-1">{errors.firstName.message}</p>}
+          {errors.firstName && <p className="text-xs text-destructive">{errors.firstName.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Surname *</Label>
+          <Label htmlFor="surname">Surname</Label>
           <Input 
+            id="surname"
             {...register("surname")} 
             placeholder="Smith" 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
-          {errors.surname && <p className="text-red-500 text-[10px] font-bold uppercase ml-1">{errors.surname.message}</p>}
+          {errors.surname && <p className="text-xs text-destructive">{errors.surname.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Middle Name (optional)</Label>
+          <Label htmlFor="middleName">Middle Name <span className="text-muted-foreground font-normal">(optional)</span></Label>
           <Input 
+            id="middleName"
             {...register("middleName")} 
             placeholder="Doe" 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Gender & DOB */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Gender *</Label>
+          <Label>Gender</Label>
           <Select 
             value={watch("gender")} 
             onValueChange={(v) => setValue("gender", v as any)}
           >
-            <SelectTrigger className="h-12 rounded-2xl border-2 border-primary/60 font-bold">
-              <SelectValue placeholder="Select Gender" />
+            <SelectTrigger className="h-10 rounded-lg">
+              <SelectValue placeholder="Select gender" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="MALE">Male</SelectItem>
@@ -84,56 +94,59 @@ export function CandidateInfo() {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Date of Birth *</Label>
+          <Label>Date of Birth</Label>
           <Input 
             type="date" 
             {...register("dateOfBirth")} 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
         </div>
       </div>
 
+      {/* Address */}
       <div className="space-y-2">
-        <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Home Address *</Label>
+        <Label>Home Address</Label>
         <Input 
           {...register("address")} 
           placeholder="Enter full residential address" 
-          className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+          className="h-10 rounded-lg"
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* NIN & Phone */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">NIN Number</Label>
+          <Label>NIN Number <span className="text-muted-foreground font-normal">(optional)</span></Label>
           <Input 
             {...register("ninNumber")} 
             placeholder="National ID Number" 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
         </div>
 
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Phone Number</Label>
+          <Label>Phone Number <span className="text-muted-foreground font-normal">(optional)</span></Label>
           <Input 
             {...register("phoneNumber")} 
             placeholder="+234..." 
-            className="h-12 rounded-2xl border-2 border-primary/60 font-bold"
+            className="h-10 rounded-lg"
           />
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Medical basics */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Genotype</Label>
-          <Input {...register("genotype")} placeholder="e.g. AA" className="h-12 rounded-2xl border-2 border-primary/60 font-bold" />
+          <Label>Genotype <span className="text-muted-foreground font-normal">(optional)</span></Label>
+          <Input {...register("genotype")} placeholder="e.g. AA" className="h-10 rounded-lg" />
         </div>
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Blood Group</Label>
-          <Input {...register("bloodGroup")} placeholder="e.g. O+" className="h-12 rounded-2xl border-2 border-primary/60 font-bold" />
+          <Label>Blood Group <span className="text-muted-foreground font-normal">(optional)</span></Label>
+          <Input {...register("bloodGroup")} placeholder="e.g. O+" className="h-10 rounded-lg" />
         </div>
         <div className="space-y-2">
-          <Label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Nationality</Label>
-          <Input {...register("nationality")} placeholder="Nigerian" className="h-12 rounded-2xl border-2 border-primary/60 font-bold" />
+          <Label>Nationality <span className="text-muted-foreground font-normal">(optional)</span></Label>
+          <Input {...register("nationality")} placeholder="Nigerian" className="h-10 rounded-lg" />
         </div>
       </div>
     </CardContent>

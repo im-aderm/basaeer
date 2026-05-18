@@ -12,10 +12,11 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Search, ShieldAlert, ShieldCheck, UserX } from 'lucide-react';
 import { UserService, User } from '@/services/userService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function LoginDeactivationPage() {
     const { user: currentUser } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -30,7 +31,7 @@ export default function LoginDeactivationPage() {
             setUsers(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch users:', error);
-            toast.error('Failed to fetch users');
+            showError('Failed to fetch users');
         } finally {
             setLoading(false);
         }
@@ -45,10 +46,10 @@ export default function LoginDeactivationPage() {
     const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
         try {
             await UserService.toggleStatus(userId, !currentStatus);
-            toast.success(`User login ${!currentStatus ? 'activated' : 'deactivated'}`);
+            showSuccess(`User login ${!currentStatus ? 'activated' : 'deactivated'}`);
             setUsers(prev => prev.map(u => u.id === userId ? { ...u, isActive: !currentStatus } : u));
         } catch (error) {
-            toast.error('Failed to update user status');
+            showError('Failed to update user status');
         }
     };
 

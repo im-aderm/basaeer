@@ -12,10 +12,11 @@ import { DataTable } from '@/components/DataTable';
 import Link from 'next/link';
 import api from '@/lib/api';
 import { cn } from '@/lib/utils';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function EmployeesListPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showError } = useNotification();
     const [employees, setEmployees] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,7 @@ export default function EmployeesListPage() {
             setError(null);
         } catch (error) {
             setError("Could not load employee data");
-            toast.error('Failed to fetch employees');
+            showError('Failed to fetch employees');
         } finally {
             setLoading(false);
         }

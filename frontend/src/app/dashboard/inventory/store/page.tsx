@@ -12,10 +12,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Store, Plus, Search, MapPin, MoreHorizontal } from 'lucide-react';
 import { InventoryService, InventoryStore } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventoryStorePage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [stores, setStores] = useState<InventoryStore[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -23,13 +25,14 @@ export default function InventoryStorePage() {
     const [selectedStore, setSelectedStore] = useState<InventoryStore | null>(null);
     const [formData, setFormData] = useState({ name: '', code: '' });
     const [editData, setEditData] = useState({ name: '', code: '' });
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchStores = async () => {
         try {
-            const data = await InventoryService.getStores(resolvedBranchId);
+            const data = await InventoryService.getStores();
             setStores(data);
         } catch (error) {
-            toast.error('Failed to load stores');
+            showError('Failed to load stores');
         } finally {
             setLoading(false);
         }
@@ -42,13 +45,13 @@ export default function InventoryStorePage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createStore({ ...formData, branchId: resolvedBranchId });
-            toast.success('Store location added');
+            await InventoryService.createStore({ ...formData });
+            showSuccess('Store location added');
             setIsAddDialogOpen(false);
             setFormData({ name: '', code: '' });
             fetchStores();
         } catch (error) {
-            toast.error('Failed to add store');
+            showError('Failed to add store');
         }
     };
 
@@ -57,23 +60,28 @@ export default function InventoryStorePage() {
         if (!selectedStore) return;
         try {
             await InventoryService.updateStore(selectedStore.id, editData);
-            toast.success('Store location updated');
+            showSuccess('Store location updated');
             setIsEditDialogOpen(false);
             fetchStores();
         } catch (error) {
-            toast.error('Failed to update store');
+            showError('Failed to update store');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this store?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await InventoryService.deleteStore(id);
-            toast.success('Store location deleted');
+            await InventoryService.deleteStore(confirmDelete);
+            showSuccess('Store location deleted');
             fetchStores();
         } catch (error) {
-            toast.error('Failed to delete store');
+            showError('Failed to delete store');
         }
+        setConfirmDelete(null);
     };
 
     return (
@@ -211,6 +219,15 @@ export default function InventoryStorePage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Store"
+                message="Are you sure you want to delete this store? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );

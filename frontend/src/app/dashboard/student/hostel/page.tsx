@@ -21,11 +21,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { HostelService, HostelLeave, MaintenanceRequest } from "@/services/hostelService";
 import { format } from "date-fns";
 
 export default function StudentHostelPage() {
+    const { showSuccess, showError } = useNotification();
     const [myDetails, setMyDetails] = useState<any>(null);
     const [leaves, setLeaves] = useState<HostelLeave[]>([]);
     const [maintenance, setMaintenance] = useState<MaintenanceRequest[]>([]);
@@ -74,12 +75,12 @@ export default function StudentHostelPage() {
         e.preventDefault();
         try {
             await HostelService.createLeave(leaveForm);
-            toast.success("Leave request submitted");
+            showSuccess("Leave request submitted");
             setIsLeaveModalOpen(false);
             setLeaveForm({ startDate: "", endDate: "", reason: "" });
             fetchData();
         } catch (error) {
-            toast.error("Failed to submit leave request");
+            showError("Failed to submit leave request");
         }
     };
 
@@ -87,12 +88,12 @@ export default function StudentHostelPage() {
         e.preventDefault();
         try {
             await HostelService.createMaintenance(maintenanceForm);
-            toast.success("Maintenance request submitted");
+            showSuccess("Maintenance request submitted");
             setIsMaintenanceModalOpen(false);
             setMaintenanceForm({ title: "", description: "", priority: "MEDIUM" });
             fetchData();
         } catch (error) {
-            toast.error("Failed to submit maintenance request");
+            showError("Failed to submit maintenance request");
         }
     };
 

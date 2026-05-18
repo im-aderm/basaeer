@@ -5,9 +5,10 @@ import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { Send, Mail, MessageSquare, Users, AlertCircle, CheckCircle2 } from "lucide-react";
 import { commsService, EmailTemplate, SmsTemplate } from "@/services/commsService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function SendCommsPage() {
+    const { showSuccess, showError } = useNotification();
     const [type, setType] = useState<"EMAIL" | "SMS">("EMAIL");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
@@ -33,7 +34,7 @@ export default function SendCommsPage() {
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!message || (type === "EMAIL" && !subject)) {
-            toast.error("Please fill in all required fields");
+            showError("Please fill in all required fields");
             return;
         }
 
@@ -44,11 +45,11 @@ export default function SendCommsPage() {
             } else {
                 await commsService.sendBulkSms({ message, recipientGroup });
             }
-            toast.success(`${type} Campaign started successfully`);
+            showSuccess(`${type} Campaign started successfully`);
             setSubject("");
             setMessage("");
         } catch (error) {
-            toast.error(`Failed to send ${type} campaign`);
+            showError(`Failed to send ${type} campaign`);
         } finally {
             setLoading(false);
         }

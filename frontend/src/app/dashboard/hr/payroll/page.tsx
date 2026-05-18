@@ -20,9 +20,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function PayrollDashboard() {
+    const { showSuccess, showError } = useNotification();
     const [month, setMonth] = useState<string>(new Date().getMonth() + 1 + "");
     const [year, setYear] = useState<string>(new Date().getFullYear() + "");
     const [generating, setGenerating] = useState(false);
@@ -40,9 +41,9 @@ export default function PayrollDashboard() {
         setGenerating(true);
         try {
             const res = await HRService.generatePayroll(Number(month), Number(year));
-            toast.success(res.message || "Payroll generated successfully!");
+            showSuccess(res.message || "Payroll generated successfully!");
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to generate payroll");
+            showError(error.response?.data?.message || "Failed to generate payroll");
         } finally {
             setGenerating(false);
         }

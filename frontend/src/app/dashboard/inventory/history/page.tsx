@@ -10,25 +10,28 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { History, ArrowLeft, ArrowUpRight, ArrowDownRight, RotateCcw, Package } from 'lucide-react';
 import { InventoryService, InventoryPurchase, InventoryIssue } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import Link from 'next/link';
 
 export default function InventoryHistoryPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [purchases, setPurchases] = useState<InventoryPurchase[]>([]);
     const [issues, setIssues] = useState<InventoryIssue[]>([]);
     const [loading, setLoading] = useState(true);
+    const [confirmReturn, setConfirmReturn] = useState<string | null>(null);
 
     const fetchData = async () => {
         try {
             const [p, i] = await Promise.all([
-                InventoryService.getPurchases(resolvedBranchId),
-                InventoryService.getIssues(resolvedBranchId)
+                InventoryService.getPurchases(),
+                InventoryService.getIssues()
             ]);
             setPurchases(p);
             setIssues(i);
         } catch (error) {
-            toast.error('Failed to load transaction history');
+            showError('Failed to load transaction history');
         } finally {
             setLoading(false);
         }
@@ -36,17 +39,22 @@ export default function InventoryHistoryPage() {
 
     useEffect(() => {
         fetchData();
-    }, [resolvedBranchId]);
+    }, []);
 
     const handleReturn = async (issueId: string) => {
-        if (!confirm('Mark these items as returned to stock?')) return;
+        setConfirmReturn(issueId);
+    };
+
+    const handleConfirmReturn = async () => {
+        if (!confirmReturn) return;
         try {
-            await InventoryService.returnItem(issueId);
-            toast.success('Items returned to stock');
+            await InventoryService.returnItem(confirmReturn);
+            showSuccess('Items returned to stock');
             fetchData();
         } catch (error) {
-            toast.error('Failed to process return');
+            showError('Failed to process return');
         }
+        setConfirmReturn(null);
     };
 
     return (
@@ -162,6 +170,15 @@ export default function InventoryHistoryPage() {
                     </Card>
                 </TabsContent>
             </Tabs>
+
+            <ConfirmDialog
+                isOpen={!!confirmReturn}
+                onConfirm={handleConfirmReturn}
+                onCancel={() => setConfirmReturn(null)}
+                title="Return Items"
+                message="Mark these items as returned to stock?"
+                confirmLabel="Return"
+            />
         </div>
           </RequireBranch>
   );

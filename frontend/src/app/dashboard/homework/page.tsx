@@ -9,13 +9,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { AcademicOpsService } from "@/services/academicOpsService";
 import { ClassService } from "@/services/classService";
 import { SubjectService } from "@/services/subjectService";
 
 export default function TeacherHomeworkHub() {
     const router = useRouter();
+    const { showSuccess, showError } = useNotification();
     const [assignments, setAssignments] = useState<any[]>([]);
     const [classes, setClasses] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<any[]>([]);
@@ -47,7 +48,7 @@ export default function TeacherHomeworkHub() {
             setClasses(classesData);
             setSubjects(subjectsData);
         } catch (error) {
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -57,7 +58,7 @@ export default function TeacherHomeworkHub() {
         e.preventDefault();
         try {
             await AcademicOpsService.createAssignment(formData);
-            toast.success("Assignment created successfully!");
+            showSuccess("Assignment created successfully!");
             setIsDialogOpen(false);
             setFormData({
                 title: "",
@@ -70,7 +71,7 @@ export default function TeacherHomeworkHub() {
             });
             fetchData();
         } catch (error) {
-            toast.error("Failed to create assignment");
+            showError("Failed to create assignment");
         }
     };
 

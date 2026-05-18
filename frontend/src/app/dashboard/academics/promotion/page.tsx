@@ -14,10 +14,11 @@ import { ArrowRight, GraduationCap, Users } from 'lucide-react';
 import { ClassService, Class, Section } from '@/services/classService';
 import { StudentService, Student } from '@/services/studentService';
 import { AcademicService } from '@/services/academicService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function StudentPromotionPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
 
     // Source Selection
     const [classes, setClasses] = useState<Class[]>([]);
@@ -42,7 +43,7 @@ export default function StudentPromotionPage() {
                 const data = await ClassService.getAll();
                 setClasses(data);
             } catch (error) {
-                toast.error('Failed to fetch classes');
+                showError('Failed to fetch classes');
             }
         };
         fetchClasses();
@@ -70,7 +71,7 @@ export default function StudentPromotionPage() {
             setStudents(data);
             setSelectedStudentIds([]);
         } catch (error) {
-            toast.error('Failed to fetch students');
+            showError('Failed to fetch students');
         }
     };
 
@@ -92,7 +93,7 @@ export default function StudentPromotionPage() {
 
     const handlePromote = async () => {
         if (selectedStudentIds.length === 0 || !targetClass || !targetSection) {
-            toast.error('Please select students and target destination');
+            showError('Please select students and target destination');
             return;
         }
 
@@ -103,10 +104,10 @@ export default function StudentPromotionPage() {
                 targetClassId: targetClass,
                 targetSectionId: targetSection
             });
-            toast.success(`Successfully promoted ${selectedStudentIds.length} students`);
+            showSuccess(`Successfully promoted ${selectedStudentIds.length} students`);
             fetchStudents(); // Refresh current list
         } catch (error) {
-            toast.error('Promotion failed');
+            showError('Promotion failed');
         } finally {
             setIsPromoting(false);
         }

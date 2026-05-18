@@ -31,13 +31,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { HostelService, Hostel, Room, Bed as BedType } from "@/services/hostelService";
 import { StudentService } from "@/services/studentService";
 
 function ManageRoomsContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const { showSuccess, showError, showInfo } = useNotification();
     const hostelId = searchParams.get("id");
 
     const [hostel, setHostel] = useState<Hostel | null>(null);
@@ -76,7 +77,7 @@ function ManageRoomsContent() {
             setStudents(studentsData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Fetch failed:", error);
-            toast.error("Failed to load building data");
+            showError("Failed to load building data");
         } finally {
             setLoading(false);
         }
@@ -91,17 +92,17 @@ function ManageRoomsContent() {
         try {
             if (roomForm.id) {
                 await HostelService.updateRoom(roomForm.id, roomForm);
-                toast.success("Room updated successfully");
+                showSuccess("Room updated successfully");
             } else {
                 await HostelService.createRoom({ ...roomForm, hostelId: hostelId as string });
-                toast.success("Room added successfully");
+                showSuccess("Room added successfully");
             }
             setIsRoomModalOpen(false);
             setRoomForm({ id: "", number: "", floor: 1, capacity: 4 });
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Room operation failed:", error);
-            toast.error("Failed to perform room operation");
+            showError("Failed to perform room operation");
         }
     };
 
@@ -109,12 +110,12 @@ function ManageRoomsContent() {
         if (!roomForm.id) return;
         try {
             await HostelService.deleteRoom(roomForm.id);
-            toast.success("Room deleted successfully");
+            showSuccess("Room deleted successfully");
             setIsDeleteRoomOpen(false);
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Delete room failed:", error);
-            toast.error("Failed to delete room");
+            showError("Failed to delete room");
         }
     };
 
@@ -126,13 +127,13 @@ function ManageRoomsContent() {
                 ...checkInData,
                 bedId: selectedBed.id
             });
-            toast.success("Student assigned to bed");
+            showSuccess("Student assigned to bed");
             setIsCheckInOpen(false);
             setCheckInData({ studentId: "", checkInDate: new Date().toISOString().split('T')[0] });
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Check-in failed:", error);
-            toast.error("Failed to allocate bed");
+            showError("Failed to allocate bed");
         }
     };
 
@@ -140,12 +141,12 @@ function ManageRoomsContent() {
         if (!selectedBed?.allocations?.[0]?.id) return;
         try {
             await HostelService.releaseBed(selectedBed.allocations[0].id);
-            toast.success("Bed released successfully");
+            showSuccess("Bed released successfully");
             setIsCheckOutOpen(false);
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Check-out failed:", error);
-            toast.error("Failed to process check-out");
+            showError("Failed to process check-out");
         }
     };
 
@@ -321,7 +322,7 @@ function ManageRoomsContent() {
                                             } else if (bed.status === 'OCCUPIED') {
                                                 setIsCheckOutOpen(true);
                                             } else {
-                                                toast.info(`Bed ${bed.name} is ${bed.status.toLowerCase()}`);
+                                                showInfo(`Bed ${bed.name} is ${bed.status.toLowerCase()}`);
                                             }
                                         }}
                                         className={`group relative p-4 rounded-2xl flex items-center justify-between border-2 transition-all hover:scale-[1.02] active:scale-95 ${bed.status === 'AVAILABLE' ? 'bg-green-50/50 border-green-200 text-green-700 hover:bg-green-100' :

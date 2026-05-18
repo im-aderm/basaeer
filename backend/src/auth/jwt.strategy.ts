@@ -3,7 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Logger } from '@nestjs/common';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../prisma/prisma.service';
 
 const cookieExtractor = (req: Request) => {
   let token = null;
@@ -20,7 +19,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   constructor(
     private configService: ConfigService,
-    private prisma: PrismaService,
   ) {
     super({
       jwtFromRequest: cookieExtractor,
@@ -30,19 +28,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Super Admin uses selectedBranchId (if set), others use their own branchId
-    const effectiveBranchId = payload.role === 'SUPER_ADMIN'
-      ? (payload.selectedBranchId || null)
-      : payload.branchId;
-
-    this.prisma.setTenantContext(effectiveBranchId, payload.sub);
-
     return {
       id: payload.sub,
       email: payload.email,
       role: payload.role,
       branchId: payload.branchId,
       selectedBranchId: payload.selectedBranchId || null,
+      selectedSessionId: payload.selectedSessionId || null,
     };
   }
 }

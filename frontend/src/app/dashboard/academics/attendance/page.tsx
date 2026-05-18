@@ -21,11 +21,12 @@ import {
     CheckSquare
 } from "lucide-react";
 import { clsx } from "clsx";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function AttendancePage() {
+    const { showSuccess, showError } = useNotification();
     const [classes, setClasses] = useState<Class[]>([]);
     const [sections, setSections] = useState<Section[]>([]);
     const [students, setStudents] = useState<Student[]>([]);
@@ -123,10 +124,10 @@ export default function AttendancePage() {
             }));
 
             await AttendanceService.markBulk(records);
-            toast.success("Attendance saved successfully!");
+            showSuccess("Attendance saved successfully!");
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save attendance:", error);
-            toast.error("Failed to save attendance.");
+            showError("Failed to save attendance.");
         } finally {
             setSubmitting(false);
         }

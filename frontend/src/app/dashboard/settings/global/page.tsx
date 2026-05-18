@@ -4,9 +4,11 @@ import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { SettingsService, GlobalSetting } from "@/services/settingsService";
+import { useNotification } from '@/context/NotificationContext';
 import { Save, Loader2, Globe, School, Coins, Clock, Bell, ShieldCheck } from "lucide-react";
 
 export default function GlobalSettingsPage() {
+    const { showSuccess, showError } = useNotification();
     const [settings, setSettings] = useState<GlobalSetting[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -59,7 +61,7 @@ export default function GlobalSettingsPage() {
             for (const key of Object.keys(formData)) {
                 await SettingsService.updateSetting(key, formData[key]);
             }
-            alert("Settings saved successfully!");
+            showSuccess("Settings saved successfully!");
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save all settings:", error);
         } finally {

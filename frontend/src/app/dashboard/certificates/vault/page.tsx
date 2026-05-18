@@ -13,15 +13,19 @@ import {
 } from "lucide-react";
 import api from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function CertificateVaultPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [certificates, setCertificates] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchData = async () => {
         setLoading(true);
@@ -48,17 +52,24 @@ export default function CertificateVaultPage() {
             link.download = `certificate-${certId}.pdf`;
             link.click();
         } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Download failed:", error);
+            showError("Download failed");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this certificate?")) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await api.delete(`/certificates/${id}`);
+            await api.delete(`/certificates/${confirmDelete}`);
+            showSuccess("Certificate deleted successfully");
             fetchData();
         } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Delete failed:", error);
+            showError("Delete failed");
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -188,6 +199,15 @@ export default function CertificateVaultPage() {
                     ))}
                 </div>
             )}
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Certificate"
+                message="Are you sure you want to delete this certificate? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
     );
 }

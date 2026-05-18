@@ -23,15 +23,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function TransportRoutesPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [routes, setRoutes] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingRoute, setEditingRoute] = useState<any>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         name: "",
         startPoint: "",
@@ -45,7 +48,7 @@ export default function TransportRoutesPage() {
             setRoutes(res.data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch routes:", error);
-            toast.error("Failed to fetch routes");
+            showError("Failed to fetch routes");
         } finally {
             setLoading(false);
         }
@@ -64,7 +67,7 @@ export default function TransportRoutesPage() {
                     // Try to parse comma separated stops into an array of objects
                     stopsData = formData.stops.split(',').map(s => ({ location: s.trim() }));
                 } catch (e) {
-                    toast.error("Invalid stops format. Use comma separated values.");
+                    showError("Invalid stops format. Use comma separated values.");
                     return;
                 }
             }
@@ -79,10 +82,10 @@ export default function TransportRoutesPage() {
 
             if (editingRoute) {
                 await api.patch(`/transport/routes/${editingRoute.id}`, payload);
-                toast.success("Route updated successfully");
+                showSuccess("Route updated successfully");
             } else {
                 await api.post("/transport/routes", payload);
-                toast.success("Route created successfully");
+                showSuccess("Route created successfully");
             }
 
             setIsDialogOpen(false);
@@ -91,20 +94,25 @@ export default function TransportRoutesPage() {
             fetchRoutes();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save route:", error);
-            toast.error("Failed to save route");
+            showError("Failed to save route");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this route?")) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await api.delete(`/transport/routes/${id}`);
-            toast.success("Route deleted successfully");
+            await api.delete(`/transport/routes/${confirmDelete}`);
+            showSuccess("Route deleted successfully");
             fetchRoutes();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to delete route:", error);
-            toast.error("Failed to delete route");
+            showError("Failed to delete route");
         }
+        setConfirmDelete(null);
     };
 
     const handleEdit = (route: any) => {
@@ -292,6 +300,14 @@ export default function TransportRoutesPage() {
                     </div>
                 </CardContent>
             </Card>
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Route"
+                message="Are you sure you want to delete this route? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
         </RequireBranch>
     );

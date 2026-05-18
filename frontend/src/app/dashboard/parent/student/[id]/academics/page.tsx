@@ -17,11 +17,12 @@ import {
     AlertCircle
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ChildAcademicsPage() {
     const { id } = useParams();
     const router = useRouter();
+    const { showError } = useNotification();
     const [homework, setHomework] = useState<any[]>([]);
     const [exams, setExams] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -36,7 +37,7 @@ export default function ChildAcademicsPage() {
                 setHomework(homeworkData);
                 setExams(examsData);
             } catch (error) {
-                toast.error('Failed to load academic records');
+                showError('Failed to load academic records');
             } finally {
                 setLoading(false);
             }

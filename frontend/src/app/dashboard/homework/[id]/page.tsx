@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { DataTable } from "@/components/DataTable";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { AcademicOpsService } from "@/services/academicOpsService";
 
 export default function AssignmentEvaluation() {
+    const { showSuccess, showError } = useNotification();
     const params = useParams();
     const router = useRouter();
     const assignmentId = params.id as string;
@@ -32,7 +33,7 @@ export default function AssignmentEvaluation() {
             setAssignment(assignmentData);
             setSubmissions(submissionsData);
         } catch (error) {
-            toast.error("Failed to load assignment data");
+            showError("Failed to load assignment data");
         } finally {
             setLoading(false);
         }
@@ -41,10 +42,10 @@ export default function AssignmentEvaluation() {
     const handleGrade = async (submissionId: string, grade: number, feedback: string) => {
         try {
             await AcademicOpsService.gradeSubmission(submissionId, grade, feedback);
-            toast.success("Submission graded successfully!");
+            showSuccess("Submission graded successfully!");
             fetchData();
         } catch (error) {
-            toast.error("Failed to grade submission");
+            showError("Failed to grade submission");
         }
     };
 

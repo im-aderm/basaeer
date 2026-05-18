@@ -9,10 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 
 export default function LiveClassesSettingsPage() {
+    const { showSuccess, showError } = useNotification();
     const [config, setConfig] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [testing, setTesting] = useState(false);
@@ -63,9 +64,9 @@ export default function LiveClassesSettingsPage() {
                 projectId: json.project_id || "",
                 clientEmail: json.client_email || "",
             });
-            toast.success("Service account file loaded successfully!");
+            showSuccess("Service account file loaded successfully!");
         } catch (error) {
-            toast.error("Invalid JSON file");
+            showError("Invalid JSON file");
         }
     };
 
@@ -75,9 +76,9 @@ export default function LiveClassesSettingsPage() {
             await api.post("/live-classes/config/test", {
                 serviceAccountJson: formData.serviceAccountJson,
             });
-            toast.success("Connection successful! Google Meet is configured correctly.");
+            showSuccess("Connection successful! Google Meet is configured correctly.");
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Connection failed");
+            showError(error.response?.data?.message || "Connection failed");
         } finally {
             setTesting(false);
         }
@@ -87,14 +88,14 @@ export default function LiveClassesSettingsPage() {
         try {
             if (config) {
                 await api.patch("/live-classes/config", formData);
-                toast.success("Configuration updated successfully!");
+                showSuccess("Configuration updated successfully!");
             } else {
                 await api.post("/live-classes/config", formData);
-                toast.success("Configuration created successfully!");
+                showSuccess("Configuration created successfully!");
             }
             fetchConfig();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to save configuration");
+            showError(error.response?.data?.message || "Failed to save configuration");
         }
     };
 

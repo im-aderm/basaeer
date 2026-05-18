@@ -11,7 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import { CheckCircle2, XCircle, Eye, Trash2, UserPlus, Copy, ExternalLink, Receipt } from 'lucide-react';
 import { OnlineAdmissionService, OnlineAdmission } from '@/services/onlineAdmissionService';
 import { BranchService, Branch } from "@/services/branchService";
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import SharableLink from '@/components/admission/SharableLink';
 
 import { AdmissionDetailDialog } from '@/components/admission/AdmissionDetailDialog';
@@ -30,12 +31,15 @@ import { Label } from '@/components/ui/label';
 
 export default function OnlineAdmissionsDashboard() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [rejectionTargetId, setRejectionTargetId] = useState<string | null>(null);
     const [rejectionReason, setRejectionReason] = useState("");
     const [branches, setBranches] = useState<Branch[]>([]);
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
     const [loading, setLoading] = useState(true);
+    const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     const fetchAdmissions = async (branchId: string) => {
         setLoading(true);
@@ -44,7 +48,7 @@ export default function OnlineAdmissionsDashboard() {
             setAdmissions(data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch admissions:', error);
-            toast.error('Failed to load admission applications');
+            showError('Failed to load admission applications');
         } finally {
             setLoading(false);
         }
@@ -70,60 +74,65 @@ export default function OnlineAdmissionsDashboard() {
     }, [user]);
 
     const handleApprove = async (id: string) => {
-        toast.promise(OnlineAdmissionService.approve(id), {
-          loading: 'Processing enrolment...',
-          success: () => {
-             if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
-             setSelectedAdmission(null);
-             return 'Application approved and student enrolled!';
-          },
-          error: 'Failed to approve application'
-        });
+        try {
+            await OnlineAdmissionService.approve(id);
+            showSuccess('Application approved and student enrolled!');
+            if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
+            setSelectedAdmission(null);
+        } catch (error) {
+            showError('Failed to approve application');
+        }
     };
 
     const handleReject = async () => {
         if (!rejectionTargetId || !rejectionReason.trim()) {
-            toast.error("Please provide a rejection reason");
+            showError("Please provide a rejection reason");
             return;
         }
 
         try {
             await OnlineAdmissionService.reject(rejectionTargetId, rejectionReason);
-            toast.success('Application rejected');
+            showSuccess('Application rejected');
             if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
             setRejectionTargetId(null);
             setRejectionReason("");
             setSelectedAdmission(null);
         } catch (error) {
-            toast.error('Failed to reject application');
+            showError('Failed to reject application');
         }
     };
 
     const handleVerifyPayment = async (id: string) => {
         try {
             await OnlineAdmissionService.verifyPayment(id);
-            toast.success('Payment verified');
+            showSuccess('Payment verified');
             if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
-            // Update selected admission state if open
             if (selectedAdmission?.id === id) {
               const updated = await OnlineAdmissionService.getById(id);
               setSelectedAdmission(updated);
             }
         } catch (error) {
-            toast.error('Failed to verify payment');
+            showError('Failed to verify payment');
         }
     }
 
     const handleDelete = async (id: string) => {
-        if (confirm('Are you sure you want to delete this application?')) {
-            try {
-                await OnlineAdmissionService.delete(id);
-                toast.success('Application deleted');
-                if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error('Delete failed', error);
-                toast.error('Failed to delete application');
-            }
+        setConfirmDeleteId(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDeleteId) return;
+        setDeleting(true);
+        try {
+            await OnlineAdmissionService.delete(confirmDeleteId);
+            showSuccess('Application deleted');
+            if (resolvedBranchId) fetchAdmissions(resolvedBranchId);
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error('Delete failed', error);
+            showError('Failed to delete application');
+        } finally {
+            setDeleting(false);
+            setConfirmDeleteId(null);
         }
     };
 
@@ -282,6 +291,15 @@ export default function OnlineAdmissionsDashboard() {
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+            <ConfirmDialog
+                isOpen={!!confirmDeleteId}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDeleteId(null)}
+                title="Delete Application"
+                message="Are you sure you want to delete this application? This action cannot be undone."
+                confirmLabel="Delete"
+                loading={deleting}
+            />
             </div>
         </RequireBranch>
     );

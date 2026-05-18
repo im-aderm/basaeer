@@ -23,15 +23,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function TransportVehiclesPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [vehicles, setVehicles] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingVehicle, setEditingVehicle] = useState<any>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         registrationNumber: "",
         model: "",
@@ -46,7 +49,7 @@ export default function TransportVehiclesPage() {
             setVehicles(res.data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch vehicles:", error);
-            toast.error("Failed to fetch vehicles");
+            showError("Failed to fetch vehicles");
         } finally {
             setLoading(false);
         }
@@ -67,10 +70,10 @@ export default function TransportVehiclesPage() {
 
             if (editingVehicle) {
                 await api.patch(`/transport/vehicles/${editingVehicle.id}`, payload);
-                toast.success("Vehicle updated successfully");
+                showSuccess("Vehicle updated successfully");
             } else {
                 await api.post("/transport/vehicles", payload);
-                toast.success("Vehicle registered successfully");
+                showSuccess("Vehicle registered successfully");
             }
 
             setIsDialogOpen(false);
@@ -79,20 +82,25 @@ export default function TransportVehiclesPage() {
             fetchVehicles();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to save vehicle:", error);
-            toast.error("Failed to save vehicle");
+            showError("Failed to save vehicle");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this vehicle?")) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await api.delete(`/transport/vehicles/${id}`);
-            toast.success("Vehicle deleted successfully");
+            await api.delete(`/transport/vehicles/${confirmDelete}`);
+            showSuccess("Vehicle deleted successfully");
             fetchVehicles();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to delete vehicle:", error);
-            toast.error("Failed to delete vehicle");
+            showError("Failed to delete vehicle");
         }
+        setConfirmDelete(null);
     };
 
     const handleEdit = (vehicle: any) => {
@@ -284,6 +292,14 @@ export default function TransportVehiclesPage() {
                     No vehicles registered in the fleet.
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Vehicle"
+                message="Are you sure you want to delete this vehicle? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
         </RequireBranch>
     );

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, Table2, Percent, Hash } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface Component {
   id?: string;
@@ -24,6 +24,7 @@ interface Component {
 }
 
 export function AssessmentComponentsUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [items, setItems] = useState<Component[]>([]);
@@ -34,7 +35,7 @@ export function AssessmentComponentsUI() {
     try {
       setItems(await AcademicService.listComponents());
     } catch {
-      toast.error('Unable to load assessment components');
+      showError('Unable to load assessment components');
     } finally {
       setLoading(false);
     }
@@ -51,11 +52,11 @@ export function AssessmentComponentsUI() {
         weight: Number(form.weight),
         maxScore: Number(form.maxScore),
       });
-      toast.success('Assessment component created');
+      showSuccess('Assessment component created');
       setForm({ name: '', component: '', weight: '', maxScore: '100', classId: '', subjectId: '', curriculum: '' });
       await load();
     } catch {
-      toast.error('Failed to create assessment component');
+      showError('Failed to create assessment component');
     } finally {
       setBusy(false);
     }

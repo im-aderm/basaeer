@@ -84,7 +84,7 @@ export const AdmissionSchema = z.object({
   schoolRulesAgreement: z.boolean().refine(v => v === true, "You must accept the rules"),
 
   // Session
-  academicSessionId: z.string().min(1, "Please select a session"),
+  academicSessionId: z.string().optional(),
 
   // Legacy / Backend mapping
   branchId: z.string().optional(),

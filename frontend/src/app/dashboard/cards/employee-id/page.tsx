@@ -24,9 +24,10 @@ import { StaffService, Staff } from "@/services/staffService";
 import { SessionService, AcademicSession } from "@/services/sessionService";
 import { CardService, IdCardTemplate, IdCard } from "@/services/cardService";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function EmployeeIdCardsPage() {
+    const { showSuccess, showError } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [staff, setStaff] = useState<Staff[]>([]);
     const [sessions, setSessions] = useState<AcademicSession[]>([]);
@@ -65,7 +66,7 @@ export default function EmployeeIdCardsPage() {
             }
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load employee data");
+            showError("Failed to load employee data");
         } finally {
             setLoading(false);
         }
@@ -91,7 +92,7 @@ export default function EmployeeIdCardsPage() {
 
     const handleGenerate = async () => {
         if (!filters.templateId || !filters.sessionId || selectedStaff.length === 0) {
-            toast.error("Please select a template, session and at least one staff member");
+            showError("Please select a template, session and at least one staff member");
             return;
         }
 
@@ -102,12 +103,12 @@ export default function EmployeeIdCardsPage() {
                 sessionId: filters.sessionId,
                 staffIds: selectedStaff
             });
-            toast.success(`Successfully generated ID cards for ${selectedStaff.length} employees`);
+            showSuccess(`Successfully generated ID cards for ${selectedStaff.length} employees`);
             setSelectedStaff([]);
             fetchCards();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Generation failed:", error);
-            toast.error("Failed to generate employee ID cards");
+            showError("Failed to generate employee ID cards");
         } finally {
             setGenerating(false);
         }

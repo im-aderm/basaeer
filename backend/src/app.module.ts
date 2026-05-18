@@ -65,6 +65,7 @@ import { PermissionsGuard } from './auth/permissions.guard';
 import { MustChangePasswordGuard } from './auth/must-change-password.guard';
 import { RolesModule } from './roles/roles.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { AcademicSessionsModule } from './academic-sessions/academic-sessions.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -144,6 +145,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     HealthModule,
     RolesModule,
     AnalyticsModule,
+    AcademicSessionsModule,
   ],
   controllers: [AppController],
   providers: [

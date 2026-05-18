@@ -24,9 +24,10 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function LibraryBorrowingPage() {
+    const { showSuccess, showError, showInfo } = useNotification();
     const [borrowingHistory, setBorrowingHistory] = useState<BorrowRecord[]>([]);
     const [students, setStudents] = useState<Student[]>([]);
     const [books, setBooks] = useState<any[]>([]);
@@ -52,7 +53,7 @@ export default function LibraryBorrowingPage() {
             setBooks(booksData);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load records");
+            showError("Failed to load records");
         } finally {
             setLoading(false);
         }
@@ -66,14 +67,14 @@ export default function LibraryBorrowingPage() {
         try {
             const result = await LibraryService.returnBook(id);
             if (result.fineAmount > 0) {
-                toast.warning(`Book returned with a fine of $${result.fineAmount}`);
+                showInfo(`Book returned with a fine of $${result.fineAmount}`);
             } else {
-                toast.success("Book returned successfully");
+                showSuccess("Book returned successfully");
             }
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Return failed:", error);
-            toast.error("Failed to process return");
+            showError("Failed to process return");
         }
     };
 
@@ -81,13 +82,13 @@ export default function LibraryBorrowingPage() {
         e.preventDefault();
         try {
             await LibraryService.borrowBook(issueData);
-            toast.success("Book issued successfully");
+            showSuccess("Book issued successfully");
             setIsIssueModalOpen(false);
             setIssueData({ bookId: "", studentId: "", dueDate: "" });
             fetchData();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Issue failed:", error);
-            toast.error("Failed to issue book. Check availability.");
+            showError("Failed to issue book. Check availability.");
         }
     };
 

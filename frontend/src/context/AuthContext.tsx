@@ -47,10 +47,19 @@ export interface AuthBranch {
 }
 
 const STORAGE_KEY = "basaer-active-branch";
+const SESSION_KEY = "basaer-active-session";
 const ALL_CAMPUSES = "__all__";
 
 export function isAllCampuses(branchId: string | null | undefined): boolean {
     return branchId === ALL_CAMPUSES;
+}
+
+interface AcademicSession {
+    id: string;
+    name: string;
+    startDate: string;
+    endDate: string;
+    status: "UPCOMING" | "CURRENT" | "COMPLETED";
 }
 
 interface AuthContextType {
@@ -58,10 +67,17 @@ interface AuthContextType {
     isAuthenticated: boolean;
     loading: boolean;
     activeBranchId: string | null;
+    activeSessionId: string | null;
     resolvedBranchId: string | undefined;
+    resolvedSessionId: string | undefined;
     isAllCampusesMode: boolean;
+    isAllSessionsMode: boolean;
     availableBranches: AuthBranch[];
+    availableSessions: AcademicSession[];
+    refreshKey: number;
     switchBranch: (branchId: string | null) => Promise<void>;
+    switchSession: (sessionId: string | null) => Promise<void>;
+    refreshSessions: () => Promise<void>;
     login: (userData: User) => Promise<void>;
     logout: () => void;
 }
@@ -71,10 +87,17 @@ const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     loading: true,
     activeBranchId: null,
+    activeSessionId: null,
     resolvedBranchId: undefined,
+    resolvedSessionId: undefined,
     isAllCampusesMode: false,
+    isAllSessionsMode: false,
     availableBranches: [],
+    availableSessions: [],
+    refreshKey: 0,
     switchBranch: async () => {},
+    switchSession: async () => {},
+    refreshSessions: async () => {},
     login: async () => {},
     logout: () => {},
 });
@@ -83,18 +106,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [availableBranches, setAvailableBranches] = useState<AuthBranch[]>([]);
+    const [availableSessions, setAvailableSessions] = useState<AcademicSession[]>([]);
     const [activeBranchId, setActiveBranchId] = useState<string | null>(null);
+    const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+    const [refreshKey, setRefreshKey] = useState(0);
     const router = useRouter();
 
-    // Restore saved branch on mount
+    // Restore saved branch and session on mount
     useEffect(() => {
-        const saved = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-        if (saved) {
-            setActiveBranchId(saved);
-            // "__all__" is a sentinel — don't inject it into API calls
-            if (saved !== ALL_CAMPUSES) {
-                setApiBranchContext(saved);
+        const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+        const savedSession = typeof window !== "undefined" ? localStorage.getItem(SESSION_KEY) : null;
+        if (savedBranch) {
+            setActiveBranchId(savedBranch);
+            if (savedBranch !== ALL_CAMPUSES) {
+                setApiBranchContext(savedBranch);
             }
+        }
+        if (savedSession) {
+            setActiveSessionId(savedSession);
         }
     }, []);
 
@@ -108,6 +137,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         }
     }, [activeBranchId]);
+
+    // Persist activeSessionId to localStorage
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            if (activeSessionId) {
+                localStorage.setItem(SESSION_KEY, activeSessionId);
+            } else {
+                localStorage.removeItem(SESSION_KEY);
+            }
+        }
+    }, [activeSessionId]);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -127,7 +167,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 }
                 try {
                     const branches = await api.get("/branches");
-                    setAvailableBranches(branches.data || []);
+                    const branchList = branches.data || [];
+                    setAvailableBranches(branchList);
+
+                    // Auto-select first branch for SA if none saved
+                    const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+                    if (res.data.role === "SUPER_ADMIN" && !savedBranch && branchList.length > 0) {
+                        const firstBranch = branchList[0];
+                        setActiveBranchId(firstBranch.id);
+                        setApiBranchContext(firstBranch.id);
+                    }
                 } catch {}
             } catch (error) {
                 try { await api.post("/auth/logout"); } catch {}
@@ -139,6 +188,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         checkAuth();
     }, []);
 
+    // Fetch sessions whenever activeBranchId is resolved
+    useEffect(() => {
+        if (!user) return;
+        const branchId = user.role === "SUPER_ADMIN" ? activeBranchId : user.branchId;
+        if (!branchId || branchId === ALL_CAMPUSES) {
+            setAvailableSessions([]);
+            return;
+        }
+        const fetchSessions = async () => {
+            try {
+                const sessions = await api.get(`/academic-sessions?branchId=${branchId}`);
+                setAvailableSessions(sessions.data || []);
+            } catch {
+                setAvailableSessions([]);
+            }
+        };
+        fetchSessions();
+    }, [activeBranchId, user]);
+
     const switchBranch = useCallback(async (branchId: string | null) => {
         if (branchId && branchId !== ALL_CAMPUSES) {
             try {
@@ -146,12 +214,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             } catch (error) {
                 console.error("Failed to set branch context", error);
             }
+            // Fetch sessions for the new branch
+            try {
+                const sessions = await api.get(`/academic-sessions?branchId=${branchId}`);
+                setAvailableSessions(sessions.data || []);
+            } catch {
+                setAvailableSessions([]);
+            }
+        } else {
+            setAvailableSessions([]);
         }
+        // Clear session when branch changes
+        setActiveSessionId(null);
         const effectiveId = branchId || ALL_CAMPUSES;
         setActiveBranchId(effectiveId);
         setApiBranchContext(branchId); // null for All Campuses — no branchId in API calls
-        window.location.reload();
+        setRefreshKey((k) => k + 1);
     }, []);
+
+    const switchSession = useCallback(async (sessionId: string | null) => {
+        if (sessionId) {
+            try {
+                await api.post("/auth/select-session", { sessionId });
+            } catch (error) {
+                console.error("Failed to set session context", error);
+            }
+        }
+        setActiveSessionId(sessionId);
+        setRefreshKey((k) => k + 1);
+    }, []);
+
+    const refreshSessions = useCallback(async () => {
+        if (!user) return;
+        const branchId = user.role === "SUPER_ADMIN" ? activeBranchId : user.branchId;
+        if (!branchId || branchId === ALL_CAMPUSES) {
+            setAvailableSessions([]);
+            return;
+        }
+        try {
+            const sessions = await api.get(`/academic-sessions?branchId=${branchId}`);
+            setAvailableSessions(sessions.data || []);
+        } catch {
+            setAvailableSessions([]);
+        }
+    }, [activeBranchId, user]);
 
     const login = async (userData: User): Promise<void> => {
         setUser(userData);
@@ -185,20 +291,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         ? activeBranchId
         : (user?.branchId || undefined);
 
+    const resolvedSessionId = activeSessionId || undefined;
+
     const isAllCampusesMode = user?.role === "SUPER_ADMIN" && activeBranchId === ALL_CAMPUSES;
+    const isAllSessionsMode = !activeSessionId;
 
     const contextValue = useMemo(() => ({
         user,
         isAuthenticated: !!user,
         loading,
         activeBranchId,
+        activeSessionId,
         resolvedBranchId,
+        resolvedSessionId,
         isAllCampusesMode,
+        isAllSessionsMode,
         availableBranches,
+        availableSessions,
+        refreshKey,
         switchBranch,
+        switchSession,
+        refreshSessions,
         login,
         logout,
-    }), [user, loading, activeBranchId, resolvedBranchId, isAllCampusesMode, availableBranches]);
+    }), [user, loading, activeBranchId, activeSessionId, resolvedBranchId, resolvedSessionId, isAllCampusesMode, isAllSessionsMode, availableBranches, availableSessions, refreshKey, switchBranch, switchSession, refreshSessions]);
 
     return (
         <AuthContext.Provider value={contextValue}>

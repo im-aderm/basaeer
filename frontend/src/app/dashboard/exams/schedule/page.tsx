@@ -9,16 +9,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import api from "@/lib/api";
 
 export default function ExamSchedulePage() {
+    const { showSuccess, showError } = useNotification();
     const [exams, setExams] = useState<any[]>([]);
     const [examTypes, setExamTypes] = useState<any[]>([]);
     const [classes, setClasses] = useState<any[]>([]);
     const [subjects, setSubjects] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
     const [formData, setFormData] = useState({
         examTypeId: "",
         classId: "",
@@ -47,7 +50,7 @@ export default function ExamSchedulePage() {
             setClasses(classesData.data);
             setSubjects(subjectsData.data);
         } catch (error) {
-            toast.error("Failed to load data");
+            showError("Failed to load data");
         } finally {
             setLoading(false);
         }
@@ -60,7 +63,7 @@ export default function ExamSchedulePage() {
                 ...formData,
                 examDate: new Date(formData.examDate).toISOString(),
             });
-            toast.success("Exam scheduled successfully!");
+            showSuccess("Exam scheduled successfully!");
             setIsDialogOpen(false);
             setFormData({
                 examTypeId: "",
@@ -74,20 +77,24 @@ export default function ExamSchedulePage() {
             });
             fetchData();
         } catch (error: any) {
-            toast.error(error.response?.data?.message || "Failed to schedule exam");
+            showError(error.response?.data?.message || "Failed to schedule exam");
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm("Are you sure you want to delete this exam?")) return;
+        setConfirmDelete(id);
+    };
 
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await api.delete(`/exams/${id}`);
-            toast.success("Exam deleted successfully!");
+            await api.delete(`/exams/${confirmDelete}`);
+            showSuccess("Exam deleted successfully!");
             fetchData();
         } catch (error) {
-            toast.error("Failed to delete exam");
+            showError("Failed to delete exam");
         }
+        setConfirmDelete(null);
     };
 
     const detectConflicts = () => {
@@ -425,6 +432,14 @@ export default function ExamSchedulePage() {
                     </div>
                 )}
             </div>
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Exam"
+                message="Are you sure you want to delete this exam? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
         </RequireBranch>
     );

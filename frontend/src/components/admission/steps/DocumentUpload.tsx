@@ -4,12 +4,12 @@ import { useAdmissionStore } from "@/context/useAdmissionStore";
 import { Label } from "@/components/ui/label";
 import { CardContent } from "@/components/ui/card";
 import { FileUp, CheckCircle2, AlertCircle, Upload, X, Image as ImageIcon } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { useState, useRef, useCallback } from "react";
 import api from "@/lib/api";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const PASSPORT_MAX_SIZE = 200 * 1024; // 200KB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const PASSPORT_MAX_SIZE = 200 * 1024;
 const PASSPORT_WIDTH = 300;
 const PASSPORT_HEIGHT = 300;
 const WHITE_THRESHOLD = 240;
@@ -25,13 +25,13 @@ interface UploadFieldProps {
   label: string;
   field: string;
   value?: string;
-  required?: boolean;
   category?: string;
   isPassport?: boolean;
 }
 
-function UploadField({ label, field, value, required, category, isPassport }: UploadFieldProps) {
+function UploadField({ label, field, value, category, isPassport }: UploadFieldProps) {
   const { updateFormData } = useAdmissionStore();
+  const { showSuccess, showError, showInfo } = useNotification();
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [passportValidation, setPassportValidation] = useState<{
@@ -43,14 +43,12 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const validatePassportPhoto = useCallback(async (file: File): Promise<boolean> => {
-    // Check file size
     if (file.size > PASSPORT_MAX_SIZE) {
-      toast.error(`${label}: Photo must be under 200KB (current: ${(file.size / 1024).toFixed(1)}KB)`);
+      showError(`${label}: Photo must be under 200KB (current: ${(file.size / 1024).toFixed(1)}KB)`);
       setPassportValidation({ sizeOk: false, dimensionsOk: false, backgroundOk: false });
       return false;
     }
 
-    // Check dimensions
     const img = new Image();
     const imgLoad = new Promise<HTMLImageElement>((resolve, reject) => {
       img.onload = () => resolve(img);
@@ -63,13 +61,12 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
       const width = loadedImg.naturalWidth;
       const height = loadedImg.naturalHeight;
 
-      if (width !== PASSPORT_WIDTH || height !== PASSPORT_HEIGHT) {
-        toast.error(`${label}: Photo must be exactly ${PASSPORT_WIDTH}×${PASSPORT_HEIGHT}px (current: ${width}×${height}px)`);
+      if (width > PASSPORT_WIDTH || height > PASSPORT_HEIGHT) {
+        showError(`${label}: Photo must be at most ${PASSPORT_WIDTH}×${PASSPORT_HEIGHT}px (current: ${width}×${height}px)`);
         setPassportValidation({ sizeOk: true, dimensionsOk: false, backgroundOk: false });
         return false;
       }
 
-      // Check white background using canvas
       const canvas = canvasRef.current || document.createElement('canvas');
       canvas.width = width;
       canvas.height = height;
@@ -108,14 +105,14 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
       const backgroundOk = whiteRatio >= WHITE_PIXEL_RATIO;
 
       if (!backgroundOk) {
-        toast.warning(`${label}: Background appears non-white (${Math.round(whiteRatio * 100)}% white). Please use a white background for best results.`);
+        showInfo(`${label}: Background appears non-white (${Math.round(whiteRatio * 100)}% white). Please use a white background.`);
       }
 
       setPassportValidation({ sizeOk: true, dimensionsOk: true, backgroundOk });
       return true;
     } catch (error) {
       if (process.env.NODE_ENV === 'development') console.error("Photo validation error:", error);
-      toast.error(`${label}: Unable to validate photo. Please try another file.`);
+      showError(`${label}: Unable to validate photo. Please try another file.`);
       return false;
     }
   }, [label]);
@@ -124,19 +121,16 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
     if (!ALLOWED_TYPES.includes(file.type)) {
-      toast.error(`${label}: Only JPEG, PNG, WebP images and PDF files are allowed`);
+      showError(`${label}: Only JPEG, PNG, WebP images and PDF files are allowed`);
       return;
     }
 
-    // Validate file size (general)
     if (file.size > MAX_FILE_SIZE) {
-      toast.error(`${label}: File size must be under 5MB (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+      showError(`${label}: File size must be under 5MB`);
       return;
     }
 
-    // Passport-specific validation
     if (isPassport && file.type.startsWith("image/")) {
       const isValid = await validatePassportPhoto(file);
       if (!isValid) return;
@@ -152,27 +146,24 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
         ? `/upload/admission-document?category=${encodeURIComponent(category)}`
         : "/upload/admission-document";
 
-      const response = await api.post(url, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await api.post(url, formData);
 
       if (response.data.success) {
         const fileUrl = response.data.url;
         updateFormData({ [field]: fileUrl });
 
-        // Create preview for images
         if (file.type.startsWith("image/")) {
           const reader = new FileReader();
           reader.onload = (ev) => setPreview(ev.target?.result as string);
           reader.readAsDataURL(file);
         }
 
-        toast.success(`${label} uploaded successfully`);
+        showSuccess(`${label} uploaded`);
       }
     } catch (error: any) {
       if (process.env.NODE_ENV === 'development') console.error("Upload error:", error);
       const message = error.response?.data?.message || "Upload failed. Please try again.";
-      toast.error(`${label}: ${message}`);
+      showError(`${label}: ${message}`);
     } finally {
       setUploading(false);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -183,13 +174,13 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
     updateFormData({ [field]: undefined });
     setPreview(null);
     setPassportValidation(null);
-    toast.info(`${label} removed`);
+    showInfo(`${label} removed`);
   };
 
   return (
-    <div className="flex flex-col gap-3 p-6 bg-muted/30 rounded-[2rem] border border-border transition-all hover:border-primary/60">
-      <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">
-        {label} {required && "*"}
+    <div className="p-4 bg-muted/30 rounded-xl border border-border">
+      <Label className="text-sm font-medium text-foreground mb-3 block">
+        {label}
       </Label>
 
       <input
@@ -201,91 +192,65 @@ function UploadField({ label, field, value, required, category, isPassport }: Up
         className="hidden"
       />
 
-      <div className="flex items-center justify-between gap-4">
+      {value ? (
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 text-emerald-600 text-sm font-medium flex-1">
+            <CheckCircle2 size={16} /> Uploaded
+          </div>
+          <button
+            type="button"
+            onClick={handleRemove}
+            className="p-1.5 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      ) : (
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-dashed border-primary/60 rounded-xl hover:border-primary hover:text-primary transition-all font-bold text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 w-full h-10 px-3 bg-white border border-dashed border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition-all text-sm text-muted-foreground disabled:opacity-50"
         >
           {uploading ? (
             <>
-              <Upload size={18} className="animate-spin" />
+              <Upload size={16} className="animate-spin" />
               Uploading...
             </>
           ) : (
             <>
-              <FileUp size={18} />
-              {value ? "Change File" : "Choose File"}
+              <FileUp size={16} />
+              Choose file
             </>
           )}
         </button>
+      )}
 
-        {value ? (
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-green-500 font-black text-[10px] uppercase">
-              <CheckCircle2 size={16} /> Attached
-            </div>
-            <button
-              type="button"
-              onClick={handleRemove}
-              className="p-1 rounded-full hover:bg-red-100 text-muted-foreground hover:text-red-500 transition-colors"
-              title="Remove file"
-            >
-              <X size={16} />
-            </button>
-          </div>
-        ) : (
-          required && (
-            <div className="flex items-center gap-1.5 text-amber-500 font-black text-[10px] uppercase">
-              <AlertCircle size={16} /> Required
-            </div>
-          )
-        )}
-      </div>
-
-      {/* Passport Photo Validation Badges */}
+      {/* Passport validation badges */}
       {isPassport && passportValidation && (
-        <div className="mt-2 p-3 bg-muted/20 rounded-xl space-y-2">
-          <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground flex items-center gap-1">
-            <ImageIcon size={12} /> Photo Validation
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            <div className={`flex items-center gap-1.5 text-xs font-semibold ${passportValidation.sizeOk ? 'text-green-500' : 'text-red-500'}`}>
-              {passportValidation.sizeOk ? <CheckCircle2 size={14} /> : <X size={14} />}
-              ≤200KB
-            </div>
-            <div className={`flex items-center gap-1.5 text-xs font-semibold ${passportValidation.dimensionsOk ? 'text-green-500' : 'text-red-500'}`}>
-              {passportValidation.dimensionsOk ? <CheckCircle2 size={14} /> : <X size={14} />}
-              300×300px
-            </div>
-            <div className={`flex items-center gap-1.5 text-xs font-semibold ${passportValidation.backgroundOk ? 'text-green-500' : 'text-amber-500'}`}>
-              {passportValidation.backgroundOk ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
-              White BG
-            </div>
-          </div>
+        <div className="mt-3 flex gap-3 text-xs">
+          <span className={passportValidation.sizeOk ? 'text-emerald-600' : 'text-destructive'}>
+            {passportValidation.sizeOk ? '✓' : '✗'} ≤200KB
+          </span>
+          <span className={passportValidation.dimensionsOk ? 'text-emerald-600' : 'text-destructive'}>
+            {passportValidation.dimensionsOk ? '✓' : '✗'} ≤300×300px
+          </span>
+          <span className={passportValidation.backgroundOk ? 'text-emerald-600' : 'text-amber-600'}>
+            {passportValidation.backgroundOk ? '✓' : '⚠'} White BG
+          </span>
         </div>
       )}
 
-      {/* Preview */}
+      {/* Image preview */}
       {preview && (
-        <div className="mt-2 relative">
-          <img
-            src={preview}
-            alt={`${label} preview`}
-            className="w-full h-32 object-cover rounded-xl border border-border"
-          />
-        </div>
+        <img
+          src={preview}
+          alt={`${label} preview`}
+          className="mt-3 w-full h-24 object-cover rounded-lg border border-border"
+        />
       )}
 
-      {value && value.endsWith(".pdf") && (
-        <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
-          <FileUp size={14} />
-          <span className="truncate">{value.split("/").pop()}</span>
-        </div>
-      )}
-
-      {/* Hidden canvas for background analysis */}
+      {/* Hidden canvas */}
       <canvas ref={canvasRef} className="hidden" />
     </div>
   );
@@ -295,22 +260,17 @@ export function DocumentUpload() {
   const { formData } = useAdmissionStore();
 
   return (
-    <CardContent className="p-8 space-y-8">
-      <div className="text-center space-y-2">
-        <h3 className="text-2xl font-black italic uppercase tracking-tight">Upload Documents</h3>
-        <p className="text-sm text-muted-foreground font-medium">
-          Please provide clear scans or photos of the following (PDF, JPG, or PNG, max 5MB each).
-        </p>
-        <p className="text-xs font-bold text-amber-600 bg-amber-500/10 inline-block px-3 py-1 rounded-full">
-          Passport photo must be ≤200KB, exactly 300×300px, with white background.
-        </p>
+    <CardContent className="p-6 md:p-8 space-y-6">
+      <div className="space-y-1">
+        <h3 className="text-lg font-semibold text-foreground">Document Uploads</h3>
+        <p className="text-sm text-muted-foreground">Upload clear scans or photos (PDF, JPG, or PNG, max 5MB each). All fields are optional.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <UploadField label="Passport Photograph" field="passportPhoto" value={formData.passportPhoto} required category="passport" isPassport />
-        <UploadField label="Birth Certificate" field="birthCertificateUrl" value={formData.birthCertificateUrl} required category="birth-certificate" />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <UploadField label="Passport Photograph" field="passportPhoto" value={formData.passportPhoto} category="passport" isPassport />
+        <UploadField label="Birth Certificate" field="birthCertificateUrl" value={formData.birthCertificateUrl} category="birth-certificate" />
         <UploadField label="NIN Slip" field="ninUrl" value={formData.ninUrl} category="nin" />
-        <UploadField label="Last School Report" field="schoolReportUrl" value={formData.schoolReportUrl} required category="school-report" />
+        <UploadField label="Last School Report" field="schoolReportUrl" value={formData.schoolReportUrl} category="school-report" />
         <UploadField label="Medical Report" field="medicalReportUrl" value={formData.medicalReportUrl} category="medical" />
         <UploadField label="Recommendation Letter" field="recommendationLetterUrl" value={formData.recommendationLetterUrl} category="recommendation" />
         {formData.admissionType === "TRANSFER" && (
@@ -321,9 +281,11 @@ export function DocumentUpload() {
         )}
       </div>
 
-      <div className="p-6 bg-primary/5 rounded-[2rem] border border-primary/20 text-xs font-medium text-primary italic flex gap-3 items-center">
-        <AlertCircle size={20} className="shrink-0" />
-        Ensure all documents are clear and readable. Maximum file size: 5MB per file.
+      <div className="p-4 bg-primary/5 rounded-xl border border-primary/10 flex gap-2 items-start">
+        <AlertCircle size={16} className="text-primary shrink-0 mt-0.5" />
+        <p className="text-xs text-muted-foreground">
+          Ensure all documents are clear and readable. You can upload documents later if needed.
+        </p>
       </div>
     </CardContent>
   );

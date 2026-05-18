@@ -6,6 +6,7 @@ import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/ui/GradientBackground";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useNotification } from '@/context/NotificationContext';
 import {
   School,
   MapPin, 
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 
 export default function ContactPage() {
+  const { showSuccess } = useNotification();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,7 +32,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Message sent successfully!");
+    showSuccess("Message sent successfully!");
   };
 
   return (

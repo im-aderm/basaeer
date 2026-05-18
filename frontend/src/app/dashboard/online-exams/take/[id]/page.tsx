@@ -8,13 +8,15 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, Clock, Send, ChevronLeft, ChevronRight, ShieldAlert, CheckCircle2, BookOpen, Users, Activity } from 'lucide-react';
 import { OnlineExamService, OnlineExam, Question, QuestionType } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { Progress } from '@/components/ui/progress';
 
 export default function StudentExamTakePage() {
     const params = useParams();
     const router = useRouter();
     const examId = params.id as string;
+    const { showSuccess, showError } = useNotification();
 
     const [exam, setExam] = useState<OnlineExam & { group: { questions: Question[] } } | null>(null);
     const [currentIdx, setCurrentIdx] = useState(0);
@@ -24,6 +26,7 @@ export default function StudentExamTakePage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
     const [warnings, setWarnings] = useState(0);
+    const [confirmSubmit, setConfirmSubmit] = useState<boolean>(false);
 
     const fetchExam = useCallback(async () => {
         try {
@@ -46,7 +49,7 @@ export default function StudentExamTakePage() {
             setTimeLeft(remaining);
             if (remaining <= 0) handleSubmit(true);
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to start exam');
+            showError(error.response?.data?.message || 'Failed to start exam');
             router.push('/dashboard/online-exams');
         } finally {
             setLoading(false);
@@ -102,12 +105,9 @@ export default function StudentExamTakePage() {
             if (document.hidden && !isFinished) {
                 setWarnings(prev => {
                     const newCount = prev + 1;
-                    toast.warning(`Warning ${newCount}: Please stay on the exam page!`, {
-                        description: 'Your activity is being monitored. Multiple violations may lead to automatic submission.',
-                        duration: 5000
-                    });
+                    showError(`Warning ${newCount}: Please stay on the exam page!`);
                     if (newCount >= 3) {
-                        toast.error('Maximum warnings exceeded. Submitting exam...');
+                        showError('Maximum warnings exceeded. Submitting exam...');
                         handleSubmit(true);
                     }
                     return newCount;
@@ -128,7 +128,10 @@ export default function StudentExamTakePage() {
     const handleSubmit = async (isAuto = false) => {
         if (isSubmitting || isFinished) return;
 
-        if (!isAuto && !confirm('Are you sure you want to submit your exam?')) return;
+        if (!isAuto) {
+            setConfirmSubmit(true);
+            return;
+        }
 
         setIsSubmitting(true);
         try {
@@ -143,9 +146,9 @@ export default function StudentExamTakePage() {
 
             await OnlineExamService.submitAttempt(examId, formattedAnswers);
             setIsFinished(true);
-            toast.success(isAuto ? 'Time expired. Exam submitted automatically.' : 'Exam submitted successfully!');
+            showSuccess(isAuto ? 'Time expired. Exam submitted automatically.' : 'Exam submitted successfully!');
         } catch (error) {
-            toast.error('Failed to submit exam. Please contact your teacher.');
+            showError('Failed to submit exam. Please contact your teacher.');
         } finally {
             setIsSubmitting(false);
         }
@@ -339,6 +342,15 @@ export default function StudentExamTakePage() {
                     <span>Secure Session Active</span>
                 </div>
             </div>
+
+            <ConfirmDialog
+                isOpen={confirmSubmit}
+                onConfirm={() => { setConfirmSubmit(false); handleSubmit(true); }}
+                onCancel={() => setConfirmSubmit(false)}
+                title="Submit Exam"
+                message="Are you sure you want to submit your exam? You cannot change your answers after submission."
+                confirmLabel="Submit"
+            />
         </div>
     );
 }

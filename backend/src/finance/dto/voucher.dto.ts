@@ -5,7 +5,10 @@ import {
   IsEnum,
   IsOptional,
   IsDateString,
+  IsUUID,
+  Min,
 } from 'class-validator';
+import { VoucherType } from '../../generated/client/client';
 
 export class CreateExpenseCategoryDto {
   @IsNotEmpty()
@@ -16,8 +19,7 @@ export class CreateExpenseCategoryDto {
   @IsString()
   description?: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   branchId: string;
 }
 
@@ -28,21 +30,29 @@ export class CreateVoucherDto {
 
   @IsNotEmpty()
   @IsNumber()
+  @Min(0.01)
   amount: number;
+
+  @IsOptional()
+  @IsEnum(VoucherType)
+  type?: VoucherType;
 
   @IsNotEmpty()
   @IsString()
   description: string;
 
-  @IsNotEmpty()
-  @IsString()
-  expenseCategoryId: string;
+  @IsOptional()
+  @IsUUID()
+  expenseCategoryId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  studentId?: string;
 
   @IsNotEmpty()
   @IsString()
   paidTo: string;
 
-  @IsNotEmpty()
-  @IsString()
+  @IsUUID()
   branchId: string;
 }

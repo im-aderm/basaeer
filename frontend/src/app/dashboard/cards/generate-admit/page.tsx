@@ -24,9 +24,10 @@ import { ClassService, Class } from "@/services/classService";
 import { SessionService, AcademicSession } from "@/services/sessionService";
 import { CardService, IdCardTemplate, IdCard } from "@/services/cardService";
 import { Checkbox } from "@/components/ui/checkbox";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function GenerateAdmitCardPage() {
+    const { showSuccess, showError } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [students, setStudents] = useState<Student[]>([]);
     const [classes, setClasses] = useState<Class[]>([]);
@@ -68,7 +69,7 @@ export default function GenerateAdmitCardPage() {
             }
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load page data");
+            showError("Failed to load page data");
         } finally {
             setLoading(false);
         }
@@ -94,7 +95,7 @@ export default function GenerateAdmitCardPage() {
 
     const handleGenerate = async () => {
         if (!filters.templateId || !filters.sessionId || selectedStudents.length === 0) {
-            toast.error("Please select a template, session, and at least one student");
+            showError("Please select a template, session, and at least one student");
             return;
         }
 
@@ -105,12 +106,12 @@ export default function GenerateAdmitCardPage() {
                 sessionId: filters.sessionId,
                 studentIds: selectedStudents
             });
-            toast.success(`Successfully generated admit cards for ${selectedStudents.length} students`);
+            showSuccess(`Successfully generated admit cards for ${selectedStudents.length} students`);
             setSelectedStudents([]);
             fetchCards();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Generation failed:", error);
-            toast.error("Failed to generate admit cards");
+            showError("Failed to generate admit cards");
         } finally {
             setGenerating(false);
         }

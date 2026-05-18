@@ -19,10 +19,11 @@ import { HRService, LeaveRequest } from "@/services/hrService";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { DataTable } from "@/components/DataTable";
 
 export default function LeaveManagementPage() {
+    const { showSuccess, showError } = useNotification();
     const [requests, setRequests] = useState<LeaveRequest[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -44,10 +45,10 @@ export default function LeaveManagementPage() {
     const handleStatusUpdate = async (id: string, status: 'APPROVED' | 'REJECTED') => {
         try {
             await HRService.updateLeaveStatus(id, status);
-            toast.success(`Leave request ${status.toLowerCase()} successfully`);
+            showSuccess(`Leave request ${status.toLowerCase()} successfully`);
             fetchRequests();
         } catch (error) {
-            toast.error("Failed to update status");
+            showError("Failed to update status");
         }
     };
 

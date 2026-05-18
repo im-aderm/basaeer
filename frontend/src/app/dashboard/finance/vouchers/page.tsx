@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Plus, Check, X, Loader2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import { financeService, Voucher } from '@/services/financeService';
 
 const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
@@ -19,6 +19,8 @@ const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'o
 };
 
 export default function VoucherManagementPage() {
+  const { showSuccess, showError } = useNotification();
+
   const [vouchers, setVouchers] = useState<Voucher[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +44,7 @@ export default function VoucherManagementPage() {
       setCategories(categoriesData);
     } catch (error) {
       if (process.env.NODE_ENV === 'development') console.error('Failed to fetch voucher data', error);
-      toast.error('Failed to load vouchers');
+      showError('Failed to load vouchers');
     } finally {
       setLoading(false);
     }
@@ -61,10 +63,10 @@ export default function VoucherManagementPage() {
       setIsDialogOpen(false);
       setFormData({ amount: '', description: '', expenseCategoryId: '', paidTo: '', date: new Date().toISOString().split('T')[0] });
       fetchData();
-      toast.success('Voucher created');
+      showSuccess('Voucher created');
     } catch (error) {
       if (process.env.NODE_ENV === 'development') console.error('Failed to create voucher', error);
-      toast.error('Failed to create voucher');
+      showError('Failed to create voucher');
     }
   };
 
@@ -72,10 +74,10 @@ export default function VoucherManagementPage() {
     try {
       await financeService.updateVoucherStatus(id, status);
       fetchData();
-      toast.success(`Voucher ${status.toLowerCase()}`);
+      showSuccess(`Voucher ${status.toLowerCase()}`);
     } catch (error) {
       if (process.env.NODE_ENV === 'development') console.error('Failed to update status', error);
-      toast.error('Failed to update voucher status');
+      showError('Failed to update voucher status');
     }
   };
 

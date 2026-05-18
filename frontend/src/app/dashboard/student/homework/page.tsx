@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import { AcademicOpsService } from "@/services/academicOpsService";
 import { useAuth } from "@/context/AuthContext";
 
 export default function StudentHomeworkView() {
+    const { showSuccess, showError } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [assignments, setAssignments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -29,7 +30,7 @@ export default function StudentHomeworkView() {
             const data = await AcademicOpsService.getStudentAssignments(user.student.id);
             setAssignments(data);
         } catch (error) {
-            toast.error("Failed to load assignments");
+            showError("Failed to load assignments");
         } finally {
             setLoading(false);
         }
@@ -44,12 +45,12 @@ export default function StudentHomeworkView() {
                 studentId: user.student.id,
                 contentUrl,
             });
-            toast.success("Assignment submitted successfully!");
+            showSuccess("Assignment submitted successfully!");
             setContentUrl("");
             setSelectedAssignment(null);
             fetchAssignments();
         } catch (error) {
-            toast.error("Failed to submit assignment");
+            showError("Failed to submit assignment");
         }
     };
 

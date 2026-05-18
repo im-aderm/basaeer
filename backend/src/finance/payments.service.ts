@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { PaystackService } from './paystack.service';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Decimal } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class PaymentsService {
@@ -28,15 +29,6 @@ export class PaymentsService {
     }
 
     const { event, data } = parsedPayload;
-
-    await this.prisma.paymentWebhookLog.create({
-      data: {
-        gateway: 'PAYSTACK',
-        event,
-        payload: data,
-        status: 'PROCESSED',
-      },
-    });
 
     if (event === 'charge.success') {
       const invoiceId = data.metadata?.invoiceId;
@@ -71,6 +63,15 @@ export class PaymentsService {
 
       const amountPaid = data.amount / 100;
 
+      await this.prisma.paymentWebhookLog.create({
+        data: {
+          gateway: 'PAYSTACK',
+          event,
+          payload: data,
+          status: 'PROCESSED',
+        },
+      });
+
       await this.prisma.$transaction(async (tx) => {
         await tx.payment.create({
           data: {
@@ -83,10 +84,35 @@ export class PaymentsService {
           },
         });
 
-        const newBalance = Math.max(0, Number(invoice.balance) - amountPaid);
+        const paid = new Decimal(amountPaid);
+        const balance = new Decimal(invoice.balance);
+        const total = new Decimal(invoice.totalAmount);
+
+        // Credit excess to student account on overpayment
+        if (paid.gt(balance)) {
+          const excess = paid.minus(balance);
+          const account = await tx.studentAccount.upsert({
+            where: { studentId: invoice.studentId },
+            update: { creditBalance: { increment: excess } },
+            create: { studentId: invoice.studentId, branchId: invoice.branchId, creditBalance: excess },
+          });
+          await tx.creditTransaction.create({
+            data: {
+              studentAccountId: account.id,
+              type: 'OVERPAYMENT',
+              amount: excess,
+              description: `Excess payment from Paystack — invoice ${invoiceId}`,
+              referenceId: invoiceId,
+              branchId: invoice.branchId,
+            },
+          });
+        }
+
+        const newBalance = Decimal.max(0, balance.minus(paid));
+
         let newStatus = 'PARTIALLY_PAID';
-        if (newBalance === 0) newStatus = 'PAID';
-        if (newBalance === Number(invoice.totalAmount)) newStatus = 'UNPAID';
+        if (newBalance.eq(0)) newStatus = 'PAID';
+        if (newBalance.eq(total)) newStatus = 'UNPAID';
 
         await tx.invoice.update({
           where: { id: invoiceId },

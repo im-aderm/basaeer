@@ -15,16 +15,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { MessageSquare, Plus, Search, MoreHorizontal, AlertCircle, CheckCircle2, Clock, Trash2, Edit3, Loader2 } from 'lucide-react';
 import { ReceptionService, Complaint } from '@/services/receptionService';
 import { SettingsService, GlobalSetting } from '@/services/settingsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function ComplaintPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [complaints, setComplaints] = useState<Complaint[]>([]);
     const [complaintTypes, setComplaintTypes] = useState<string[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
     const [editingComplaint, setEditingComplaint] = useState<Complaint | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const [form, setForm] = useState({
         complaintType: '',
@@ -62,7 +65,7 @@ export default function ComplaintPage() {
                 }
             }
         } catch (error) {
-            toast.error('Failed to load data');
+            showError('Failed to load data');
         } finally {
             setLoading(false);
         }
@@ -76,12 +79,12 @@ export default function ComplaintPage() {
         e.preventDefault();
         try {
             await ReceptionService.createComplaint({ ...form, branchId: resolvedBranchId });
-            toast.success('Complaint logged successfully');
+            showSuccess('Complaint logged successfully');
             setIsAddDialogOpen(false);
             resetForm();
             fetchData();
         } catch (error) {
-            toast.error('Failed to log complaint');
+            showError('Failed to log complaint');
         }
     };
 
@@ -90,33 +93,39 @@ export default function ComplaintPage() {
         if (!editingComplaint) return;
         try {
             await ReceptionService.updateComplaint(editingComplaint.id, form);
-            toast.success('Complaint updated successfully');
+            showSuccess('Complaint updated successfully');
             setEditingComplaint(null);
             fetchData();
             resetForm();
         } catch (error) {
-            toast.error('Failed to update complaint');
+            showError('Failed to update complaint');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this complaint?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await ReceptionService.deleteComplaint(id);
-            toast.success('Complaint deleted successfully');
+            await ReceptionService.deleteComplaint(confirmDelete);
+            showSuccess('Complaint deleted successfully');
             fetchData();
         } catch (error) {
-            toast.error('Failed to delete complaint');
+            showError('Failed to delete complaint');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
     const handleStatusUpdate = async (id: string, status: string) => {
         try {
             await ReceptionService.updateComplaint(id, { status });
-            toast.success(`Status updated to ${status}`);
+            showSuccess(`Status updated to ${status}`);
             fetchData();
         } catch (error) {
-            toast.error('Failed to update status');
+            showError('Failed to update status');
         }
     };
 
@@ -195,12 +204,12 @@ export default function ComplaintPage() {
                                 Log Complaint
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
                                 <DialogTitle className="text-h3 font-semibold">New Complaint</DialogTitle>
                                 <DialogDescription className="font-bold text-muted-foreground">Record details of the complaint for tracking and resolution.</DialogDescription>
                             </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-6 pt-4">
+                            <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
                                 <ComplaintForm form={form} setForm={setForm} complaintTypes={complaintTypes} />
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Log Complaint</Button>
@@ -277,12 +286,12 @@ export default function ComplaintPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingComplaint} onOpenChange={(open) => { if (!open) setEditingComplaint(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-10 max-w-2xl border-border shadow-2xl">
+                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-h3 font-semibold">Edit Complaint</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update tracking info for {editingComplaint?.name}</DialogDescription>
                     </DialogHeader>
-                    <form onSubmit={handleUpdate} className="space-y-6 pt-4">
+                    <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
                         <ComplaintForm form={form} setForm={setForm} complaintTypes={complaintTypes} isEdit />
                         <DialogFooter>
                             <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Complaint</Button>
@@ -290,6 +299,15 @@ export default function ComplaintPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Complaint"
+                message="Are you sure you want to delete this complaint? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );
@@ -298,7 +316,7 @@ export default function ComplaintPage() {
 function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form: any, setForm: any, complaintTypes: string[], isEdit?: boolean }) {
     return (
         <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complainant Name</Label>
                     <Input required className="h-12 rounded-xl font-bold" placeholder="Full Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
@@ -308,7 +326,7 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
                     <Input required className="h-12 rounded-xl font-bold" placeholder="+234..." value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Complaint Type</Label>
                     <Select value={form.complaintType} onValueChange={(v) => setForm({ ...form, complaintType: v })}>
@@ -332,7 +350,7 @@ function ComplaintForm({ form, setForm, complaintTypes, isEdit = false }: { form
                 <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Issue Description</Label>
                 <Textarea required className="rounded-xl font-bold min-h-[100px]" placeholder="Explain the problem in detail..." rows={3} value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                     <Label className="font-semibold text-[10px] uppercase opacity-50 ml-1">Assigned To</Label>
                     <Input className="h-12 rounded-xl font-bold" placeholder="Staff name" value={form.assignedTo} onChange={(e) => setForm({ ...form, assignedTo: e.target.value })} />

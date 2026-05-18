@@ -9,7 +9,7 @@ import {
 export class ReportTemplatesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateReportTemplateDto, branchId: string) {
+  async create(dto: CreateReportTemplateDto, branchId: string, sessionId?: string) {
     if (dto.isDefault) {
       // Unset previous default
       await this.prisma.reportTemplate.updateMany({
@@ -22,6 +22,7 @@ export class ReportTemplatesService {
       data: {
         ...dto,
         branchId,
+        sessionId: sessionId,
       },
     });
   }

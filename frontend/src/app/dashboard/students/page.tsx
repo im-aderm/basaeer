@@ -18,9 +18,10 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { StudentService } from "@/services/studentService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function StudentsDashboard() {
+    const { showError } = useNotification();
     const [stats, setStats] = useState({
         total: 0,
         newThisMonth: 0,
@@ -43,7 +44,7 @@ export default function StudentsDashboard() {
             .catch((err: unknown) => {
                 const errMsg = err instanceof Error ? err.message : String(err);
                 setError("Could not load student statistics");
-                toast.error("Failed to load student data");
+                showError("Failed to load student data");
             })
             .finally(() => setLoading(false));
     }, []);

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Loader2, BookOpen, TrendingUp, Award, Star } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 interface TahfeezRecord {
   id?: string;
@@ -26,6 +26,7 @@ interface TahfeezRecord {
 }
 
 export function TahfeezUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [items, setItems] = useState<TahfeezRecord[]>([]);
@@ -36,7 +37,7 @@ export function TahfeezUI() {
     try {
       setItems(await AcademicService.listComponents());
     } catch {
-      toast.error('Unable to load tahfeez records');
+      showError('Unable to load tahfeez records');
     } finally {
       setLoading(false);
     }
@@ -59,11 +60,11 @@ export function TahfeezUI() {
         fluencyScore: Number(form.fluencyScore),
         revisionScore: Number(form.revisionScore),
       });
-      toast.success('Tahfeez assessment recorded');
+      showSuccess('Tahfeez assessment recorded');
       setForm({ studentId: '', sessionId: '', term: 'FIRST', surah: '', juz: '', memorizationScore: '', tajweedScore: '', fluencyScore: '', revisionScore: '' });
       await load();
     } catch {
-      toast.error('Failed to record assessment');
+      showError('Failed to record assessment');
     } finally {
       setBusy(false);
     }

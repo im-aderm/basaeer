@@ -22,9 +22,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 
 export default function GenerateStudentCertificatePage() {
+    const { showSuccess, showError } = useNotification();
     const { user, resolvedBranchId } = useAuth();
     const [students, setStudents] = useState<Student[]>([]);
     const [templates, setTemplates] = useState<any[]>([]);
@@ -45,7 +46,7 @@ export default function GenerateStudentCertificatePage() {
             setTemplates(Array.isArray(templatesData.data) ? templatesData.data : []);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch data:", error);
-            toast.error("Failed to load students or templates");
+            showError("Failed to load students or templates");
         } finally {
             setLoading(false);
         }
@@ -72,11 +73,11 @@ export default function GenerateStudentCertificatePage() {
 
     const handleGenerate = async () => {
         if (!selectedTemplate) {
-            toast.error("Please select a template");
+            showError("Please select a template");
             return;
         }
         if (selectedStudentIds.size === 0) {
-            toast.error("Please select at least one student");
+            showError("Please select at least one student");
             return;
         }
 
@@ -107,8 +108,8 @@ export default function GenerateStudentCertificatePage() {
         }
 
         setResults({ success, failed, errors });
-        if (success > 0) toast.success(`Successfully generated ${success} certificate(s)`);
-        if (failed > 0) toast.error(`Failed to generate ${failed} certificate(s)`);
+        if (success > 0) showSuccess(`Successfully generated ${success} certificate(s)`);
+        if (failed > 0) showError(`Failed to generate ${failed} certificate(s)`);
         setGenerating(false);
     };
 

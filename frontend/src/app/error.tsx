@@ -1,23 +1,30 @@
 'use client';
-import { AlertCircle, RefreshCw } from 'lucide-react';
 
-export default function Error({ error, reset }: { error: Error; reset: () => void }) {
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-background">
-            <div className="text-center p-10 max-w-md">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-destructive/10 flex items-center justify-center">
-                    <AlertCircle className="w-8 h-8 text-destructive" />
-                </div>
-                <h1 className="text-h1 font-bold tracking-tight text-primary mb-3">Something went wrong</h1>
-                <p className="text-muted-foreground mb-8">{error.message || 'An unexpected error occurred'}</p>
-                <button
-                    onClick={reset}
-                    className="btn-press inline-flex items-center gap-2 px-8 py-3 bg-primary text-white rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 font-bold"
-                >
-                    <RefreshCw size={18} />
-                    Try Again
-                </button>
-            </div>
+export default function RootError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  return (
+    <html>
+      <body className="bg-background text-foreground">
+        <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-6">
+          <div className="text-center space-y-3 max-w-md">
+            <h1 className="text-2xl font-bold">Something went wrong</h1>
+            <p className="text-muted-foreground text-sm">
+              {error.message || 'An unexpected error occurred. Please try again.'}
+            </p>
+            <button
+              onClick={reset}
+              className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
         </div>
-    );
+      </body>
+    </html>
+  );
 }

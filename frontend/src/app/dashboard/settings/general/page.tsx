@@ -10,10 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Settings, Save, Globe, Phone, Mail, MapPin, Coins, Languages, School } from 'lucide-react';
 import { SettingsService, GlobalSetting } from '@/services/settingsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function GeneralSettingsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [settings, setSettings] = useState<Record<string, string>>({
         school_name: '',
         school_address: '',
@@ -36,7 +37,7 @@ export default function GeneralSettingsPage() {
                 });
                 setSettings(prev => ({ ...prev, ...settingsMap }));
             } catch (error) {
-                toast.error('Failed to load settings');
+                showError('Failed to load settings');
             } finally {
                 setLoading(false);
             }
@@ -55,9 +56,9 @@ export default function GeneralSettingsPage() {
                 SettingsService.updateSetting(key, value)
             );
             await Promise.all(promises);
-            toast.success('Settings updated successfully');
+            showSuccess('Settings updated successfully');
         } catch (error) {
-            toast.error('Failed to update settings');
+            showError('Failed to update settings');
         } finally {
             setIsSaving(false);
         }

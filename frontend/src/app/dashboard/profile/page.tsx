@@ -6,11 +6,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Lock, Save, Loader2, Mail, Phone } from "lucide-react";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import MotionWrapper from "@/components/ui/MotionWrapper";
 
 export default function ProfilePage() {
+  const { showSuccess, showError } = useNotification();
   const { user, resolvedBranchId } = useAuth();
   const [profile, setProfile] = useState({ firstName: "", lastName: "", email: "", phone: "" });
   const [saving, setSaving] = useState(false);
@@ -37,9 +38,9 @@ export default function ProfilePage() {
         lastName: profile.lastName,
         phone: profile.phone,
       });
-      toast.success("Profile updated successfully");
+      showSuccess("Profile updated successfully");
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Failed to update profile");
+      showError(err?.response?.data?.message || "Failed to update profile");
     } finally {
       setSaving(false);
     }
@@ -48,11 +49,11 @@ export default function ProfilePage() {
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordData.newPw !== passwordData.confirm) {
-      toast.error("New passwords do not match");
+      showError("New passwords do not match");
       return;
     }
     if (passwordData.newPw.length < 8) {
-      toast.error("Password must be at least 8 characters");
+      showError("Password must be at least 8 characters");
       return;
     }
     setChangingPw(true);
@@ -61,10 +62,10 @@ export default function ProfilePage() {
         currentPassword: passwordData.current,
         newPassword: passwordData.newPw,
       });
-      toast.success("Password changed successfully");
+      showSuccess("Password changed successfully");
       setPasswordData({ current: "", newPw: "", confirm: "" });
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Failed to change password");
+      showError(err?.response?.data?.message || "Failed to change password");
     } finally {
       setChangingPw(false);
     }

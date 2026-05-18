@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import { AttendanceService } from "@/services/attendanceService";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
@@ -26,6 +26,7 @@ export default function StudentAttendancePage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const urlSessionId = searchParams.get('sessionId');
+    const { showSuccess, showError, showInfo } = useNotification();
 
     const [loading, setLoading] = useState(false);
     const [fetching, setFetching] = useState(false);
@@ -89,7 +90,7 @@ export default function StudentAttendancePage() {
             setStudents(studentList);
             setAttendanceData(initialData);
         } catch (error) {
-            toast.error("Failed to load roster");
+            showError("Failed to load roster");
         } finally {
             setFetching(false);
         }
@@ -133,9 +134,9 @@ export default function StudentAttendancePage() {
             }));
 
             await api.post('/attendance/bulk', { records });
-            toast.success("Attendance updated");
+            showSuccess("Attendance updated");
         } catch (error) {
-            toast.error("Failed to save");
+            showError("Failed to save");
         } finally {
             setLoading(false);
         }
@@ -147,7 +148,7 @@ export default function StudentAttendancePage() {
             newData[s.id] = { ...newData[s.id], status };
         });
         setAttendanceData(newData);
-        toast.info(`All students marked as ${status}`);
+        showInfo(`All students marked as ${status}`);
     };
 
     return (

@@ -19,12 +19,13 @@ import {
     Activity
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 import Link from 'next/link';
 
 export default function ChildProfilePage() {
     const { id } = useParams();
     const router = useRouter();
+    const { showError } = useNotification();
     const [child, setChild] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
@@ -34,13 +35,13 @@ export default function ChildProfilePage() {
                 const children = await StakeholderService.getChildren();
                 const found = children.find((c: any) => c.id === id);
                 if (!found) {
-                    toast.error('Child not found or access denied');
+                    showError('Child not found or access denied');
                     router.push('/dashboard/parent');
                     return;
                 }
                 setChild(found);
             } catch (error) {
-                toast.error('Failed to load child data');
+                showError('Failed to load child data');
             } finally {
                 setLoading(false);
             }

@@ -70,6 +70,7 @@ const navigation: NavItem[] = [
     {
         title: "Branches",
         icon: Building2,
+        roles: ["SUPER_ADMIN"],
         children: [
             { title: "All Branches", href: "/dashboard/branches" },
             { title: "Create Branch", href: "/dashboard/branches/create" },

@@ -12,10 +12,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Layers, Plus, Search, MoreVertical, Edit2, Trash2, HelpCircle } from 'lucide-react';
 import { OnlineExamService, QuestionGroup } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function QuestionGroupPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [groups, setGroups] = useState<QuestionGroup[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -27,7 +28,7 @@ export default function QuestionGroupPage() {
             const data = await OnlineExamService.getGroups();
             setGroups(data);
         } catch (error) {
-            toast.error('Failed to load question groups');
+            showError('Failed to load question groups');
         } finally {
             setLoading(false);
         }
@@ -41,12 +42,12 @@ export default function QuestionGroupPage() {
         if (!newGroupName.trim()) return;
         try {
             await OnlineExamService.createGroup(newGroupName, resolvedBranchId || '');
-            toast.success('Question group created successfully');
+            showSuccess('Question group created successfully');
             setNewGroupName('');
             setIsDialogOpen(false);
             fetchGroups();
         } catch (error) {
-            toast.error('Failed to create group');
+            showError('Failed to create group');
         }
     };
 

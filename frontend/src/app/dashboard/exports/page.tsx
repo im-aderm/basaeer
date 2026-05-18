@@ -14,12 +14,16 @@ import {
     RefreshCw,
     ExternalLink
 } from 'lucide-react';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { format } from 'date-fns';
 
 export default function ExportDashboardPage() {
+    const { showSuccess, showError } = useNotification();
     const [exports, setExports] = useState<AcademicExport[]>([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     useEffect(() => {
         loadExports();
@@ -41,12 +45,19 @@ export default function ExportDashboardPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to remove this export from history?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await academicExportService.deleteExport(id);
-            setExports(exports.filter(e => e.id !== id));
+            await academicExportService.deleteExport(confirmDelete);
+            showSuccess('Export removed from history');
+            setExports(exports.filter(e => e.id !== confirmDelete));
         } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error('Failed to delete export:', error);
+            showError('Failed to delete export');
+        } finally {
+            setConfirmDelete(null);
         }
     };
 
@@ -184,6 +195,15 @@ export default function ExportDashboardPage() {
                     </table>
                 </div>
             )}
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Export"
+                message="Are you sure you want to remove this export from history? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
     );
 }

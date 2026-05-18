@@ -21,11 +21,12 @@ import {
   AlertCircle
 } from "lucide-react";
 import { StakeholderService } from "@/services/stakeholderService";
-import { toast } from "sonner";
+import { useNotification } from '@/context/NotificationContext';
 import Link from "next/link";
 
 export default function ParentDashboardPage() {
-  const { user, resolvedBranchId } = useAuth();
+    const { user, resolvedBranchId } = useAuth();
+    const { showError } = useNotification();
   const [children, setChildren] = useState<any[]>([]);
   const [events, setEvents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +41,7 @@ export default function ParentDashboardPage() {
         setChildren(childrenData);
         setEvents(eventsData);
       } catch (error) {
-        toast.error("Failed to load dashboard data");
+        showError("Failed to load dashboard data");
       } finally {
         setLoading(false);
       }

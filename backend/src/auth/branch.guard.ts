@@ -12,7 +12,9 @@ import { PrismaService } from '../prisma/prisma.service';
 export interface TenantContext {
   userId: string;
   branchId: string | null;
+  sessionId?: string | null;
   selectedBranchId?: string | null;
+  selectedSessionId?: string | null;
   isSuperAdmin: boolean;
   role: UserRole;
 }
@@ -46,6 +48,11 @@ export class BranchGuard implements CanActivate {
       request.body?.branchId ||
       (request.route?.path?.includes('/branches/') ? request.params?.id : null);
 
+    const requestedSessionId =
+      request.params?.sessionId ||
+      request.query?.sessionId ||
+      request.body?.sessionId;
+
     // Determine effective branchId
     let effectiveBranchId = user.branchId;
 
@@ -64,19 +71,22 @@ export class BranchGuard implements CanActivate {
       }
     }
 
+    // Determine effective sessionId
+    let effectiveSessionId = requestedSessionId || user.selectedSessionId || null;
+
     // Populate tenant context for use in services
     request.tenantContext = {
       userId: user.id,
       branchId: effectiveBranchId,
+      sessionId: effectiveSessionId,
       selectedBranchId: user.selectedBranchId || null,
+      selectedSessionId: user.selectedSessionId || null,
       isSuperAdmin: user.role === UserRole.SUPER_ADMIN,
       role: user.role,
     };
 
-    // Sync the resolved branchId back to the Prisma AsyncLocalStorage so the
-    // $extends write guard sees the correct value (the JwtStrategy may have set
-    // it to null for SA with no selectedBranchId in the JWT).
-    this.prisma.setTenantContext(effectiveBranchId, user.id);
+    // Tenant context isolation is handled by TenantContextInterceptor (global)
+    // which wraps the request in AsyncLocalStorage.run() to prevent cross-request leakage.
 
     return true;
   }

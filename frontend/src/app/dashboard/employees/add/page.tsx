@@ -10,10 +10,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { UserPlus, Mail, Phone, User, ShieldCheck, Briefcase, Building2, Loader2, CheckCircle2 } from 'lucide-react';
+import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
 
 export default function AddEmployeePage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
@@ -65,7 +67,7 @@ export default function AddEmployeePage() {
             setSuccess(true);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to add employee', error);
-            alert('Failed to add employee. Email might already be in use.');
+            showError('Failed to add employee. Email might already be in use.');
         } finally {
             setSubmitting(false);
         }

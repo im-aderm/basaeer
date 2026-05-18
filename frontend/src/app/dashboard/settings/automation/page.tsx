@@ -24,10 +24,11 @@ import {
     CheckCircle2
 } from 'lucide-react';
 import { AutomationEventsService, AutomationConfig } from '@/services/automationEventsService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AutomationPanelPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [configs, setConfigs] = useState<AutomationConfig[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState<string | null>(null);
@@ -37,7 +38,7 @@ export default function AutomationPanelPage() {
             const data = await AutomationEventsService.getConfigs();
             setConfigs(data);
         } catch (error) {
-            toast.error('Failed to load automation settings');
+            showError('Failed to load automation settings');
         } finally {
             setLoading(false);
         }
@@ -51,10 +52,10 @@ export default function AutomationPanelPage() {
         setSaving(type);
         try {
             await AutomationEventsService.updateConfig(type, data);
-            toast.success(`${type.replace(/_/g, ' ')} updated successfully`);
+            showSuccess(`${type.replace(/_/g, ' ')} updated successfully`);
             fetchData();
         } catch (error) {
-            toast.error('Failed to update configuration');
+            showError('Failed to update configuration');
         } finally {
             setSaving(null);
         }

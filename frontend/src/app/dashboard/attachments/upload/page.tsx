@@ -10,10 +10,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Upload, FileText, Loader2 } from 'lucide-react';
 import { AttachmentService, AttachmentCategory } from '@/services/attachmentService';
 import { ClassService, Class } from '@/services/classService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function AttachmentUploadPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [categories, setCategories] = useState<AttachmentCategory[]>([]);
     const [classes, setClasses] = useState<Class[]>([]);
     const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ export default function AttachmentUploadPage() {
                 setCategories(cats);
                 setClasses(cls);
             } catch (error) {
-                toast.error('Failed to load form data');
+                showError('Failed to load form data');
             } finally {
                 setLoading(false);
             }
@@ -63,7 +64,7 @@ export default function AttachmentUploadPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!file || !formData.title || !formData.categoryId) {
-            toast.error('Title, category, and file are required');
+            showError('Title, category, and file are required');
             return;
         }
         setSubmitting(true);
@@ -74,11 +75,11 @@ export default function AttachmentUploadPage() {
                 classIds: Array.from(formData.classIds),
                 sectionIds: Array.from(formData.sectionIds),
             });
-            toast.success('File uploaded successfully');
+            showSuccess('File uploaded successfully');
             setFormData({ title: '', categoryId: '', classIds: new Set(), sectionIds: new Set() });
             setFile(null);
         } catch (error) {
-            toast.error('Upload failed');
+            showError('Upload failed');
         } finally {
             setSubmitting(false);
         }

@@ -361,15 +361,16 @@ export class OnlineAdmissionService {
 
     if (!branch) throw new NotFoundException('Branch not found');
 
-    const [classes, currentSession, settings, sections] = await Promise.all([
+    const [classes, sessions, settings, sections] = await Promise.all([
       this.prisma.class.findMany({
         where: { branchId },
         select: { id: true, name: true },
         orderBy: { name: 'asc' },
       }),
-      this.prisma.academicSession.findFirst({
-        where: { isActive: true, branchId },
-        select: { id: true, name: true },
+      this.prisma.academicSession.findMany({
+        where: { branchId },
+        select: { id: true, name: true, status: true },
+        orderBy: { name: 'asc' },
       }),
       this.prisma.globalSetting.findMany({
         where: {
@@ -412,8 +413,9 @@ export class OnlineAdmissionService {
     return {
       branchName: branch.name,
       classes,
+      sessions,
       sections: sectionsByClass,
-      currentSession,
+      currentSession: sessions.find(s => s.status === 'CURRENT') || sessions[0] || null,
       bankDetails: {
         bankName: settingsMap.admission_bank_name || '',
         accountNumber: settingsMap.admission_account_number || '',

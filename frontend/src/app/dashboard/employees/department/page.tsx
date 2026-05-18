@@ -11,12 +11,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function DepartmentsPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [departments, setDepartments] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -56,14 +60,20 @@ export default function DepartmentsPage() {
     };
 
     const handleDelete = async (id: string) => {
-        if (confirm('Are you sure you want to delete this department?')) {
-            try {
-                await api.delete(`/departments/${id}`);
-                fetchDepartments();
-            } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error('Failed to delete department', error);
-            }
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
+        try {
+            await api.delete(`/departments/${confirmDelete}`);
+            showSuccess('Department deleted successfully');
+            fetchDepartments();
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error('Failed to delete department', error);
+            showError('Failed to delete department');
         }
+        setConfirmDelete(null);
     };
 
     if (loading) return <RequireBranch requireSpecificBranch><div className="p-8"><BranchContextBanner />Loading...</div></RequireBranch>;
@@ -158,6 +168,14 @@ export default function DepartmentsPage() {
                     </div>
                 </CardContent>
             </Card>
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Department"
+                message="Are you sure you want to delete this department? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
         </RequireBranch>
     );

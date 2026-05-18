@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-table';
 import dynamic from 'next/dynamic';
 import { Save, AlertTriangle, CheckCircle, Loader2, ArrowLeft } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 const FixedSizeList = dynamic(() => import('react-window').then(mod => (mod as any).FixedSizeList), { ssr: false }) as any;
 
@@ -33,6 +33,7 @@ interface MarkEntrySpreadsheetProps {
 const columnHelper = createColumnHelper<StudentMark>();
 
 export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: MarkEntrySpreadsheetProps) {
+    const { showSuccess, showError, showInfo } = useNotification();
     const [data, setData] = useState(initialData);
     const [saving, setSaving] = useState(false);
     const [dirtyRows, setDirtyRows] = useState<Set<string>>(new Set());
@@ -105,7 +106,7 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
     const handleSave = async () => {
         const updates = data.filter(row => dirtyRows.has(row.studentId));
         if (updates.length === 0) {
-            toast.info('No changes to save');
+            showInfo('No changes to save');
             return;
         }
 
@@ -113,9 +114,9 @@ export function MarkEntrySpreadsheet({ data: initialData, onSave, onBack }: Mark
             setSaving(true);
             await onSave(updates);
             setDirtyRows(new Set());
-            toast.success(`Successfully saved marks for ${updates.length} students`);
+            showSuccess(`Successfully saved marks for ${updates.length} students`);
         } catch (error) {
-            toast.error('Failed to save marks');
+            showError('Failed to save marks');
         } finally {
             setSaving(false);
         }

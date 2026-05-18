@@ -9,9 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Loader2, Table2, Download } from 'lucide-react';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export function BroadsheetUI() {
+  const { showSuccess, showError } = useNotification();
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [form, setForm] = useState({ sectionId: '', sessionId: '', term: 'FIRST' });
@@ -35,10 +36,10 @@ export function BroadsheetUI() {
     setBusy(true);
     try {
       await academicExportService.startExport('BROADSHEET', form);
-      toast.success('Broadsheet export queued');
+      showSuccess('Broadsheet export queued');
       await load();
     } catch {
-      toast.error('Export failed');
+      showError('Export failed');
     } finally {
       setBusy(false);
     }

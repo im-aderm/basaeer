@@ -30,11 +30,6 @@ export class BranchesService {
 
     const branch = await this.prisma.branch.create({ data: branchData });
 
-    // Set tenant context to the new branch so subsequent user operations pass the write guard
-    if (userId) {
-      this.prisma.setTenantContext(branch.id, userId);
-    }
-
     if (adminUserId) {
       const user = await this.prisma.user.findUnique({ where: { id: adminUserId } });
       if (!user) throw new BadRequestException('Admin user not found');

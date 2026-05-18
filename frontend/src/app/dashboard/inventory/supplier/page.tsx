@@ -12,10 +12,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Truck, Plus, Search, Phone, Mail, MoreHorizontal } from 'lucide-react';
 import { InventoryService, InventorySupplier } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventorySupplierPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [suppliers, setSuppliers] = useState<InventorySupplier[]>([]);
     const [loading, setLoading] = useState(true);
     const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -23,13 +25,14 @@ export default function InventorySupplierPage() {
     const [selectedSupplier, setSelectedSupplier] = useState<InventorySupplier | null>(null);
     const [formData, setFormData] = useState({ name: '', contactPerson: '', phone: '', email: '', address: '' });
     const [editData, setEditData] = useState({ name: '', contactPerson: '', phone: '', email: '', address: '' });
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchSuppliers = async () => {
         try {
-            const data = await InventoryService.getSuppliers(resolvedBranchId);
+            const data = await InventoryService.getSuppliers();
             setSuppliers(data);
         } catch (error) {
-            toast.error('Failed to load suppliers');
+            showError('Failed to load suppliers');
         } finally {
             setLoading(false);
         }
@@ -42,13 +45,13 @@ export default function InventorySupplierPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createSupplier({ ...formData, branchId: resolvedBranchId });
-            toast.success('Supplier profile created');
+            await InventoryService.createSupplier({ ...formData });
+            showSuccess('Supplier profile created');
             setIsAddDialogOpen(false);
             setFormData({ name: '', contactPerson: '', phone: '', email: '', address: '' });
             fetchSuppliers();
         } catch (error) {
-            toast.error('Failed to add supplier');
+            showError('Failed to add supplier');
         }
     };
 
@@ -57,23 +60,28 @@ export default function InventorySupplierPage() {
         if (!selectedSupplier) return;
         try {
             await InventoryService.updateSupplier(selectedSupplier.id, editData);
-            toast.success('Supplier profile updated');
+            showSuccess('Supplier profile updated');
             setIsEditDialogOpen(false);
             fetchSuppliers();
         } catch (error) {
-            toast.error('Failed to update supplier');
+            showError('Failed to update supplier');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this supplier?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await InventoryService.deleteSupplier(id);
-            toast.success('Supplier profile deleted');
+            await InventoryService.deleteSupplier(confirmDelete);
+            showSuccess('Supplier profile deleted');
             fetchSuppliers();
         } catch (error) {
-            toast.error('Failed to delete supplier');
+            showError('Failed to delete supplier');
         }
+        setConfirmDelete(null);
     };
 
     return (
@@ -251,6 +259,15 @@ export default function InventorySupplierPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Supplier"
+                message="Are you sure you want to delete this supplier? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );

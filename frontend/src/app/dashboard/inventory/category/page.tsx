@@ -12,10 +12,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Label } from '@/components/ui/label';
 import { Tags, Plus, Search, Layers, Pencil, Trash2 } from 'lucide-react';
 import { InventoryService, InventoryCategory } from '@/services/inventoryService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 
 export default function InventoryCategoryPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [categories, setCategories] = useState<InventoryCategory[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
@@ -24,13 +26,14 @@ export default function InventoryCategoryPage() {
     const [selectedCategory, setSelectedCategory] = useState<InventoryCategory | null>(null);
     const [newName, setNewName] = useState('');
     const [editName, setEditName] = useState('');
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     const fetchCategories = async () => {
         try {
-            const data = await InventoryService.getCategories(resolvedBranchId);
+            const data = await InventoryService.getCategories();
             setCategories(data);
         } catch (error) {
-            toast.error('Failed to load categories');
+            showError('Failed to load categories');
         } finally {
             setLoading(false);
         }
@@ -43,13 +46,13 @@ export default function InventoryCategoryPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await InventoryService.createCategory({ name: newName, branchId: resolvedBranchId });
-            toast.success('Category created');
+            await InventoryService.createCategory({ name: newName });
+            showSuccess('Category created');
             setIsAddDialogOpen(false);
             setNewName('');
             fetchCategories();
         } catch (error) {
-            toast.error('Failed to create category');
+            showError('Failed to create category');
         }
     };
 
@@ -58,23 +61,28 @@ export default function InventoryCategoryPage() {
         if (!selectedCategory) return;
         try {
             await InventoryService.updateCategory(selectedCategory.id, { name: editName });
-            toast.success('Category updated');
+            showSuccess('Category updated');
             setIsEditDialogOpen(false);
             fetchCategories();
         } catch (error) {
-            toast.error('Failed to update category');
+            showError('Failed to update category');
         }
     };
 
     const handleDelete = async (id: string) => {
-        if (!confirm('Are you sure you want to delete this category?')) return;
+        setConfirmDelete(id);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!confirmDelete) return;
         try {
-            await InventoryService.deleteCategory(id);
-            toast.success('Category deleted');
+            await InventoryService.deleteCategory(confirmDelete);
+            showSuccess('Category deleted');
             fetchCategories();
         } catch (error) {
-            toast.error('Failed to delete category');
+            showError('Failed to delete category');
         }
+        setConfirmDelete(null);
     };
 
     return (
@@ -188,6 +196,15 @@ export default function InventoryCategoryPage() {
                     </form>
                 </DialogContent>
             </Dialog>
+
+            <ConfirmDialog
+                isOpen={!!confirmDelete}
+                onConfirm={handleConfirmDelete}
+                onCancel={() => setConfirmDelete(null)}
+                title="Delete Category"
+                message="Are you sure you want to delete this category? This action cannot be undone."
+                confirmLabel="Delete"
+            />
         </div>
           </RequireBranch>
   );

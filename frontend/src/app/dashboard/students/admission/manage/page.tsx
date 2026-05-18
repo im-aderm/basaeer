@@ -28,10 +28,13 @@ import {
     Receipt
 } from "lucide-react";
 import { clsx } from "clsx";
+import { useNotification } from '@/context/NotificationContext';
+import ConfirmDialog from '@/components/ConfirmDialog';
 import SharableLink from "@/components/admission/SharableLink";
 
 export default function AdmissionsManagementPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [admissions, setAdmissions] = useState<OnlineAdmission[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -39,6 +42,8 @@ export default function AdmissionsManagementPage() {
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
     const [branches, setBranches] = useState<Branch[]>([]);
+    const [confirmAction, setConfirmAction] = useState<{ type: 'approve' | 'reject', id: string } | null>(null);
+    const [processing, setProcessing] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -74,31 +79,39 @@ export default function AdmissionsManagementPage() {
     };
 
     const handleApprove = async (id: string) => {
-        if (!confirm("Are you sure you want to approve this application and create a student record?")) return;
         setProcessingId(id);
+        setConfirmAction({ type: 'approve', id });
+    };
+
+    const handleConfirmAction = async () => {
+        if (!confirmAction) return;
+        setProcessing(true);
         try {
-            await OnlineAdmissionService.approve(id);
-            alert("Application approved and student record created successfully!");
+            if (confirmAction.type === 'approve') {
+                await OnlineAdmissionService.approve(confirmAction.id);
+                showSuccess("Application approved and student record created successfully!");
+            } else {
+                await OnlineAdmissionService.update(confirmAction.id, { status: 'REJECTED' });
+                showSuccess("Application rejected");
+            }
             fetchAdmissions();
         } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Approval failed:", error);
-            alert("Approval failed. Please ensure the student doesn't already exist.");
+            if (process.env.NODE_ENV === 'development') console.error("Action failed:", error);
+            if (confirmAction.type === 'approve') {
+                showError("Approval failed. Please ensure the student doesn't already exist.");
+            } else {
+                showError("Rejection failed");
+            }
         } finally {
+            setProcessing(false);
+            setConfirmAction(null);
             setProcessingId(null);
         }
     };
 
     const handleReject = async (id: string) => {
-        if (!confirm("Are you sure you want to reject this application?")) return;
         setProcessingId(id);
-        try {
-            await OnlineAdmissionService.update(id, { status: 'REJECTED' });
-            fetchAdmissions();
-        } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error("Rejection failed:", error);
-        } finally {
-            setProcessingId(null);
-        }
+        setConfirmAction({ type: 'reject', id });
     };
 
     const getPaymentBadge = (status?: string) => {
@@ -314,6 +327,17 @@ export default function AdmissionsManagementPage() {
                     <p className="text-yellow-600/70 font-bold leading-relaxed max-w-4xl">Approving an application will automatically generate a new Student ID and a portal account. Ensure all uploaded documents have been verified against school policy before final enrollment.</p>
                 </div>
             </div>
+            <ConfirmDialog
+                isOpen={!!confirmAction}
+                onConfirm={handleConfirmAction}
+                onCancel={() => { setConfirmAction(null); setProcessingId(null); }}
+                title={confirmAction?.type === 'approve' ? "Approve Application" : "Reject Application"}
+                message={confirmAction?.type === 'approve'
+                    ? "Are you sure you want to approve this application and create a student record?"
+                    : "Are you sure you want to reject this application?"}
+                confirmLabel={confirmAction?.type === 'approve' ? "Approve" : "Reject"}
+                loading={processing}
+            />
             </div>
         </RequireBranch>
     );

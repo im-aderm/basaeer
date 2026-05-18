@@ -37,6 +37,7 @@ export class AuthService {
       role: user.role,
       branchId: user.branchId,
       selectedBranchId: user.selectedBranchId || null,
+      selectedSessionId: user.selectedSessionId || null,
     };
 
     this.auditService.logAction(
@@ -115,6 +116,36 @@ export class AuthService {
     };
     const access_token = this.jwtService.sign(payload);
     return { access_token, selectedBranchId };
+  }
+
+  async updateSelectedSession(userId: string, selectedSessionId: string, context: TenantContext) {
+    const user = await this.usersService.findById(userId, context);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    // Validate session exists and belongs to user's branch (or selected branch for SA)
+    const session = await this.prisma.academicSession.findUnique({
+      where: { id: selectedSessionId },
+    });
+    if (!session) {
+      throw new UnauthorizedException('Session not found');
+    }
+    if (user.role !== UserRole.SUPER_ADMIN && session.branchId !== user.branchId) {
+      throw new UnauthorizedException('You do not have access to this session');
+    }
+    if (user.role === UserRole.SUPER_ADMIN && context.selectedBranchId && session.branchId !== context.selectedBranchId) {
+      throw new UnauthorizedException('Session does not belong to selected branch');
+    }
+    const payload = {
+      email: user.email,
+      sub: user.id,
+      role: user.role,
+      branchId: user.branchId,
+      selectedBranchId: context.selectedBranchId || null,
+      selectedSessionId,
+    };
+    const access_token = this.jwtService.sign(payload);
+    return { access_token, selectedSessionId };
   }
 
   async adminResetPassword(adminId: string, targetUserId: string, newPassword: string, context: TenantContext) {

@@ -6,9 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Award, Trophy, Users, CheckCircle, AlertCircle, Loader2, Play } from 'lucide-react';
 import { OnlineExamService, OnlineExam } from '@/services/onlineExamService';
-import { toast } from 'sonner';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function OnlineExamPositionPage() {
+    const { showSuccess, showError } = useNotification();
     const [exams, setExams] = useState<OnlineExam[]>([]);
     const [selectedExamId, setSelectedExamId] = useState<string>('');
     const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ export default function OnlineExamPositionPage() {
             const data = await OnlineExamService.getExams();
             setExams(data);
         } catch (error) {
-            toast.error('Failed to load examinations');
+            showError('Failed to load examinations');
         } finally {
             setLoading(false);
         }
@@ -31,16 +32,16 @@ export default function OnlineExamPositionPage() {
 
     const handleGenerate = async () => {
         if (!selectedExamId) {
-            toast.error('Please select an examination first');
+            showError('Please select an examination first');
             return;
         }
 
         setProcessing(true);
         try {
             await OnlineExamService.generatePositions(selectedExamId);
-            toast.success('Positions generated successfully');
+            showSuccess('Positions generated successfully');
         } catch (error: any) {
-            toast.error(error.response?.data?.message || 'Failed to generate positions');
+            showError(error.response?.data?.message || 'Failed to generate positions');
         } finally {
             setProcessing(false);
         }
