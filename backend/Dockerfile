@@ -44,6 +44,7 @@ COPY --from=builder /app/backend/dist ./backend/dist
 COPY --from=builder /app/backend/prisma ./backend/prisma
 COPY --from=builder /app/backend/scripts ./backend/scripts
 COPY --from=builder /app/backend/src/generated ./backend/src/generated
+COPY --from=builder /app/backend/prisma.config.ts ./backend/prisma.config.ts
 COPY --from=builder /app/packages/shared-types/dist ./packages/shared-types/dist
 
 RUN chmod +x ./backend/scripts/start.sh
