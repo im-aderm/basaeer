@@ -41,10 +41,13 @@ const api = axios.create({
 // Request interceptor: auto-inject branchId on all requests except global routes
 api.interceptors.request.use((config) => {
     if (_activeBranchId && config.url) {
-        // Skip routes that should never receive branch context
         const skip = ['/auth/', '/branches', '/health', '/search'];
         if (!skip.some((s) => config.url!.includes(s))) {
-            config.params = { ...config.params, branchId: _activeBranchId };
+            const hasBranchIdInUrl = /[?&]branchId=/.test(config.url);
+            const hasBranchIdInParams = config.params && 'branchId' in config.params;
+            if (!hasBranchIdInUrl && !hasBranchIdInParams) {
+                config.params = { ...config.params, branchId: _activeBranchId };
+            }
         }
     }
     return config;

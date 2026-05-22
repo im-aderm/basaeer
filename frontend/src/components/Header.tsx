@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Bell, Search, User, Settings, Calendar, CheckCircle, Clock, Archive } from "lucide-react";
+import { LogOut, Bell, Search, User } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import GlobalSearch from "@/components/GlobalSearch";
@@ -10,21 +10,11 @@ import SessionSelector from "@/components/SessionSelector";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
 import { useNotification } from '@/context/NotificationContext';
 
-const statusConfig = {
-    CURRENT: { icon: CheckCircle, color: "text-emerald-600", bg: "bg-emerald-500/10", border: "border-emerald-500/20" },
-    UPCOMING: { icon: Clock, color: "text-amber-600", bg: "bg-amber-500/10", border: "border-amber-500/20" },
-    COMPLETED: { icon: Archive, color: "text-muted-foreground", bg: "bg-muted/30", border: "border-border/30" },
-};
-
 export function Header() {
-    const { user, logout, activeSessionId, availableSessions } = useAuth();
+    const { user, logout } = useAuth();
     const { showInfo } = useNotification();
     const [searchOpen, setSearchOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
-
-    const activeSession = availableSessions.find((s) => s.id === activeSessionId);
-    const sessionStatus = activeSession ? statusConfig[activeSession.status] : null;
-    const StatusIcon = sessionStatus?.icon;
 
     // Global keyboard shortcut: Ctrl+K / Cmd+K to open search
     useEffect(() => {
@@ -49,19 +39,6 @@ export function Header() {
         <>
             <header className="h-16 border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-30 flex items-center px-4 md:px-8 gap-6 w-full">
                 <div className="flex-1 flex items-center gap-4">
-                    {/* Active Session Display */}
-                    {activeSession && sessionStatus && StatusIcon && (
-                        <div className={`hidden lg:flex items-center gap-3 px-4 py-2 rounded-xl ${sessionStatus.bg} border ${sessionStatus.border}`}>
-                            <StatusIcon className={`w-5 h-5 ${sessionStatus.color}`} />
-                            <div>
-                                <p className={`text-sm font-bold ${sessionStatus.color}`}>{activeSession.name}</p>
-                                <p className="text-[10px] text-muted-foreground">
-                                    {new Date(activeSession.startDate).toLocaleDateString()} — {new Date(activeSession.endDate).toLocaleDateString()}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-
                     {/* Search trigger — opens GlobalSearch modal */}
                     <button
                         onClick={() => setSearchOpen(true)}
