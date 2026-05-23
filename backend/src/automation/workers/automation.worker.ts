@@ -48,11 +48,10 @@ export class AutomationWorker {
 
     try {
       const students = await this.prisma.$queryRaw<BirthdayPerson[]>`
-        SELECT s.id, s."firstName", s."lastName", u.email, u.phone, s."branchId"
-        FROM "Student" s
-        LEFT JOIN "User" u ON s."userId" = u.id
-        WHERE EXTRACT(MONTH FROM s.dob) = ${month}
-        AND EXTRACT(DAY FROM s.dob) = ${day}
+        SELECT id, "firstName", "lastName", email, phone, "branchId"
+        FROM "Student"
+        WHERE EXTRACT(MONTH FROM "dateOfBirth") = ${month}
+        AND EXTRACT(DAY FROM "dateOfBirth") = ${day}
       `;
 
       const staff = await this.prisma.$queryRaw<BirthdayPerson[]>`

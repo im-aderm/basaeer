@@ -206,7 +206,6 @@ model User {
   firstName                  String
   lastName                   String
   phone                      String?
-  dateOfBirth                DateTime?
   isActive                   Boolean                   @default(true)
   mustChangePassword         Boolean                   @default(false)
   role                       UserRole
