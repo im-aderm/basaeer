@@ -60,19 +60,19 @@ export function MedicalInfo() {
       <div className="space-y-4">
         <div className="text-sm font-semibold text-foreground">Health & Learning</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
             <Label className="text-sm font-medium">Medical condition?</Label>
             <Switch checked={hasMedical} onCheckedChange={(v) => setValue("hasMedicalCondition", v)} />
           </div>
-          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
             <Label className="text-sm font-medium">Learning difficulty?</Label>
             <Switch checked={hasDifficulty} onCheckedChange={(v) => setValue("hasLearningDifficulty", v)} />
           </div>
-          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
             <Label className="text-sm font-medium">Special needs?</Label>
             <Switch checked={hasSpecial} onCheckedChange={(v) => setValue("hasSpecialNeeds", v)} />
           </div>
-          <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+          <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
             <Label className="text-sm font-medium">Seeking financial aid?</Label>
             <Switch checked={watch("seekingFinancialAid")} onCheckedChange={(v) => setValue("seekingFinancialAid", v)} />
           </div>
@@ -104,7 +104,7 @@ export function MedicalInfo() {
 
       {/* Sibling Info */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+        <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
           <Label className="text-sm font-medium">Siblings currently enrolled?</Label>
           <Switch checked={hasSiblings} onCheckedChange={(v) => setValue("hasSiblingsInSchool", v)} />
         </div>
@@ -112,7 +112,7 @@ export function MedicalInfo() {
         {hasSiblings && (
           <div className="space-y-3">
             {fields.map((field, index) => (
-              <div key={field.id} className="flex gap-3 items-start p-4 bg-muted/30 rounded-xl">
+              <div key={field.id} className="flex gap-3 items-start p-4 bg-muted/30 border border-border/50 rounded-xl">
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label>Sibling Name</Label>
@@ -149,7 +149,7 @@ export function MedicalInfo() {
       {/* Additional */}
       <div className="space-y-4">
         <div className="text-sm font-semibold text-foreground">Additional</div>
-        <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+        <div className="flex items-center justify-between p-4 bg-muted/30 border border-border/50 rounded-xl">
           <Label className="text-sm font-medium">Applied before?</Label>
           <Switch checked={watch("hasAppliedBefore")} onCheckedChange={(v) => setValue("hasAppliedBefore", v)} />
         </div>
