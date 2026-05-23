@@ -21,10 +21,15 @@ export class ReceptionService {
 
   // Enquiries
   createEnquiry(dto: CreateEnquiryDto) {
-    const { date, status, ...rest } = dto as any;
+    const { date, status, nextFollowUpDate, email, address, source, description, ...rest } = dto as any;
     return this.prisma.admissionEnquiry.create({
       data: {
         ...rest,
+        email: email || undefined,
+        address: address || undefined,
+        description: description || undefined,
+        source: source || undefined,
+        nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : undefined,
         date: date ? new Date(date) : new Date(),
         status: status || 'PENDING',
       },
@@ -115,7 +120,14 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Enquiry not found');
-    return this.prisma.admissionEnquiry.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { nextFollowUpDate, ...rest } = dto as any;
+    return this.prisma.admissionEnquiry.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(nextFollowUpDate !== undefined ? { nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : null } : {}),
+      },
+    });
   }
 
   async deleteEnquiry(id: string, context: TenantContext) {
