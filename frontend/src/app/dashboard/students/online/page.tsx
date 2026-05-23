@@ -138,24 +138,16 @@ export default function OnlineAdmissionsDashboard() {
 
     const getStatusBadge = (status: string) => {
         switch (status) {
-            case 'APPLICATION_RECEIVED':
             case 'PENDING':
-                return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-semibold text-[10px]">NEW</Badge>;
+                return <Badge variant="secondary" className="bg-amber-500/10 text-amber-600 border-amber-500/20 font-semibold">PENDING</Badge>;
             case 'APPROVED':
             case 'ENROLLED':
-                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-semibold text-[10px]">ENROLLED</Badge>;
+                return <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 font-semibold">ENROLLED</Badge>;
             case 'REJECTED':
-                return <Badge variant="destructive" className="font-semibold text-[10px]">REJECTED</Badge>;
+                return <Badge variant="destructive" className="font-semibold text-[10px] tracking-widest">REJECTED</Badge>;
             default:
-                return <Badge variant="outline" className="text-[10px]">{status}</Badge>;
+                return <Badge variant="outline">{status}</Badge>;
         }
-    };
-
-    const getTypeBadge = (type?: string) => {
-        if (!type) return null;
-        return type === 'TRANSFER'
-            ? <Badge className="bg-purple-500/10 text-purple-600 border-purple-500/20 font-semibold text-[10px] ml-1">TRANSFER</Badge>
-            : <Badge className="bg-blue-500/10 text-blue-600 border-blue-500/20 font-semibold text-[10px] ml-1">NEW</Badge>;
     };
 
     const getPaymentBadge = (status?: string) => {
@@ -196,58 +188,56 @@ export default function OnlineAdmissionsDashboard() {
                 <CardContent className="p-0">
                     <Table>
                         <TableHeader className="bg-muted/50">
-                            <TableRow className="hover:bg-transparent border-border/50 h-10">
-                                <TableHead className="font-semibold uppercase text-[10px] tracking-wider pl-4">Student</TableHead>
-                                <TableHead className="font-semibold uppercase text-[10px] tracking-wider">Class</TableHead>
-                                <TableHead className="font-semibold uppercase text-[10px] tracking-wider">Guardian</TableHead>
-                                <TableHead className="font-semibold uppercase text-[10px] tracking-wider">Payment</TableHead>
-                                <TableHead className="font-semibold uppercase text-[10px] tracking-wider">Status</TableHead>
-                                <TableHead className="text-right font-semibold uppercase text-[10px] tracking-wider pr-4">Actions</TableHead>
+                            <TableRow className="hover:bg-transparent border-border/50">
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest pl-8">Student</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Applied Class</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Guardian</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Payment</TableHead>
+                                <TableHead className="font-black h-16 uppercase text-[10px] tracking-widest">Status</TableHead>
+                                <TableHead className="text-right font-black h-16 uppercase text-[10px] tracking-widest pr-8">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {admissions.map((adm) => (
-                                <TableRow key={adm.id} className="border-border/50 hover:bg-primary/5 transition-colors">
-                                    <TableCell className="py-2 pl-4">
-                                        <div className="flex items-center gap-2.5">
-                                            <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px] shrink-0">
+                                <TableRow key={adm.id} className="border-border/50 hover:bg-primary/5 transition-colors group">
+                                    <TableCell className="py-6 pl-8">
+                                        <div className="flex items-center gap-4">
+                                            <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-black text-xs shadow-inner">
                                                 {adm.firstName[0]}{adm.lastName[0]}
                                             </div>
-                                            <div className="min-w-0">
-                                                <p className="text-[12px] font-semibold truncate leading-tight">
-                                                    {adm.firstName} {adm.lastName}
-                                                    {getTypeBadge(adm.admissionType)}
-                                                </p>
-                                                <p className="text-[10px] text-muted-foreground font-medium">{new Date(adm.createdAt).toLocaleDateString()}</p>
+                                            <div>
+                                                <p className="font-black italic ">{adm.firstName} {adm.lastName}</p>
+                                                <p className="text-[10px] text-muted-foreground font-bold tracking-tight">{new Date(adm.createdAt).toLocaleDateString()}</p>
                                             </div>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-[12px] font-medium py-2">{adm.desiredClass?.name || 'N/A'}</TableCell>
-                                    <TableCell className="py-2">
-                                        <p className="text-[12px] font-medium leading-tight truncate max-w-[160px]">{adm.guardianName}</p>
-                                        <p className="text-[11px] text-muted-foreground font-medium">{adm.guardianPhone}</p>
+                                    <TableCell className="font-bold">{adm.desiredClass?.name || 'N/A'}</TableCell>
+                                    <TableCell>
+                                        <p className="font-bold text-sm italic">{adm.guardianName}</p>
+                                        <p className="text-[10px] text-muted-foreground font-bold tracking-tighter">{adm.guardianPhone}</p>
                                     </TableCell>
-                                    <TableCell className="py-2">
-                                        {getPaymentBadge(adm.paymentStatus)}
+                                    <TableCell>
+                                        <div className="flex items-center gap-2">
+                                            {getPaymentBadge(adm.paymentStatus)}
+                                        </div>
                                     </TableCell>
-                                    <TableCell className="py-2">{getStatusBadge(adm.status)}</TableCell>
-                                    <TableCell className="text-right pr-4 py-2">
-                                        <div className="flex justify-end gap-1.5">
+                                    <TableCell>{getStatusBadge(adm.status)}</TableCell>
+                                    <TableCell className="text-right pr-8">
+                                        <div className="flex justify-end gap-2">
                                             <Button
                                                 variant="ghost"
-                                                size="sm"
-                                                className="h-8 px-3 rounded-lg text-primary hover:bg-primary/10 transition-all font-semibold text-[11px]"
+                                                className="h-10 px-4 rounded-xl text-primary hover:bg-primary/10 transition-all border-2 border-primary/5 font-black italic uppercase text-[10px]"
                                                 onClick={() => setSelectedAdmission(adm)}
                                             >
-                                                <Eye className="h-3.5 w-3.5 mr-1" /> View
+                                                <Eye className="h-4 w-4 mr-1.5" /> Details
                                             </Button>
                                             <Button
                                                 size="icon"
                                                 variant="ghost"
-                                                className="h-8 w-8 rounded-lg text-destructive hover:bg-destructive/10 transition-all"
+                                                className="h-10 w-10 rounded-xl text-destructive hover:bg-destructive/10 transition-all border-2 border-destructive/5"
                                                 onClick={() => handleDelete(adm.id)}
                                             >
-                                                <Trash2 className="h-3.5 w-3.5" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
                                         </div>
                                     </TableCell>
@@ -255,8 +245,8 @@ export default function OnlineAdmissionsDashboard() {
                             ))}
                             {admissions.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="text-center py-16 text-muted-foreground font-semibold italic opacity-30 text-lg">
-                                        No applications yet
+                                    <TableCell colSpan={6} className="text-center py-20 text-muted-foreground font-black italic uppercase tracking-widest opacity-30 text-2xl">
+                                        Queue Empty
                                     </TableCell>
                                 </TableRow>
                             )}

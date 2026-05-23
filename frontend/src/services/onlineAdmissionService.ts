@@ -12,16 +12,22 @@ export interface OnlineAdmission {
     id: string;
     admissionNumber?: string;
     firstName: string;
+    surname?: string;
     lastName: string;
     otherNames?: string;
     gender: string;
     dateOfBirth: string;
+    age?: number;
+    ninNumber?: string;
     placeOfBirth?: string;
     nationality?: string;
     stateOfOrigin?: string;
     lga?: string;
     religion?: string;
     passportPhoto?: string;
+    passportPhoto2?: string;
+    passportPhoto3?: string;
+    passportPhoto4?: string;
 
     academicSessionId?: string;
     admissionTerm?: string;
@@ -41,30 +47,63 @@ export interface OnlineAdmission {
     guardianAddress?: string;
     guardianOccupation?: string;
     guardianOfficeAddress?: string;
+    
+    fatherName?: string;
+    fatherOccupation?: string;
+    fatherPhone?: string;
+    motherName?: string;
+    motherOccupation?: string;
+    motherPhone?: string;
+    
+    guardianContact1?: string;
+    guardianContact2?: string;
 
     secondaryGuardianName?: string;
     secondaryGuardianPhone?: string;
     secondaryGuardianRelation?: string;
 
     address?: string;
+    whatsappNumber?: string;
+    languagesSpoken?: string;
     city?: string;
     state?: string;
     country?: string;
     emergencyContactName?: string;
     emergencyContactPhone?: string;
     emergencyContactRelation?: string;
+    emergencySickness?: string;
 
     bloodGroup?: string;
     genotype?: string;
     allergies?: string;
     medicalConditions?: string;
+    hasMedicalCondition: boolean;
+    medicalConditionInfo?: string;
+    hasLearningDifficulty: boolean;
+    learningDifficultyInfo?: string;
+    hasSpecialNeeds: boolean;
+    specialNeedsInfo?: string;
     familyDoctorName?: string;
     familyDoctorPhone?: string;
+
+    hasAppliedBefore: boolean;
+    howHeard?: string;
+    seekingFinancialAid: boolean;
+    hasSiblingsInSchool: boolean;
+    siblingName?: string;
+    siblingLevel?: string;
 
     birthCertificateUrl?: string;
     testimonialUrl?: string;
     transferCertificateUrl?: string;
     immunizationCardUrl?: string;
+    ninUrl?: string;
+    educationalCertUrl?: string;
+    transferLetterUrl?: string;
+    medicalReportUrl?: string;
+    recommendationLetterUrl?: string;
+    schoolReportUrl?: string;
+    paymentProofUrl?: string;
 
     branchId: string;
     studentStatus: string;
@@ -86,15 +125,17 @@ export interface OnlineAdmission {
     createdAt: string;
     updatedAt: string;
 
+    // Payment Info
     paymentReceiptUrl?: string;
     paymentStatus?: string;
     paymentMethod?: string;
 
-    desiredClass?: { id: string; name: string };
+    desiredClass?: any;
     desiredSection?: any;
     academicSession?: any;
     studentCategory?: any;
 
+    // Legacy
     email?: string;
     phone?: string;
     parentId?: string;
