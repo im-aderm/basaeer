@@ -60,10 +60,11 @@ export class ReceptionService {
 
   // Visitor Logs
   createVisitorLog(dto: CreateVisitorLogDto) {
+    const { date, ...rest } = dto as any;
     return this.prisma.visitorLog.create({
       data: {
-        ...dto,
-        date: (dto as any).date || new Date(),
+        ...rest,
+        date: date ? new Date(date) : new Date(),
         inTime: (dto as any).inTime || new Date().toTimeString().slice(0, 5),
       },
     });
@@ -78,11 +79,12 @@ export class ReceptionService {
 
   // Complaints
   createComplaint(dto: CreateComplaintDto) {
+    const { date, status, ...rest } = dto as any;
     return this.prisma.complaint.create({
       data: {
-        ...dto,
-        date: (dto as any).date || new Date(),
-        status: (dto as any).status || 'PENDING',
+        ...rest,
+        date: date ? new Date(date) : new Date(),
+        status: status || 'PENDING',
       },
     });
   }
@@ -96,10 +98,11 @@ export class ReceptionService {
 
   // Postal Records
   createPostalRecord(dto: CreatePostalRecordDto) {
+    const { date, ...rest } = dto as any;
     return this.prisma.postalRecord.create({
       data: {
-        ...dto,
-        date: (dto as any).date || new Date(),
+        ...rest,
+        date: date ? new Date(date) : new Date(),
       },
     });
   }
@@ -165,7 +168,14 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Visitor log not found');
-    return this.prisma.visitorLog.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { date, ...rest } = dto as any;
+    return this.prisma.visitorLog.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(date !== undefined ? { date: new Date(date) } : {}),
+      },
+    });
   }
 
   async deleteVisitorLog(id: string, context: TenantContext) {
@@ -181,7 +191,14 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Complaint not found');
-    return this.prisma.complaint.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { date, ...rest } = dto as any;
+    return this.prisma.complaint.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(date !== undefined ? { date: new Date(date) } : {}),
+      },
+    });
   }
 
   async deleteComplaint(id: string, context: TenantContext) {
@@ -197,7 +214,14 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Postal record not found');
-    return this.prisma.postalRecord.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { date, ...rest } = dto as any;
+    return this.prisma.postalRecord.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(date !== undefined ? { date: new Date(date) } : {}),
+      },
+    });
   }
 
   async deletePostalRecord(id: string, context: TenantContext) {

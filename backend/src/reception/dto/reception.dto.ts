@@ -104,6 +104,10 @@ export class CreateVisitorLogDto {
   outTime?: string;
 
   @IsOptional()
+  @IsDateString()
+  date?: string;
+
+  @IsOptional()
   @IsString()
   note?: string;
 
@@ -140,6 +144,10 @@ export class CreateComplaintDto {
   assignedTo?: string;
 
   @IsOptional()
+  @IsDateString()
+  date?: string;
+
+  @IsOptional()
   @IsString()
   status?: string;
 
@@ -167,6 +175,10 @@ export class CreatePostalRecordDto {
   @IsOptional()
   @IsString()
   description?: string;
+
+  @IsOptional()
+  @IsDateString()
+  date?: string;
 
   @IsString()
   type: string; // DISPATCH, RECEIVE
