@@ -1498,6 +1498,7 @@ exports.Prisma.InventoryProductScalarFieldEnum = {
   unitId: 'unitId',
   storeId: 'storeId',
   stock: 'stock',
+  lowStockThreshold: 'lowStockThreshold',
   costPrice: 'costPrice',
   sellingPrice: 'sellingPrice',
   branchId: 'branchId',

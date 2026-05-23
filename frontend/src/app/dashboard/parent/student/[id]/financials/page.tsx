@@ -65,7 +65,7 @@ export default function ChildFinancialsPage() {
                     <div className="flex items-center gap-3 font-semibold uppercase text-xs opacity-50">
                         <Wallet className="h-4 w-4" /> Total Outstanding
                     </div>
-                    <div className="text-h1 font-semibold text-rose-500">${totalBalance.toLocaleString()}</div>
+                    <div className="text-h1 font-semibold text-rose-500">₦{totalBalance.toLocaleString()}</div>
                     <p className="text-xs font-bold opacity-70">Total balance across all active invoices.</p>
                 </Card>
 
@@ -114,8 +114,8 @@ export default function ChildFinancialsPage() {
                                 {invoices.length > 0 ? (invoices ?? []).map((inv) => (
                                     <tr key={inv.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
                                         <td className="p-6 font-semibold uppercase text-sm">#{inv.invoiceNumber}</td>
-                                        <td className="p-6 font-bold text-sm">${inv.totalAmount.toLocaleString()}</td>
-                                        <td className="p-6 font-semibold text-rose-500 text-sm">${inv.balance.toLocaleString()}</td>
+                                        <td className="p-6 font-bold text-sm">₦{inv.totalAmount.toLocaleString()}</td>
+                                        <td className="p-6 font-semibold text-rose-500 text-sm">₦{inv.balance.toLocaleString()}</td>
                                         <td className="p-6 font-bold text-sm opacity-60">{new Date(inv.dueDate).toLocaleDateString()}</td>
                                         <td className="p-6">
                                             <Badge

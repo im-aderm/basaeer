@@ -145,7 +145,7 @@ export default function AttendanceDashboard() {
                         <div>
                             <h3 className="text-h3 font-semibold text-slate-900">QR ID Cards</h3>
                             <p className="text-muted-foreground mt-2">Generate and print QR ID cards for students.</p>
-                            <Button className="mt-4 rounded-xl font-bold bg-orange-600 hover:bg-orange-700">Go to QR Cards &rarr;</Button>
+                            <Button className="mt-4 rounded-xl font-bold bg-primary hover:bg-primary/90">Go to QR Cards &rarr;</Button>
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@ export default function AttendanceDashboard() {
                         <div>
                             <h3 className="text-h3 font-semibold text-slate-900">Attendance Analytics</h3>
                             <p className="text-muted-foreground mt-2">View trends and chronic absentee reports.</p>
-                            <Button className="mt-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-700">View Analytics &rarr;</Button>
+                            <Button className="mt-4 rounded-xl font-bold bg-primary hover:bg-primary/90">View Analytics &rarr;</Button>
                         </div>
                     </div>
                 </div>

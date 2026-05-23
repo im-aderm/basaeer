@@ -84,6 +84,9 @@ export class CreateInventoryPurchaseDto {
   @IsOptional()
   @IsString()
   voucherNo?: string;
+  @IsOptional()
+  @IsString()
+  date?: string;
   @IsNumber()
   quantity: number;
   @IsNumber()
@@ -119,6 +122,9 @@ export class CreateInventorySaleDto {
   @IsOptional()
   @IsString()
   invoiceNo?: string;
+  @IsOptional()
+  @IsString()
+  date?: string;
   @IsNumber()
   quantity: number;
   @IsNumber()
@@ -161,6 +167,9 @@ export class UpdateInventoryProductDto {
   @IsOptional()
   @IsNumber()
   lowStockThreshold?: number;
+  @IsOptional()
+  @IsNumber()
+  stock?: number;
 }
 
 export class UpdateInventoryCategoryDto {

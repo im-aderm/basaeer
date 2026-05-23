@@ -144,7 +144,7 @@ export default function LeaveManagementPage() {
                                     <>
                                         <Button
                                             size="sm"
-                                            className="rounded-xl font-semibold bg-green-500 hover:bg-green-600 shadow-lg shadow-green-500/20 px-6"
+                                            className="rounded-xl font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 px-6"
                                             onClick={() => handleStatusUpdate(req.id, 'APPROVED')}
                                         >
                                             <Check size={16} className="mr-2" /> Approve

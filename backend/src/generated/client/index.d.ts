@@ -135340,12 +135340,14 @@ export namespace Prisma {
 
   export type InventoryProductAvgAggregateOutputType = {
     stock: number | null
+    lowStockThreshold: number | null
     costPrice: Decimal | null
     sellingPrice: Decimal | null
   }
 
   export type InventoryProductSumAggregateOutputType = {
     stock: number | null
+    lowStockThreshold: number | null
     costPrice: Decimal | null
     sellingPrice: Decimal | null
   }
@@ -135359,6 +135361,7 @@ export namespace Prisma {
     unitId: string | null
     storeId: string | null
     stock: number | null
+    lowStockThreshold: number | null
     costPrice: Decimal | null
     sellingPrice: Decimal | null
     branchId: string | null
@@ -135375,6 +135378,7 @@ export namespace Prisma {
     unitId: string | null
     storeId: string | null
     stock: number | null
+    lowStockThreshold: number | null
     costPrice: Decimal | null
     sellingPrice: Decimal | null
     branchId: string | null
@@ -135391,6 +135395,7 @@ export namespace Prisma {
     unitId: number
     storeId: number
     stock: number
+    lowStockThreshold: number
     costPrice: number
     sellingPrice: number
     branchId: number
@@ -135402,12 +135407,14 @@ export namespace Prisma {
 
   export type InventoryProductAvgAggregateInputType = {
     stock?: true
+    lowStockThreshold?: true
     costPrice?: true
     sellingPrice?: true
   }
 
   export type InventoryProductSumAggregateInputType = {
     stock?: true
+    lowStockThreshold?: true
     costPrice?: true
     sellingPrice?: true
   }
@@ -135421,6 +135428,7 @@ export namespace Prisma {
     unitId?: true
     storeId?: true
     stock?: true
+    lowStockThreshold?: true
     costPrice?: true
     sellingPrice?: true
     branchId?: true
@@ -135437,6 +135445,7 @@ export namespace Prisma {
     unitId?: true
     storeId?: true
     stock?: true
+    lowStockThreshold?: true
     costPrice?: true
     sellingPrice?: true
     branchId?: true
@@ -135453,6 +135462,7 @@ export namespace Prisma {
     unitId?: true
     storeId?: true
     stock?: true
+    lowStockThreshold?: true
     costPrice?: true
     sellingPrice?: true
     branchId?: true
@@ -135556,6 +135566,7 @@ export namespace Prisma {
     unitId: string
     storeId: string | null
     stock: number
+    lowStockThreshold: number
     costPrice: Decimal
     sellingPrice: Decimal
     branchId: string
@@ -135591,6 +135602,7 @@ export namespace Prisma {
     unitId?: boolean
     storeId?: boolean
     stock?: boolean
+    lowStockThreshold?: boolean
     costPrice?: boolean
     sellingPrice?: boolean
     branchId?: boolean
@@ -135615,6 +135627,7 @@ export namespace Prisma {
     unitId?: boolean
     storeId?: boolean
     stock?: boolean
+    lowStockThreshold?: boolean
     costPrice?: boolean
     sellingPrice?: boolean
     branchId?: boolean
@@ -135635,6 +135648,7 @@ export namespace Prisma {
     unitId?: boolean
     storeId?: boolean
     stock?: boolean
+    lowStockThreshold?: boolean
     costPrice?: boolean
     sellingPrice?: boolean
     branchId?: boolean
@@ -135655,6 +135669,7 @@ export namespace Prisma {
     unitId?: boolean
     storeId?: boolean
     stock?: boolean
+    lowStockThreshold?: boolean
     costPrice?: boolean
     sellingPrice?: boolean
     branchId?: boolean
@@ -135662,7 +135677,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type InventoryProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "description" | "categoryId" | "unitId" | "storeId" | "stock" | "costPrice" | "sellingPrice" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["inventoryProduct"]>
+  export type InventoryProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "description" | "categoryId" | "unitId" | "storeId" | "stock" | "lowStockThreshold" | "costPrice" | "sellingPrice" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["inventoryProduct"]>
   export type InventoryProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     issues?: boolean | InventoryProduct$issuesArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
@@ -135706,6 +135721,7 @@ export namespace Prisma {
       unitId: string
       storeId: string | null
       stock: number
+      lowStockThreshold: number
       costPrice: Prisma.Decimal
       sellingPrice: Prisma.Decimal
       branchId: string
@@ -136149,6 +136165,7 @@ export namespace Prisma {
     readonly unitId: FieldRef<"InventoryProduct", 'String'>
     readonly storeId: FieldRef<"InventoryProduct", 'String'>
     readonly stock: FieldRef<"InventoryProduct", 'Int'>
+    readonly lowStockThreshold: FieldRef<"InventoryProduct", 'Int'>
     readonly costPrice: FieldRef<"InventoryProduct", 'Decimal'>
     readonly sellingPrice: FieldRef<"InventoryProduct", 'Decimal'>
     readonly branchId: FieldRef<"InventoryProduct", 'String'>
@@ -207816,6 +207833,7 @@ export namespace Prisma {
     unitId: 'unitId',
     storeId: 'storeId',
     stock: 'stock',
+    lowStockThreshold: 'lowStockThreshold',
     costPrice: 'costPrice',
     sellingPrice: 'sellingPrice',
     branchId: 'branchId',
@@ -218872,6 +218890,7 @@ export namespace Prisma {
     unitId?: StringFilter<"InventoryProduct"> | string
     storeId?: StringNullableFilter<"InventoryProduct"> | string | null
     stock?: IntFilter<"InventoryProduct"> | number
+    lowStockThreshold?: IntFilter<"InventoryProduct"> | number
     costPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     branchId?: StringFilter<"InventoryProduct"> | string
@@ -218895,6 +218914,7 @@ export namespace Prisma {
     unitId?: SortOrder
     storeId?: SortOrderInput | SortOrder
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
     branchId?: SortOrder
@@ -218921,6 +218941,7 @@ export namespace Prisma {
     unitId?: StringFilter<"InventoryProduct"> | string
     storeId?: StringNullableFilter<"InventoryProduct"> | string | null
     stock?: IntFilter<"InventoryProduct"> | number
+    lowStockThreshold?: IntFilter<"InventoryProduct"> | number
     costPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     branchId?: StringFilter<"InventoryProduct"> | string
@@ -218944,6 +218965,7 @@ export namespace Prisma {
     unitId?: SortOrder
     storeId?: SortOrderInput | SortOrder
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
     branchId?: SortOrder
@@ -218968,6 +218990,7 @@ export namespace Prisma {
     unitId?: StringWithAggregatesFilter<"InventoryProduct"> | string
     storeId?: StringNullableWithAggregatesFilter<"InventoryProduct"> | string | null
     stock?: IntWithAggregatesFilter<"InventoryProduct"> | number
+    lowStockThreshold?: IntWithAggregatesFilter<"InventoryProduct"> | number
     costPrice?: DecimalWithAggregatesFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalWithAggregatesFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     branchId?: StringWithAggregatesFilter<"InventoryProduct"> | string
@@ -234434,6 +234457,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -234456,6 +234480,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -234472,6 +234497,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -234494,6 +234520,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -234513,6 +234540,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -234526,6 +234554,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -234541,6 +234570,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -247041,6 +247071,7 @@ export namespace Prisma {
     unitId?: SortOrder
     storeId?: SortOrder
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
     branchId?: SortOrder
@@ -247050,6 +247081,7 @@ export namespace Prisma {
 
   export type InventoryProductAvgOrderByAggregateInput = {
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
   }
@@ -247063,6 +247095,7 @@ export namespace Prisma {
     unitId?: SortOrder
     storeId?: SortOrder
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
     branchId?: SortOrder
@@ -247079,6 +247112,7 @@ export namespace Prisma {
     unitId?: SortOrder
     storeId?: SortOrder
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
     branchId?: SortOrder
@@ -247088,6 +247122,7 @@ export namespace Prisma {
 
   export type InventoryProductSumOrderByAggregateInput = {
     stock?: SortOrder
+    lowStockThreshold?: SortOrder
     costPrice?: SortOrder
     sellingPrice?: SortOrder
   }
@@ -268932,6 +268967,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -268953,6 +268989,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -273771,6 +273808,7 @@ export namespace Prisma {
     unitId?: StringFilter<"InventoryProduct"> | string
     storeId?: StringNullableFilter<"InventoryProduct"> | string | null
     stock?: IntFilter<"InventoryProduct"> | number
+    lowStockThreshold?: IntFilter<"InventoryProduct"> | number
     costPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFilter<"InventoryProduct"> | Decimal | DecimalJsLike | number | string
     branchId?: StringFilter<"InventoryProduct"> | string
@@ -341704,6 +341742,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -341724,6 +341763,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -342055,6 +342095,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -342075,6 +342116,7 @@ export namespace Prisma {
     categoryId: string
     unitId: string
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -343313,6 +343355,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -343333,6 +343376,7 @@ export namespace Prisma {
     categoryId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -345108,6 +345152,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -345129,6 +345174,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -345478,6 +345524,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -345499,6 +345546,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -345832,6 +345880,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -345853,6 +345902,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -346173,6 +346223,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -346194,6 +346245,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -346492,6 +346544,7 @@ export namespace Prisma {
     code?: string | null
     description?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -346513,6 +346566,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -347055,6 +347109,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -347076,6 +347131,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -385240,6 +385296,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
@@ -387568,6 +387625,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -387589,6 +387647,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -387607,6 +387666,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -403393,6 +403453,7 @@ export namespace Prisma {
     unitId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -403406,6 +403467,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -403426,6 +403488,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -403444,6 +403507,7 @@ export namespace Prisma {
     unitId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -403459,6 +403523,7 @@ export namespace Prisma {
     categoryId: string
     unitId: string
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -403472,6 +403537,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -403492,6 +403558,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     unitId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -403510,6 +403577,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     unitId?: StringFieldUpdateOperationsInput | string
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -403577,6 +403645,7 @@ export namespace Prisma {
     categoryId: string
     storeId?: string | null
     stock?: number
+    lowStockThreshold?: number
     costPrice?: Decimal | DecimalJsLike | number | string
     sellingPrice?: Decimal | DecimalJsLike | number | string
     branchId: string
@@ -403590,6 +403659,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -403610,6 +403680,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string
@@ -403628,6 +403699,7 @@ export namespace Prisma {
     categoryId?: StringFieldUpdateOperationsInput | string
     storeId?: NullableStringFieldUpdateOperationsInput | string | null
     stock?: IntFieldUpdateOperationsInput | number
+    lowStockThreshold?: IntFieldUpdateOperationsInput | number
     costPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     sellingPrice?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     branchId?: StringFieldUpdateOperationsInput | string

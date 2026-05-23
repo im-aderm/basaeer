@@ -110,7 +110,7 @@ export default function AdvanceSalaryPage() {
             accessorKey: "amount",
             cell: (row: any) => (
                 <span className="font-semibold text-emerald-600">
-                    ${row.amount.toLocaleString()}
+                    ₦{row.amount.toLocaleString()}
                 </span>
             ),
         },
@@ -297,7 +297,7 @@ export default function AdvanceSalaryPage() {
                         </div>
  <p className="text-sm text-slate-600 ">Total Amount</p>
  <p className="text-h1 font-bold text-slate-900 ">
-                            ${stats.totalAmount.toLocaleString()}
+                            ₦{stats.totalAmount.toLocaleString()}
                         </p>
                     </div>
                 </div>

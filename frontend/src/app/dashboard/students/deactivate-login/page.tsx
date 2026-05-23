@@ -337,8 +337,8 @@ export default function StudentLoginDeactivationPage() {
                 </div>
                 <div className="p-6 bg-card rounded-2xl border border-border">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center">
-                            <UserCheck size={20} className="text-green-500" />
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <UserCheck size={20} className="text-primary" />
                         </div>
                         <div>
                             <p className="text-xs font-semibold uppercase text-muted-foreground">Active Logins</p>
@@ -374,7 +374,7 @@ export default function StudentLoginDeactivationPage() {
             <div className="bg-card rounded-2xl border border-border overflow-hidden">
                 <div className="p-6 border-b border-border flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <UserCheck size={20} className="text-green-500" />
+                        <UserCheck size={20} className="text-primary" />
                         <h2 className="font-bold text-lg">Active Student Logins</h2>
                         <span className="text-sm text-muted-foreground">({activeStudents.length})</span>
                     </div>
@@ -481,7 +481,7 @@ export default function StudentLoginDeactivationPage() {
                                             {student.class ? `${student.class.name}${student.section ? ` - ${student.section.name}` : ""}` : "N/A"}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 text-green-600">
+                                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
                                                 Active
                                             </span>
                                         </td>
@@ -508,7 +508,7 @@ export default function StudentLoginDeactivationPage() {
                         <Button
                             onClick={handleBulkReactivate}
                             disabled={reactivating}
-                            className="bg-green-500 hover:bg-green-600 text-white"
+                            className="bg-primary hover:bg-primary/90 text-white"
                         >
                             {reactivating ? <Loader2 size={16} className="animate-spin mr-2" /> : <UserCheck size={16} className="mr-2" />}
                             Reactivate Selected ({selectedStudents.filter(id => inactiveStudents.some(s => s.id === id)).length})
@@ -538,7 +538,7 @@ export default function StudentLoginDeactivationPage() {
                             {inactiveStudents.length === 0 ? (
                                 <tr>
                                     <td colSpan={7} className="px-6 py-16 text-center">
-                                        <UserCheck size={40} className="mx-auto text-green-300/50 mb-3" />
+                                        <UserCheck size={40} className="mx-auto text-primary/30 mb-3" />
                                         <p className="text-muted-foreground font-medium">All students have active logins</p>
                                     </td>
                                 </tr>
@@ -575,7 +575,7 @@ export default function StudentLoginDeactivationPage() {
                                                 <Button
                                                     size="sm"
                                                     variant="outline"
-                                                    className="text-green-600 hover:bg-green-50 border-green-200"
+                                                    className="text-primary hover:bg-primary/10 border-primary/20"
                                                     onClick={() => handleReactivate(student)}
                                                 >
                                                     <UserCheck size={14} className="mr-1" />
@@ -598,7 +598,7 @@ export default function StudentLoginDeactivationPage() {
             <Dialog open={showReactivateDialog} onOpenChange={setShowReactivateDialog}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2 text-green-600">
+                        <DialogTitle className="flex items-center gap-2 text-primary">
                             <UserCheck size={20} />
                             Confirm Login Reactivation
                         </DialogTitle>
@@ -607,12 +607,12 @@ export default function StudentLoginDeactivationPage() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className="py-4">
-                        <div className="p-4 bg-green-50 border border-green-200 rounded-xl">
+                        <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl">
                             <div className="flex items-start gap-3">
-                                <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 shrink-0" />
+                                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                                 <div>
-                                    <p className="font-semibold text-green-900 text-sm">Student will regain full portal access</p>
-                                    <p className="text-sm text-green-700 mt-1">They will be able to view grades, submit assignments, and access all student portal features.</p>
+                                    <p className="font-semibold text-primary text-sm">Student will regain full portal access</p>
+                                    <p className="text-sm text-primary/80 mt-1">They will be able to view grades, submit assignments, and access all student portal features.</p>
                                 </div>
                             </div>
                         </div>
@@ -624,7 +624,7 @@ export default function StudentLoginDeactivationPage() {
                         <Button
                             onClick={confirmReactivate}
                             disabled={reactivating}
-                            className="bg-green-500 hover:bg-green-600"
+                            className="bg-primary hover:bg-primary/90"
                         >
                             {reactivating ? <Loader2 size={16} className="animate-spin mr-2" /> : <UserCheck size={16} className="mr-2" />}
                             Confirm Reactivation

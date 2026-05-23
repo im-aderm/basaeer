@@ -112,7 +112,7 @@ export default function InventoryHistoryPage() {
                                             <TableCell className="px-8 font-semibold uppercase text-xs">{p.product?.name}</TableCell>
                                             <TableCell className="px-8 font-bold text-muted-foreground text-xs">{p.supplier?.name}</TableCell>
                                             <TableCell className="px-8 font-semibold">{p.quantity}</TableCell>
-                                            <TableCell className="text-right px-8 font-semibold text-emerald-600">${(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</TableCell>
+                                            <TableCell className="text-right px-8 font-semibold text-primary">₦{(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

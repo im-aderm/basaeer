@@ -14,7 +14,7 @@ export default function GlobalSettingsPage() {
     const [saving, setSaving] = useState(false);
     const [formData, setFormData] = useState<Record<string, string>>({
         school_name: "",
-        currency: "USD",
+        currency: "NGN",
         timezone: "UTC",
         language: "English",
         contact_email: "",
@@ -153,7 +153,7 @@ export default function GlobalSettingsPage() {
                                         onChange={handleChange}
                                         className="w-full p-3 bg-white border border-primary/90 rounded-xl outline-none"
                                     >
-                                        <option value="USD">USD ($)</option>
+                                        <option value="NGN">NGN (₦)</option>
                                         <option value="NGN">NGN (₦)</option>
                                         <option value="GBP">GBP (£)</option>
                                         <option value="EUR">EUR (€)</option>

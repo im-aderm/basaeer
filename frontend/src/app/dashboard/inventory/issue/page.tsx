@@ -93,14 +93,14 @@ export default function InventoryIssuePage() {
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-amber-500/20 bg-amber-600 hover:bg-amber-700">
+                        <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90">
                             <Plus className="h-5 w-5" />
                             Issue New Items
                         </Button>
                     </DialogTrigger>
                     <DialogContent className="rounded-[2.5rem] max-w-xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold uppercase text-amber-600">New Item Issuance</DialogTitle>
+                            <DialogTitle className="text-h3 font-semibold uppercase text-primary">New Item Issuance</DialogTitle>
                             <DialogDescription className="font-bold">Record items being handed out to personnel or students.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
@@ -125,7 +125,7 @@ export default function InventoryIssuePage() {
                                     <Input className="h-12 rounded-xl font-bold" value={formData.note} onChange={(e) => setFormData({ ...formData, note: e.target.value })} />
                                 </div>
                             </div>
-                            <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-amber-500/20 bg-amber-600 hover:bg-amber-700">Confirm Issuance</Button></DialogFooter>
+                            <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90">Confirm Issuance</Button></DialogFooter>
                         </form>
                     </DialogContent>
                 </Dialog>
@@ -133,7 +133,7 @@ export default function InventoryIssuePage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-amber-600">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-primary">
                         <ArrowDownRight className="h-8 w-8" />
                         Active & Past Issuances
                     </CardTitle>
@@ -164,17 +164,17 @@ export default function InventoryIssuePage() {
                                     <TableCell className="px-8 py-6">
                                         <div className="flex flex-col">
                                             <span className="text-[10px] font-semibold text-muted-foreground opacity-50 flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(i.createdAt).toLocaleDateString()}</span>
-                                            <span className="font-semibold uppercase text-xs text-muted-foreground group-hover:text-amber-600 transition-colors">ID: {i.id.slice(0, 8).toUpperCase()}</span>
+                                            <span className="font-semibold uppercase text-xs text-muted-foreground group-hover:text-primary transition-colors">ID: {i.id.slice(0, 8).toUpperCase()}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-xs flex items-center gap-1.5"><Package className="h-3 w-3 text-amber-500" /> {i.product?.name}</span>
+                                            <span className="font-semibold uppercase text-xs flex items-center gap-1.5"><Package className="h-3 w-3 text-primary" /> {i.product?.name}</span>
                                             <span className="text-[10px] font-bold text-muted-foreground opacity-50 ml-4.5">QTY: {i.quantity}</span>
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
-                                        <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-amber-600 bg-amber-500/5 px-2.5 py-1 rounded-lg w-fit">
+                                        <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-primary bg-primary/5 px-2.5 py-1 rounded-lg w-fit">
                                             <User className="h-3 w-3" /> {i.issuedTo}
                                         </div>
                                     </TableCell>
@@ -188,14 +188,14 @@ export default function InventoryIssuePage() {
                                             <Button
                                                 variant="secondary"
                                                 size="sm"
-                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5 hover:bg-emerald-500/10 hover:text-emerald-600 transition-all"
+                                                className="h-9 px-4 rounded-xl font-semibold uppercase text-[10px] gap-1.5 hover:bg-primary/10 hover:text-primary transition-all"
                                                 onClick={() => handleReturn(i.id)}
                                             >
                                                 <RotateCcw className="h-3.5 w-3.5" /> Return Stock
                                             </Button>
                                         )}
                                         {i.status === 'RETURNED' && (
-                                            <span className="text-[10px] font-semibold uppercase text-emerald-600/50 flex items-center justify-end gap-1">
+                                            <span className="text-[10px] font-semibold uppercase text-primary/50 flex items-center justify-end gap-1">
                                                 <ArrowUpRight className="h-3 w-3" /> Returned on {new Date(i.returnDate!).toLocaleDateString()}
                                             </span>
                                         )}

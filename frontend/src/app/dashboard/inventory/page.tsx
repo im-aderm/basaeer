@@ -51,8 +51,8 @@ export default function InventoryOverviewPage() {
 
     const quickActions = [
         { title: 'Add Product', icon: Plus, href: '/dashboard/inventory/product', color: 'bg-primary' },
-        { title: 'Record Purchase', icon: ArrowUpRight, href: '/dashboard/inventory/purchase', color: 'bg-emerald-600' },
-        { title: 'Issue Items', icon: ArrowDownRight, href: '/dashboard/inventory/issue', color: 'bg-amber-600' },
+        { title: 'Record Purchase', icon: ArrowUpRight, href: '/dashboard/inventory/purchase', color: 'bg-primary' },
+        { title: 'Issue Items', icon: ArrowDownRight, href: '/dashboard/inventory/issue', color: 'bg-primary' },
         { title: 'Item Sales', icon: CreditCard, href: '/dashboard/inventory/sales', color: 'bg-blue-600' },
     ];
 

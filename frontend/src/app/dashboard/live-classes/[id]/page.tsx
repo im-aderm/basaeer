@@ -98,7 +98,7 @@ export default function ClassDetailsPage() {
                             </Button>
                         )}
                         {session.status === 'LIVE' && (
-                            <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 px-8 shadow-xl shadow-emerald-500/20" onClick={() => window.open(session.hostUrl || '', '_blank')}>
+                            <Button size="lg" className="bg-primary hover:bg-primary/90 px-8 shadow-xl shadow-primary/20" onClick={() => window.open(session.hostUrl || '', '_blank')}>
                                 <ExternalLink className="mr-2 h-5 w-5" /> Join Meeting
                             </Button>
                         )}
@@ -140,7 +140,7 @@ export default function ClassDetailsPage() {
                                                 <TableCell className="text-sm font-medium">{format(new Date(p.joinedAt), 'HH:mm:ss')}</TableCell>
                                                 <TableCell className="text-xs font-mono">{p.duration || '0'} min</TableCell>
                                                 <TableCell className="text-right px-6">
-                                                    <Badge className="bg-emerald-500/10 text-emerald-600 border-emerald-200" variant="outline">Active</Badge>
+                                                    <Badge className="bg-primary/10 text-primary border-primary/20" variant="outline">Active</Badge>
                                                 </TableCell>
                                             </TableRow>
                                         ))

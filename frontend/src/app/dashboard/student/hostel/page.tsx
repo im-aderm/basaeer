@@ -249,7 +249,7 @@ export default function StudentHostelPage() {
                         <div className="flex justify-end">
                             <Dialog open={isMaintenanceModalOpen} onOpenChange={setIsMaintenanceModalOpen}>
                                 <DialogTrigger asChild>
-                                    <Button className="h-12 px-6 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-lg shadow-orange-500/20 gap-2">
+                                    <Button className="h-12 px-6 rounded-xl bg-primary hover:bg-primary/90 text-white font-semibold shadow-lg shadow-primary/20 gap-2">
                                         <Wrench size={18} strokeWidth={3} /> Report Issue
                                     </Button>
                                 </DialogTrigger>

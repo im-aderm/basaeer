@@ -156,10 +156,10 @@ export default function InventorySalesPage() {
                                         {s.quantity}
                                     </TableCell>
                                     <TableCell className="px-8 font-bold">
-                                        ${Number(s.unitPrice).toFixed(2)}
+                                        ₦{Number(s.unitPrice).toFixed(2)}
                                     </TableCell>
                                     <TableCell className="text-right px-8 font-semibold text-primary">
-                                        ${Number(s.totalPrice).toFixed(2)}
+                                        ₦{Number(s.totalPrice).toFixed(2)}
                                     </TableCell>
                                 </TableRow>
                             ))}

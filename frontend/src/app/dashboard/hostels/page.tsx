@@ -166,8 +166,8 @@ export default function HostelOverviewPage() {
             title: "Occupied",
             value: stats?.occupied || 0,
             icon: Users,
-            color: "text-green-500",
-            bgColor: "bg-green-500/10",
+            color: "text-primary",
+            bgColor: "bg-primary/10",
             desc: "Currently residing"
         },
         {
@@ -368,7 +368,7 @@ export default function HostelOverviewPage() {
                                         <div className="space-y-2">
                                             <div className="flex items-center gap-3">
                                                 <Badge className={`rounded-lg px-3 py-1 font-semibold uppercase text-[10px] tracking-widest ${req.priority === 'URGENT' ? 'bg-red-500 hover:bg-red-600' :
-                                                    req.priority === 'HIGH' ? 'bg-orange-500 hover:bg-orange-600' :
+                                                    req.priority === 'HIGH' ? 'bg-primary hover:bg-primary/90' :
                                                         req.priority === 'MEDIUM' ? 'bg-yellow-500 text-yellow-950 hover:bg-yellow-600' :
                                                             'bg-blue-500 hover:bg-blue-600'
                                                     }`}>
@@ -404,7 +404,7 @@ export default function HostelOverviewPage() {
                                                 <Button
                                                     size="sm"
                                                     onClick={() => handleUpdateMaintenanceStatus(req.id, 'RESOLVED')}
-                                                    className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold gap-2"
+                                                    className="rounded-xl h-10 px-4 bg-primary hover:bg-primary/90 text-white font-bold gap-2"
                                                 >
                                                     <CheckCircle2 size={16} /> Mark Resolved
                                                 </Button>
@@ -423,7 +423,7 @@ export default function HostelOverviewPage() {
                                 )) : (
                                     <div className="py-20 text-center text-muted-foreground">
                                         <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
-                                            <CheckCircle2 size={32} className="text-green-500" />
+                                            <CheckCircle2 size={32} className="text-primary" />
                                         </div>
                                         <h3 className="text-xl font-bold mb-2">All Systems Go!</h3>
                                         <p className="max-w-xs mx-auto">No open maintenance requests at this time. Great job keeping the facilities in top shape.</p>
@@ -579,7 +579,7 @@ function LeaveManagementTab() {
                                         <Button
                                             size="sm"
                                             onClick={() => handleUpdateStatus(leave.id, 'APPROVED')}
-                                            className="rounded-xl h-10 px-4 bg-green-600 hover:bg-green-700 text-white font-bold gap-2"
+                                            className="rounded-xl h-10 px-4 bg-primary hover:bg-primary/90 text-white font-bold gap-2"
                                         >
                                             <CheckCircle2 size={16} /> Approve
                                         </Button>

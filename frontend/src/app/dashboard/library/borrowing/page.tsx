@@ -240,7 +240,7 @@ export default function LibraryBorrowingPage() {
                                             {record.status !== 'RETURNED' && (
                                                 <Button
                                                     variant="outline"
-                                                    className="h-10 rounded-xl font-semibold bg-green-500/10 border-green-500/20 text-green-600 hover:bg-green-600 hover:text-white transition-all px-4"
+                                                    className="h-10 rounded-xl font-semibold bg-primary/10 border-primary/20 text-primary hover:bg-primary hover:text-white transition-all px-4"
                                                     onClick={() => handleReturn(record.id)}
                                                 >
                                                     Mark Return

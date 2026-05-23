@@ -125,7 +125,7 @@ export default function GenerateStudentCertificatePage() {
             <BranchContextBanner />
             <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-amber-600">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <Award className="w-10 h-10" />
                         Bulk Certificate Generation
                     </h1>
@@ -135,12 +135,12 @@ export default function GenerateStudentCertificatePage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-3 space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-amber-500">
+                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-primary">
                         <CardHeader className="p-8 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                                <Users className="h-6 w-6 text-amber-500" />
+                                <Users className="h-6 w-6 text-primary" />
                                 Select Students
-                                <Badge className="ml-2 rounded-full bg-amber-500/10 text-amber-600 border-none font-bold">{selectedStudentIds.size} selected</Badge>
+                                <Badge className="ml-2 rounded-full bg-primary/10 text-primary border-none font-bold">{selectedStudentIds.size} selected</Badge>
                             </CardTitle>
                             <div className="relative w-full sm:w-64">
                                 <Input

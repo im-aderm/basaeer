@@ -169,7 +169,7 @@ export default function ParentDetailsPage() {
                                 <DollarSign className="text-primary h-8 w-8" />
                                 <Badge className="bg-primary text-white font-semibold uppercase text-[10px]">Financial Summary</Badge>
                             </div>
-                            <div className="text-h1 font-semibold">${totalBalance.toLocaleString()}</div>
+                            <div className="text-h1 font-semibold">₦{totalBalance.toLocaleString()}</div>
                             <div className="text-xs font-bold opacity-50 uppercase tracking-widest mt-1">Outstanding Family Balance</div>
                         </div>
                     </Card>
@@ -200,7 +200,7 @@ export default function ParentDetailsPage() {
                                                         {student.class?.name || 'No Class'} - {student.section?.name || 'N/A'}
                                                     </Badge>
                                                     <Badge className="text-[10px] font-semibold uppercase bg-rose-500/10 text-rose-500">
-                                                        Bal: ${student.invoices.reduce((acc: number, inv: any) => acc + inv.balance, 0)}
+                                                        Bal: ₦{student.invoices.reduce((acc: number, inv: any) => acc + inv.balance, 0)}
                                                     </Badge>
                                                 </div>
                                             </div>

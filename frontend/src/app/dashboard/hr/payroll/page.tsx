@@ -107,9 +107,9 @@ export default function PayrollDashboard() {
 
             {/* Stats Dashboard */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-green-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-primary">
                     <div className="flex items-start justify-between">
-                        <div className="p-4 rounded-2xl bg-green-500/10 text-green-600"><DollarSign size={24} /></div>
+                        <div className="p-4 rounded-2xl bg-primary/10 text-primary"><DollarSign size={24} /></div>
                         <CheckCircle2 className="text-muted-foreground/30" />
                     </div>
                     <div className="mt-6">
@@ -127,9 +127,9 @@ export default function PayrollDashboard() {
                         <p className="text-muted-foreground font-bold mt-1 uppercase text-xs">Generated Slips</p>
                     </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-amber-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all border-t-8 border-t-primary">
                     <div className="flex items-start justify-between">
-                        <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-600"><AlertCircle size={24} /></div>
+                        <div className="p-4 rounded-2xl bg-primary/10 text-primary"><AlertCircle size={24} /></div>
                     </div>
                     <div className="mt-6">
                         <h3 className="text-h1 font-semibold tracking-tighter">0</h3>

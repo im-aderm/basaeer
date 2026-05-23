@@ -97,7 +97,10 @@ export class InventoryService {
         data: {
           ...dto,
           branchId: dto.branchId!,
-          totalPrice: dto.quantity * dto.unitPrice,
+          date: dto.date ? new Date(dto.date) : undefined,
+          quantity: Number(dto.quantity),
+          unitPrice: Number(dto.unitPrice),
+          totalPrice: Number(dto.quantity) * Number(dto.unitPrice),
         },
       });
 
@@ -257,7 +260,8 @@ export class InventoryService {
         data: {
           ...dto,
           branchId: dto.branchId!,
-          totalPrice: dto.quantity * dto.unitPrice,
+          date: dto.date ? new Date(dto.date) : undefined,
+          totalPrice: Number(dto.quantity) * Number(dto.unitPrice),
         },
       });
 

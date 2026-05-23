@@ -179,7 +179,7 @@ export default function ChildProfilePage() {
                             {child.invoices?.length > 0 ? (
                                 <div className="space-y-1">
                                     <div className="text-lg font-semibold">#{child.invoices[0].invoiceNumber}</div>
-                                    <div className="text-h3 font-semibold text-rose-500">${child.invoices[0].balance}</div>
+                                    <div className="text-h3 font-semibold text-rose-500">₦{child.invoices[0].balance}</div>
                                     <p className="text-[10px] font-bold opacity-50">Due: {new Date(child.invoices[0].dueDate).toLocaleDateString()}</p>
                                 </div>
                             ) : (

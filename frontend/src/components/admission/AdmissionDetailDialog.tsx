@@ -144,7 +144,7 @@ export function AdmissionDetailDialog({
                 {admission.paymentStatus !== 'VERIFIED' && (
                   <Button
                     onClick={() => onVerifyPayment(admission.id)}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl px-6 h-12 font-black italic shadow-lg shadow-emerald-500/20"
+                    className="bg-primary hover:bg-primary/90 text-white rounded-2xl px-6 h-12 font-black italic shadow-lg shadow-primary/20"
                   >
                     Verify Payment
                   </Button>

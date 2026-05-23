@@ -76,7 +76,7 @@ export default function InventoryPurchasePage() {
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700">
+                        <Button className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90">
                             <Plus className="h-5 w-5" />
                             Record New Purchase
                         </Button>
@@ -121,7 +121,7 @@ export default function InventoryPurchasePage() {
                                     <Input type="date" className="h-12 rounded-xl font-bold" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
                                 </div>
                             </div>
-                            <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700">Confirm Purchase</Button></DialogFooter>
+                            <DialogFooter><Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider shadow-lg shadow-primary/20 bg-primary hover:bg-primary/90">Confirm Purchase</Button></DialogFooter>
                         </form>
                     </DialogContent>
                 </Dialog>
@@ -175,8 +175,8 @@ export default function InventoryPurchasePage() {
                                     </TableCell>
                                     <TableCell className="px-8 text-center">
                                         <div className="flex flex-col items-center">
-                                            <span className="text-h3 font-semibold text-emerald-600">${(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</span>
-                                            <span className="text-[10px] font-semibold uppercase opacity-30">${Number(p.unitPrice)}/unit</span>
+                                            <span className="text-h3 font-semibold text-primary">₦{(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</span>
+                                            <span className="text-[10px] font-semibold uppercase opacity-30">₦{Number(p.unitPrice)}/unit</span>
                                         </div>
                                     </TableCell>
                                 </TableRow>

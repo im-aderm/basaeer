@@ -100,14 +100,14 @@ export default function AccessControlPage() {
                 <div className="flex bg-muted/50 p-1 rounded-2xl shadow-sm border border-border/50">
                     <Button
                         variant="ghost"
-                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'ENTRY' ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'opacity-40'}`}
+                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'ENTRY' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'opacity-40'}`}
                         onClick={() => setDirection('ENTRY')}
                     >
                         Entry
                     </Button>
                     <Button
                         variant="ghost"
-                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'EXIT' ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'opacity-40'}`}
+                        className={`h-12 rounded-xl font-semibold px-6 transition-all ${direction === 'EXIT' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'opacity-40'}`}
                         onClick={() => setDirection('EXIT')}
                     >
                         Exit

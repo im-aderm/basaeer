@@ -2095,26 +2095,27 @@ model InventoryUnit {
 }
 
 model InventoryProduct {
-  id           String              @id @default(uuid())
-  name         String
-  code         String?             @unique
-  description  String?
-  categoryId   String
-  unitId       String
-  storeId      String?
-  stock        Int                 @default(0)
-  costPrice    Decimal             @default(0) @db.Decimal(12, 2)
-  sellingPrice Decimal             @default(0) @db.Decimal(12, 2)
-  branchId     String
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
-  issues       InventoryIssue[]
-  branch       Branch              @relation(fields: [branchId], references: [id])
-  category     InventoryCategory   @relation(fields: [categoryId], references: [id])
-  store        InventoryStore?     @relation(fields: [storeId], references: [id])
-  unit         InventoryUnit       @relation(fields: [unitId], references: [id])
-  purchases    InventoryPurchase[]
-  sales        InventorySale[]
+  id                String              @id @default(uuid())
+  name              String
+  code              String?             @unique
+  description       String?
+  categoryId        String
+  unitId            String
+  storeId           String?
+  stock             Int                 @default(0)
+  lowStockThreshold Int                 @default(5)
+  costPrice         Decimal             @default(0) @db.Decimal(12, 2)
+  sellingPrice      Decimal             @default(0) @db.Decimal(12, 2)
+  branchId          String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  issues            InventoryIssue[]
+  branch            Branch              @relation(fields: [branchId], references: [id])
+  category          InventoryCategory   @relation(fields: [categoryId], references: [id])
+  store             InventoryStore?     @relation(fields: [storeId], references: [id])
+  unit              InventoryUnit       @relation(fields: [unitId], references: [id])
+  purchases         InventoryPurchase[]
+  sales             InventorySale[]
 
   @@index([branchId])
 }

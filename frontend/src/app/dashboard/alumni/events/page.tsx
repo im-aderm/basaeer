@@ -93,7 +93,7 @@ export default function AlumniEventsPage() {
             <BranchContextBanner />
             <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-emerald-600">
+                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
                         <CalendarDays className="w-10 h-10" />
                         Alumni Events
                     </h1>
@@ -101,7 +101,7 @@ export default function AlumniEventsPage() {
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="h-14 rounded-2xl px-8 font-semibold shadow-xl shadow-emerald-500/20 gap-3 bg-emerald-600 hover:scale-105 transition-all">
+                        <Button className="h-14 rounded-2xl px-8 font-semibold shadow-xl shadow-primary/20 gap-3 bg-primary hover:bg-primary/90 hover:scale-105 transition-all">
                             <Plus className="w-5 h-5" /> Create Event
                         </Button>
                     </DialogTrigger>
@@ -132,7 +132,7 @@ export default function AlumniEventsPage() {
                                     <Input className="h-12 rounded-xl font-bold" value={formData.location} onChange={e => setFormData({ ...formData, location: e.target.value })} />
                                 </div>
                             </div>
-                            <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg bg-emerald-600 mt-2">
+                            <Button type="submit" className="w-full h-14 rounded-xl font-semibold text-lg bg-primary hover:bg-primary/90 mt-2">
                                 <Calendar className="w-5 h-5 mr-2" /> Schedule Event
                             </Button>
                         </form>
@@ -143,7 +143,7 @@ export default function AlumniEventsPage() {
             {upcomingEvents.length > 0 && (
                 <div className="space-y-6">
                     <h2 className="text-h2 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Clock className="w-7 h-7 text-emerald-500" /> Upcoming Events
+                        <Clock className="w-7 h-7 text-primary" /> Upcoming Events
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {upcomingEvents.map((event) => (
@@ -186,10 +186,10 @@ function EventCard({ event, onRsvp, past }: { event: AlumniEvent; onRsvp: (id: s
 
     return (
         <Card className={`rounded-[2.5rem] border-border/50 shadow-xl overflow-hidden transition-all hover:shadow-2xl group ${past ? 'opacity-70 hover:opacity-100' : ''}`}>
-            <div className={`h-2 ${past ? 'bg-muted-foreground/20' : isToday ? 'bg-emerald-500' : 'bg-primary'}`} />
+            <div className={`h-2 ${past ? 'bg-muted-foreground/20' : isToday ? 'bg-primary' : 'bg-primary'}`} />
             <CardContent className="p-8 space-y-5">
                 <div className="flex justify-between items-start">
-                    <Badge className={`rounded-lg font-semibold ${past ? 'bg-muted/50 text-muted-foreground' : isToday ? 'bg-emerald-500/10 text-emerald-600' : 'bg-primary/10 text-primary'}`}>
+                    <Badge className={`rounded-lg font-semibold ${past ? 'bg-muted/50 text-muted-foreground' : isToday ? 'bg-primary/10 text-primary' : 'bg-primary/10 text-primary'}`}>
                         {eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}
                     </Badge>
                     {event.isOnline ? (

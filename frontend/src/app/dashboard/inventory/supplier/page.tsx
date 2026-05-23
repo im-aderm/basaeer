@@ -143,6 +143,14 @@ export default function InventorySupplierPage() {
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     />
                                 </div>
+                                <div className="space-y-2">
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Address</Label>
+                                    <Input
+                                        className="h-12 rounded-xl bg-muted/50 border-none font-bold"
+                                        value={formData.address}
+                                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                    />
+                                </div>
                                 <DialogFooter>
                                     <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Onboard Supplier</Button>
                                 </DialogFooter>
@@ -244,18 +252,26 @@ export default function InventorySupplierPage() {
                                 />
                             </div>
                         </div>
-                        <div className="space-y-2">
-                            <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Email Address</Label>
-                            <Input
-                                type="email"
-                                className="h-12 rounded-xl bg-muted/50 border-none font-bold"
-                                value={editData.email}
-                                onChange={(e) => setEditData({ ...editData, email: e.target.value })}
-                            />
-                        </div>
-                        <DialogFooter>
-                            <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Supplier</Button>
-                        </DialogFooter>
+                                <div className="space-y-2">
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Email Address</Label>
+                                    <Input
+                                        type="email"
+                                        className="h-12 rounded-xl bg-muted/50 border-none font-bold"
+                                        value={editData.email}
+                                        onChange={(e) => setEditData({ ...editData, email: e.target.value })}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Address</Label>
+                                    <Input
+                                        className="h-12 rounded-xl bg-muted/50 border-none font-bold"
+                                        value={editData.address}
+                                        onChange={(e) => setEditData({ ...editData, address: e.target.value })}
+                                    />
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit" className="h-12 w-full rounded-xl font-semibold uppercase tracking-wider">Update Supplier</Button>
+                                </DialogFooter>
                     </form>
                 </DialogContent>
             </Dialog>

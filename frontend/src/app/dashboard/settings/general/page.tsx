@@ -20,7 +20,7 @@ export default function GeneralSettingsPage() {
         school_address: '',
         school_phone: '',
         school_email: '',
-        currency_symbol: '$',
+        currency_symbol: '₦',
         language: 'English',
         timezone: 'UTC'
     });

@@ -22,7 +22,7 @@ import {
 const stats = [
   { value: "2,500+", label: "Global Alumni", icon: Globe },
   { value: "98%", label: "Univ. Acceptance", icon: GraduationCap },
-  { value: "$12M", label: "Scholarships", icon: DollarSign },
+  { value: "₦12M", label: "Scholarships", icon: DollarSign },
   { value: "45", label: "Countries", icon: Award },
 ];
 

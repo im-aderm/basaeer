@@ -222,7 +222,7 @@ export default function StaffAttendancePage() {
                             <Button
                                 onClick={() => handleMarkAll('PRESENT')}
                                 disabled={saving || loading}
-                                className="rounded-2xl h-14 px-8 font-semibold bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-500/20"
+                                className="rounded-2xl h-14 px-8 font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20"
                             >
                                 Mark All Present
                             </Button>

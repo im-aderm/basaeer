@@ -86,7 +86,7 @@ export default function BackupManagementPage() {
                 <Button
                     onClick={handleCreateBackup}
                     disabled={isCreating}
-                    className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-emerald-500/20 bg-emerald-600 hover:bg-emerald-700 hover:scale-[1.02] transition-all"
+                    className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 hover:scale-[1.02] transition-all"
                 >
                     <Plus className="h-6 w-6" />
                     {isCreating ? 'Creating Snapshot...' : 'Create New Backup'}
@@ -172,7 +172,7 @@ export default function BackupManagementPage() {
                                             <Button
                                                 variant="outline"
                                                 size="icon"
-                                                className="h-12 w-12 rounded-2xl border-emerald-500/20 text-emerald-600 hover:bg-emerald-500/10"
+                                                className="h-12 w-12 rounded-2xl border-primary/20 text-primary hover:bg-primary/10"
                                                 onClick={() => { SettingsService.downloadBackup(b.filename); }}
                                             >
                                                 <Download className="h-5 w-5" />

@@ -83,7 +83,8 @@ export default function InventoryProductPage() {
         e.preventDefault();
         if (!selectedProduct) return;
         try {
-            await InventoryService.updateProduct(selectedProduct.id, formData);
+            const { initialStock, ...productData } = formData;
+            await InventoryService.updateProduct(selectedProduct.id, { ...productData, stock: initialStock });
             showSuccess('Product updated successfully');
             setIsEditDialogOpen(false);
             fetchProducts();
