@@ -150,18 +150,41 @@ export const OnlineAdmissionService = {
     },
 
     create: async (data: any): Promise<OnlineAdmission> => {
-        const { guardianType, siblings, phoneNumber, paymentProofUrl, admissionType, desiredBranchId, middleName, surname, ...cleanData } = data;
-
         const payload = {
-            ...cleanData,
-            branchId: data.desiredBranchId || data.branchId,
-            desiredSectionId: data.desiredSectionId || undefined,
-            paymentReceiptUrl: data.paymentProofUrl || data.paymentReceiptUrl,
+            firstName: data.firstName,
             lastName: data.surname || data.lastName || "",
             otherNames: data.middleName || data.otherNames || "",
-            guardianPhone: data.guardianContact1 || data.guardianPhone || data.phoneNumber || data.phone,
-            phone: data.phoneNumber || data.phone,
-            dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : data.dateOfBirth,
+            gender: data.gender,
+            dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : undefined,
+            address: data.address || undefined,
+            stateOfOrigin: data.stateOfOrigin || undefined,
+            nationality: data.nationality || undefined,
+            genotype: data.genotype || undefined,
+            bloodGroup: data.bloodGroup || undefined,
+            email: data.email || undefined,
+            phone: data.phoneNumber || data.phone || undefined,
+
+            admissionType: data.admissionType || "NEW",
+            desiredClassId: data.desiredClassId,
+            desiredSectionId: data.desiredSectionId || undefined,
+            academicSessionId: data.academicSessionId || undefined,
+            previousSchools: data.previousSchools || [],
+            transferReason: data.transferReason || undefined,
+
+            guardianName: data.guardianName,
+            guardianRelation: data.guardianRelation || undefined,
+            guardianPhone: data.guardianContact1 || data.guardianPhone || data.phoneNumber || data.phone || "",
+            guardianEmail: data.guardianEmail || undefined,
+            guardianAddress: data.guardianAddress || undefined,
+            guardianOccupation: data.guardianOccupation || undefined,
+
+            passportPhoto: data.passportPhoto || undefined,
+            birthCertificateUrl: data.birthCertificateUrl || undefined,
+            transferCertificateUrl: data.transferCertificateUrl || undefined,
+            paymentReceiptUrl: data.paymentProofUrl || data.paymentReceiptUrl || undefined,
+            schoolRulesAgreement: data.schoolRulesAgreement || false,
+
+            branchId: data.desiredBranchId || data.branchId,
         };
 
         const response = await api.post("/online-admissions", payload);
