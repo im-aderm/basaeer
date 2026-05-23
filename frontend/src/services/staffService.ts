@@ -41,6 +41,26 @@ export const StaffService = {
         return response.data;
     },
 
+    createTeacher: async (data: {
+        firstName: string;
+        lastName: string;
+        email: string;
+        phone?: string;
+    }): Promise<Teacher> => {
+        const response = await api.post("/employees", { ...data, role: "TEACHER" });
+        const { user, staff } = response.data;
+        return {
+            id: staff.id,
+            userId: user.id,
+            designation: staff.designation,
+            user: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+            },
+        };
+    },
+
     getStaffMember: async (id: string): Promise<any> => {
         const response = await api.get(`/employees/${id}`);
         return response.data;

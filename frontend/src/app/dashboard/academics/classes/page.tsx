@@ -12,7 +12,8 @@ import {
     Loader2,
     LayoutGrid,
     School,
-    UserCheck
+    UserCheck,
+    X
 } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -28,6 +29,9 @@ export default function ClassesPage() {
     const [newSectionName, setNewSectionName] = useState("");
     const [selectedTeacherId, setSelectedTeacherId] = useState("");
     const [submitting, setSubmitting] = useState(false);
+    const [showQuickAddTeacher, setShowQuickAddTeacher] = useState(false);
+    const [quickTeacherForm, setQuickTeacherForm] = useState({ firstName: '', lastName: '', email: '', phone: '' });
+    const [addingTeacher, setAddingTeacher] = useState(false);
 
     useEffect(() => { fetchData(); }, []);
 
@@ -92,6 +96,23 @@ export default function ClassesPage() {
             if (process.env.NODE_ENV === 'development') console.error("Failed to assign teacher:", error);
         } finally {
             setSubmitting(false);
+        }
+    };
+
+    const handleAddTeacher = async () => {
+        const { firstName, lastName, email } = quickTeacherForm;
+        if (!firstName || !lastName || !email) return;
+        setAddingTeacher(true);
+        try {
+            const newTeacher = await StaffService.createTeacher(quickTeacherForm);
+            setTeachers(prev => [...prev, newTeacher]);
+            setSelectedTeacherId(newTeacher.id);
+            setShowQuickAddTeacher(false);
+            setQuickTeacherForm({ firstName: '', lastName: '', email: '', phone: '' });
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Failed to create teacher:", error);
+        } finally {
+            setAddingTeacher(false);
         }
     };
 
@@ -222,19 +243,96 @@ export default function ClassesPage() {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-label">Class Teacher <span className="text-red-500">*</span></label>
-                                    <select
-                                        required
-                                        value={selectedTeacherId}
-                                        onChange={(e) => setSelectedTeacherId(e.target.value)}
-                                        className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all"
-                                    >
-                                        <option value="">-- Select a teacher --</option>
-                                        {teachers.map(t => (
-                                            <option key={t.id} value={t.id}>
-                                                {t.user?.firstName} {t.user?.lastName} {t.designation ? `(${t.designation})` : ""}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <div className="flex gap-2">
+                                        <select
+                                            required
+                                            value={selectedTeacherId}
+                                            onChange={(e) => setSelectedTeacherId(e.target.value)}
+                                            className="flex-1 p-3 bg-white border border-primary/90 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all"
+                                        >
+                                            <option value="">-- Select a teacher --</option>
+                                            {teachers.map(t => (
+                                                <option key={t.id} value={t.id}>
+                                                    {t.user?.firstName} {t.user?.lastName} {t.designation ? `(${t.designation})` : ""}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowQuickAddTeacher(!showQuickAddTeacher)}
+                                            className="p-3 bg-white border border-primary/90 rounded-xl hover:bg-primary/5 transition-colors text-primary"
+                                            title="Add new teacher"
+                                        >
+                                            <Plus size={18} />
+                                        </button>
+                                    </div>
+                                    {showQuickAddTeacher && (
+                                        <div className="p-4 bg-muted/20 border border-border/50 rounded-xl space-y-3 mt-2">
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-semibold uppercase opacity-50 ml-1">First Name *</label>
+                                                    <input
+                                                        required
+                                                        placeholder="First name"
+                                                        className="w-full p-2.5 bg-white border border-primary/90 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm"
+                                                        value={quickTeacherForm.firstName}
+                                                        onChange={(e) => setQuickTeacherForm({ ...quickTeacherForm, firstName: e.target.value })}
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-semibold uppercase opacity-50 ml-1">Last Name *</label>
+                                                    <input
+                                                        required
+                                                        placeholder="Last name"
+                                                        className="w-full p-2.5 bg-white border border-primary/90 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm"
+                                                        value={quickTeacherForm.lastName}
+                                                        onChange={(e) => setQuickTeacherForm({ ...quickTeacherForm, lastName: e.target.value })}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-semibold uppercase opacity-50 ml-1">Email *</label>
+                                                    <input
+                                                        required
+                                                        type="email"
+                                                        placeholder="teacher@school.com"
+                                                        className="w-full p-2.5 bg-white border border-primary/90 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm"
+                                                        value={quickTeacherForm.email}
+                                                        onChange={(e) => setQuickTeacherForm({ ...quickTeacherForm, email: e.target.value })}
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-semibold uppercase opacity-50 ml-1">Phone</label>
+                                                    <input
+                                                        type="tel"
+                                                        placeholder="+234..."
+                                                        className="w-full p-2.5 bg-white border border-primary/90 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition-all text-sm"
+                                                        value={quickTeacherForm.phone}
+                                                        onChange={(e) => setQuickTeacherForm({ ...quickTeacherForm, phone: e.target.value })}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="flex gap-2 pt-1">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => { setShowQuickAddTeacher(false); setQuickTeacherForm({ firstName: '', lastName: '', email: '', phone: '' }); }}
+                                                    className="flex-1 py-2 rounded-lg border border-border text-sm font-medium hover:bg-muted transition-colors"
+                                                >
+                                                    Cancel
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleAddTeacher}
+                                                    disabled={addingTeacher || !quickTeacherForm.firstName || !quickTeacherForm.lastName || !quickTeacherForm.email}
+                                                    className="flex-1 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/95 transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5"
+                                                >
+                                                    {addingTeacher && <Loader2 size={14} className="animate-spin" />}
+                                                    Add Teacher
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div className="p-8 border-t border-border bg-muted/20 flex gap-3">
