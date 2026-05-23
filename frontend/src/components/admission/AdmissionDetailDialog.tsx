@@ -3,7 +3,7 @@
 import { OnlineAdmission } from "@/services/onlineAdmissionService";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { User, Phone, Mail, MapPin, School, HeartPulse, FileText, CheckCircle2, XCircle, CreditCard, ExternalLink } from "lucide-react";
+import { User, Phone, Mail, MapPin, School, FileText, CheckCircle2, XCircle, CreditCard, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface AdmissionDetailDialogProps {
@@ -30,12 +30,17 @@ export function AdmissionDetailDialog({
           <div className="flex justify-between items-start">
             <div className="space-y-1">
               <DialogTitle className="text-3xl font-black italic uppercase">
-                {admission.firstName} {admission.surname || admission.lastName}
+                {admission.firstName} {admission.lastName}
               </DialogTitle>
               <div className="flex gap-2">
                 <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
                   {admission.desiredClass?.name || "No Class"}
                 </Badge>
+                {admission.admissionType && (
+                  <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
+                    {admission.admissionType}
+                  </Badge>
+                )}
                 <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
                   {admission.status}
                 </Badge>
@@ -55,8 +60,8 @@ export function AdmissionDetailDialog({
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <DataField label="Gender" value={admission.gender} />
                 <DataField label="DOB" value={new Date(admission.dateOfBirth).toLocaleDateString()} />
-                <DataField label="Age" value={admission.age?.toString() || "N/A"} />
-                <DataField label="NIN" value={admission.ninNumber || "N/A"} />
+                <DataField label="Email" value={admission.email || admission.studentEmail || "N/A"} />
+                <DataField label="Phone" value={admission.phone || "N/A"} />
                 <DataField label="Genotype" value={admission.genotype || "N/A"} />
                 <DataField label="Blood Group" value={admission.bloodGroup || "N/A"} />
                 <DataField label="Nationality" value={admission.nationality || "N/A"} />
@@ -67,29 +72,27 @@ export function AdmissionDetailDialog({
 
             {/* Parent Info */}
             <Section title="Parent / Guardian" icon={Phone}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4 p-6 bg-muted/30 rounded-3xl">
-                  <p className="text-xs font-black text-primary uppercase italic">Father</p>
-                  <DataField label="Name" value={admission.fatherName || "N/A"} />
-                  <DataField label="Occupation" value={admission.fatherOccupation || "N/A"} />
-                  <DataField label="Phone" value={admission.fatherPhone || "N/A"} />
-                </div>
-                <div className="space-y-4 p-6 bg-muted/30 rounded-3xl">
-                  <p className="text-xs font-black text-primary uppercase italic">Mother</p>
-                  <DataField label="Name" value={admission.motherName || "N/A"} />
-                  <DataField label="Occupation" value={admission.motherOccupation || "N/A"} />
-                  <DataField label="Phone" value={admission.motherPhone || "N/A"} />
-                </div>
-              </div>
-              <div className="mt-4 p-6 bg-primary/5 rounded-3xl border border-primary/10">
+              <div className="p-6 bg-primary/5 rounded-3xl border border-primary/10">
                 <p className="text-xs font-black text-primary uppercase italic mb-4">Primary Contact</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <DataField label="Guardian Name" value={admission.guardianName} />
+                  <DataField label="Relation" value={admission.guardianRelation || "N/A"} />
+                  <DataField label="Phone" value={admission.guardianPhone} />
                   <DataField label="Email" value={admission.guardianEmail || "N/A"} />
-                  <DataField label="Contact 1" value={admission.guardianPhone} />
-                  <DataField label="Contact 2" value={admission.guardianContact1 || "N/A"} />
+                  <DataField label="Occupation" value={admission.guardianOccupation || "N/A"} />
+                  <DataField label="Address" value={admission.guardianAddress || admission.address || "N/A"} />
                 </div>
               </div>
+              {admission.secondaryGuardianName && (
+                <div className="mt-4 p-6 bg-muted/30 rounded-3xl">
+                  <p className="text-xs font-black text-muted-foreground uppercase italic mb-4">Secondary Contact</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <DataField label="Name" value={admission.secondaryGuardianName || "N/A"} />
+                    <DataField label="Relation" value={admission.secondaryGuardianRelation || "N/A"} />
+                    <DataField label="Phone" value={admission.secondaryGuardianPhone || "N/A"} />
+                  </div>
+                </div>
+              )}
             </Section>
 
             {/* Previous School */}
@@ -113,27 +116,13 @@ export function AdmissionDetailDialog({
               )}
             </Section>
 
-            {/* Medical */}
-            <Section title="Medical & Additional" icon={HeartPulse}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <StatusCheck label="Medical Condition" checked={admission.hasMedicalCondition} info={admission.medicalConditionInfo} />
-                  <StatusCheck label="Learning Difficulty" checked={admission.hasLearningDifficulty} info={admission.learningDifficultyInfo} />
-                </div>
-                <div className="space-y-4">
-                  <StatusCheck label="Special Needs" checked={admission.hasSpecialNeeds} info={admission.specialNeedsInfo} />
-                  <StatusCheck label="Financial Aid Needed" checked={admission.seekingFinancialAid} />
-                </div>
-              </div>
-            </Section>
-
             {/* Documents */}
             <Section title="Documents & Payment" icon={FileText}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <DocumentLink label="Passport Photo" url={admission.passportPhoto} />
                 <DocumentLink label="Birth Certificate" url={admission.birthCertificateUrl} />
-                <DocumentLink label="Last School Report" url={admission.schoolReportUrl} />
-                <DocumentLink label="Payment Proof" url={admission.paymentProofUrl} isPayment />
+                <DocumentLink label="Transfer Certificate" url={admission.transferCertificateUrl} />
+                <DocumentLink label="Payment Proof" url={admission.paymentReceiptUrl} isPayment />
               </div>
 
               <div className="mt-6 p-6 bg-primary/5 rounded-[2.5rem] border-2 border-primary/10 flex items-center justify-between">
@@ -196,20 +185,6 @@ function DataField({ label, value, fullWidth }: any) {
     <div className={fullWidth ? "col-span-full" : ""}>
       <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">{label}</p>
       <p className="font-bold text-sm leading-tight">{value}</p>
-    </div>
-  );
-}
-
-function StatusCheck({ label, checked, info }: any) {
-  return (
-    <div className="bg-muted/30 p-4 rounded-2xl border border-border">
-      <div className="flex items-center gap-2">
-        {checked ? <CheckCircle2 size={16} className="text-primary" /> : <XCircle size={16} className="text-muted-foreground/30" />}
-        <span className="font-bold text-sm italic">{label}</span>
-      </div>
-      {checked && info && (
-        <p className="mt-2 text-xs text-muted-foreground font-medium pl-6">{info}</p>
-      )}
     </div>
   );
 }
