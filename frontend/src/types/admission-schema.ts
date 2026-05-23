@@ -40,7 +40,7 @@ export const AdmissionSchema = z.object({
 
   // Step 4: Previous School Info
   previousSchools: z.array(z.object({
-    institutionName: z.string().min(1, "Institution name is required"),
+    institutionName: z.string().optional(),
     address: z.string().optional(),
     fromYear: z.string().optional(),
     toYear: z.string().optional(),

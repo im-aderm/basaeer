@@ -20,7 +20,11 @@ export function PreviousSchool() {
       previousSchools: true,
     })),
     defaultValues: {
-      previousSchools: formData.previousSchools?.length ? formData.previousSchools : [{ institutionName: "", address: "", fromYear: "", toYear: "" }]
+      previousSchools: formData.previousSchools?.length
+        ? formData.previousSchools
+        : formData.admissionType === "TRANSFER"
+          ? [{ institutionName: "", address: "", fromYear: "", toYear: "" }]
+          : []
     },
   });
 
@@ -33,7 +37,9 @@ export function PreviousSchool() {
   const debouncedFields = useDebounce(watchedFields, 500);
 
   useEffect(() => {
-    updateFormData(debouncedFields);
+    const schools = (debouncedFields.previousSchools || [])
+      .filter(s => s.institutionName?.trim());
+    updateFormData({ ...debouncedFields, previousSchools: schools });
   }, [debouncedFields, updateFormData]);
 
   return (
