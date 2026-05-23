@@ -37,6 +37,7 @@ export class OnlineAdmissionService {
       approvalDate,
       consentDate,
       previousSchools,
+      surname,
       ...rest
     } = createDto;
 

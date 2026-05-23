@@ -150,7 +150,7 @@ export const OnlineAdmissionService = {
     },
 
     create: async (data: any): Promise<OnlineAdmission> => {
-        const { guardianType, siblings, phoneNumber, paymentProofUrl, admissionType, desiredBranchId, middleName, ...cleanData } = data;
+        const { guardianType, siblings, phoneNumber, paymentProofUrl, admissionType, desiredBranchId, middleName, surname, ...cleanData } = data;
 
         const payload = {
             ...cleanData,
