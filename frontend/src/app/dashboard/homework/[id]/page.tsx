@@ -73,7 +73,7 @@ export default function AssignmentEvaluation() {
                     href={row.contentUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-indigo-600 hover:underline flex items-center gap-1"
+                    className="text-primary hover:underline flex items-center gap-1"
                 >
                     <FileText className="w-4 h-4" />
                     View Submission
@@ -132,13 +132,13 @@ export default function AssignmentEvaluation() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
- <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
             {/* Header */}
             <div className="mb-8">
                 <Button
@@ -176,7 +176,7 @@ export default function AssignmentEvaluation() {
                                 href={assignment.attachmentUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
- className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-colors text-sm font-medium"
+ className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-colors text-sm font-medium"
                             >
                                 <FileText className="w-4 h-4" />
                                 View Attached Resources

@@ -57,8 +57,8 @@ export default function TransportDashboard() {
             description: "Track and manage school vehicles",
             icon: Bus,
             href: "/dashboard/transport/vehicles",
-            color: "text-green-500",
-            bg: "bg-green-500/10"
+            color: "text-primary",
+            bg: "bg-primary/10"
         },
         {
             title: "Student Assignment",

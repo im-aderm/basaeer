@@ -144,8 +144,8 @@ function MinimalDashboard({ data, loading }: { data: DashboardData | null; loadi
 function QuickLinkCard({ title, description, href, icon: Icon, color }: {
   title: string; description: string; href: string; icon: React.ElementType; color: string;
 }) {
-  const borderColor = color === "blue" ? "border-b-blue-500/20" : color === "green" ? "border-b-green-500/20" : color === "purple" ? "border-b-purple-500/20" : "border-b-orange-500/20";
-  const textColor = color === "blue" ? "text-blue-500" : color === "green" ? "text-green-500" : color === "purple" ? "text-purple-500" : "text-orange-500";
+  const borderColor = color === "blue" ? "border-b-blue-500/20" : "border-b-primary/20";
+  const textColor = color === "blue" ? "text-blue-500" : "text-primary";
 
   return (
     <Card className={`rounded-[3rem] p-8 border-border/50 shadow-xl bg-card/50 backdrop-blur-sm border-b-8 ${borderColor}`}>

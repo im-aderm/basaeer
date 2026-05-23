@@ -156,7 +156,7 @@ export default function VoucherManagementPage() {
                   <TableCell>
                     {v.status === 'PENDING' && (
                       <div className="flex gap-2">
-                        <Button size="icon" variant="ghost" className="h-8 w-8 text-green-600" onClick={() => updateStatus(v.id, 'APPROVED')}><Check className="h-4 w-4" /></Button>
+                        <Button size="icon" variant="ghost" className="h-8 w-8 text-primary" onClick={() => updateStatus(v.id, 'APPROVED')}><Check className="h-4 w-4" /></Button>
                         <Button size="icon" variant="ghost" className="h-8 w-8 text-red-600" onClick={() => updateStatus(v.id, 'REJECTED')}><X className="h-4 w-4" /></Button>
                       </div>
                     )}

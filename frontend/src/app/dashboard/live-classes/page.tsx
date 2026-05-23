@@ -381,14 +381,14 @@ function LiveClassesContent() {
                                     <div className="flex-1 space-y-1">
                                         <div className="flex items-center gap-2">
                                             <h3 className="text-h3 font-semibold">{session.title}</h3>
-                                            <Badge className="bg-emerald-500 animate-pulse">ACTIVE</Badge>
+                                            <Badge className="bg-primary animate-pulse">ACTIVE</Badge>
                                         </div>
                                         <p className="text-muted-foreground text-sm uppercase font-bold tracking-tighter">
                                             {session.subject?.name} • Class {session.class?.name} • Host: {session.host?.user?.firstName}
                                         </p>
                                     </div>
                                     <div className="flex gap-2">
-                                        <Button className="bg-emerald-600 hover:bg-emerald-700" size="lg" onClick={() => window.open(session.hostUrl, '_blank')}>
+                                        <Button className="bg-primary hover:bg-primary/90" size="lg" onClick={() => window.open(session.hostUrl, '_blank')}>
                                             <ExternalLink className="mr-2 h-4 w-4" /> Join Room
                                         </Button>
                                         <Button variant="outline" size="lg" onClick={() => router.push(`/dashboard/live-classes/${session.id}`)}>
@@ -459,9 +459,9 @@ function LiveClassesContent() {
                         <DialogTitle>Google Meet Connection</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-6 pt-4">
-                        <div className={`p-4 rounded-2xl border flex items-center justify-between ${config?.isAuthorized ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-200'}`}>
+                        <div className={`p-4 rounded-2xl border flex items-center justify-between ${config?.isAuthorized ? 'bg-primary/5 border-primary/20' : 'bg-amber-50 border-amber-200'}`}>
                             <div className="flex items-center gap-3">
-                                {config?.isAuthorized ? <CheckCircle2 className="h-6 w-6 text-emerald-600" /> : <AlertCircle className="h-6 w-6 text-amber-600" />}
+                                {config?.isAuthorized ? <CheckCircle2 className="h-6 w-6 text-primary" /> : <AlertCircle className="h-6 w-6 text-amber-600" />}
                                 <div>
                                     <p className="font-bold text-sm">Status: {config?.isAuthorized ? 'Authorized' : 'Action Required'}</p>
                                     <p className="text-[10px] text-muted-foreground uppercase font-semibold">Institutional OAuth2 Flow</p>

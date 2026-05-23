@@ -328,7 +328,7 @@ export default function GradingPage() {
                                                 <td className="px-10 py-6 text-right">
                                                     <span className={clsx(
                                                         "px-4 py-1.5 rounded-full text-label",
-                                                        scale.branchId ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" : "bg-green-500/10 text-green-600 border border-green-500/20"
+                                                        scale.branchId ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" : "bg-primary/10 text-primary border border-primary/20"
                                                     )}>
                                                         {scale.branchId ? "Branch Spec" : "Global System"}
                                                     </span>

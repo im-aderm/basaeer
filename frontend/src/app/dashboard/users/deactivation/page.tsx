@@ -135,7 +135,7 @@ export default function LoginDeactivationPage() {
                                                 <Switch
                                                     checked={u.isActive}
                                                     onCheckedChange={() => handleToggleStatus(u.id, u.isActive)}
-                                                    className="data-[state=checked]:bg-emerald-500 data-[state=unchecked]:bg-destructive"
+                                                    className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-destructive"
                                                     disabled={u.id === currentUser?.id}
                                                 />
                                             </div>

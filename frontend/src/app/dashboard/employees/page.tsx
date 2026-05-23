@@ -171,7 +171,7 @@ export default function EmployeesListPage() {
                                     size="sm"
                                     className={cn(
                                         "rounded-lg font-medium border transition-all text-btn",
-                                        emp.status === 'ACTIVE' ? "text-red-500 border-red-500/20 hover:bg-red-500 hover:text-white" : "bg-green-500 hover:bg-green-600 text-white border-green-500"
+                                        emp.status === 'ACTIVE' ? "text-red-500 border-red-500/20 hover:bg-red-500 hover:text-white" : "bg-primary hover:bg-primary/90 text-white border-primary"
                                     )}
                                     onClick={() => handleToggleStatus(emp)}
                                 >

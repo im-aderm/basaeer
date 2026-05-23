@@ -206,7 +206,7 @@ export default function GlobalSettingsPage() {
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">License</span>
-                                <span className="text-green-600 font-semibold">Enterprise Perpetual</span>
+                                <span className="text-primary font-semibold">Enterprise Perpetual</span>
                             </div>
                             <div className="flex justify-between">
                                 <span className="text-muted-foreground">Last Sync</span>

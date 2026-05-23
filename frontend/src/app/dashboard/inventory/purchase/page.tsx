@@ -129,7 +129,7 @@ export default function InventoryPurchasePage() {
 
             <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
                 <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-emerald-600">
+                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-primary">
                         <Receipt className="h-8 w-8" />
                         Procurement History
                     </CardTitle>
@@ -158,7 +158,7 @@ export default function InventoryPurchasePage() {
                                 <TableRow key={p.id} className="border-border/50 transition-all hover:bg-muted/30 group">
                                     <TableCell className="px-8 py-6">
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-lg group-hover:text-emerald-600 transition-colors">{p.voucherNo || 'V-AUTO-' + p.id.slice(0, 4).toUpperCase()}</span>
+                                            <span className="font-semibold uppercase text-lg group-hover:text-primary transition-colors">{p.voucherNo || 'V-AUTO-' + p.id.slice(0, 4).toUpperCase()}</span>
                                             <span className="text-[10px] font-bold text-muted-foreground opacity-50 flex items-center gap-1 mt-0.5"><Calendar className="h-3 w-3" /> {new Date(p.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </TableCell>
@@ -169,7 +169,7 @@ export default function InventoryPurchasePage() {
                                         </div>
                                     </TableCell>
                                     <TableCell className="px-8">
-                                        <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-emerald-600 bg-emerald-500/5 px-2.5 py-1 rounded-lg w-fit">
+                                        <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-primary bg-primary/5 px-2.5 py-1 rounded-lg w-fit">
                                             <Truck className="h-3 w-3" /> {p.supplier?.name}
                                         </div>
                                     </TableCell>

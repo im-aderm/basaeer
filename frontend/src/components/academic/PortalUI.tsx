@@ -79,7 +79,7 @@ export function PortalUI() {
             <Card className="rounded-lg">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-100 text-emerald-700"><TrendingUp className="h-5 w-5" /></div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><TrendingUp className="h-5 w-5" /></div>
                   <div><p className="text-sm text-muted-foreground">Average</p><p className="text-2xl font-bold">{result.average != null ? `${Math.round(result.average)}%` : '—'}</p></div>
                 </div>
               </CardHeader>
@@ -95,7 +95,7 @@ export function PortalUI() {
             <Card className="rounded-lg">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-100 text-purple-700"><Award className="h-5 w-5" /></div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><Award className="h-5 w-5" /></div>
                   <div><p className="text-sm text-muted-foreground">Position</p><p className="text-2xl font-bold">{result.position || '—'}</p></div>
                 </div>
               </CardHeader>

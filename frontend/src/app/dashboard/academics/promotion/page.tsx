@@ -177,12 +177,12 @@ export default function StudentPromotionPage() {
 
                         {/* Target */}
                         <div className="space-y-4">
-                            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600/60 px-2">Target Level</h3>
-                            <div className="space-y-4 p-4 bg-emerald-500/5 rounded-3xl border border-emerald-500/10">
+                            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/60 px-2">Target Level</h3>
+                            <div className="space-y-4 p-4 bg-primary/5 rounded-3xl border border-primary/10">
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Target Class</label>
                                     <Select value={targetClass} onValueChange={handleTargetClassChange}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl border-primary/10 font-bold">
                                             <SelectValue placeholder="To class" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">
@@ -195,7 +195,7 @@ export default function StudentPromotionPage() {
                                 <div className="space-y-2">
                                     <label className="text-label text-muted-foreground ml-1">Target Section</label>
                                     <Select value={targetSection} onValueChange={setTargetSection}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-emerald-500/10 font-bold">
+                                        <SelectTrigger className="h-12 rounded-2xl border-primary/10 font-bold">
                                             <SelectValue placeholder="To section" />
                                         </SelectTrigger>
                                         <SelectContent className="rounded-2xl">

@@ -199,7 +199,7 @@ export default function QRAttendanceScanner() {
                         </Badge>
                     )}
                     {offlineQueue.length > 0 && (
-                        <Button variant="outline" size="sm" className="rounded-full gap-2 border-orange-200 text-orange-600 bg-orange-50 hover:bg-orange-100" onClick={syncOfflineQueue}>
+                        <Button variant="outline" size="sm" className="rounded-full gap-2 border-primary/30 text-primary bg-primary/5 hover:bg-primary/10" onClick={syncOfflineQueue}>
                             <RefreshCcw size={14} className={scanStatus === 'IDLE' ? '' : 'animate-spin'} />
                             Sync {offlineQueue.length} Pending
                         </Button>
@@ -223,8 +223,8 @@ export default function QRAttendanceScanner() {
                                     
                                     {/* Scan Overlays */}
                                     {scanStatus === 'SUCCESS' && (
-                                        <div className="absolute inset-0 flex items-center justify-center bg-emerald-500/80 backdrop-blur-sm rounded-[2.5rem] animate-in fade-in zoom-in duration-200">
-                                            <div className="bg-white text-emerald-500 p-6 rounded-full shadow-2xl">
+                                        <div className="absolute inset-0 flex items-center justify-center bg-primary/80 backdrop-blur-sm rounded-[2.5rem] animate-in fade-in zoom-in duration-200">
+                                            <div className="bg-white text-primary p-6 rounded-full shadow-2xl">
                                                 <CheckCircle className="h-16 w-16 animate-bounce" />
                                             </div>
                                         </div>

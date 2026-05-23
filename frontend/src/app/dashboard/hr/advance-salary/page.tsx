@@ -180,14 +180,14 @@ export default function AdvanceSalaryPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
                 <BranchContextBanner />
                 {/* Header */}
             <div className="mb-8">
@@ -205,7 +205,7 @@ export default function AdvanceSalaryPage() {
                     {!isAdmin && (
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700">
+                                <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
                                     <Plus className="w-4 h-4 mr-2" />
                                     Request Advance
                                 </Button>
@@ -263,7 +263,7 @@ export default function AdvanceSalaryPage() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
  <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
-                            <DollarSign className="w-8 h-8 text-indigo-600" />
+                            <DollarSign className="w-8 h-8 text-primary" />
                         </div>
  <p className="text-sm text-slate-600 ">Total Requests</p>
  <p className="text-h1 font-bold text-slate-900 ">
@@ -283,7 +283,7 @@ export default function AdvanceSalaryPage() {
 
  <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
                         <div className="flex items-center justify-between mb-2">
-                            <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                            <CheckCircle2 className="w-8 h-8 text-primary" />
                         </div>
  <p className="text-sm text-slate-600 ">Approved</p>
  <p className="text-h1 font-bold text-slate-900 ">

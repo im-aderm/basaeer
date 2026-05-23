@@ -81,7 +81,7 @@ export default function ClassDetailsPage() {
                     <div className="flex-1 space-y-2">
                         <div className="flex items-center gap-3">
                             <h1 className="text-h1 font-bold tracking-tight text-primary">{session.title}</h1>
-                            <Badge variant={session.status === 'LIVE' ? 'default' : 'outline'} className={session.status === 'LIVE' ? 'bg-emerald-500 animate-pulse' : ''}>
+                            <Badge variant={session.status === 'LIVE' ? 'default' : 'outline'} className={session.status === 'LIVE' ? 'bg-primary animate-pulse' : ''}>
                                 {session.status}
                             </Badge>
                         </div>
@@ -196,7 +196,7 @@ export default function ClassDetailsPage() {
                                     <span>Question Response Rate</span>
                                     <span>62%</span>
                                 </div>
-                                <Progress value={62} className="h-2 bg-emerald-500/10" />
+                                <Progress value={62} className="h-2 bg-primary/10" />
                             </div>
                             <div className="grid grid-cols-2 gap-4 pt-4 border-t">
                                 <div className="text-center">

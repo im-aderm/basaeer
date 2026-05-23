@@ -319,7 +319,7 @@ export default function AdmissionInterviewsPage() {
                                 <div className="flex gap-2">
                                     {interview.status === "SCHEDULED" && (
                                         <>
-                                            <button onClick={() => handleComplete(interview.id, "PASS")} className="p-2 bg-green-500/10 text-green-600 rounded-xl hover:bg-green-500/20" title="Pass">
+                                            <button onClick={() => handleComplete(interview.id, "PASS")} className="p-2 bg-primary/10 text-primary rounded-xl hover:bg-primary/20" title="Pass">
                                                 <CheckCircle2 size={18} />
                                             </button>
                                             <button onClick={() => handleComplete(interview.id, "FAIL")} className="p-2 bg-red-500/10 text-red-600 rounded-xl hover:bg-red-500/20" title="Fail">

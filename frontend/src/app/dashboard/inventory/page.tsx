@@ -112,13 +112,13 @@ export default function InventoryOverviewPage() {
                         <AlertTriangle className="h-10 w-10 text-destructive opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
-                <Card className="rounded-[2.5rem] border-none shadow-2xl bg-emerald-500/5 hover:bg-emerald-500/10 transition-colors group">
+                <Card className="rounded-[2.5rem] border-none shadow-2xl bg-primary/5 hover:bg-primary/10 transition-colors group">
                     <CardHeader className="pb-2"><CardTitle className="text-label opacity-40">Total Value</CardTitle></CardHeader>
                     <CardContent className="flex items-center justify-between">
-                        <span className="text-h1 font-semibold tracking-tighter text-emerald-600">
+                        <span className="text-h1 font-semibold tracking-tighter text-primary">
                             {new Intl.NumberFormat('en-NG', { style: 'currency', currency: 'NGN' }).format(totalStockValue)}
                         </span>
-                        <TrendingUp className="h-10 w-10 text-emerald-500 opacity-20 group-hover:opacity-40 transition-opacity" />
+                        <TrendingUp className="h-10 w-10 text-primary/50 opacity-20 group-hover:opacity-40 transition-opacity" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-none shadow-2xl bg-blue-500/5 hover:bg-blue-500/10 transition-colors group">

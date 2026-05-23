@@ -322,11 +322,11 @@ export default function ReportCardPage() {
                         All student positions, averages, and rankings are automatically computed as you save marks in the entry grid. Ensure all subject scores are recorded before generating final reports.
                     </p>
                 </div>
-                <div className="p-10 bg-amber-500/5 border border-amber-500/10 rounded-[3rem] space-y-4">
-                    <div className="flex items-center gap-3 text-amber-600 font-semibold">
+                <div className="p-10 bg-primary/5 border border-primary/10 rounded-[3rem] space-y-4">
+                    <div className="flex items-center gap-3 text-primary font-semibold">
                         <Printer size={24} /> Print Configuration
                     </div>
-                    <p className="text-sm text-amber-800/80 font-medium leading-relaxed">
+                    <p className="text-sm text-primary/80 font-medium leading-relaxed">
                         Reports are generated in A4 PDF format. For best results, use "Save as PDF" with backgrounds enabled in your print settings.
                     </p>
                 </div>

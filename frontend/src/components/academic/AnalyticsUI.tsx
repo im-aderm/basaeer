@@ -84,7 +84,7 @@ export function AnalyticsUI() {
             <Card className="rounded-lg">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-100 text-emerald-700"><TrendingUp className="h-5 w-5" /></div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><TrendingUp className="h-5 w-5" /></div>
                   <div><p className="text-sm text-muted-foreground">Average Score</p><p className="text-2xl font-bold">{analytics.averageScore != null ? `${Math.round(analytics.averageScore)}%` : '—'}</p></div>
                 </div>
               </CardHeader>
@@ -92,7 +92,7 @@ export function AnalyticsUI() {
             <Card className="rounded-lg">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-100 text-purple-700"><BookOpen className="h-5 w-5" /></div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><BookOpen className="h-5 w-5" /></div>
                   <div><p className="text-sm text-muted-foreground">Subjects</p><p className="text-2xl font-bold">{analytics.subjectCount || chartData.length}</p></div>
                 </div>
               </CardHeader>
@@ -100,7 +100,7 @@ export function AnalyticsUI() {
             <Card className="rounded-lg">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-100 text-amber-700"><AlertCircle className="h-5 w-5" /></div>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><AlertCircle className="h-5 w-5" /></div>
                   <div><p className="text-sm text-muted-foreground">Pass Rate</p><p className="text-2xl font-bold">{analytics.passRate != null ? `${Math.round(analytics.passRate)}%` : '—'}</p></div>
                 </div>
               </CardHeader>

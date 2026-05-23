@@ -158,7 +158,7 @@ className={`flex border-b border-gray-100 hover:bg-gray-50 transition-colors ${
                 </div>
                 <div className="flex items-center gap-3">
                     {dirtyRows.size > 0 && (
-                        <span className="text-xs font-medium text-amber-600 bg-yellow-50 px-2 py-1 rounded-full flex items-center gap-1.5">
+                        <span className="text-xs font-medium text-primary bg-primary/5 px-2 py-1 rounded-full flex items-center gap-1.5">
                             <AlertTriangle className="w-3 h-3" />
                             {dirtyRows.size} unsaved changes
                         </span>

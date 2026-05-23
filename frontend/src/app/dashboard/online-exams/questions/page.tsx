@@ -260,7 +260,7 @@ export default function QuestionBankPage() {
                                             <div key={idx} className="flex gap-4 items-center animate-in slide-in-from-left-2 duration-200">
                                                 <button
                                                     onClick={() => handleCorrectToggle(idx)}
-                                                    className={`h-10 w-10 flex-shrink-0 rounded-xl flex items-center justify-center transition-all ${opt.isCorrect ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/20' : 'bg-muted text-muted-foreground'
+                                                    className={`h-10 w-10 flex-shrink-0 rounded-xl flex items-center justify-center transition-all ${opt.isCorrect ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-muted text-muted-foreground'
                                                         }`}
                                                 >
                                                     {opt.isCorrect ? <CheckCircle2 className="h-6 w-6" /> : <Circle className="h-6 w-6" />}
@@ -301,7 +301,7 @@ export default function QuestionBankPage() {
                                         </div>
                                         <div className="flex gap-2">
                                             <span className="px-3 py-1 rounded-full bg-muted text-label">{q.type}</span>
-                                            <span className="px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 text-label">{q.marks} Marks</span>
+                                            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-label">{q.marks} Marks</span>
                                         </div>
                                     </div>
                                     <div className="flex gap-2 text-muted-foreground">
@@ -318,11 +318,11 @@ export default function QuestionBankPage() {
                                 {q.options && q.options.length > 0 && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         {q.options.map((opt, oIdx) => (
-                                            <div key={opt.id} className={`flex items-center gap-3 p-4 rounded-2xl ${opt.isCorrect ? 'bg-emerald-500/5 border border-emerald-500/20' : 'bg-muted/30'}`}>
-                                                <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-semibold ${opt.isCorrect ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}>
+                                            <div key={opt.id} className={`flex items-center gap-3 p-4 rounded-2xl ${opt.isCorrect ? 'bg-primary/5 border border-primary/20' : 'bg-muted/30'}`}>
+                                                <div className={`h-8 w-8 rounded-lg flex items-center justify-center text-xs font-semibold ${opt.isCorrect ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'}`}>
                                                     {String.fromCharCode(65 + oIdx)}
                                                 </div>
-                                                <span className={`font-bold ${opt.isCorrect ? 'text-emerald-700' : 'text-muted-foreground'}`}>{opt.content}</span>
+                                                <span className={`font-bold ${opt.isCorrect ? 'text-primary' : 'text-muted-foreground'}`}>{opt.content}</span>
                                             </div>
                                         ))}
                                     </div>

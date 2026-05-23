@@ -92,12 +92,12 @@ export default function FinanceDashboard() {
                 <Card className="p-6 space-y-2">
                     <div className="flex items-center justify-between">
                         <h3 className="text-sm font-medium text-muted-foreground">Total Collected</h3>
-                        <DollarSign className="h-4 w-4 text-green-500" />
+                        <DollarSign className="h-4 w-4 text-primary" />
                     </div>
                     <div className="text-2xl font-bold">
                         ₦{stats?.totalCollected?.toLocaleString() || '0'}
                     </div>
-                    <div className="text-xs text-green-600 flex items-center">
+                    <div className="text-xs text-primary flex items-center">
                         <TrendingUp className="h-3 w-3 mr-1" />
                         {stats?.collectionEfficiency?.toFixed(1)}% efficiency
                     </div>
@@ -106,7 +106,7 @@ export default function FinanceDashboard() {
                 <Card className="p-6 space-y-2">
                     <div className="flex items-center justify-between">
                         <h3 className="text-sm font-medium text-muted-foreground">Outstanding</h3>
-                        <Activity className="h-4 w-4 text-orange-500" />
+                        <Activity className="h-4 w-4 text-primary" />
                     </div>
                     <div className="text-2xl font-bold">
                         ₦{stats?.totalOutstanding?.toLocaleString() || '0'}

@@ -27,7 +27,7 @@ export default function GlobalKPICards({ data }: GlobalKPICardsProps) {
                 title="Total Staff"
                 value={data.totalStaff.toLocaleString()}
                 icon={Briefcase}
-                color="green"
+                color="primary"
                 subtitle={`${data.activeStaff} active`}
                 onClick={() => router.push("/dashboard/employees")}
             />
@@ -35,7 +35,7 @@ export default function GlobalKPICards({ data }: GlobalKPICardsProps) {
                 title="Total Revenue"
                 value={`₦${(data.totalRevenue / 1000000).toFixed(1)}M`}
                 icon={DollarSign}
-                color="orange"
+                color="primary"
                 subtitle={`${data.collectionRate}% collection rate`}
                 onClick={() => router.push("/dashboard/finance")}
             />
@@ -51,7 +51,7 @@ export default function GlobalKPICards({ data }: GlobalKPICardsProps) {
                 title="Attendance Rate"
                 value={`${data.attendanceRate}%`}
                 icon={Percent}
-                color="purple"
+                color="primary"
                 subtitle={data.attendanceRate >= 85 ? "Above target" : "Below target"}
                 onClick={() => router.push("/dashboard/attendance")}
             />
@@ -66,7 +66,7 @@ export default function GlobalKPICards({ data }: GlobalKPICardsProps) {
                 title="Enrollment Growth"
                 value={`${data.studentGrowth > 0 ? "+" : ""}${data.studentGrowth}%`}
                 icon={TrendingUp}
-                color="green"
+                color="primary"
                 subtitle="Month-over-month change"
             />
             <SparklineCard
@@ -80,7 +80,7 @@ export default function GlobalKPICards({ data }: GlobalKPICardsProps) {
                 title="Hostel Occupancy"
                 value={`${data.hostelOccupancyRate}%`}
                 icon={Bed}
-                color="purple"
+                color="primary"
                 subtitle={data.hostelOccupancyRate > 0 ? `${data.hostelOccupancyRate}% beds filled` : "No allocations"}
                 onClick={() => router.push("/dashboard/hostels")}
             />

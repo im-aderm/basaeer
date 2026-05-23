@@ -112,13 +112,13 @@ export function RealtimeNotificationCenter() {
                 >
                   <div className="mt-0.5 shrink-0">
                     {n.event.startsWith("finance") ? (
-                      <CreditCard className="h-4 w-4 text-emerald-600" />
+                      <CreditCard className="h-4 w-4 text-primary" />
                     ) : n.event.startsWith("hr") ? (
                       <UserPlus className="h-4 w-4 text-blue-600" />
                     ) : n.event.startsWith("transport") ? (
-                      <Bus className="h-4 w-4 text-amber-600" />
+                      <Bus className="h-4 w-4 text-primary" />
                     ) : n.event.startsWith("attendance") ? (
-                      <CheckCircle2 className="h-4 w-4 text-purple-600" />
+                      <CheckCircle2 className="h-4 w-4 text-primary" />
                     ) : (
                       <FileText className="h-4 w-4 text-primary" />
                     )}

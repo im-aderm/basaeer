@@ -228,7 +228,7 @@ export default function AttendancePage() {
                         <button
                             onClick={handleSave}
                             disabled={submitting}
-                            className="flex items-center gap-2 px-8 py-3.5 bg-green-500 text-white rounded-2xl font-semibold shadow-xl shadow-green-500/20 hover:bg-green-600 transition-all active:scale-95 disabled:opacity-50"
+                            className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95 disabled:opacity-50"
                         >
                             {submitting ? <Loader2 size={20} className="animate-spin" /> : <Save size={20} />}
                             Save Attendance

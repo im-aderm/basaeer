@@ -427,12 +427,12 @@ export default function AdmissionImportPage() {
                             </CardHeader>
                             <CardContent className="pt-8 space-y-6">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="bg-emerald-500/10 border border-emerald-500/20 p-6 rounded-[1.5rem] flex items-center gap-4">
-                                        <div className="h-12 w-12 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-600">
+                                    <div className="bg-primary/10 border border-primary/20 p-6 rounded-[1.5rem] flex items-center gap-4">
+                                        <div className="h-12 w-12 rounded-2xl bg-primary/20 flex items-center justify-center text-primary">
                                             <CheckCircle2 className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-semibold uppercase tracking-tighter text-emerald-600">Success</p>
+                                            <p className="text-sm font-semibold uppercase tracking-tighter text-primary">Success</p>
                                             <p className="text-h3 font-semibold">{results.success}</p>
                                         </div>
                                     </div>

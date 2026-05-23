@@ -193,16 +193,16 @@ export default function StudentAttendancePage() {
                     <div className="space-y-6">
                         {/* Session Stats & Bulk Actions */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <Card className="rounded-3xl shadow-sm bg-emerald-50/30">
+                            <Card className="rounded-3xl shadow-sm bg-primary/5">
                                 <CardContent className="p-6 flex items-center gap-4">
-                                    <div className="p-3 rounded-2xl bg-emerald-500 text-white shadow-lg shadow-emerald-200">
+                                    <div className="p-3 rounded-2xl bg-primary text-white shadow-lg shadow-primary/30">
                                         <CheckCircle2 size={24} />
                                     </div>
                                     <div>
-                                        <div className="text-2xl font-black text-emerald-600 leading-none">
+                                        <div className="text-2xl font-black text-primary leading-none">
                                             {Object.values(attendanceData).filter(a => a.status === 'PRESENT').length}
                                         </div>
-                                        <div className="text-xs font-bold text-emerald-600/60">Present</div>
+                                        <div className="text-xs font-bold text-primary/60">Present</div>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -223,7 +223,7 @@ export default function StudentAttendancePage() {
                             <div className="md:col-span-2 flex gap-2">
                                 <Button 
                                     variant="outline" 
-                                    className="flex-1 h-full rounded-3xl border-dashed border-emerald-200 text-emerald-600 hover:bg-emerald-50 font-bold uppercase tracking-tight"
+                                    className="flex-1 h-full rounded-3xl border-dashed border-primary/30 text-primary hover:bg-primary/5 font-bold uppercase tracking-tight"
                                     onClick={() => markAll('PRESENT')}
                                 >
                                     Mark All Present

@@ -212,7 +212,7 @@ export default function BulkCommsPage() {
                                                     {item.date}
                                                 </div>
                                             </div>
-                                            <Badge variant="outline" className={`font-bold border-none text-[10px] ${item.status === 'Delivered' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-orange-500/10 text-orange-600'}`}>
+                                            <Badge variant="outline" className={`font-bold border-none text-[10px] ${item.status === 'Delivered' ? 'bg-primary/10 text-primary' : 'bg-primary/5 text-primary/70'}`}>
                                                 {item.status}
                                             </Badge>
                                         </div>

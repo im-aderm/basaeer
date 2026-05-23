@@ -116,24 +116,24 @@ export default function QueuesPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="rounded-3xl border-border/50 shadow-md bg-amber-500/5">
+                <Card className="rounded-3xl border-border/50 shadow-md bg-primary/5">
                     <CardContent className="p-6 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                        <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                             <Clock className="h-6 w-6" />
                         </div>
                         <div>
-                            <p className="text-sm font-bold text-amber-600 uppercase tracking-wider">Waiting</p>
+                            <p className="text-sm font-bold text-primary uppercase tracking-wider">Waiting</p>
                             <p className="text-3xl font-black">{queues.reduce((acc, q) => acc + q.waiting, 0)}</p>
                         </div>
                     </CardContent>
                 </Card>
-                <Card className="rounded-3xl border-border/50 shadow-md bg-emerald-500/5">
+                <Card className="rounded-3xl border-border/50 shadow-md bg-primary/5">
                     <CardContent className="p-6 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                        <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                             <CheckCircle2 className="h-6 w-6" />
                         </div>
                         <div>
-                            <p className="text-sm font-bold text-emerald-600 uppercase tracking-wider">Completed</p>
+                            <p className="text-sm font-bold text-primary uppercase tracking-wider">Completed</p>
                             <p className="text-3xl font-black">{queues.reduce((acc, q) => acc + q.completed, 0)}</p>
                         </div>
                     </CardContent>
@@ -165,9 +165,9 @@ export default function QueuesPage() {
                                             <div className="flex items-center gap-3">
                                                 <h3 className="text-2xl font-bold">{queue.name}</h3>
                                                 {queue.paused ? (
-                                                    <Badge variant="outline" className="bg-amber-500/10 text-amber-600 border-amber-500/20 px-3">Paused</Badge>
+                                                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 px-3">Paused</Badge>
                                                 ) : (
-                                                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 px-3">Running</Badge>
+                                                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 px-3">Running</Badge>
                                                 )}
                                             </div>
                                             <p className="text-muted-foreground font-medium mt-1">Processor for {queue.name.split('-').join(' ')} tasks.</p>
@@ -181,15 +181,15 @@ export default function QueuesPage() {
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
                                             <p className="text-xs font-bold text-muted-foreground">Waiting</p>
-                                            <p className="text-xl font-black mt-1 text-amber-600">{queue.waiting}</p>
+                                            <p className="text-xl font-black mt-1 text-primary">{queue.waiting}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
                                             <p className="text-xs font-bold text-muted-foreground">Delayed</p>
-                                            <p className="text-xl font-black mt-1 text-purple-600">{queue.delayed}</p>
+                                            <p className="text-xl font-black mt-1 text-primary">{queue.delayed}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
                                             <p className="text-xs font-bold text-muted-foreground">Completed</p>
-                                            <p className="text-xl font-black mt-1 text-emerald-600">{queue.completed}</p>
+                                            <p className="text-xl font-black mt-1 text-primary">{queue.completed}</p>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 border border-border/50 text-center">
                                             <p className="text-xs font-bold text-muted-foreground">Failed</p>

@@ -130,13 +130,13 @@ export default function HomeworkEvaluationReport() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
@@ -148,7 +148,7 @@ export default function HomeworkEvaluationReport() {
                             Track assignment completion and student performance
                         </p>
                     </div>
-                    <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                    <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
                         <Download className="w-4 h-4 mr-2" />
                         Export Report
                     </Button>
@@ -159,7 +159,7 @@ export default function HomeworkEvaluationReport() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
                 <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
-                        <FileText className="w-8 h-8 text-indigo-600" />
+                        <FileText className="w-8 h-8 text-primary" />
                     </div>
                     <p className="text-sm text-slate-600">Total Assignments</p>
                     <p className="text-h1 font-bold text-slate-900">{stats.totalAssignments}</p>
@@ -167,7 +167,7 @@ export default function HomeworkEvaluationReport() {
 
                 <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
-                        <Users className="w-8 h-8 text-emerald-600" />
+                        <Users className="w-8 h-8 text-primary" />
                     </div>
                     <p className="text-sm text-slate-600">Total Submissions</p>
                     <p className="text-h1 font-bold text-slate-900">{stats.totalSubmissions}</p>
@@ -175,7 +175,7 @@ export default function HomeworkEvaluationReport() {
 
                 <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                     <div className="flex items-center justify-between mb-2">
-                        <BarChart3 className="w-8 h-8 text-purple-600" />
+                        <BarChart3 className="w-8 h-8 text-primary" />
                     </div>
                     <p className="text-sm text-slate-600">Graded</p>
                     <p className="text-h1 font-bold text-slate-900">{stats.gradedSubmissions}</p>

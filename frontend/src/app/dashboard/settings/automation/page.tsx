@@ -64,8 +64,8 @@ export default function AutomationPanelPage() {
     const getIcon = (type: string) => {
         switch (type) {
             case 'BIRTHDAY_WISH': return <Cake className="h-8 w-8 text-pink-500" />;
-            case 'FEE_REMINDER': return <Wallet className="h-8 w-8 text-emerald-500" />;
-            case 'ATTENDANCE_ALERT': return <Bell className="h-8 w-8 text-orange-500" />;
+            case 'FEE_REMINDER': return <Wallet className="h-8 w-8 text-primary" />;
+            case 'ATTENDANCE_ALERT': return <Bell className="h-8 w-8 text-primary" />;
             default: return <Zap className="h-8 w-8 text-primary" />;
         }
     };
@@ -155,7 +155,7 @@ export default function AutomationPanelPage() {
                                     {saving === config.type ? (
                                         <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
                                     ) : (
-                                        <CheckCircle2 className="h-8 w-8 text-emerald-500 animate-in zoom-in" />
+                                        <CheckCircle2 className="h-8 w-8 text-primary animate-in zoom-in" />
                                     )}
                                 </div>
                             </div>

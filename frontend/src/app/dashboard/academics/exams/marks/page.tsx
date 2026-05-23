@@ -280,7 +280,7 @@ export default function ScoreEntryPage() {
             </div>
 
             {success && (
-                <div className="p-6 bg-green-500/10 border border-green-500/20 rounded-[2rem] flex items-center gap-4 text-green-600 font-semibold animate-in zoom-in-95">
+                <div className="p-6 bg-primary/10 border border-primary/20 rounded-[2rem] flex items-center gap-4 text-primary font-semibold animate-in zoom-in-95">
                     <CheckCircle2 />
                     Scores saved successfully!
                 </div>
@@ -329,7 +329,7 @@ export default function ScoreEntryPage() {
                                                         type="number"
                                                         className={clsx(
                                                             "w-20 mx-auto p-3 border-none rounded-xl text-center font-bold outline-none focus:ring-2 transition-all",
-                                                            comp.isExam ? "bg-amber-500/5 text-amber-600 ring-amber-500/30" : "bg-muted/20 text-foreground ring-primary/30"
+                                                            comp.isExam ? "bg-primary/5 text-primary ring-primary/30" : "bg-muted/20 text-foreground ring-primary/30"
                                                         )}
                                                         value={scores[student.id]?.[comp.id] ?? ""}
                                                         onChange={e => handleScoreChange(student.id, comp.id, e.target.value)}
@@ -373,13 +373,13 @@ export default function ScoreEntryPage() {
 
             {/* Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-amber-500/5 border border-amber-500/10 rounded-[2rem] flex items-start gap-4">
-                    <div className="p-3 bg-amber-500/10 rounded-xl text-amber-600">
+                <div className="p-6 bg-primary/5 border border-primary/10 rounded-[2rem] flex items-start gap-4">
+                    <div className="p-3 bg-primary/10 rounded-xl text-primary">
                         <FileText size={24} />
                     </div>
                     <div>
-                        <h4 className="font-bold text-amber-900">Open Day Ready</h4>
-                        <p className="text-sm text-amber-800/70 mt-1">
+                        <h4 className="font-bold text-primary">Open Day Ready</h4>
+                        <p className="text-sm text-primary/70 mt-1">
                             Use the printer icon to generate CA-only reports for Open Day. These exclude summative exams and show preliminary progress.
                         </p>
                     </div>

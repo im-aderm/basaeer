@@ -69,11 +69,11 @@ export default function VerifyPage() {
             <Card className="max-w-2xl w-full rounded-[4rem] border-none shadow-2xl overflow-hidden bg-white">
                 <div className="h-4 bg-primary w-full" />
                 <CardHeader className="p-12 text-center border-b border-slate-50">
-                    <div className="w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 text-green-600 animate-bounce">
+                    <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary animate-bounce">
                         <CheckCircle2 size={48} />
                     </div>
                     <CardTitle className="text-4xl font-black italic tracking-tighter text-slate-900">Verified Authentic</CardTitle>
-                    <p className="text-green-600 font-bold uppercase tracking-[0.2em] text-sm mt-2">Basaer Digital Certification Registry</p>
+                    <p className="text-primary font-bold uppercase tracking-[0.2em] text-sm mt-2">Basaer Digital Certification Registry</p>
                 </CardHeader>
                 <CardContent className="p-12 space-y-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">

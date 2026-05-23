@@ -106,26 +106,26 @@ export default function BackupManagementPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500/40">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Storage Status</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-4">
                             <span className="text-h1 font-semibold">Healthy</span>
-                            <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+                            <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
                         </div>
                     </CardContent>
                 </Card>
 
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500/40">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Latest Sync</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-3">
-                            <Clock className="h-5 w-5 text-amber-600" />
-                            <span className="font-bold text-amber-900/70">
+                            <Clock className="h-5 w-5 text-primary" />
+                            <span className="font-bold text-primary/70">
                                 {backups.length > 0 ? new Date(backups[0].createdAt).toLocaleDateString() : 'No backups found'}
                             </span>
                         </div>

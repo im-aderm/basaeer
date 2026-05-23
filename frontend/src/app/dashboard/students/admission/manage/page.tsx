@@ -276,7 +276,7 @@ export default function AdmissionsManagementPage() {
                                             )}>
                                                 <div className={clsx("w-1.5 h-1.5 rounded-full",
                                                     adm.status === 'PENDING' ? "bg-yellow-500" :
-                                                        adm.status === 'ENROLLED' ? "bg-green-500" :
+                                                        adm.status === 'ENROLLED' ? "bg-primary" :
                                                             adm.status === 'APPROVED' ? "bg-blue-500" : "bg-red-500"
                                                 )} />
                                                 {adm.status}
@@ -292,7 +292,7 @@ export default function AdmissionsManagementPage() {
                                                         <button
                                                             disabled={processingId === adm.id}
                                                             onClick={() => handleApprove(adm.id)}
-                                                            className="p-3 bg-green-500/10 text-green-600 hover:bg-green-500 hover:text-white rounded-xl transition-all disabled:opacity-50"
+                                                            className="p-3 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl transition-all disabled:opacity-50"
                                                             title="Approve Policy"
                                                         >
                                                             {processingId === adm.id ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}

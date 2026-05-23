@@ -99,7 +99,7 @@ export default function BranchComparison({ branches, finance, attendance }: Bran
                             .map((b, i) => {
                                 const maxDebt = Math.max(...finance.byBranch.map((x) => x.outstanding), 1);
                                 const pct = (b.outstanding / maxDebt) * 100;
-                                const severity = pct > 70 ? "bg-red-500" : pct > 40 ? "bg-amber-500" : "bg-emerald-500";
+                                const severity = pct > 70 ? "bg-red-500" : pct > 40 ? "bg-primary/60" : "bg-primary";
                                 return (
                                     <div key={b.branchId} className="flex items-center gap-4">
                                         <span className="text-sm font-bold w-16">{b.branchCode}</span>

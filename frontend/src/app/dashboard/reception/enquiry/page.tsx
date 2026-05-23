@@ -227,7 +227,7 @@ export default function AdmissionEnquiryPage() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <StatCard title="Total Enquiries" value={enquiries.length} icon={Users} color="primary" />
                     <StatCard title="Pending Follow-ups" value={(enquiries ?? []).filter(e => e.status === 'PENDING' || e.status === 'FOLLOW_UP').length} icon={Clock} color="amber" />
-                    <StatCard title="Converted (Won)" value={(enquiries ?? []).filter(e => e.status === 'WON').length} icon={CheckCircle2} color="emerald" />
+                    <StatCard title="Converted (Won)" value={(enquiries ?? []).filter(e => e.status === 'WON').length} icon={CheckCircle2} color="primary" />
                     <StatCard title="Dropped (Lost)" value={(enquiries ?? []).filter(e => e.status === 'LOST').length} icon={AlertCircle} color="red" />
                 </div>
 
@@ -347,7 +347,6 @@ function StatCard({ title, value, icon: Icon, color }: { title: string, value: n
     const colors: Record<string, string> = {
         primary: "bg-primary/5 border-l-primary text-primary",
         amber: "bg-amber-500/5 border-l-amber-500 text-amber-500",
-        emerald: "bg-emerald-500/5 border-l-emerald-500 text-emerald-500",
         red: "bg-red-500/5 border-l-red-500 text-red-500"
     };
 

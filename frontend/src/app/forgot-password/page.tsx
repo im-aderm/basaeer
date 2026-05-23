@@ -38,7 +38,7 @@ export default function ForgotPasswordPage() {
 
                     {status === "success" ? (
                         <div className="text-center py-6">
-                            <div className="w-16 h-16 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-100">
+                            <div className="w-16 h-16 bg-primary/5 text-primary rounded-full flex items-center justify-center mx-auto mb-4 border border-primary/20">
                                 <Mail size={32} />
                             </div>
                             <h2 className="text-xl font-semibold text-[#111827] mb-2">Check your email</h2>

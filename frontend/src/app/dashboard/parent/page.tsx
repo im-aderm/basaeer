@@ -60,7 +60,7 @@ export default function ParentDashboardPage() {
     const hasUnpaid = invoices.some((inv) => inv.status !== "PAID");
     return hasUnpaid
       ? { label: "Pending: Q2 Fees", color: "text-red-400" }
-      : { label: "Fully Paid", color: "text-emerald-400" };
+      : { label: "Fully Paid", color: "text-primary" };
   };
 
   const getPerformance = (results: any[]) => {

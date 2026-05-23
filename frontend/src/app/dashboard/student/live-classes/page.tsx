@@ -70,13 +70,13 @@ export default function StudentLiveClassesPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
- <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/20 p-6">
+ <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">
@@ -91,19 +91,19 @@ export default function StudentLiveClassesPage() {
             {activeSessions.length > 0 && (
                 <div className="mb-8">
                     <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                        <Video className="w-5 h-5 text-emerald-600" />
+                        <Video className="w-5 h-5 text-primary" />
                         Live Now
                     </h2>
                     <div className="grid grid-cols-1 gap-4">
                         {activeSessions.map((session) => (
                             <div
                                 key={session.id}
- className="bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-xl rounded-2xl p-6 border-2 border-emerald-200 animate-pulse-slow"
+ className="bg-gradient-to-r from-primary/5 to-primary/5 backdrop-blur-xl rounded-2xl p-6 border-2 border-primary/20 animate-pulse-slow"
                             >
                                 <div className="flex items-start justify-between">
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-600 text-white animate-pulse">
+                                            <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary text-white animate-pulse">
                                                 LIVE
                                             </span>
                                             <h3 className="font-bold text-lg">{session.title}</h3>
@@ -124,7 +124,7 @@ export default function StudentLiveClassesPage() {
                                     </div>
                                     <Button
                                         onClick={() => handleJoinMeeting(session)}
-                                        className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+                                        className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                                         size="lg"
                                     >
                                         <Video className="w-5 h-5 mr-2" />
@@ -140,7 +140,7 @@ export default function StudentLiveClassesPage() {
             {/* Upcoming Sessions */}
             <div className="mb-8">
                 <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-indigo-600" />
+                    <Calendar className="w-5 h-5 text-primary" />
                     Upcoming Classes
                 </h2>
                 {upcomingSessions.length === 0 ? (
@@ -221,7 +221,7 @@ export default function StudentLiveClassesPage() {
                                     >
                                         <div className="flex items-center gap-3">
                                             {attended ? (
-                                                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+<CheckCircle2 className="w-5 h-5 text-primary" />
                                             ) : (
                                                 <AlertCircle className="w-5 h-5 text-slate-400" />
                                             )}
@@ -234,7 +234,7 @@ export default function StudentLiveClassesPage() {
                                         </div>
                                         <span
                                             className={`px-3 py-1 rounded-full text-xs ${attended
- ? "bg-emerald-100 text-emerald-700 "
+                                                ? "bg-primary/10 text-primary"
  : "bg-slate-100 text-slate-700 "
                                                 }`}
                                         >

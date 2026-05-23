@@ -45,8 +45,8 @@ export default function ChangePasswordPage() {
       <MotionWrapper className="w-full max-w-md">
         <div className="bg-white/75 border border-border/50 rounded-[2.5rem] p-8 md:p-10 card-hover shadow-xl shadow-primary/5">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-amber-500/10 mb-4">
-              <ShieldAlert className="h-8 w-8 text-amber-500" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 mb-4">
+              <ShieldAlert className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-h1 font-bold tracking-tight text-primary">Change Your Password</h1>
             <p className="text-sm text-muted-foreground mt-1">

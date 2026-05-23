@@ -132,14 +132,14 @@ export default function ClassSchedulePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
                 <BranchContextBanner />
             {/* Header */}
             <div className="mb-8">
@@ -155,7 +155,7 @@ export default function ClassSchedulePage() {
                     {selectedClass && selectedSection && (
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                                <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
                                     <Plus className="w-4 h-4 mr-2" />
                                     Add Period
                                 </Button>
@@ -368,7 +368,7 @@ export default function ClassSchedulePage() {
                                                 className="border border-slate-200 p-2"
                                             >
                                                 {schedule ? (
-                                                    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3 relative group">
+                                                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-3 relative group">
                                                         <div className="flex items-start justify-between">
                                                             <div className="flex-1">
                                                                 <p className="font-semibold text-sm mb-1">

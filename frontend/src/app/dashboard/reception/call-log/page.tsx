@@ -215,7 +215,7 @@ export default function CallLogPage() {
                                         <div className="flex flex-col gap-1">
                                             <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(l.date).toLocaleDateString()}</span>
                                             {l.nextFollowUpDate && (
-                                                <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-tighter">Follow up: {new Date(l.nextFollowUpDate).toLocaleDateString()}</span>
+                                                <span className="text-[10px] font-semibold text-primary uppercase tracking-tighter">Follow up: {new Date(l.nextFollowUpDate).toLocaleDateString()}</span>
                                             )}
                                         </div>
                                     </TableCell>

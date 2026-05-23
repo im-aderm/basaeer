@@ -130,7 +130,7 @@ export default function ExportDashboardPage() {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
                                             {exp.type.includes('EXCEL') || exp.type.includes('CSV') ? (
-                                                <FileSpreadsheet className="w-5 h-5 text-green-600" />
+                                                <FileSpreadsheet className="w-5 h-5 text-primary" />
                                             ) : (
                                                 <FileText className="w-5 h-5 text-red-500" />
                                             )}

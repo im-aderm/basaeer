@@ -215,7 +215,7 @@ export default function PostalRecordPage() {
                                         #{r.referenceNumber || 'N/A'}
                                     </TableCell>
                                     <TableCell className="px-8 text-center text-[10px] font-semibold">
-                                        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-current font-semibold ${r.type === 'RECEIVE' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-blue-500/10 text-blue-600'}`}>
+                                        <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-current font-semibold ${r.type === 'RECEIVE' ? 'bg-primary/10 text-primary' : 'bg-blue-500/10 text-blue-600'}`}>
                                             {r.type === 'RECEIVE' ? <ArrowDownRight className="h-3 w-3" /> : <ArrowUpLeft className="h-3 w-3" />}
                                             {r.type}
                                         </div>

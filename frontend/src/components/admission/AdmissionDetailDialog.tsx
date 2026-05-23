@@ -136,10 +136,10 @@ export function AdmissionDetailDialog({
                 <DocumentLink label="Payment Proof" url={admission.paymentProofUrl} isPayment />
               </div>
 
-              <div className="mt-6 p-6 bg-emerald-500/10 rounded-[2.5rem] border-2 border-emerald-500/20 flex items-center justify-between">
+              <div className="mt-6 p-6 bg-primary/5 rounded-[2.5rem] border-2 border-primary/10 flex items-center justify-between">
                 <div>
-                  <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Payment Status</p>
-                  <p className="text-xl font-black italic text-emerald-700 uppercase">{admission.paymentStatus || 'PENDING'}</p>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-widest">Payment Status</p>
+                  <p className="text-xl font-black italic text-primary uppercase">{admission.paymentStatus || 'PENDING'}</p>
                 </div>
                 {admission.paymentStatus !== 'VERIFIED' && (
                   <Button
@@ -204,7 +204,7 @@ function StatusCheck({ label, checked, info }: any) {
   return (
     <div className="bg-muted/30 p-4 rounded-2xl border border-border">
       <div className="flex items-center gap-2">
-        {checked ? <CheckCircle2 size={16} className="text-emerald-500" /> : <XCircle size={16} className="text-muted-foreground/30" />}
+        {checked ? <CheckCircle2 size={16} className="text-primary" /> : <XCircle size={16} className="text-muted-foreground/30" />}
         <span className="font-bold text-sm italic">{label}</span>
       </div>
       {checked && info && (
@@ -220,7 +220,7 @@ function DocumentLink({ label, url, isPayment }: any) {
     <a 
       href={url} 
       target="_blank" 
-      className={`flex items-center justify-between p-4 rounded-2xl border transition-all hover:scale-[1.02] ${isPayment ? 'bg-emerald-50 border-emerald-500/20 text-emerald-700' : 'bg-white border-border text-primary'}`}
+      className={`flex items-center justify-between p-4 rounded-2xl border transition-all hover:scale-[1.02] ${isPayment ? 'bg-primary/5 border-primary/20 text-primary' : 'bg-white border-border text-primary'}`}
     >
       <div className="flex items-center gap-2">
         {isPayment ? <CreditCard size={18} /> : <FileText size={18} />}

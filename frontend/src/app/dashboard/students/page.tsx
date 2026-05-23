@@ -80,24 +80,24 @@ export default function StudentsDashboard() {
             description: "Enroll a new student into the system",
             icon: UserPlus,
             href: "/dashboard/students/admission",
-            color: "text-green-500",
-            bg: "bg-green-500/10"
+            color: "text-primary",
+            bg: "bg-primary/10"
         },
         {
             title: "Certificates",
             description: "Issue and manage student certificates",
             icon: Award,
             href: "/dashboard/students/certificates",
-            color: "text-orange-500",
-            bg: "bg-orange-500/10"
+            color: "text-primary",
+            bg: "bg-primary/10"
         },
         {
             title: "Attendance",
             description: "View daily attendance reports",
             icon: ClipboardList,
             href: "/dashboard/attendance/student",
-            color: "text-purple-500",
-            bg: "bg-purple-500/10"
+            color: "text-primary",
+            bg: "bg-primary/10"
         }
     ];
 

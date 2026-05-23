@@ -75,7 +75,7 @@ export default function ReceptionDashboard() {
     const statCards = [
         { title: "Active Enquiries", value: stats.enquiries, icon: Users, bg: "bg-blue-500/10", text: "text-blue-500", href: "/dashboard/reception/enquiry" },
         { title: "Today's Calls", value: stats.calls, icon: Phone, bg: "bg-purple-500/10", text: "text-purple-500", href: "/dashboard/reception/call-log" },
-        { title: "Visitor Log", value: stats.visitors, icon: UserCheck, bg: "bg-green-500/10", text: "text-green-500", href: "/dashboard/reception/visitor-log" },
+        { title: "Visitor Log", value: stats.visitors, icon: UserCheck, bg: "bg-primary/10", text: "text-primary", href: "/dashboard/reception/visitor-log" },
         { title: "Pending Complaints", value: stats.complaints, icon: MessageSquare, bg: "bg-red-500/10", text: "text-red-500", href: "/dashboard/reception/complaint" },
     ];
 

@@ -148,10 +148,10 @@ export default function GeneralSettingsPage() {
                 </Card>
 
                 {/* Regional & Financial */}
-                <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-emerald-500/20">
-                    <CardHeader className="bg-emerald-500/5 pb-6">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/20">
+                    <CardHeader className="bg-primary/5 pb-6">
                         <div className="flex items-center gap-3">
-                            <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                            <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                                 <Coins className="h-6 w-6" />
                             </div>
                             <div>

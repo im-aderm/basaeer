@@ -99,7 +99,7 @@ export default function QRSubmissionsPage() {
                                             </td>
                                             <td className="p-6">
                                                 <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black uppercase ${
-                                                    scan.direction === 'ENTRY' ? 'bg-emerald-50 text-emerald-600' : 'bg-orange-50 text-orange-600'
+                                                    scan.direction === 'ENTRY' ? 'bg-primary/10 text-primary' : 'bg-primary/5 text-primary/70'
                                                 }`}>
                                                     {scan.direction}
                                                 </div>

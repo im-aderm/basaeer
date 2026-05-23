@@ -108,7 +108,7 @@ export default function LiveClassReportsPage() {
                                 <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Attendance Rate</CardTitle></CardHeader>
                                 <CardContent className="flex items-center gap-4">
                                     <span className="text-h1 font-semibold">{reports.length > 0 ? '84%' : '0%'}</span>
-                                    <UserCheck className="h-8 w-8 text-emerald-500/40" />
+                                    <UserCheck className="h-8 w-8 text-primary/40" />
                                 </CardContent>
                             </Card>
                             <Card className="rounded-[2rem] border-border/50 shadow-xl bg-muted/20">
@@ -170,7 +170,7 @@ export default function LiveClassReportsPage() {
                                                     {p.duration || 0}m
                                                 </TableCell>
                                                 <TableCell className="px-8 text-right">
-                                                    <div className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 font-semibold text-[10px] uppercase w-fit ml-auto">
+                                                    <div className="px-3 py-1 rounded-full bg-primary/10 text-primary font-semibold text-[10px] uppercase w-fit ml-auto">
                                                         Present
                                                     </div>
                                                 </TableCell>

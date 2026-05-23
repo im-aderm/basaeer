@@ -145,7 +145,7 @@ export default function OnlineExamResultsPage() {
                     <Button
                         variant="secondary"
                         onClick={generatePositions}
-                        className="h-14 px-6 rounded-2xl font-semibold gap-2 bg-emerald-500/10 text-emerald-600 hover:bg-emerald-500/20 shadow-none border-none"
+                        className="h-14 px-6 rounded-2xl font-semibold gap-2 bg-primary/10 text-primary hover:bg-primary/20 shadow-none border-none"
                     >
                         <Trophy className="h-6 w-6" />
                         Rankings
@@ -161,22 +161,22 @@ export default function OnlineExamResultsPage() {
                         <Users className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Avg Score</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
                         <span className="text-h1 font-semibold">
                             {attempts.length > 0 ? (attempts.reduce((sum, a) => sum + (a.score || 0), 0) / attempts.length).toFixed(1) : 0}
                         </span>
-                        <TrendingUp className="h-8 w-8 text-emerald-500/40" />
+                        <TrendingUp className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Pass Rate</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
                         <span className="text-h1 font-semibold">
                             {attempts.length > 0 ? Math.round((attempts.filter(a => (a.score || 0) >= (activeExam?.passPercentage || 40)).length / attempts.length) * 100) : 0}%
                         </span>
-                        <Award className="h-8 w-8 text-amber-500/40" />
+                        <Award className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
@@ -224,7 +224,7 @@ export default function OnlineExamResultsPage() {
                                         </TableCell>
                                         <TableCell className="px-8 text-center">
                                             {attempt.position ? (
-                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-white font-semibold text-xs shadow-lg shadow-amber-500/20">
+                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-xs shadow-lg shadow-primary/20">
                                                     <Trophy className="h-3 w-3" />
                                                     #{attempt.position}
                                                 </div>

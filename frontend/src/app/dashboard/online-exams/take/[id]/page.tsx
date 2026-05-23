@@ -166,7 +166,7 @@ export default function StudentExamTakePage() {
     if (isFinished) {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center bg-background p-8 space-y-8 animate-in fade-in zoom-in duration-500">
-                <div className="h-40 w-40 rounded-[3rem] bg-emerald-500/10 flex items-center justify-center text-emerald-500 shadow-2xl shadow-emerald-500/20">
+                <div className="h-40 w-40 rounded-[3rem] bg-primary/10 flex items-center justify-center text-primary shadow-2xl shadow-primary/20">
                     <CheckCircle2 className="h-24 w-24" />
                 </div>
                 <div className="text-center space-y-2">

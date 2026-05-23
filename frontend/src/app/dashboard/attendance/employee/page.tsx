@@ -140,7 +140,7 @@ export default function StaffAttendancePage() {
             {fetching ? (
                 <div className="flex items-center justify-center py-20 bg-white rounded-[2.5rem]">
                     <div className="flex flex-col items-center gap-4">
-                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600"></div>
+                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
                         <p className="text-muted-foreground font-medium animate-pulse">Loading staff records...</p>
                     </div>
                 </div>
@@ -148,19 +148,19 @@ export default function StaffAttendancePage() {
                 <div className="bg-white rounded-[2rem] border border-border/50 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className="bg-purple-50/50 text-left">
+                            <thead className="bg-primary/5 text-left">
                                 <tr>
-                                    <th className="p-6 font-bold text-sm text-purple-900/60 uppercase tracking-wider">Employee</th>
-                                    <th className="p-6 font-bold text-sm text-purple-900/60 uppercase tracking-wider text-center">Status</th>
-                                    <th className="p-6 font-bold text-sm text-purple-900/60 uppercase tracking-wider">Remarks</th>
+                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider">Employee</th>
+                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider text-center">Status</th>
+                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider">Remarks</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border/50">
                                 {staff.map((emp) => (
-                                    <tr key={emp.id} className="hover:bg-purple-50/20 transition-colors group">
+                                    <tr key={emp.id} className="hover:bg-primary/5 transition-colors group">
                                         <td className="p-6">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">
+                                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
                                                     {emp.user.firstName[0]}{emp.user.lastName[0]}
                                                 </div>
                                                 <div>

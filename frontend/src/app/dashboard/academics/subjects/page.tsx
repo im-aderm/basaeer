@@ -224,7 +224,7 @@ export default function SubjectsPage() {
                                                     setFormData({ name: subject.name, code: subject.code || "" });
                                                     setIsModalOpen(true);
                                                 }}
-                                                className="p-3 bg-muted hover:bg-amber-500/10 text-muted-foreground hover:text-amber-600 rounded-xl transition-all"
+                                                className="p-3 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-xl transition-all"
                                                 title="Edit Subject"
                                             >
                                                 <Edit2 size={18} />

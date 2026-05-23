@@ -21,9 +21,9 @@ interface StatCardProps {
 
 const colorMap: Record<StatColor, { icon: string; bg: string }> = {
   blue: { icon: "text-blue-500", bg: "bg-blue-500/10" },
-  green: { icon: "text-green-500", bg: "bg-green-500/10" },
-  purple: { icon: "text-purple-500", bg: "bg-purple-500/10" },
-  orange: { icon: "text-orange-500", bg: "bg-orange-500/10" },
+  green: { icon: "text-primary", bg: "bg-primary/10" },
+  purple: { icon: "text-primary", bg: "bg-primary/10" },
+  orange: { icon: "text-primary", bg: "bg-primary/10" },
   red: { icon: "text-red-500", bg: "bg-red-500/10" },
   primary: { icon: "text-primary", bg: "bg-primary/10" },
 };
@@ -94,7 +94,7 @@ export function StatCardWidget({
         {trend && (
           <div className={cn(
             "flex items-center gap-1 mt-1.5 text-xs font-semibold",
-            trend.isPositive ? "text-green-600" : "text-red-600"
+            trend.isPositive ? "text-primary" : "text-red-600"
           )}>
             {trend.isPositive ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
             <span>{trend.value}% vs last month</span>
@@ -107,8 +107,8 @@ export function StatCardWidget({
               <span className="text-muted-foreground">{goal!.label}</span>
               <span className={cn(
                 "font-semibold",
-                numericValue / goal!.target >= 0.9 && "text-green-600",
-                numericValue / goal!.target >= 0.75 && numericValue / goal!.target < 0.9 && "text-amber-600",
+                numericValue / goal!.target >= 0.9 && "text-primary",
+                numericValue / goal!.target >= 0.75 && numericValue / goal!.target < 0.9 && "text-primary/70",
                 numericValue / goal!.target < 0.75 && "text-red-600"
               )}>
                 {Math.min(100, Math.round((numericValue / goal!.target) * 100))}%
@@ -118,8 +118,8 @@ export function StatCardWidget({
               <div
                 className={cn(
                   "h-full rounded-full transition-all duration-500",
-                  numericValue / goal!.target >= 0.9 && "bg-green-500",
-                  numericValue / goal!.target >= 0.75 && numericValue / goal!.target < 0.9 && "bg-amber-500",
+                  numericValue / goal!.target >= 0.9 && "bg-primary",
+                  numericValue / goal!.target >= 0.75 && numericValue / goal!.target < 0.9 && "bg-primary/70",
                   numericValue / goal!.target < 0.75 && "bg-red-500"
                 )}
                 style={{ width: `${Math.min(100, (numericValue / goal!.target) * 100)}%` }}

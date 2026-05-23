@@ -71,7 +71,7 @@ export default function AlertsMonitor({ branches, finance }: AlertsMonitorProps)
         return (
             <Card className="rounded-[2rem] border-border/50 shadow-xl bg-white">
                 <CardHeader>
-                    <CardTitle className="text-h4 font-bold text-emerald-600 flex items-center gap-2">
+                    <CardTitle className="text-h4 font-bold text-primary flex items-center gap-2">
                         <Shield className="w-5 h-5" /> All Systems Normal
                     </CardTitle>
                     <CardDescription className="font-medium">No operational alerts detected</CardDescription>
@@ -89,7 +89,7 @@ export default function AlertsMonitor({ branches, finance }: AlertsMonitorProps)
 
     const severityColor = {
         low: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-        medium: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+        medium: "bg-primary/10 text-primary border-primary/20",
         high: "bg-red-500/10 text-red-600 border-red-500/20",
         critical: "bg-red-500/20 text-red-700 border-red-500/30",
     };

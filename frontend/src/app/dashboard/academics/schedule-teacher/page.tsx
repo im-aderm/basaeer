@@ -103,13 +103,13 @@ export default function TeacherSchedulePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-h1 font-bold tracking-tight text-primary">
@@ -165,7 +165,7 @@ export default function TeacherSchedulePage() {
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
                         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
-                                <Clock className="w-8 h-8 text-indigo-600" />
+                                <Clock className="w-8 h-8 text-primary" />
                             </div>
                             <p className="text-sm text-slate-600">Total Periods</p>
                             <p className="text-h1 font-bold text-slate-900">
@@ -175,7 +175,7 @@ export default function TeacherSchedulePage() {
 
                         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
-                                <TrendingUp className="w-8 h-8 text-purple-600" />
+                                <TrendingUp className="w-8 h-8 text-primary" />
                             </div>
                             <p className="text-sm text-slate-600">Avg/Day</p>
                             <p className="text-h1 font-bold text-slate-900">
@@ -185,7 +185,7 @@ export default function TeacherSchedulePage() {
 
                         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
-                                <Calendar className="w-8 h-8 text-teal-600" />
+                                <Calendar className="w-8 h-8 text-primary" />
                             </div>
                             <p className="text-sm text-slate-600">Max/Day</p>
                             <p className="text-h1 font-bold text-slate-900">
@@ -195,7 +195,7 @@ export default function TeacherSchedulePage() {
 
                         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
-                                <BookOpen className="w-8 h-8 text-emerald-600" />
+                                <BookOpen className="w-8 h-8 text-primary" />
                             </div>
                             <p className="text-sm text-slate-600">Classes</p>
                             <p className="text-h1 font-bold text-slate-900">
@@ -205,7 +205,7 @@ export default function TeacherSchedulePage() {
 
                         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                             <div className="flex items-center justify-between mb-2">
-                                <BookOpen className="w-8 h-8 text-orange-600" />
+                                <BookOpen className="w-8 h-8 text-primary" />
                             </div>
                             <p className="text-sm text-slate-600">Subjects</p>
                             <p className="text-h1 font-bold text-slate-900">
@@ -235,7 +235,7 @@ export default function TeacherSchedulePage() {
                                                 {daySchedule.map((period) => (
                                                     <div
                                                         key={period.id}
-                                                        className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-3"
+                                                        className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-3"
                                                     >
                                                         <div className="flex items-start justify-between mb-2">
                                                             <p className="font-semibold text-sm">

@@ -102,14 +102,14 @@ export default function LiveClassesSettingsPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
                 <BranchContextBanner />
                 {/* Header */}
             <div className="mb-8">
@@ -126,8 +126,8 @@ export default function LiveClassesSettingsPage() {
                 <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="p-3 bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl">
-                                <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                            <div className="p-3 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl">
+                                <CheckCircle2 className="w-8 h-8 text-primary" />
                             </div>
                             <div>
                                 <h3 className="font-semibold text-lg">Google Meet Configured</h3>
@@ -161,7 +161,7 @@ export default function LiveClassesSettingsPage() {
                         <div className="mt-2">
                             <label
                                 htmlFor="serviceAccountFile"
-                                className="flex items-center justify-center w-full p-6 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-indigo-500 transition-colors"
+                                className="flex items-center justify-center w-full p-6 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:border-primary transition-colors"
                             >
                                 <div className="text-center">
                                     <Upload className="w-8 h-8 mx-auto mb-2 text-slate-400" />
@@ -309,7 +309,7 @@ export default function LiveClassesSettingsPage() {
                 <Button
                     onClick={handleSave}
                     disabled={!formData.serviceAccountJson}
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+                    className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70"
                 >
                     Save Configuration
                 </Button>

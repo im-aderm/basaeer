@@ -177,7 +177,7 @@ export default function IdTemplatesPage() {
                                             className="flex items-center justify-center w-full h-14 rounded-2xl bg-muted/30 border-2 border-dashed border-muted-foreground/20 font-bold text-muted-foreground cursor-pointer hover:bg-muted/50 transition-all gap-2"
                                         >
                                             {formData.backgroundImage ? (
-                                                <><CheckCircle2 className="text-green-500" size={20} /> Image Selected</>
+                                                <><CheckCircle2 className="text-primary" size={20} /> Image Selected</>
                                             ) : (
                                                 <><ImageIcon size={20} /> Upload Base Image</>
                                             )}

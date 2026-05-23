@@ -125,7 +125,7 @@ export default function ProvidersPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="rounded-3xl border-border/50 shadow-md p-6 flex flex-col items-center text-center space-y-4">
-                    <div className="h-16 w-16 rounded-3xl bg-emerald-500/10 flex items-center justify-center text-emerald-600">
+                    <div className="h-16 w-16 rounded-3xl bg-primary/10 flex items-center justify-center text-primary">
                         <CheckCircle2 className="h-8 w-8" />
                     </div>
                     <div>
@@ -143,7 +143,7 @@ export default function ProvidersPage() {
                     </div>
                 </Card>
                 <Card className="rounded-3xl border-border/50 shadow-md p-6 flex flex-col items-center text-center space-y-4">
-                    <div className="h-16 w-16 rounded-3xl bg-purple-500/10 flex items-center justify-center text-purple-600">
+                    <div className="h-16 w-16 rounded-3xl bg-primary/10 flex items-center justify-center text-primary">
                         <RefreshCw className="h-8 w-8" />
                     </div>
                     <div>
@@ -172,7 +172,7 @@ export default function ProvidersPage() {
                                         <Badge 
                                             variant="outline" 
                                             className={`px-3 py-1 rounded-full font-bold ${
-                                                provider.status === 'online' ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' : 
+                                                provider.status === 'online' ? 'bg-primary/10 text-primary border-primary/20' : 
                                                 'bg-rose-500/10 text-rose-600 border-rose-500/20'
                                             }`}
                                         >
@@ -205,7 +205,7 @@ export default function ProvidersPage() {
                                     <p className="text-xs font-bold text-muted-foreground">{event.timestamp}</p>
                                     <p className="text-sm font-bold">{event.provider}</p>
                                     <p className="text-sm text-muted-foreground font-medium leading-relaxed">{event.event}</p>
-                                    <Badge variant="outline" className="mt-2 bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                                    <Badge variant="outline" className="mt-2 bg-primary/10 text-primary border-primary/20">
                                         {event.status.toUpperCase()}
                                     </Badge>
                                 </div>

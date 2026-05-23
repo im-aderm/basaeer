@@ -155,7 +155,7 @@ export default function StaffAwardsPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-yellow-50/30 to-amber-50/20 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
                 <BranchContextBanner />
                 {/* Header */}
             <div className="mb-8">
@@ -173,7 +173,7 @@ export default function StaffAwardsPage() {
                     {isAdmin && (
                         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                             <DialogTrigger asChild>
-                                <Button className="bg-gradient-to-r from-yellow-600 to-amber-600 hover:from-yellow-700 hover:to-amber-700">
+                                <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
                                     <Plus className="w-4 h-4 mr-2" />
                                     Create Award
                                 </Button>
@@ -271,7 +271,7 @@ export default function StaffAwardsPage() {
 
                     <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                         <div className="flex items-center justify-between mb-2">
-                            <Star className="w-8 h-8 text-amber-600" />
+                            <Star className="w-8 h-8 text-primary" />
                         </div>
                         <p className="text-sm text-slate-600">This Month</p>
                         <p className="text-h1 font-bold text-slate-900">
@@ -281,7 +281,7 @@ export default function StaffAwardsPage() {
 
                     <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
                         <div className="flex items-center justify-between mb-2">
-                            <Medal className="w-8 h-8 text-orange-600" />
+                            <Medal className="w-8 h-8 text-primary" />
                         </div>
                         <p className="text-sm text-slate-600">This Year</p>
                         <p className="text-h1 font-bold text-slate-900">

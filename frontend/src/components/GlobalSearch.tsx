@@ -13,13 +13,13 @@ interface GlobalSearchProps {
 
 const iconMap: Record<string, { bg: string; text: string; icon: React.ElementType }> = {
     students: { bg: 'bg-blue-500/10', text: 'text-blue-600', icon: User },
-    staff: { bg: 'bg-green-500/10', text: 'text-green-600', icon: Users },
-    inventory: { bg: 'bg-orange-500/10', text: 'text-orange-600', icon: Package },
-    books: { bg: 'bg-violet-500/10', text: 'text-violet-600', icon: BookOpen },
-    invoices: { bg: 'bg-emerald-500/10', text: 'text-emerald-600', icon: Receipt },
-    hostel: { bg: 'bg-cyan-500/10', text: 'text-cyan-600', icon: Home },
-    classes: { bg: 'bg-amber-500/10', text: 'text-amber-600', icon: GraduationCap },
-    events: { bg: 'bg-purple-500/10', text: 'text-purple-600', icon: Calendar },
+    staff: { bg: 'bg-primary/10', text: 'text-primary', icon: Users },
+    inventory: { bg: 'bg-primary/10', text: 'text-primary', icon: Package },
+    books: { bg: 'bg-primary/10', text: 'text-primary', icon: BookOpen },
+    invoices: { bg: 'bg-primary/10', text: 'text-primary', icon: Receipt },
+    hostel: { bg: 'bg-primary/10', text: 'text-primary', icon: Home },
+    classes: { bg: 'bg-primary/10', text: 'text-primary', icon: GraduationCap },
+    events: { bg: 'bg-primary/10', text: 'text-primary', icon: Calendar },
 };
 
 export default function GlobalSearch({ isOpen, onClose }: GlobalSearchProps) {

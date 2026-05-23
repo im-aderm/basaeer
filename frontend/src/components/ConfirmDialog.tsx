@@ -39,7 +39,7 @@ export default function ConfirmDialog({
                 {successMessage ? (
                     <div className="p-10 text-center space-y-4">
                         <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 flex items-center justify-center">
-                            <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                            <CheckCircle2 className="w-8 h-8 text-primary" />
                         </div>
                         <h3 className="text-xl font-bold">Success</h3>
                         <p className="text-muted-foreground text-sm">{successMessage}</p>

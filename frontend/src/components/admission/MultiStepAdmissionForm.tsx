@@ -81,7 +81,7 @@ export function MultiStepAdmissionForm() {
   if (isSuccess) {
     return (
       <Card className="border border-border/50 shadow-xl bg-white rounded-2xl overflow-hidden p-12 text-center space-y-8">
-        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-50 text-emerald-600">
+        <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 text-primary">
           <CheckCircle2 size={40} />
         </div>
         <div className="space-y-3">

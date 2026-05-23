@@ -207,12 +207,12 @@ export default function SendCommsPage() {
                     </h3>
                     <p className="text-sm text-blue-700">Use {'{firstName}'}, {'{lastName}'} to personalize messages.</p>
                 </div>
-                <div className="bg-green-50 p-4 rounded-xl border border-green-100">
-                    <h3 className="font-semibold text-green-900 mb-1 flex items-center gap-2">
+                <div className="bg-primary/5 p-4 rounded-xl border border-primary/20">
+                    <h3 className="font-semibold text-primary mb-1 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
                         Templates
                     </h3>
-                    <p className="text-sm text-green-700">Save frequent messages as templates for quick access.</p>
+                    <p className="text-sm text-primary/70">Save frequent messages as templates for quick access.</p>
                 </div>
                 <div className="bg-purple-50 p-4 rounded-xl border border-purple-100">
                     <h3 className="font-semibold text-purple-900 mb-1 flex items-center gap-2">

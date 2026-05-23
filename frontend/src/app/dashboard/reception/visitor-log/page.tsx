@@ -269,7 +269,7 @@ export default function VisitorLogPage() {
                                                 <Button
                                                     variant="ghost"
                                                     size="icon"
-                                                    className="h-9 w-9 rounded-xl hover:bg-emerald-500/10 hover:text-emerald-600"
+                                                    className="h-9 w-9 rounded-xl hover:bg-primary/10 hover:text-primary"
                                                     title="Check Out"
                                                     onClick={() => handleCheckOut(l)}
                                                 >

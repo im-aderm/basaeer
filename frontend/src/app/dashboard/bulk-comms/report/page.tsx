@@ -49,7 +49,7 @@ export default function CommsReportPage() {
     const getStatusIcon = (status: string) => {
         switch (status) {
             case "COMPLETED":
-                return <CheckCircle className="w-4 h-4 text-green-500" />;
+                return <CheckCircle className="w-4 h-4 text-primary" />;
             case "PENDING":
                 return <Clock className="w-4 h-4 text-amber-500" />;
             default:
@@ -138,7 +138,7 @@ export default function CommsReportPage() {
                                                 {campaign.type === 'EMAIL' ? (
                                                     <Mail className="w-4 h-4 text-blue-500" />
                                                 ) : (
-                                                    <Smartphone className="w-4 h-4 text-green-500" />
+                                                    <Smartphone className="w-4 h-4 text-primary" />
                                                 )}
                                                 <span className="text-sm text-gray-600">{campaign.type}</span>
                                             </div>

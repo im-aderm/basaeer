@@ -138,14 +138,14 @@ export default function EmployeeProfileHub() {
                         <p className="font-bold text-sm truncate">{staff.user.email}</p>
                     </Card>
                     <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all">
-                        <div className="p-4 rounded-2xl bg-purple-500/10 text-purple-500 w-fit mb-6">
+                        <div className="p-4 rounded-2xl bg-primary/10 text-primary w-fit mb-6">
                             <Building2 size={24} />
                         </div>
                         <p className="text-xs font-semibold uppercase text-muted-foreground tracking-widest mb-1">Department</p>
                         <p className="font-bold text-sm">{staff.department?.name || "No Dept"}</p>
                     </Card>
                     <Card className="rounded-[2.5rem] border-border/50 shadow-xl p-8 group hover:scale-[1.02] transition-all">
-                        <div className="p-4 rounded-2xl bg-amber-500/10 text-amber-500 w-fit mb-6">
+                        <div className="p-4 rounded-2xl bg-primary/10 text-primary w-fit mb-6">
                             <Calendar size={24} />
                         </div>
                         <p className="text-xs font-semibold uppercase text-muted-foreground tracking-widest mb-1">Joined Date</p>
@@ -197,8 +197,8 @@ export default function EmployeeProfileHub() {
                                     </div>
                                 </div>
 
-                                <Card className="rounded-[2.5rem] bg-amber-500/5 border border-amber-500/10 p-8 space-y-6">
-                                    <h3 className="text-lg font-semibold flex items-center gap-2 text-amber-600">
+                                <Card className="rounded-[2.5rem] bg-primary/5 border border-primary/10 p-8 space-y-6">
+                                    <h3 className="text-lg font-semibold flex items-center gap-2 text-primary">
                                         <Award size={20} /> Recognition & Awards
                                     </h3>
                                     <div className="space-y-4">

@@ -151,14 +151,14 @@ export default function ExamSchedulePage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
                 <BranchContextBanner />
                 {/* Header */}
             <div className="mb-8">
@@ -173,7 +173,7 @@ export default function ExamSchedulePage() {
                     </div>
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700">
+                            <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
                                 <Plus className="w-4 h-4 mr-2" />
                                 Schedule Exam
                             </Button>
@@ -380,7 +380,7 @@ export default function ExamSchedulePage() {
                             .map(([date, dateExams]: [string, any]) => (
                                 <div key={date}>
                                     <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                                        <Calendar className="w-5 h-5 text-indigo-600" />
+                                        <Calendar className="w-5 h-5 text-primary" />
                                         {date}
                                         <span className="text-sm font-normal text-slate-500">
                                             ({dateExams.length} exams)
@@ -392,7 +392,7 @@ export default function ExamSchedulePage() {
                                             .map((exam: any) => (
                                                 <div
                                                     key={exam.id}
-                                                    className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 relative group"
+                                                    className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-4 relative group"
                                                 >
                                                     <div className="flex items-start justify-between mb-2">
                                                         <div className="flex-1">

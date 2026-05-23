@@ -76,7 +76,7 @@ export default function SharableLink({ branchId, label = "Online Admission Link"
                     <button
                         onClick={handleCopy}
                         className={`flex-1 md:flex-none px-6 py-3 rounded-2xl font-bold transition-all flex items-center justify-center gap-2 ${copied
-                            ? "bg-green-500 text-white"
+                            ? "bg-primary text-white"
                             : "bg-primary text-white hover:opacity-90 active:scale-95"
                             }`}
                     >

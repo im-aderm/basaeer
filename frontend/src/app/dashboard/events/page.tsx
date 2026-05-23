@@ -199,7 +199,7 @@ export default function EventsPage() {
                                         <span className="text-primary">{event._count?.rsvps || 0} Attending</span>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
-                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-emerald-500/20 text-emerald-500 hover:bg-emerald-500/10" onClick={() => handleRSVP(event.id, 'GOING')}>
+                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-primary/20 text-primary hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'GOING')}>
                                             Going
                                         </Button>
                                         <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-primary/20 hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'DECLINED')}>

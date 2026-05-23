@@ -259,11 +259,11 @@ export default function BranchesPage() {
                             </div>
                             <div className="flex items-center gap-1">
                                 {branch.isActive ? (
-                                    <span className="p-1 text-green-600 bg-green-500/10 rounded-full">
+                                    <span className="p-1 text-primary bg-primary/10 rounded-full">
                                         <CheckCircle2 size={16} />
                                     </span>
                                 ) : (
-                                    <span className="p-1 text-orange-500 bg-orange-500/10 rounded-full">
+                                    <span className="p-1 text-muted-foreground bg-muted/30 rounded-full">
                                         <AlertCircle size={16} />
                                     </span>
                                 )}
@@ -617,8 +617,8 @@ export default function BranchesPage() {
                     <div className="bg-white/75 w-full max-w-md rounded-3xl border border-border shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
                         {deleteSuccess ? (
                             <div className="p-10 text-center space-y-4">
-                                <div className="w-16 h-16 mx-auto rounded-full bg-emerald-500/10 flex items-center justify-center">
-                                    <CheckCircle2 className="w-8 h-8 text-emerald-500" />
+                                <div className="w-16 h-16 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                                    <CheckCircle2 className="w-8 h-8 text-primary" />
                                 </div>
                                 <h3 className="text-xl font-bold">Branch Deleted</h3>
                                 <p className="text-muted-foreground text-sm">

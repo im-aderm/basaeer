@@ -96,8 +96,8 @@ export default function OnlineExamPositionPage() {
                                     <p className="text-lg font-semibold">{selectedExam.class?.name}</p>
                                 </div>
                             </div>
-                            <div className="p-6 rounded-3xl bg-amber-500/5 border border-amber-500/10 flex items-center gap-4">
-                                <div className="h-12 w-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                            <div className="p-6 rounded-3xl bg-primary/5 border border-primary/10 flex items-center gap-4">
+                                <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                                     <Award className="h-6 w-6" />
                                 </div>
                                 <div>

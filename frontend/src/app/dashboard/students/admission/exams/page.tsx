@@ -282,7 +282,7 @@ export default function AdmissionExamsPage() {
                                 {rankings.map((r) => (
                                     <tr key={r.id} className="hover:bg-muted/10">
                                         <td className="px-6 py-4">
-                                            <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${r.rank <= 3 ? "bg-amber-500/20 text-amber-600" : "bg-muted text-muted-foreground"}`}>
+                                            <span className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${r.rank <= 3 ? "bg-primary/20 text-primary" : "bg-muted text-muted-foreground"}`}>
                                                 {r.rank}
                                             </span>
                                         </td>

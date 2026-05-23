@@ -80,8 +80,8 @@ export default function StaffBirthdayPage() {
                 <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className={`p-3 rounded-full ${config.isEnabled ? 'bg-green-100' : 'bg-gray-100'}`}>
-                                <Bell className={`w-6 h-6 ${config.isEnabled ? 'text-green-600' : 'text-gray-400'}`} />
+                            <div className={`p-3 rounded-full ${config.isEnabled ? 'bg-primary/10' : 'bg-gray-100'}`}>
+                                <Bell className={`w-6 h-6 ${config.isEnabled ? 'text-primary' : 'text-gray-400'}`} />
                             </div>
                             <div>
                                 <h3 className="font-bold text-primary">Automation Status</h3>

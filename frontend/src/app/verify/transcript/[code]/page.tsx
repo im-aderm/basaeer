@@ -122,12 +122,12 @@ export default function PublicTranscriptVerificationPage() {
                             </div>
 
                             {data.verificationCode && (
-                                <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-center">
+                                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4 text-center">
                                     <div className="flex items-center justify-center gap-2 mb-1">
-                                        <QrCode className="h-4 w-4 text-emerald-700" />
-                                        <span className="text-xs font-medium text-emerald-700 uppercase">Verification Checksum</span>
+                                        <QrCode className="h-4 w-4 text-primary" />
+                                        <span className="text-xs font-medium text-primary uppercase">Verification Checksum</span>
                                     </div>
-                                    <p className="font-mono text-lg font-bold tracking-widest text-emerald-800">{data.verificationCode}</p>
+                                    <p className="font-mono text-lg font-bold tracking-widest text-primary/80">{data.verificationCode}</p>
                                 </div>
                             )}
 

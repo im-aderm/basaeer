@@ -123,7 +123,7 @@ export function TahfeezUI() {
         <Card className="rounded-lg">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-100 text-emerald-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
                 <BookOpen className="h-5 w-5" />
               </div>
               <div>
@@ -153,7 +153,7 @@ export function TahfeezUI() {
         <Card className="rounded-lg">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-100 text-amber-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
                 <TrendingUp className="h-5 w-5" />
               </div>
               <div>
@@ -170,7 +170,7 @@ export function TahfeezUI() {
         <Card className="rounded-lg">
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-100 text-purple-700">
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
                 <Award className="h-5 w-5" />
               </div>
               <div>
@@ -260,7 +260,7 @@ export function TahfeezUI() {
 }
 
 function ScoreBar({ value }: { value: number }) {
-  const color = value >= 80 ? 'bg-emerald-500' : value >= 60 ? 'bg-amber-500' : value >= 40 ? 'bg-orange-500' : 'bg-red-500';
+  const color = value >= 80 ? 'bg-primary' : value >= 60 ? 'bg-primary/70' : value >= 40 ? 'bg-primary/40' : 'bg-red-500';
   return (
     <div className="flex items-center gap-2">
       <div className="h-2 w-16 overflow-hidden rounded-full bg-secondary">

@@ -17,9 +17,9 @@ interface SparklineCardProps {
 
 const colorMap: Record<string, { bg: string; text: string; icon: string; area: string }> = {
     blue: { bg: "bg-blue-500/10", text: "text-blue-600", icon: "text-blue-500", area: "#3b82f6" },
-    green: { bg: "bg-emerald-500/10", text: "text-emerald-600", icon: "text-emerald-500", area: "#10b981" },
-    orange: { bg: "bg-amber-500/10", text: "text-amber-600", icon: "text-amber-500", area: "#f59e0b" },
-    purple: { bg: "bg-purple-500/10", text: "text-purple-600", icon: "text-purple-500", area: "#8b5cf6" },
+    green: { bg: "bg-primary/10", text: "text-primary", icon: "text-primary", area: "#281e37" },
+    orange: { bg: "bg-primary/10", text: "text-primary", icon: "text-primary", area: "#281e37" },
+    purple: { bg: "bg-primary/10", text: "text-primary", icon: "text-primary", area: "#281e37" },
     red: { bg: "bg-red-500/10", text: "text-red-600", icon: "text-red-500", area: "#ef4444" },
     primary: { bg: "bg-primary/10", text: "text-primary", icon: "text-primary", area: "#281e37" },
 };
@@ -39,7 +39,7 @@ export default function SparklineCard({ title, value, icon: Icon, color, trend, 
                     <Icon className={`w-6 h-6 ${colors.icon}`} />
                 </div>
                 {trend !== undefined && (
-                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${trend > 0 ? "bg-emerald-500/10 text-emerald-600" : trend < 0 ? "bg-red-500/10 text-red-600" : "bg-muted text-muted-foreground"}`}>
+                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${trend > 0 ? "bg-primary/10 text-primary" : trend < 0 ? "bg-red-500/10 text-red-600" : "bg-muted text-muted-foreground"}`}>
                         {trend > 0 ? <TrendingUp className="w-3 h-3" /> : trend < 0 ? <TrendingDown className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
                         {Math.abs(trend)}%
                     </div>

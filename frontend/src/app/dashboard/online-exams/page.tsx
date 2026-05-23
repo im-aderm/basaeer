@@ -210,18 +210,18 @@ export default function OnlineExamsPage() {
                         <BookOpen className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-emerald-500/5 border-l-4 border-l-emerald-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Active Now</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
                         <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.LIVE).length}</span>
-                        <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse" />
+                        <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
                     </CardContent>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-amber-500/5 border-l-4 border-l-amber-500">
+                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
                     <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Upcoming</CardTitle></CardHeader>
                     <CardContent className="flex items-center gap-4">
                         <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
-                        <Calendar className="h-8 w-8 text-amber-500/40" />
+                        <Calendar className="h-8 w-8 text-primary/40" />
                     </CardContent>
                 </Card>
                 <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
@@ -309,7 +309,7 @@ export default function OnlineExamsPage() {
                                                     <Button
                                                         variant="outline"
                                                         size="icon"
-                                                        className={`h-12 w-12 rounded-2xl border-border/50 ${exam.status === ExamStatus.LIVE ? 'text-emerald-500 hover:bg-emerald-500/10 border-emerald-500/20' : 'text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10'}`}
+                                                        className={`h-12 w-12 rounded-2xl border-border/50 ${exam.status === ExamStatus.LIVE ? 'text-primary hover:bg-primary/10 border-primary/20' : 'text-muted-foreground hover:text-primary hover:bg-primary/10'}`}
                                                     >
                                                         <Send className="h-5 w-5" />
                                                     </Button>

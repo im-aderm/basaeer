@@ -256,7 +256,7 @@ export default function LibraryBooksPage() {
                                                     </Badge>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <span className={book.available > 0 ? "text-green-600 font-semibold" : "text-red-600 font-semibold"}>
+                                                    <span className={book.available > 0 ? "text-primary font-semibold" : "text-red-600 font-semibold"}>
                                                         {book.available}
                                                     </span>
                                                     <span className="text-muted-foreground"> / {book.quantity}</span>

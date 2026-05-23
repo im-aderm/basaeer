@@ -85,7 +85,7 @@ export function FinanceAnalytics() {
           <Card className="rounded-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-emerald-100 text-emerald-700"><TrendingUp className="h-5 w-5" /></div>
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><TrendingUp className="h-5 w-5" /></div>
                 <div><p className="text-sm text-muted-foreground">Total Collected</p><p className="text-xl font-bold">₦{(stats.totalCollected || 0).toLocaleString()}</p></div>
               </div>
             </CardHeader>
@@ -101,7 +101,7 @@ export function FinanceAnalytics() {
           <Card className="rounded-lg">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-purple-100 text-purple-700"><AlertCircle className="h-5 w-5" /></div>
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary"><AlertCircle className="h-5 w-5" /></div>
                 <div><p className="text-sm text-muted-foreground">Collection Rate</p><p className="text-xl font-bold">{Math.round(stats.collectionEfficiency || 0)}%</p></div>
               </div>
             </CardHeader>

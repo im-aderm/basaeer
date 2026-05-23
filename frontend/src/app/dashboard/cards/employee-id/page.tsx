@@ -253,7 +253,7 @@ export default function EmployeeIdCardsPage() {
                                             </td>
                                             <td className="px-6 py-6">
                                                 {card ? (
-                                                    <div className="flex items-center gap-2 text-green-600 font-semibold uppercase text-xs">
+                                                    <div className="flex items-center gap-2 text-primary font-semibold uppercase text-xs">
                                                         <CheckCircle2 size={16} /> Generated
                                                     </div>
                                                 ) : (

@@ -73,7 +73,7 @@ export default function ReportTemplatesPage() {
                 </div>
                 <Link
                     href="/dashboard/report-templates/designer"
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm"
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors shadow-sm"
                 >
                     <Plus className="w-4 h-4" />
                     New Template
@@ -82,7 +82,7 @@ export default function ReportTemplatesPage() {
 
             {loading ? (
                 <div className="flex items-center justify-center py-20">
-                    <Loader2 className="w-10 h-10 text-blue-500 animate-spin" />
+                    <Loader2 className="w-10 h-10 text-primary animate-spin" />
                 </div>
             ) : templates.length === 0 ? (
                 <div className="bg-white rounded-xl p-20 text-center border border-dashed border-primary/60">
@@ -143,7 +143,7 @@ export default function ReportTemplatesPage() {
                                 </div>
                                 <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
                                     <span className="text-xs text-gray-400 italic">Last updated {new Date(template.updatedAt).toLocaleDateString()}</span>
-                                    <button className="text-xs font-semibold text-blue-600 hover:underline">Duplicate</button>
+                                    <button className="text-xs font-semibold text-primary hover:underline">Duplicate</button>
                                 </div>
                             </div>
                         </div>

@@ -239,7 +239,7 @@ export default function RolesPage() {
                                 {role.isSystem && (
                                     <span className={clsx(
                                         "text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-lg",
-                                        isSuperAdmin ? "text-muted-foreground bg-muted" : "text-amber-600 bg-amber-500/10"
+                                        isSuperAdmin ? "text-muted-foreground bg-muted" : "text-primary bg-primary/10"
                                     )}>
                                         {isSuperAdmin ? "System" : "System — Read Only"}
                                     </span>
@@ -268,7 +268,7 @@ export default function RolesPage() {
                     <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name}</h2>
                     <p className="text-muted-foreground text-sm">Configure module permissions for this role.</p>
                     {selectedRole.isSystem && !isSuperAdmin && (
-                        <p className="text-xs text-amber-600 mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
+                        <p className="text-xs text-primary mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
                     )}
                 </div>
                 <div className="flex items-center gap-2">
@@ -366,7 +366,7 @@ export default function RolesPage() {
                     <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name} — Users</h2>
                     <p className="text-muted-foreground text-sm">{roleUsers.length} user(s) assigned this role.</p>
                     {selectedRole.isSystem && !isSuperAdmin && (
-                        <p className="text-xs text-amber-600 mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
+                        <p className="text-xs text-primary mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
                     )}
                 </div>
                 <div className="flex items-center gap-2">
