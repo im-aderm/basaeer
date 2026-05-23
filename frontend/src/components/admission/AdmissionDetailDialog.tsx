@@ -30,12 +30,17 @@ export function AdmissionDetailDialog({
           <div className="flex justify-between items-start">
             <div className="space-y-1">
               <DialogTitle className="text-3xl font-black italic uppercase">
-                {admission.firstName} {admission.surname || admission.lastName}
+                {admission.firstName} {admission.lastName}
               </DialogTitle>
               <div className="flex gap-2">
                 <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
                   {admission.desiredClass?.name || "No Class"}
                 </Badge>
+                {admission.admissionType && (
+                  <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
+                    {admission.admissionType}
+                  </Badge>
+                )}
                 <Badge className="bg-white/20 hover:bg-white/30 text-white border-none font-bold uppercase tracking-widest text-[10px]">
                   {admission.status}
                 </Badge>
@@ -133,7 +138,7 @@ export function AdmissionDetailDialog({
                 <DocumentLink label="Passport Photo" url={admission.passportPhoto} />
                 <DocumentLink label="Birth Certificate" url={admission.birthCertificateUrl} />
                 <DocumentLink label="Last School Report" url={admission.schoolReportUrl} />
-                <DocumentLink label="Payment Proof" url={admission.paymentProofUrl} isPayment />
+                <DocumentLink label="Payment Proof" url={admission.paymentReceiptUrl} isPayment />
               </div>
 
               <div className="mt-6 p-6 bg-primary/5 rounded-[2.5rem] border-2 border-primary/10 flex items-center justify-between">
