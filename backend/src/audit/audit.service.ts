@@ -1,6 +1,4 @@
-import { Injectable, Inject, forwardRef } from '@nestjs/common';
-import { REQUEST } from '@nestjs/core';
-import { Request } from 'express';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 
@@ -18,19 +16,7 @@ export interface AuditLogParams {
 
 @Injectable()
 export class AuditService {
-  constructor(
-    private prisma: PrismaService,
-    @Inject(REQUEST) private request?: Request,
-  ) {}
-
-  private getIpAddress(): string | undefined {
-    if (!this.request) return undefined;
-    const forwarded = this.request.headers['x-forwarded-for'];
-    if (typeof forwarded === 'string') {
-      return forwarded.split(',')[0].trim();
-    }
-    return this.request.ip || this.request.socket?.remoteAddress || undefined;
-  }
+  constructor(private prisma: PrismaService) {}
 
   async log(params: AuditLogParams) {
     const {
@@ -51,7 +37,6 @@ export class AuditService {
         module,
         userId: context.userId,
         branchId: context.branchId || undefined,
-        ipAddress: this.getIpAddress(),
         targetId: targetId || undefined,
         targetType: targetType || undefined,
         details: details
@@ -80,7 +65,6 @@ export class AuditService {
         module,
         userId,
         branchId: branchId || undefined,
-        ipAddress: this.getIpAddress(),
         details: details
           ? typeof details === 'string'
             ? details
