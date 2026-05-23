@@ -21,10 +21,11 @@ export class ReceptionService {
 
   // Enquiries
   createEnquiry(dto: CreateEnquiryDto) {
-    const { date, status, ...rest } = dto as any;
+    const { date, status, nextFollowUpDate, ...rest } = dto as any;
     return this.prisma.admissionEnquiry.create({
       data: {
         ...rest,
+        nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : undefined,
         date: date ? new Date(date) : new Date(),
         status: status || 'PENDING',
       },
@@ -40,10 +41,11 @@ export class ReceptionService {
 
   // Call Logs
   createCallLog(dto: CreateCallLogDto) {
-    const { date, ...rest } = dto as any;
+    const { date, nextFollowUpDate, ...rest } = dto as any;
     return this.prisma.callLog.create({
       data: {
         ...rest,
+        nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : undefined,
         date: date ? new Date(date) : new Date(),
       },
     });
@@ -115,7 +117,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Enquiry not found');
-    return this.prisma.admissionEnquiry.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { date, nextFollowUpDate, ...rest } = dto as any;
+    return this.prisma.admissionEnquiry.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(date !== undefined ? { date: new Date(date) } : {}),
+        ...(nextFollowUpDate !== undefined ? { nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : null } : {}),
+      },
+    });
   }
 
   async deleteEnquiry(id: string, context: TenantContext) {
@@ -131,7 +141,15 @@ export class ReceptionService {
       where: TenantHelper.applyIsolation({ id }, context),
     });
     if (!existing) throw new NotFoundException('Call log not found');
-    return this.prisma.callLog.update({ where: { id, branchId: context.branchId || undefined }, data: dto });
+    const { date, nextFollowUpDate, ...rest } = dto as any;
+    return this.prisma.callLog.update({
+      where: { id, branchId: context.branchId || undefined },
+      data: {
+        ...rest,
+        ...(date !== undefined ? { date: new Date(date) } : {}),
+        ...(nextFollowUpDate !== undefined ? { nextFollowUpDate: nextFollowUpDate ? new Date(nextFollowUpDate) : null } : {}),
+      },
+    });
   }
 
   async deleteCallLog(id: string, context: TenantContext) {
