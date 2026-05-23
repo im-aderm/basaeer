@@ -77,7 +77,11 @@ export default function AdmissionEnquiryPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createEnquiry({ ...formData, branchId: resolvedBranchId });
+            await ReceptionService.createEnquiry({
+                ...formData,
+                branchId: resolvedBranchId,
+                nextFollowUpDate: formData.nextFollowUpDate || undefined,
+            });
             showSuccess('Enquiry recorded successfully');
             setIsAddDialogOpen(false);
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);
@@ -91,7 +95,10 @@ export default function AdmissionEnquiryPage() {
         e.preventDefault();
         if (!editingEnquiry) return;
         try {
-            await ReceptionService.updateEnquiry(editingEnquiry.id, formData);
+            await ReceptionService.updateEnquiry(editingEnquiry.id, {
+                ...formData,
+                nextFollowUpDate: formData.nextFollowUpDate || undefined,
+            });
             showSuccess('Enquiry updated successfully');
             setEditingEnquiry(null);
             if (resolvedBranchId) fetchEnquiries(resolvedBranchId);

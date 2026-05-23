@@ -58,7 +58,11 @@ export default function CallLogPage() {
     const handleCreate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await ReceptionService.createCallLog({ ...formData, branchId: resolvedBranchId });
+            await ReceptionService.createCallLog({
+                ...formData,
+                branchId: resolvedBranchId,
+                nextFollowUpDate: formData.nextFollowUpDate || undefined,
+            });
             showSuccess('Call log saved');
             setIsAddDialogOpen(false);
             fetchLogs();
@@ -72,7 +76,10 @@ export default function CallLogPage() {
         e.preventDefault();
         if (!editingLog) return;
         try {
-            await ReceptionService.updateCallLog(editingLog.id, formData);
+            await ReceptionService.updateCallLog(editingLog.id, {
+                ...formData,
+                nextFollowUpDate: formData.nextFollowUpDate || undefined,
+            });
             showSuccess('Call log updated');
             setEditingLog(null);
             fetchLogs();
