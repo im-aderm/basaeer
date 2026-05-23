@@ -35,6 +35,10 @@ export class ClassesController {
     if (!createClassDto.classTeacherId && !createClassDto.classTeacher) {
       throw new BadRequestException('A class teacher must be assigned to this class');
     }
+    if (createClassDto.classTeacherId) {
+      createClassDto.classTeacher = { connect: { id: createClassDto.classTeacherId } };
+      delete createClassDto.classTeacherId;
+    }
     return this.classesService.create(createClassDto, context);
   }
 
