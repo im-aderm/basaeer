@@ -25,6 +25,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useNotification } from '@/context/NotificationContext';
 import { DataTable } from '@/components/DataTable';
 import { cn } from '@/lib/utils';
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function StaffAttendancePage() {
     const { showSuccess, showError } = useNotification();
@@ -175,29 +176,29 @@ export default function StaffAttendancePage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-7xl mx-auto space-y-10 pb-20 animate-in fade-in duration-700">
+            <div className="max-w-7xl mx-auto space-y-6 pb-20 animate-in fade-in duration-700">
                 <BranchContextBanner />
                 {/* Header Section */}
-            <div className="relative overflow-hidden rounded-[3.5rem] bg-emerald-950 p-12 text-white shadow-2xl">
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="space-y-4">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-emerald-400 font-semibold text-[10px] uppercase tracking-widest backdrop-blur-md">
+            <div className="relative overflow-hidden rounded-2xl bg-emerald-950 p-6 text-white shadow-2xl">
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="space-y-3">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-emerald-400 font-semibold text-[12px] uppercase tracking-widest backdrop-blur-md">
                             <Clock size={12} /> Workforce pulse
                         </div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">Staff Attendance</h1>
-                        <p className="text-emerald-200/60 text-lg font-medium max-w-xl">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">Staff Attendance</h1>
+                        <p className="text-emerald-200/60 text-[12px] font-medium max-w-xl">
                             Monitor and manage staff punctuality. Real-time logging for precise payroll calculations.
                         </p>
                     </div>
 
-                    <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-8 rounded-[2.5rem] min-w-[320px] shadow-2xl">
-                        <div className="space-y-4 text-center md:text-left">
-                            <label className="text-emerald-400 font-bold uppercase tracking-widest text-[10px]">Select Log Date</label>
-                            <div className="flex gap-4">
-                                <Calendar className="text-emerald-400 mt-3" size={24} />
+                    <Card className="bg-white/5 backdrop-blur-xl border-white/10 p-4 rounded-2xl min-w-[320px] shadow-2xl">
+                        <div className="space-y-3 text-center md:text-left">
+                            <label className="text-emerald-400 font-bold uppercase tracking-widest text-[12px]">Select Log Date</label>
+                            <div className="flex gap-3">
+                                <Calendar className="text-emerald-400 mt-2" size={20} />
                                 <Input
                                     type="date"
-                                    className="h-14 rounded-2xl bg-black/20 border-white/10 font-semibold text-h3 text-white appearance-none"
+                                    className="h-12 rounded-xl bg-black/20 border-white/10 font-semibold text-[12px] text-white appearance-none"
                                     value={date}
                                     onChange={(e) => setDate(e.target.value)}
                                 />
@@ -212,17 +213,17 @@ export default function StaffAttendancePage() {
 
             {/* Quick Actions */}
             <div className="flex flex-col md:flex-row gap-6">
-                <Card className="flex-1 rounded-[2.5rem] p-8 border-border/50 shadow-xl bg-gradient-to-br from-background to-muted/20">
-                    <div className="flex items-center justify-between gap-6">
+                <Card className="flex-1 rounded-2xl p-4 border-primary/20 shadow-xl bg-gradient-to-br from-background to-muted/20">
+                    <div className="flex items-center justify-between gap-4">
                         <div className="space-y-1">
-                            <h3 className="text-lg font-semibold">Bulk Operations</h3>
-                            <p className="text-xs text-muted-foreground font-medium">Apply status to all staff for {new Date(date).toLocaleDateString()}.</p>
+                            <h3 className="text-[12px] font-semibold">Bulk Operations</h3>
+                            <p className="text-[12px] text-foreground/60 font-medium">Apply status to all staff for {new Date(date).toLocaleDateString()}.</p>
                         </div>
                         <div className="flex gap-3">
                             <Button
                                 onClick={() => handleMarkAll('PRESENT')}
                                 disabled={saving || loading}
-                                className="rounded-2xl h-14 px-8 font-semibold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20"
+                                className="rounded-xl h-12 px-6 font-semibold text-[12px] bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20"
                             >
                                 Mark All Present
                             </Button>
@@ -230,7 +231,7 @@ export default function StaffAttendancePage() {
                                 onClick={() => handleMarkAll('ABSENT')}
                                 disabled={saving || loading}
                                 variant="outline"
-                                className="rounded-2xl h-14 px-8 font-semibold border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white"
+                                className="rounded-xl h-12 px-6 font-semibold text-[12px] border-2 border-red-500/20 text-red-500 hover:bg-red-500 hover:text-white"
                             >
                                 Mark All Absent
                             </Button>
@@ -240,29 +241,29 @@ export default function StaffAttendancePage() {
             </div>
 
             {/* Attendance List */}
-            <Card className="rounded-[3.5rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-emerald-500/20">
-                <CardHeader className="p-10 border-b border-border/50 flex flex-col md:flex-row items-center justify-between bg-muted/5 gap-6">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden border-t-8 border-t-emerald-500/20">
+                <CardHeader className="p-4 border-b border-primary/20 flex flex-col md:flex-row items-center justify-between bg-muted/5 gap-4">
+                    <CardTitle className="text-[12px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Clock className="text-emerald-600" /> Attendance Ledger
                     </CardTitle>
-                    <div className="flex items-center gap-4 w-full md:w-96">
+                    <div className="flex items-center gap-3 w-full md:w-96">
                         <div className="relative w-full">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/60" size={18} />
                             <Input
                                 placeholder="Search by name or department..."
-                                className="h-14 pl-12 rounded-2xl bg-muted/40 border-none font-bold text-sm"
+                                className="h-12 pl-12 rounded-xl bg-muted/40 border-none font-semibold text-[12px]"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        <Button variant="outline" className="h-14 w-14 rounded-2xl border-2 p-0 shrink-0">
+                        <Button variant="outline" className="h-12 w-12 rounded-xl border-2 p-0 shrink-0">
                             <Filter size={20} />
                         </Button>
                     </div>
                 </CardHeader>
-                <CardContent className="p-10">
+                <CardContent className="p-4">
                     {loading ? (
-                        <div className="py-20 text-center"><Loader2 className="animate-spin mx-auto h-12 w-12 text-primary" /></div>
+                        <div className="py-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>
                     ) : (
                         <DataTable
                             columns={columns}
@@ -286,19 +287,19 @@ export default function StaffAttendancePage() {
                     )}
 
                     {!loading && filteredStaff.length === 0 && (
-                        <div className="py-20 text-center space-y-4 opacity-30">
-                            <UserCircle size={64} className="mx-auto" />
-                            <p className="text-h3 font-semibold">No staff members found matching your criteria.</p>
+                        <div className="py-8 text-center space-y-3 opacity-30">
+                            <UserCircle size={48} className="mx-auto" />
+                            <p className="text-[12px] font-semibold">No staff members found matching your criteria.</p>
                         </div>
                     )}
                 </CardContent>
             </Card>
 
             {/* Persistence Note */}
-            <div className="flex items-center gap-3 px-10 py-6 rounded-[2rem] bg-amber-500/5 border-2 border-amber-500/10 text-amber-700/80">
-                <AlertCircle size={20} className="shrink-0" />
-                <p className="text-xs font-bold">
-                    <span className="font-semibold uppercase tracking-widest text-[10px] block mb-1">Warning</span>
+            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-amber-500/5 border-2 border-amber-500/10 text-amber-700/80">
+                <AlertCircle size={16} className="shrink-0" />
+                <p className="text-[12px] font-bold">
+                    <span className="font-semibold uppercase tracking-widest text-[12px] block mb-1">Warning</span>
                     Records are automatically committed when using bulk actions. Individual adjustments require hitting the save icon next to the status selector.
                 </p>
             </div>

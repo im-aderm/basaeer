@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function ChildFinancialsPage() {
     const { id } = useParams();
@@ -55,69 +56,69 @@ export default function ChildFinancialsPage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Financial Overview</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Invoice history and payment tracking.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Financial Overview</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Invoice history and payment tracking.</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-background p-8 space-y-4">
-                    <div className="flex items-center gap-3 font-semibold uppercase text-xs opacity-50">
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-background p-6 space-y-4 ${STAT_CARD}`}>
+                    <div className="flex items-center gap-3 font-semibold uppercase text-[10px] text-foreground/60">
                         <Wallet className="h-4 w-4" /> Total Outstanding
                     </div>
-                    <div className="text-h1 font-semibold text-rose-500">₦{totalBalance.toLocaleString()}</div>
-                    <p className="text-xs font-bold opacity-70">Total balance across all active invoices.</p>
+                    <div className={STAT_VALUE + " text-rose-500"}>₦{totalBalance.toLocaleString()}</div>
+                    <p className="text-[10px] font-bold text-foreground/60">Total balance across all active invoices.</p>
                 </Card>
 
                 {/* Visual Summary */}
-                <Card className="md:col-span-2 rounded-[2.5rem] border-border/50 shadow-xl bg-black text-white p-8 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-12 opacity-10">
+                <Card className="md:col-span-2 rounded-2xl border-primary/20 shadow-xl bg-black text-white p-6 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-8 opacity-10">
                         <CreditCard className="h-48 w-48 text-primary rotate-12" />
                     </div>
                     <div className="relative z-10 h-full flex flex-col justify-between">
                         <div className="space-y-2">
-                            <h3 className="text-h3 font-semibold">Account Health</h3>
-                            <p className="text-white/50 font-medium">You have {paidInvoices} paid and {invoices.length - paidInvoices} pending invoices.</p>
+                            <h3 className="text-[16px] font-semibold">Account Health</h3>
+                            <p className="text-white/50 font-medium text-[12px]">You have {paidInvoices} paid and {invoices.length - paidInvoices} pending invoices.</p>
                         </div>
                         <div className="flex gap-4 mt-8">
-                            <Button className="h-12 px-8 rounded-xl font-semibold uppercase shadow-lg shadow-primary/20">Pay Outstanding Balance</Button>
-                            <Button variant="outline" className="h-12 px-8 rounded-xl font-semibold uppercase border-white/10 hover:bg-white/5">Auto-Pay Settings</Button>
+                            <Button className="h-10 px-6 rounded-xl font-semibold uppercase shadow-lg shadow-primary/20 text-[12px]">Pay Outstanding Balance</Button>
+                            <Button variant="outline" className="h-10 px-6 rounded-xl font-semibold uppercase border-white/10 hover:bg-white/5 text-[12px]">Auto-Pay Settings</Button>
                         </div>
                     </div>
                 </Card>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden">
+                <CardHeader className="p-4 border-b border-primary/20 flex flex-row items-center justify-between">
                     <div>
-                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
-                            <FileText className="h-8 w-8 text-primary" />
+                        <CardTitle className="text-[14px] font-semibold uppercase flex items-center gap-3">
+                            <FileText className="h-5 w-5 text-primary" />
                             Invoice History
                         </CardTitle>
-                        <CardDescription className="font-bold">Itemized billing and receipts.</CardDescription>
+                        <CardDescription className="font-bold text-[12px]">Itemized billing and receipts.</CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="border-b border-border/50 bg-muted/30">
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Invoice #</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Total</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Balance</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Due Date</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Status</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50 text-right">Actions</th>
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Invoice #</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Total</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Balance</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Due Date</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className={TABLE_BODY}>
                                 {invoices.length > 0 ? (invoices ?? []).map((inv) => (
-                                    <tr key={inv.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
-                                        <td className="p-6 font-semibold uppercase text-sm">#{inv.invoiceNumber}</td>
-                                        <td className="p-6 font-bold text-sm">₦{inv.totalAmount.toLocaleString()}</td>
-                                        <td className="p-6 font-semibold text-rose-500 text-sm">₦{inv.balance.toLocaleString()}</td>
-                                        <td className="p-6 font-bold text-sm opacity-60">{new Date(inv.dueDate).toLocaleDateString()}</td>
-                                        <td className="p-6">
+                                    <tr key={inv.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>#{inv.invoiceNumber}</td>
+                                        <td className={TABLE_CELL}>₦{inv.totalAmount.toLocaleString()}</td>
+                                        <td className={TABLE_CELL + " text-rose-500 font-semibold"}>₦{inv.balance.toLocaleString()}</td>
+                                        <td className={TABLE_CELL + " text-foreground/60"}>{new Date(inv.dueDate).toLocaleDateString()}</td>
+                                        <td className={TABLE_CELL}>
                                             <Badge
                                                 className={`rounded-xl px-4 py-1.5 font-semibold uppercase text-[10px] ${inv.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-500' :
                                                         inv.status === 'PARTIALLY_PAID' ? 'bg-amber-500/10 text-amber-500' :
@@ -127,18 +128,20 @@ export default function ChildFinancialsPage() {
                                                 {inv.status}
                                             </Badge>
                                         </td>
-                                        <td className="p-6 text-right space-x-2">
-                                            <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10 border border-border/50 hover:border-primary/50 text-primary">
-                                                <Eye className="h-5 w-5" />
-                                            </Button>
-                                            <Button variant="ghost" size="icon" className="rounded-xl h-10 w-10 border border-border/50 hover:border-primary/50">
-                                                <Download className="h-5 w-5" />
-                                            </Button>
+                                        <td className={TABLE_CELL_ACTIONS}>
+                                            <div className="flex justify-end gap-2">
+                                                <Button variant="ghost" size="icon" className="rounded-xl h-9 w-9 border border-primary/20 hover:border-primary/50 text-primary">
+                                                    <Eye className="h-4 w-4" />
+                                                </Button>
+                                                <Button variant="ghost" size="icon" className="rounded-xl h-9 w-9 border border-primary/20 hover:border-primary/50">
+                                                    <Download className="h-4 w-4" />
+                                                </Button>
+                                            </div>
                                         </td>
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={6} className="p-12 text-center font-semibold uppercase opacity-20 text-2xl">
+                                        <td colSpan={6} className="py-12 text-center font-semibold uppercase text-foreground/60 text-[12px]">
                                             No financial records found
                                         </td>
                                     </tr>

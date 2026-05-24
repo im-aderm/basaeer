@@ -13,6 +13,7 @@ import { DataTable } from "@/components/DataTable";
 import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function AdvanceSalaryPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -187,16 +188,16 @@ export default function AdvanceSalaryPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-4">
                 <BranchContextBanner />
                 {/* Header */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">
                             Advance Salary Management
                         </h1>
- <p className="text-slate-600 mt-2">
+                        <p className="text-foreground/60 mt-2 text-[12px]">
                             {isAdmin
                                 ? "Review and approve salary advance requests"
                                 : "Request and track your salary advances"}
@@ -260,43 +261,43 @@ export default function AdvanceSalaryPage() {
 
             {/* Stats Cards */}
             {isAdmin && (
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
- <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <DollarSign className="w-8 h-8 text-primary" />
+                            <DollarSign className="w-6 h-6 text-primary" />
                         </div>
- <p className="text-sm text-slate-600 ">Total Requests</p>
- <p className="text-h1 font-bold text-slate-900 ">
+                        <p className={STAT_LABEL}>Total Requests</p>
+                        <p className={STAT_VALUE}>
                             {stats.total}
                         </p>
                     </div>
 
- <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <Clock className="w-8 h-8 text-yellow-600" />
+                            <Clock className="w-6 h-6 text-yellow-600" />
                         </div>
- <p className="text-sm text-slate-600 ">Pending</p>
- <p className="text-h1 font-bold text-slate-900 ">
+                        <p className={STAT_LABEL}>Pending</p>
+                        <p className={STAT_VALUE}>
                             {stats.pending}
                         </p>
                     </div>
 
- <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <CheckCircle2 className="w-8 h-8 text-primary" />
+                            <CheckCircle2 className="w-6 h-6 text-primary" />
                         </div>
- <p className="text-sm text-slate-600 ">Approved</p>
- <p className="text-h1 font-bold text-slate-900 ">
+                        <p className={STAT_LABEL}>Approved</p>
+                        <p className={STAT_VALUE}>
                             {stats.approved}
                         </p>
                     </div>
 
- <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <TrendingUp className="w-8 h-8 text-teal-600" />
+                            <TrendingUp className="w-6 h-6 text-teal-600" />
                         </div>
- <p className="text-sm text-slate-600 ">Total Amount</p>
- <p className="text-h1 font-bold text-slate-900 ">
+                        <p className={STAT_LABEL}>Total Amount</p>
+                        <p className={STAT_VALUE}>
                             ₦{stats.totalAmount.toLocaleString()}
                         </p>
                     </div>
@@ -304,8 +305,8 @@ export default function AdvanceSalaryPage() {
             )}
 
             {/* Requests Table */}
- <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 ">
-                <h2 className="text-xl font-semibold mb-4">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-primary/20">
+                <h2 className="text-[16px] font-semibold mb-4">
                     {isAdmin ? "All Requests" : "My Requests"}
                 </h2>
                 <DataTable columns={columns} data={advances} searchKey="staff" />

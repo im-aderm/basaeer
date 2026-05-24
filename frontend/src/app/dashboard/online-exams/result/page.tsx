@@ -7,12 +7,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Award, BarChart3, Search, ChevronRight, CheckCircle2, AlertCircle, FileText, UserCheck, TrendingUp, Trophy, Users, Activity } from 'lucide-react';
 import { OnlineExamService, OnlineExam } from '@/services/onlineExamService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function OnlineExamResultsPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -100,7 +100,7 @@ export default function OnlineExamResultsPage() {
         }
     };
 
-    if (loading) return <div className="p-8">Loading assessment results...</div>;
+    if (loading) return <div className="p-4">Loading assessment results...</div>;
 
     const activeExam = exams.find(e => e.id === selectedExamId);
 
@@ -108,8 +108,8 @@ export default function OnlineExamResultsPage() {
         <div className="max-w-7xl mx-auto space-y-8 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Assessment Analytics</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Grade descriptive answers and generate class rankings.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Assessment Analytics</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Grade descriptive answers and generate class rankings.</p>
                 </div>
 
                 <div className="flex gap-4">
@@ -154,107 +154,105 @@ export default function OnlineExamResultsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Appeared</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{attempts.length}</span>
-                        <Users className="h-8 w-8 text-primary/40" />
-                    </CardContent>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Appeared</p>
+                        <h3 className={STAT_VALUE}>{attempts.length}</h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Avg Score</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Avg Score</p>
+                        <h3 className={STAT_VALUE}>
                             {attempts.length > 0 ? (attempts.reduce((sum, a) => sum + (a.score || 0), 0) / attempts.length).toFixed(1) : 0}
-                        </span>
-                        <TrendingUp className="h-8 w-8 text-primary/40" />
-                    </CardContent>
+                        </h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Pass Rate</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Pass Rate</p>
+                        <h3 className={STAT_VALUE}>
                             {attempts.length > 0 ? Math.round((attempts.filter(a => (a.score || 0) >= (activeExam?.passPercentage || 40)).length / attempts.length) * 100) : 0}%
-                        </span>
-                        <Award className="h-8 w-8 text-primary/40" />
-                    </CardContent>
+                        </h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Highest Score</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-muted/30 border-l-4 border-l-foreground/30 ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Highest Score</p>
+                        <h3 className={STAT_VALUE}>
                             {attempts.length > 0 ? Math.max(...attempts.map(a => a.score || 0)) : 0}
-                        </span>
-                        <Trophy className="h-8 w-8 text-muted-foreground/40" />
-                    </CardContent>
+                        </h3>
+                    </div>
                 </Card>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 border-b border-border/50">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <BarChart3 className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="p-4 border-b border-primary/20">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <BarChart3 className="h-5 w-5 text-primary" />
                         Performance Result Sheet
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Adm. No</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Student Name</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Score / 100</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Position</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Outcome</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Grading</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {(attempts ?? [])
-                                .filter(a => (filters.classId === '' || filters.classId === 'all' || a.student?.classId === filters.classId))
-                                .filter(a => (filters.sectionId === '' || filters.sectionId === 'all' || a.student?.sectionId === filters.sectionId))
-                                .map((attempt) => (
-                                    <TableRow key={attempt.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                        <TableCell className="px-8 font-semibold uppercase text-xs opacity-50">{attempt.student?.admissionNumber || 'N/A'}</TableCell>
-                                        <TableCell className="px-8 font-semibold uppercase leading-tight">
-                                            {attempt.student?.user?.firstName} {attempt.student?.user?.lastName}
-                                        </TableCell>
-                                        <TableCell className="px-8 text-center font-semibold text-h3 text-primary">
-                                            {attempt.score || 0}
-                                        </TableCell>
-                                        <TableCell className="px-8 text-center">
-                                            {attempt.position ? (
-                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-xs shadow-lg shadow-primary/20">
-                                                    <Trophy className="h-3 w-3" />
-                                                    #{attempt.position}
-                                                </div>
-                                            ) : '-'}
-                                        </TableCell>
-                                        <TableCell className="px-8 text-center">
-                                            {(attempt.score || 0) >= (activeExam?.passPercentage || 40) ? (
-                                                <div className="inline-flex items-center gap-2 text-emerald-600 font-semibold uppercase text-xs">
-                                                    <CheckCircle2 className="h-4 w-4" /> Passed
-                                                </div>
-                                            ) : (
-                                                <div className="inline-flex items-center gap-2 text-destructive font-semibold uppercase text-xs">
-                                                    <AlertCircle className="h-4 w-4" /> Failed
-                                                </div>
-                                            )}
-                                        </TableCell>
-                                        <TableCell className="text-right px-8">
-                                            <Button
-                                                variant="outline"
-                                                className="h-10 px-6 rounded-xl font-bold gap-2 border-border/50 hover:bg-primary/5 hover:text-primary transition-all"
-                                                onClick={() => { setSelectedAttempt(attempt); setIsGradeDialogOpen(true); }}
-                                            >
-                                                <FileText className="h-4 w-4" />
-                                                Grade Review
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                        </TableBody>
-                    </Table>
+                    <div className="overflow-x-auto">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Adm. No</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Student Name</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Score / 100</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Position</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Outcome</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Grading</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
+                                {(attempts ?? [])
+                                    .filter(a => (filters.classId === '' || filters.classId === 'all' || a.student?.classId === filters.classId))
+                                    .filter(a => (filters.sectionId === '' || filters.sectionId === 'all' || a.student?.sectionId === filters.sectionId))
+                                    .map((attempt) => (
+                                        <tr key={attempt.id} className={TABLE_ROW}>
+                                            <td className={TABLE_CELL + " opacity-50"}>{attempt.student?.admissionNumber || 'N/A'}</td>
+                                            <td className={TABLE_CELL_PRIMARY}>
+                                                {attempt.student?.user?.firstName} {attempt.student?.user?.lastName}
+                                            </td>
+                                            <td className={TABLE_CELL + " text-center text-primary font-semibold"}>
+                                                {attempt.score || 0}
+                                            </td>
+                                            <td className={TABLE_CELL + " text-center"}>
+                                                {attempt.position ? (
+                                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary text-white font-semibold text-[12px] shadow-lg shadow-primary/20">
+                                                        <Trophy className="h-3 w-3" />
+                                                        #{attempt.position}
+                                                    </div>
+                                                ) : '-'}
+                                            </td>
+                                            <td className={TABLE_CELL + " text-center"}>
+                                                {(attempt.score || 0) >= (activeExam?.passPercentage || 40) ? (
+                                                    <div className="inline-flex items-center gap-2 text-emerald-600 font-semibold uppercase text-[12px]">
+                                                        <CheckCircle2 className="h-4 w-4" /> Passed
+                                                    </div>
+                                                ) : (
+                                                    <div className="inline-flex items-center gap-2 text-destructive font-semibold uppercase text-[12px]">
+                                                        <AlertCircle className="h-4 w-4" /> Failed
+                                                    </div>
+                                                )}
+                                            </td>
+                                            <td className={TABLE_CELL_ACTIONS}>
+                                                <Button
+                                                    variant="outline"
+                                                    className="h-9 px-4 rounded-xl font-bold gap-2 border-primary/20 hover:bg-primary/5 hover:text-primary text-[12px]"
+                                                    onClick={() => { setSelectedAttempt(attempt); setIsGradeDialogOpen(true); }}
+                                                >
+                                                    <FileText className="h-4 w-4" />
+                                                    Grade Review
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </CardContent>
             </Card>
 

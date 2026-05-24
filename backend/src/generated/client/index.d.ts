@@ -524,15 +524,45 @@ export type ConversationParticipant = $Result.DefaultSelection<Prisma.$Conversat
  */
 export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 /**
+ * Model EventCategory
+ * 
+ */
+export type EventCategory = $Result.DefaultSelection<Prisma.$EventCategoryPayload>
+/**
  * Model CampusEvent
  * 
  */
 export type CampusEvent = $Result.DefaultSelection<Prisma.$CampusEventPayload>
 /**
+ * Model EventPackage
+ * 
+ */
+export type EventPackage = $Result.DefaultSelection<Prisma.$EventPackagePayload>
+/**
+ * Model EventSchedule
+ * 
+ */
+export type EventSchedule = $Result.DefaultSelection<Prisma.$EventSchedulePayload>
+/**
+ * Model EventGallery
+ * 
+ */
+export type EventGallery = $Result.DefaultSelection<Prisma.$EventGalleryPayload>
+/**
+ * Model EventApplication
+ * 
+ */
+export type EventApplication = $Result.DefaultSelection<Prisma.$EventApplicationPayload>
+/**
  * Model EventRSVP
  * 
  */
 export type EventRSVP = $Result.DefaultSelection<Prisma.$EventRSVPPayload>
+/**
+ * Model EventPayment
+ * 
+ */
+export type EventPayment = $Result.DefaultSelection<Prisma.$EventPaymentPayload>
 /**
  * Model CampusAccessLog
  * 
@@ -2518,6 +2548,16 @@ export class PrismaClient<
   get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.eventCategory`: Exposes CRUD operations for the **EventCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventCategories
+    * const eventCategories = await prisma.eventCategory.findMany()
+    * ```
+    */
+  get eventCategory(): Prisma.EventCategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.campusEvent`: Exposes CRUD operations for the **CampusEvent** model.
     * Example usage:
     * ```ts
@@ -2528,6 +2568,46 @@ export class PrismaClient<
   get campusEvent(): Prisma.CampusEventDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.eventPackage`: Exposes CRUD operations for the **EventPackage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventPackages
+    * const eventPackages = await prisma.eventPackage.findMany()
+    * ```
+    */
+  get eventPackage(): Prisma.EventPackageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eventSchedule`: Exposes CRUD operations for the **EventSchedule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventSchedules
+    * const eventSchedules = await prisma.eventSchedule.findMany()
+    * ```
+    */
+  get eventSchedule(): Prisma.EventScheduleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eventGallery`: Exposes CRUD operations for the **EventGallery** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventGalleries
+    * const eventGalleries = await prisma.eventGallery.findMany()
+    * ```
+    */
+  get eventGallery(): Prisma.EventGalleryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eventApplication`: Exposes CRUD operations for the **EventApplication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventApplications
+    * const eventApplications = await prisma.eventApplication.findMany()
+    * ```
+    */
+  get eventApplication(): Prisma.EventApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.eventRSVP`: Exposes CRUD operations for the **EventRSVP** model.
     * Example usage:
     * ```ts
@@ -2536,6 +2616,16 @@ export class PrismaClient<
     * ```
     */
   get eventRSVP(): Prisma.EventRSVPDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.eventPayment`: Exposes CRUD operations for the **EventPayment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventPayments
+    * const eventPayments = await prisma.eventPayment.findMany()
+    * ```
+    */
+  get eventPayment(): Prisma.EventPaymentDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.campusAccessLog`: Exposes CRUD operations for the **CampusAccessLog** model.
@@ -3569,8 +3659,14 @@ export namespace Prisma {
     Conversation: 'Conversation',
     ConversationParticipant: 'ConversationParticipant',
     Message: 'Message',
+    EventCategory: 'EventCategory',
     CampusEvent: 'CampusEvent',
+    EventPackage: 'EventPackage',
+    EventSchedule: 'EventSchedule',
+    EventGallery: 'EventGallery',
+    EventApplication: 'EventApplication',
     EventRSVP: 'EventRSVP',
+    EventPayment: 'EventPayment',
     CampusAccessLog: 'CampusAccessLog',
     AutomationConfig: 'AutomationConfig',
     IdCardTemplate: 'IdCardTemplate',
@@ -3638,7 +3734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "role" | "user" | "userPreference" | "moduleConfiguration" | "translation" | "scheduledJob" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "exam" | "examType" | "assessmentComponent" | "assessmentScore" | "resultApproval" | "resultPublication" | "gPARecord" | "studentRanking" | "broadsheet" | "transcript" | "transcriptVerification" | "academicRemark" | "subjectPosition" | "tahfeezAssessment" | "tahfeezMemorizationProgress" | "globalSetting" | "rolePermission" | "customRolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "previousSchool" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "campusEvent" | "eventRSVP" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "attachmentCategory" | "digitalResource" | "digitalResourceLog" | "emailTemplate" | "smsTemplate" | "notification" | "notificationPreference" | "campaign" | "campaignRecipient" | "attendanceSession" | "attendanceScan" | "queueJobLog" | "automationExecution" | "messageDeliveryLog" | "providerHealthLog" | "webhookEvent" | "deliveryWebhookLog" | "realtimeConnection" | "queueMetric" | "providerFailoverEvent" | "messageRetryEvent" | "providerBalanceSnapshot" | "notificationDeliveryEvent" | "academicExport" | "reportTemplate" | "computationJob" | "bookCopy" | "bookReservation" | "hostelMaintenanceTicket" | "transportAttendance" | "apiKey" | "webhookEndpoint" | "webhookDeliveryLog" | "paymentWebhookLog" | "counter" | "studentAccount" | "creditTransaction" | "admissionExam" | "admissionExamScore" | "admissionInterview" | "chartOfAccount" | "journalEntry" | "generalLedgerEntry" | "taxRate" | "bankStatementLine"
+      modelProps: "branch" | "deactivationReason" | "loginDeactivation" | "role" | "user" | "userPreference" | "moduleConfiguration" | "translation" | "scheduledJob" | "staff" | "student" | "certificate" | "certificateTemplate" | "class" | "section" | "subject" | "classSchedule" | "attendance" | "staffAttendance" | "hostel" | "room" | "bed" | "hostelAllocation" | "hostelLeave" | "maintenanceRequest" | "feeCategory" | "feeStructure" | "invoice" | "questionGroup" | "question" | "questionOption" | "onlineExam" | "onlineExamAttempt" | "questionAnswer" | "invoiceItem" | "payment" | "vehicle" | "transportRoute" | "transportAssignment" | "assignment" | "submission" | "academicSession" | "assessmentRecord" | "behaviouralRating" | "resultSummary" | "gradingScale" | "exam" | "examType" | "assessmentComponent" | "assessmentScore" | "resultApproval" | "resultPublication" | "gPARecord" | "studentRanking" | "broadsheet" | "transcript" | "transcriptVerification" | "academicRemark" | "subjectPosition" | "tahfeezAssessment" | "tahfeezMemorizationProgress" | "globalSetting" | "rolePermission" | "customRolePermission" | "auditLog" | "expenseCategory" | "voucher" | "department" | "designation" | "book" | "borrowRecord" | "libraryFine" | "salaryTemplate" | "payroll" | "leaveRequest" | "staffAward" | "advanceSalary" | "googleMeetConfig" | "liveClassSession" | "meetingParticipant" | "studentCategory" | "previousSchool" | "onlineAdmission" | "admissionEnquiry" | "callLog" | "visitorLog" | "complaint" | "postalRecord" | "inventoryCategory" | "inventoryStore" | "inventorySupplier" | "inventoryUnit" | "inventoryProduct" | "inventoryPurchase" | "inventorySale" | "inventoryIssue" | "alumni" | "alumniEvent" | "alumniEventParticipant" | "conversation" | "conversationParticipant" | "message" | "eventCategory" | "campusEvent" | "eventPackage" | "eventSchedule" | "eventGallery" | "eventApplication" | "eventRSVP" | "eventPayment" | "campusAccessLog" | "automationConfig" | "idCardTemplate" | "idCard" | "attachmentCategory" | "digitalResource" | "digitalResourceLog" | "emailTemplate" | "smsTemplate" | "notification" | "notificationPreference" | "campaign" | "campaignRecipient" | "attendanceSession" | "attendanceScan" | "queueJobLog" | "automationExecution" | "messageDeliveryLog" | "providerHealthLog" | "webhookEvent" | "deliveryWebhookLog" | "realtimeConnection" | "queueMetric" | "providerFailoverEvent" | "messageRetryEvent" | "providerBalanceSnapshot" | "notificationDeliveryEvent" | "academicExport" | "reportTemplate" | "computationJob" | "bookCopy" | "bookReservation" | "hostelMaintenanceTicket" | "transportAttendance" | "apiKey" | "webhookEndpoint" | "webhookDeliveryLog" | "paymentWebhookLog" | "counter" | "studentAccount" | "creditTransaction" | "admissionExam" | "admissionExamScore" | "admissionInterview" | "chartOfAccount" | "journalEntry" | "generalLedgerEntry" | "taxRate" | "bankStatementLine"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -11190,6 +11286,80 @@ export namespace Prisma {
           }
         }
       }
+      EventCategory: {
+        payload: Prisma.$EventCategoryPayload<ExtArgs>
+        fields: Prisma.EventCategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventCategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventCategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.EventCategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventCategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          findMany: {
+            args: Prisma.EventCategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>[]
+          }
+          create: {
+            args: Prisma.EventCategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          createMany: {
+            args: Prisma.EventCategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventCategoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>[]
+          }
+          delete: {
+            args: Prisma.EventCategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          update: {
+            args: Prisma.EventCategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventCategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventCategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventCategoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventCategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventCategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.EventCategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventCategory>
+          }
+          groupBy: {
+            args: Prisma.EventCategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventCategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventCategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<EventCategoryCountAggregateOutputType> | number
+          }
+        }
+      }
       CampusEvent: {
         payload: Prisma.$CampusEventPayload<ExtArgs>
         fields: Prisma.CampusEventFieldRefs
@@ -11264,6 +11434,302 @@ export namespace Prisma {
           }
         }
       }
+      EventPackage: {
+        payload: Prisma.$EventPackagePayload<ExtArgs>
+        fields: Prisma.EventPackageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventPackageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventPackageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          findFirst: {
+            args: Prisma.EventPackageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventPackageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          findMany: {
+            args: Prisma.EventPackageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>[]
+          }
+          create: {
+            args: Prisma.EventPackageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          createMany: {
+            args: Prisma.EventPackageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventPackageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>[]
+          }
+          delete: {
+            args: Prisma.EventPackageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          update: {
+            args: Prisma.EventPackageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          deleteMany: {
+            args: Prisma.EventPackageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventPackageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventPackageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>[]
+          }
+          upsert: {
+            args: Prisma.EventPackageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPackagePayload>
+          }
+          aggregate: {
+            args: Prisma.EventPackageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventPackage>
+          }
+          groupBy: {
+            args: Prisma.EventPackageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventPackageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventPackageCountArgs<ExtArgs>
+            result: $Utils.Optional<EventPackageCountAggregateOutputType> | number
+          }
+        }
+      }
+      EventSchedule: {
+        payload: Prisma.$EventSchedulePayload<ExtArgs>
+        fields: Prisma.EventScheduleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventScheduleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventScheduleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          findFirst: {
+            args: Prisma.EventScheduleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventScheduleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          findMany: {
+            args: Prisma.EventScheduleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>[]
+          }
+          create: {
+            args: Prisma.EventScheduleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          createMany: {
+            args: Prisma.EventScheduleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventScheduleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>[]
+          }
+          delete: {
+            args: Prisma.EventScheduleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          update: {
+            args: Prisma.EventScheduleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          deleteMany: {
+            args: Prisma.EventScheduleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventScheduleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventScheduleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>[]
+          }
+          upsert: {
+            args: Prisma.EventScheduleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventSchedulePayload>
+          }
+          aggregate: {
+            args: Prisma.EventScheduleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventSchedule>
+          }
+          groupBy: {
+            args: Prisma.EventScheduleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventScheduleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventScheduleCountArgs<ExtArgs>
+            result: $Utils.Optional<EventScheduleCountAggregateOutputType> | number
+          }
+        }
+      }
+      EventGallery: {
+        payload: Prisma.$EventGalleryPayload<ExtArgs>
+        fields: Prisma.EventGalleryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventGalleryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventGalleryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          findFirst: {
+            args: Prisma.EventGalleryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventGalleryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          findMany: {
+            args: Prisma.EventGalleryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>[]
+          }
+          create: {
+            args: Prisma.EventGalleryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          createMany: {
+            args: Prisma.EventGalleryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventGalleryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>[]
+          }
+          delete: {
+            args: Prisma.EventGalleryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          update: {
+            args: Prisma.EventGalleryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventGalleryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventGalleryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventGalleryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventGalleryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventGalleryPayload>
+          }
+          aggregate: {
+            args: Prisma.EventGalleryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventGallery>
+          }
+          groupBy: {
+            args: Prisma.EventGalleryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventGalleryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventGalleryCountArgs<ExtArgs>
+            result: $Utils.Optional<EventGalleryCountAggregateOutputType> | number
+          }
+        }
+      }
+      EventApplication: {
+        payload: Prisma.$EventApplicationPayload<ExtArgs>
+        fields: Prisma.EventApplicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventApplicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventApplicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          findFirst: {
+            args: Prisma.EventApplicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventApplicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          findMany: {
+            args: Prisma.EventApplicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>[]
+          }
+          create: {
+            args: Prisma.EventApplicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          createMany: {
+            args: Prisma.EventApplicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventApplicationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>[]
+          }
+          delete: {
+            args: Prisma.EventApplicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          update: {
+            args: Prisma.EventApplicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventApplicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventApplicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventApplicationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventApplicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventApplicationPayload>
+          }
+          aggregate: {
+            args: Prisma.EventApplicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventApplication>
+          }
+          groupBy: {
+            args: Prisma.EventApplicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventApplicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventApplicationCountArgs<ExtArgs>
+            result: $Utils.Optional<EventApplicationCountAggregateOutputType> | number
+          }
+        }
+      }
       EventRSVP: {
         payload: Prisma.$EventRSVPPayload<ExtArgs>
         fields: Prisma.EventRSVPFieldRefs
@@ -11335,6 +11801,80 @@ export namespace Prisma {
           count: {
             args: Prisma.EventRSVPCountArgs<ExtArgs>
             result: $Utils.Optional<EventRSVPCountAggregateOutputType> | number
+          }
+        }
+      }
+      EventPayment: {
+        payload: Prisma.$EventPaymentPayload<ExtArgs>
+        fields: Prisma.EventPaymentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EventPaymentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EventPaymentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          findFirst: {
+            args: Prisma.EventPaymentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EventPaymentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          findMany: {
+            args: Prisma.EventPaymentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>[]
+          }
+          create: {
+            args: Prisma.EventPaymentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          createMany: {
+            args: Prisma.EventPaymentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EventPaymentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>[]
+          }
+          delete: {
+            args: Prisma.EventPaymentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          update: {
+            args: Prisma.EventPaymentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          deleteMany: {
+            args: Prisma.EventPaymentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EventPaymentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EventPaymentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>[]
+          }
+          upsert: {
+            args: Prisma.EventPaymentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EventPaymentPayload>
+          }
+          aggregate: {
+            args: Prisma.EventPaymentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEventPayment>
+          }
+          groupBy: {
+            args: Prisma.EventPaymentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EventPaymentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EventPaymentCountArgs<ExtArgs>
+            result: $Utils.Optional<EventPaymentCountAggregateOutputType> | number
           }
         }
       }
@@ -15162,8 +15702,14 @@ export namespace Prisma {
     conversation?: ConversationOmit
     conversationParticipant?: ConversationParticipantOmit
     message?: MessageOmit
+    eventCategory?: EventCategoryOmit
     campusEvent?: CampusEventOmit
+    eventPackage?: EventPackageOmit
+    eventSchedule?: EventScheduleOmit
+    eventGallery?: EventGalleryOmit
+    eventApplication?: EventApplicationOmit
     eventRSVP?: EventRSVPOmit
+    eventPayment?: EventPaymentOmit
     campusAccessLog?: CampusAccessLogOmit
     automationConfig?: AutomationConfigOmit
     idCardTemplate?: IdCardTemplateOmit
@@ -15347,6 +15893,7 @@ export namespace Prisma {
     assessmentRecords: number
     behaviouralRatings: number
     resultSummaries: number
+    eventApplications: number
     gradingScales: number
     globalSettings: number
     moduleConfigurations: number
@@ -15473,6 +16020,7 @@ export namespace Prisma {
     assessmentRecords?: boolean | BranchCountOutputTypeCountAssessmentRecordsArgs
     behaviouralRatings?: boolean | BranchCountOutputTypeCountBehaviouralRatingsArgs
     resultSummaries?: boolean | BranchCountOutputTypeCountResultSummariesArgs
+    eventApplications?: boolean | BranchCountOutputTypeCountEventApplicationsArgs
     gradingScales?: boolean | BranchCountOutputTypeCountGradingScalesArgs
     globalSettings?: boolean | BranchCountOutputTypeCountGlobalSettingsArgs
     moduleConfigurations?: boolean | BranchCountOutputTypeCountModuleConfigurationsArgs
@@ -15931,6 +16479,13 @@ export namespace Prisma {
    */
   export type BranchCountOutputTypeCountResultSummariesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ResultSummaryWhereInput
+  }
+
+  /**
+   * BranchCountOutputType without action
+   */
+  export type BranchCountOutputTypeCountEventApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventApplicationWhereInput
   }
 
   /**
@@ -18741,15 +19296,54 @@ export namespace Prisma {
 
 
   /**
+   * Count Type EventCategoryCountOutputType
+   */
+
+  export type EventCategoryCountOutputType = {
+    events: number
+  }
+
+  export type EventCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    events?: boolean | EventCategoryCountOutputTypeCountEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EventCategoryCountOutputType without action
+   */
+  export type EventCategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategoryCountOutputType
+     */
+    select?: EventCategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EventCategoryCountOutputType without action
+   */
+  export type EventCategoryCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CampusEventWhereInput
+  }
+
+
+  /**
    * Count Type CampusEventCountOutputType
    */
 
   export type CampusEventCountOutputType = {
     rsvps: number
+    packages: number
+    schedules: number
+    gallery: number
+    applications: number
   }
 
   export type CampusEventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     rsvps?: boolean | CampusEventCountOutputTypeCountRsvpsArgs
+    packages?: boolean | CampusEventCountOutputTypeCountPackagesArgs
+    schedules?: boolean | CampusEventCountOutputTypeCountSchedulesArgs
+    gallery?: boolean | CampusEventCountOutputTypeCountGalleryArgs
+    applications?: boolean | CampusEventCountOutputTypeCountApplicationsArgs
   }
 
   // Custom InputTypes
@@ -18768,6 +19362,65 @@ export namespace Prisma {
    */
   export type CampusEventCountOutputTypeCountRsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EventRSVPWhereInput
+  }
+
+  /**
+   * CampusEventCountOutputType without action
+   */
+  export type CampusEventCountOutputTypeCountPackagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventPackageWhereInput
+  }
+
+  /**
+   * CampusEventCountOutputType without action
+   */
+  export type CampusEventCountOutputTypeCountSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventScheduleWhereInput
+  }
+
+  /**
+   * CampusEventCountOutputType without action
+   */
+  export type CampusEventCountOutputTypeCountGalleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventGalleryWhereInput
+  }
+
+  /**
+   * CampusEventCountOutputType without action
+   */
+  export type CampusEventCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventApplicationWhereInput
+  }
+
+
+  /**
+   * Count Type EventPackageCountOutputType
+   */
+
+  export type EventPackageCountOutputType = {
+    applications: number
+  }
+
+  export type EventPackageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applications?: boolean | EventPackageCountOutputTypeCountApplicationsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EventPackageCountOutputType without action
+   */
+  export type EventPackageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackageCountOutputType
+     */
+    select?: EventPackageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EventPackageCountOutputType without action
+   */
+  export type EventPackageCountOutputTypeCountApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventApplicationWhereInput
   }
 
 
@@ -19448,6 +20101,7 @@ export namespace Prisma {
     assessmentRecords?: boolean | Branch$assessmentRecordsArgs<ExtArgs>
     behaviouralRatings?: boolean | Branch$behaviouralRatingsArgs<ExtArgs>
     resultSummaries?: boolean | Branch$resultSummariesArgs<ExtArgs>
+    eventApplications?: boolean | Branch$eventApplicationsArgs<ExtArgs>
     gradingScales?: boolean | Branch$gradingScalesArgs<ExtArgs>
     globalSettings?: boolean | Branch$globalSettingsArgs<ExtArgs>
     moduleConfigurations?: boolean | Branch$moduleConfigurationsArgs<ExtArgs>
@@ -19625,6 +20279,7 @@ export namespace Prisma {
     assessmentRecords?: boolean | Branch$assessmentRecordsArgs<ExtArgs>
     behaviouralRatings?: boolean | Branch$behaviouralRatingsArgs<ExtArgs>
     resultSummaries?: boolean | Branch$resultSummariesArgs<ExtArgs>
+    eventApplications?: boolean | Branch$eventApplicationsArgs<ExtArgs>
     gradingScales?: boolean | Branch$gradingScalesArgs<ExtArgs>
     globalSettings?: boolean | Branch$globalSettingsArgs<ExtArgs>
     moduleConfigurations?: boolean | Branch$moduleConfigurationsArgs<ExtArgs>
@@ -19757,6 +20412,7 @@ export namespace Prisma {
       assessmentRecords: Prisma.$AssessmentRecordPayload<ExtArgs>[]
       behaviouralRatings: Prisma.$BehaviouralRatingPayload<ExtArgs>[]
       resultSummaries: Prisma.$ResultSummaryPayload<ExtArgs>[]
+      eventApplications: Prisma.$EventApplicationPayload<ExtArgs>[]
       gradingScales: Prisma.$GradingScalePayload<ExtArgs>[]
       globalSettings: Prisma.$GlobalSettingPayload<ExtArgs>[]
       moduleConfigurations: Prisma.$ModuleConfigurationPayload<ExtArgs>[]
@@ -20290,6 +20946,7 @@ export namespace Prisma {
     assessmentRecords<T extends Branch$assessmentRecordsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$assessmentRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AssessmentRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     behaviouralRatings<T extends Branch$behaviouralRatingsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$behaviouralRatingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BehaviouralRatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     resultSummaries<T extends Branch$resultSummariesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$resultSummariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResultSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    eventApplications<T extends Branch$eventApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$eventApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gradingScales<T extends Branch$gradingScalesArgs<ExtArgs> = {}>(args?: Subset<T, Branch$gradingScalesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GradingScalePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     globalSettings<T extends Branch$globalSettingsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$globalSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GlobalSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     moduleConfigurations<T extends Branch$moduleConfigurationsArgs<ExtArgs> = {}>(args?: Subset<T, Branch$moduleConfigurationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModuleConfigurationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -22101,6 +22758,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ResultSummaryScalarFieldEnum | ResultSummaryScalarFieldEnum[]
+  }
+
+  /**
+   * Branch.eventApplications
+   */
+  export type Branch$eventApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    where?: EventApplicationWhereInput
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    cursor?: EventApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
   }
 
   /**
@@ -147488,105 +148169,1272 @@ export namespace Prisma {
 
 
   /**
+   * Model EventCategory
+   */
+
+  export type AggregateEventCategory = {
+    _count: EventCategoryCountAggregateOutputType | null
+    _min: EventCategoryMinAggregateOutputType | null
+    _max: EventCategoryMaxAggregateOutputType | null
+  }
+
+  export type EventCategoryMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    createdAt: Date | null
+  }
+
+  export type EventCategoryMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    slug: string | null
+    createdAt: Date | null
+  }
+
+  export type EventCategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    slug: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type EventCategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    createdAt?: true
+  }
+
+  export type EventCategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    createdAt?: true
+  }
+
+  export type EventCategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    slug?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type EventCategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventCategory to aggregate.
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventCategories to fetch.
+     */
+    orderBy?: EventCategoryOrderByWithRelationInput | EventCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventCategories
+    **/
+    _count?: true | EventCategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventCategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventCategoryMaxAggregateInputType
+  }
+
+  export type GetEventCategoryAggregateType<T extends EventCategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventCategory[P]>
+      : GetScalarType<T[P], AggregateEventCategory[P]>
+  }
+
+
+
+
+  export type EventCategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventCategoryWhereInput
+    orderBy?: EventCategoryOrderByWithAggregationInput | EventCategoryOrderByWithAggregationInput[]
+    by: EventCategoryScalarFieldEnum[] | EventCategoryScalarFieldEnum
+    having?: EventCategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventCategoryCountAggregateInputType | true
+    _min?: EventCategoryMinAggregateInputType
+    _max?: EventCategoryMaxAggregateInputType
+  }
+
+  export type EventCategoryGroupByOutputType = {
+    id: string
+    name: string
+    slug: string
+    createdAt: Date
+    _count: EventCategoryCountAggregateOutputType | null
+    _min: EventCategoryMinAggregateOutputType | null
+    _max: EventCategoryMaxAggregateOutputType | null
+  }
+
+  type GetEventCategoryGroupByPayload<T extends EventCategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventCategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventCategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventCategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], EventCategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    createdAt?: boolean
+    events?: boolean | EventCategory$eventsArgs<ExtArgs>
+    _count?: boolean | EventCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventCategory"]>
+
+  export type EventCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["eventCategory"]>
+
+  export type EventCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["eventCategory"]>
+
+  export type EventCategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+    slug?: boolean
+    createdAt?: boolean
+  }
+
+  export type EventCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "createdAt", ExtArgs["result"]["eventCategory"]>
+  export type EventCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    events?: boolean | EventCategory$eventsArgs<ExtArgs>
+    _count?: boolean | EventCategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EventCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EventCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $EventCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventCategory"
+    objects: {
+      events: Prisma.$CampusEventPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      slug: string
+      createdAt: Date
+    }, ExtArgs["result"]["eventCategory"]>
+    composites: {}
+  }
+
+  type EventCategoryGetPayload<S extends boolean | null | undefined | EventCategoryDefaultArgs> = $Result.GetResult<Prisma.$EventCategoryPayload, S>
+
+  type EventCategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventCategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventCategoryCountAggregateInputType | true
+    }
+
+  export interface EventCategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventCategory'], meta: { name: 'EventCategory' } }
+    /**
+     * Find zero or one EventCategory that matches the filter.
+     * @param {EventCategoryFindUniqueArgs} args - Arguments to find a EventCategory
+     * @example
+     * // Get one EventCategory
+     * const eventCategory = await prisma.eventCategory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventCategoryFindUniqueArgs>(args: SelectSubset<T, EventCategoryFindUniqueArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventCategory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventCategoryFindUniqueOrThrowArgs} args - Arguments to find a EventCategory
+     * @example
+     * // Get one EventCategory
+     * const eventCategory = await prisma.eventCategory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventCategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, EventCategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventCategory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryFindFirstArgs} args - Arguments to find a EventCategory
+     * @example
+     * // Get one EventCategory
+     * const eventCategory = await prisma.eventCategory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventCategoryFindFirstArgs>(args?: SelectSubset<T, EventCategoryFindFirstArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventCategory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryFindFirstOrThrowArgs} args - Arguments to find a EventCategory
+     * @example
+     * // Get one EventCategory
+     * const eventCategory = await prisma.eventCategory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventCategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, EventCategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventCategories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventCategories
+     * const eventCategories = await prisma.eventCategory.findMany()
+     * 
+     * // Get first 10 EventCategories
+     * const eventCategories = await prisma.eventCategory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventCategoryWithIdOnly = await prisma.eventCategory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventCategoryFindManyArgs>(args?: SelectSubset<T, EventCategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventCategory.
+     * @param {EventCategoryCreateArgs} args - Arguments to create a EventCategory.
+     * @example
+     * // Create one EventCategory
+     * const EventCategory = await prisma.eventCategory.create({
+     *   data: {
+     *     // ... data to create a EventCategory
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventCategoryCreateArgs>(args: SelectSubset<T, EventCategoryCreateArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventCategories.
+     * @param {EventCategoryCreateManyArgs} args - Arguments to create many EventCategories.
+     * @example
+     * // Create many EventCategories
+     * const eventCategory = await prisma.eventCategory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventCategoryCreateManyArgs>(args?: SelectSubset<T, EventCategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventCategories and returns the data saved in the database.
+     * @param {EventCategoryCreateManyAndReturnArgs} args - Arguments to create many EventCategories.
+     * @example
+     * // Create many EventCategories
+     * const eventCategory = await prisma.eventCategory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventCategories and only return the `id`
+     * const eventCategoryWithIdOnly = await prisma.eventCategory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventCategoryCreateManyAndReturnArgs>(args?: SelectSubset<T, EventCategoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventCategory.
+     * @param {EventCategoryDeleteArgs} args - Arguments to delete one EventCategory.
+     * @example
+     * // Delete one EventCategory
+     * const EventCategory = await prisma.eventCategory.delete({
+     *   where: {
+     *     // ... filter to delete one EventCategory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventCategoryDeleteArgs>(args: SelectSubset<T, EventCategoryDeleteArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventCategory.
+     * @param {EventCategoryUpdateArgs} args - Arguments to update one EventCategory.
+     * @example
+     * // Update one EventCategory
+     * const eventCategory = await prisma.eventCategory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventCategoryUpdateArgs>(args: SelectSubset<T, EventCategoryUpdateArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventCategories.
+     * @param {EventCategoryDeleteManyArgs} args - Arguments to filter EventCategories to delete.
+     * @example
+     * // Delete a few EventCategories
+     * const { count } = await prisma.eventCategory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventCategoryDeleteManyArgs>(args?: SelectSubset<T, EventCategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventCategories
+     * const eventCategory = await prisma.eventCategory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventCategoryUpdateManyArgs>(args: SelectSubset<T, EventCategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventCategories and returns the data updated in the database.
+     * @param {EventCategoryUpdateManyAndReturnArgs} args - Arguments to update many EventCategories.
+     * @example
+     * // Update many EventCategories
+     * const eventCategory = await prisma.eventCategory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventCategories and only return the `id`
+     * const eventCategoryWithIdOnly = await prisma.eventCategory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventCategoryUpdateManyAndReturnArgs>(args: SelectSubset<T, EventCategoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventCategory.
+     * @param {EventCategoryUpsertArgs} args - Arguments to update or create a EventCategory.
+     * @example
+     * // Update or create a EventCategory
+     * const eventCategory = await prisma.eventCategory.upsert({
+     *   create: {
+     *     // ... data to create a EventCategory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventCategory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventCategoryUpsertArgs>(args: SelectSubset<T, EventCategoryUpsertArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventCategories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryCountArgs} args - Arguments to filter EventCategories to count.
+     * @example
+     * // Count the number of EventCategories
+     * const count = await prisma.eventCategory.count({
+     *   where: {
+     *     // ... the filter for the EventCategories we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventCategoryCountArgs>(
+      args?: Subset<T, EventCategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventCategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventCategoryAggregateArgs>(args: Subset<T, EventCategoryAggregateArgs>): Prisma.PrismaPromise<GetEventCategoryAggregateType<T>>
+
+    /**
+     * Group by EventCategory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventCategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventCategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventCategoryGroupByArgs['orderBy'] }
+        : { orderBy?: EventCategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventCategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventCategory model
+   */
+  readonly fields: EventCategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventCategory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    events<T extends EventCategory$eventsArgs<ExtArgs> = {}>(args?: Subset<T, EventCategory$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventCategory model
+   */
+  interface EventCategoryFieldRefs {
+    readonly id: FieldRef<"EventCategory", 'String'>
+    readonly name: FieldRef<"EventCategory", 'String'>
+    readonly slug: FieldRef<"EventCategory", 'String'>
+    readonly createdAt: FieldRef<"EventCategory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventCategory findUnique
+   */
+  export type EventCategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventCategory to fetch.
+     */
+    where: EventCategoryWhereUniqueInput
+  }
+
+  /**
+   * EventCategory findUniqueOrThrow
+   */
+  export type EventCategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventCategory to fetch.
+     */
+    where: EventCategoryWhereUniqueInput
+  }
+
+  /**
+   * EventCategory findFirst
+   */
+  export type EventCategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventCategory to fetch.
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventCategories to fetch.
+     */
+    orderBy?: EventCategoryOrderByWithRelationInput | EventCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventCategories.
+     */
+    cursor?: EventCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventCategories.
+     */
+    distinct?: EventCategoryScalarFieldEnum | EventCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EventCategory findFirstOrThrow
+   */
+  export type EventCategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventCategory to fetch.
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventCategories to fetch.
+     */
+    orderBy?: EventCategoryOrderByWithRelationInput | EventCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventCategories.
+     */
+    cursor?: EventCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventCategories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventCategories.
+     */
+    distinct?: EventCategoryScalarFieldEnum | EventCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EventCategory findMany
+   */
+  export type EventCategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventCategories to fetch.
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventCategories to fetch.
+     */
+    orderBy?: EventCategoryOrderByWithRelationInput | EventCategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventCategories.
+     */
+    cursor?: EventCategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventCategories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventCategories.
+     */
+    skip?: number
+    distinct?: EventCategoryScalarFieldEnum | EventCategoryScalarFieldEnum[]
+  }
+
+  /**
+   * EventCategory create
+   */
+  export type EventCategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventCategory.
+     */
+    data: XOR<EventCategoryCreateInput, EventCategoryUncheckedCreateInput>
+  }
+
+  /**
+   * EventCategory createMany
+   */
+  export type EventCategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventCategories.
+     */
+    data: EventCategoryCreateManyInput | EventCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventCategory createManyAndReturn
+   */
+  export type EventCategoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventCategories.
+     */
+    data: EventCategoryCreateManyInput | EventCategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventCategory update
+   */
+  export type EventCategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventCategory.
+     */
+    data: XOR<EventCategoryUpdateInput, EventCategoryUncheckedUpdateInput>
+    /**
+     * Choose, which EventCategory to update.
+     */
+    where: EventCategoryWhereUniqueInput
+  }
+
+  /**
+   * EventCategory updateMany
+   */
+  export type EventCategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventCategories.
+     */
+    data: XOR<EventCategoryUpdateManyMutationInput, EventCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which EventCategories to update
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * Limit how many EventCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventCategory updateManyAndReturn
+   */
+  export type EventCategoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * The data used to update EventCategories.
+     */
+    data: XOR<EventCategoryUpdateManyMutationInput, EventCategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which EventCategories to update
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * Limit how many EventCategories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventCategory upsert
+   */
+  export type EventCategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventCategory to update in case it exists.
+     */
+    where: EventCategoryWhereUniqueInput
+    /**
+     * In case the EventCategory found by the `where` argument doesn't exist, create a new EventCategory with this data.
+     */
+    create: XOR<EventCategoryCreateInput, EventCategoryUncheckedCreateInput>
+    /**
+     * In case the EventCategory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventCategoryUpdateInput, EventCategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * EventCategory delete
+   */
+  export type EventCategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    /**
+     * Filter which EventCategory to delete.
+     */
+    where: EventCategoryWhereUniqueInput
+  }
+
+  /**
+   * EventCategory deleteMany
+   */
+  export type EventCategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventCategories to delete
+     */
+    where?: EventCategoryWhereInput
+    /**
+     * Limit how many EventCategories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventCategory.events
+   */
+  export type EventCategory$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CampusEvent
+     */
+    select?: CampusEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CampusEvent
+     */
+    omit?: CampusEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CampusEventInclude<ExtArgs> | null
+    where?: CampusEventWhereInput
+    orderBy?: CampusEventOrderByWithRelationInput | CampusEventOrderByWithRelationInput[]
+    cursor?: CampusEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CampusEventScalarFieldEnum | CampusEventScalarFieldEnum[]
+  }
+
+  /**
+   * EventCategory without action
+   */
+  export type EventCategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model CampusEvent
    */
 
   export type AggregateCampusEvent = {
     _count: CampusEventCountAggregateOutputType | null
+    _avg: CampusEventAvgAggregateOutputType | null
+    _sum: CampusEventSumAggregateOutputType | null
     _min: CampusEventMinAggregateOutputType | null
     _max: CampusEventMaxAggregateOutputType | null
+  }
+
+  export type CampusEventAvgAggregateOutputType = {
+    capacity: number | null
+  }
+
+  export type CampusEventSumAggregateOutputType = {
+    capacity: number | null
   }
 
   export type CampusEventMinAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    slug: string | null
+    shortDescription: string | null
+    fullDescription: string | null
+    rulesAndDiscipline: string | null
+    mealsAndHospitality: string | null
     startDate: Date | null
     endDate: Date | null
+    applicationDeadline: Date | null
     location: string | null
-    category: string | null
+    categoryId: string | null
+    categoryLabel: string | null
     isPublic: boolean | null
     allowRSVP: boolean | null
     branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
+    active: boolean | null
+    featuredImage: string | null
+    brochurePdf: string | null
+    capacity: number | null
+    registrationOpen: boolean | null
+    applicationFormEnabled: boolean | null
+    paymentRequired: boolean | null
   }
 
   export type CampusEventMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    slug: string | null
+    shortDescription: string | null
+    fullDescription: string | null
+    rulesAndDiscipline: string | null
+    mealsAndHospitality: string | null
     startDate: Date | null
     endDate: Date | null
+    applicationDeadline: Date | null
     location: string | null
-    category: string | null
+    categoryId: string | null
+    categoryLabel: string | null
     isPublic: boolean | null
     allowRSVP: boolean | null
     branchId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    status: string | null
+    active: boolean | null
+    featuredImage: string | null
+    brochurePdf: string | null
+    capacity: number | null
+    registrationOpen: boolean | null
+    applicationFormEnabled: boolean | null
+    paymentRequired: boolean | null
   }
 
   export type CampusEventCountAggregateOutputType = {
     id: number
     title: number
-    description: number
+    slug: number
+    shortDescription: number
+    fullDescription: number
+    objectives: number
+    rulesAndDiscipline: number
+    requirements: number
+    mealsAndHospitality: number
+    whyChooseThisEvent: number
     startDate: number
     endDate: number
+    applicationDeadline: number
     location: number
-    category: number
+    categoryId: number
+    categoryLabel: number
     isPublic: number
     allowRSVP: number
     branchId: number
     createdAt: number
     updatedAt: number
+    status: number
+    active: number
+    featuredImage: number
+    brochurePdf: number
+    capacity: number
+    registrationOpen: number
+    applicationFormEnabled: number
+    paymentRequired: number
+    seoMetadata: number
     _all: number
   }
 
 
+  export type CampusEventAvgAggregateInputType = {
+    capacity?: true
+  }
+
+  export type CampusEventSumAggregateInputType = {
+    capacity?: true
+  }
+
   export type CampusEventMinAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    slug?: true
+    shortDescription?: true
+    fullDescription?: true
+    rulesAndDiscipline?: true
+    mealsAndHospitality?: true
     startDate?: true
     endDate?: true
+    applicationDeadline?: true
     location?: true
-    category?: true
+    categoryId?: true
+    categoryLabel?: true
     isPublic?: true
     allowRSVP?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
+    active?: true
+    featuredImage?: true
+    brochurePdf?: true
+    capacity?: true
+    registrationOpen?: true
+    applicationFormEnabled?: true
+    paymentRequired?: true
   }
 
   export type CampusEventMaxAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    slug?: true
+    shortDescription?: true
+    fullDescription?: true
+    rulesAndDiscipline?: true
+    mealsAndHospitality?: true
     startDate?: true
     endDate?: true
+    applicationDeadline?: true
     location?: true
-    category?: true
+    categoryId?: true
+    categoryLabel?: true
     isPublic?: true
     allowRSVP?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
+    active?: true
+    featuredImage?: true
+    brochurePdf?: true
+    capacity?: true
+    registrationOpen?: true
+    applicationFormEnabled?: true
+    paymentRequired?: true
   }
 
   export type CampusEventCountAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    slug?: true
+    shortDescription?: true
+    fullDescription?: true
+    objectives?: true
+    rulesAndDiscipline?: true
+    requirements?: true
+    mealsAndHospitality?: true
+    whyChooseThisEvent?: true
     startDate?: true
     endDate?: true
+    applicationDeadline?: true
     location?: true
-    category?: true
+    categoryId?: true
+    categoryLabel?: true
     isPublic?: true
     allowRSVP?: true
     branchId?: true
     createdAt?: true
     updatedAt?: true
+    status?: true
+    active?: true
+    featuredImage?: true
+    brochurePdf?: true
+    capacity?: true
+    registrationOpen?: true
+    applicationFormEnabled?: true
+    paymentRequired?: true
+    seoMetadata?: true
     _all?: true
   }
 
@@ -147628,6 +149476,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CampusEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CampusEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CampusEventMinAggregateInputType
@@ -147658,6 +149518,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CampusEventCountAggregateInputType | true
+    _avg?: CampusEventAvgAggregateInputType
+    _sum?: CampusEventSumAggregateInputType
     _min?: CampusEventMinAggregateInputType
     _max?: CampusEventMaxAggregateInputType
   }
@@ -147665,17 +149527,37 @@ export namespace Prisma {
   export type CampusEventGroupByOutputType = {
     id: string
     title: string
-    description: string | null
+    slug: string
+    shortDescription: string | null
+    fullDescription: string | null
+    objectives: string[]
+    rulesAndDiscipline: string | null
+    requirements: string[]
+    mealsAndHospitality: string | null
+    whyChooseThisEvent: string[]
     startDate: Date
     endDate: Date
+    applicationDeadline: Date | null
     location: string | null
-    category: string
+    categoryId: string | null
+    categoryLabel: string
     isPublic: boolean
     allowRSVP: boolean
     branchId: string
     createdAt: Date
     updatedAt: Date
+    status: string
+    active: boolean
+    featuredImage: string | null
+    brochurePdf: string | null
+    capacity: number | null
+    registrationOpen: boolean
+    applicationFormEnabled: boolean
+    paymentRequired: boolean
+    seoMetadata: JsonValue | null
     _count: CampusEventCountAggregateOutputType | null
+    _avg: CampusEventAvgAggregateOutputType | null
+    _sum: CampusEventSumAggregateOutputType | null
     _min: CampusEventMinAggregateOutputType | null
     _max: CampusEventMaxAggregateOutputType | null
   }
@@ -147697,100 +149579,209 @@ export namespace Prisma {
   export type CampusEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    slug?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    objectives?: boolean
+    rulesAndDiscipline?: boolean
+    requirements?: boolean
+    mealsAndHospitality?: boolean
+    whyChooseThisEvent?: boolean
     startDate?: boolean
     endDate?: boolean
+    applicationDeadline?: boolean
     location?: boolean
-    category?: boolean
+    categoryId?: boolean
+    categoryLabel?: boolean
     isPublic?: boolean
     allowRSVP?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
+    active?: boolean
+    featuredImage?: boolean
+    brochurePdf?: boolean
+    capacity?: boolean
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: boolean
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     rsvps?: boolean | CampusEvent$rsvpsArgs<ExtArgs>
+    packages?: boolean | CampusEvent$packagesArgs<ExtArgs>
+    schedules?: boolean | CampusEvent$schedulesArgs<ExtArgs>
+    gallery?: boolean | CampusEvent$galleryArgs<ExtArgs>
+    applications?: boolean | CampusEvent$applicationsArgs<ExtArgs>
     _count?: boolean | CampusEventCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["campusEvent"]>
 
   export type CampusEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    slug?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    objectives?: boolean
+    rulesAndDiscipline?: boolean
+    requirements?: boolean
+    mealsAndHospitality?: boolean
+    whyChooseThisEvent?: boolean
     startDate?: boolean
     endDate?: boolean
+    applicationDeadline?: boolean
     location?: boolean
-    category?: boolean
+    categoryId?: boolean
+    categoryLabel?: boolean
     isPublic?: boolean
     allowRSVP?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
+    active?: boolean
+    featuredImage?: boolean
+    brochurePdf?: boolean
+    capacity?: boolean
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: boolean
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["campusEvent"]>
 
   export type CampusEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    slug?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    objectives?: boolean
+    rulesAndDiscipline?: boolean
+    requirements?: boolean
+    mealsAndHospitality?: boolean
+    whyChooseThisEvent?: boolean
     startDate?: boolean
     endDate?: boolean
+    applicationDeadline?: boolean
     location?: boolean
-    category?: boolean
+    categoryId?: boolean
+    categoryLabel?: boolean
     isPublic?: boolean
     allowRSVP?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
+    active?: boolean
+    featuredImage?: boolean
+    brochurePdf?: boolean
+    capacity?: boolean
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: boolean
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["campusEvent"]>
 
   export type CampusEventSelectScalar = {
     id?: boolean
     title?: boolean
-    description?: boolean
+    slug?: boolean
+    shortDescription?: boolean
+    fullDescription?: boolean
+    objectives?: boolean
+    rulesAndDiscipline?: boolean
+    requirements?: boolean
+    mealsAndHospitality?: boolean
+    whyChooseThisEvent?: boolean
     startDate?: boolean
     endDate?: boolean
+    applicationDeadline?: boolean
     location?: boolean
-    category?: boolean
+    categoryId?: boolean
+    categoryLabel?: boolean
     isPublic?: boolean
     allowRSVP?: boolean
     branchId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    status?: boolean
+    active?: boolean
+    featuredImage?: boolean
+    brochurePdf?: boolean
+    capacity?: boolean
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: boolean
   }
 
-  export type CampusEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "startDate" | "endDate" | "location" | "category" | "isPublic" | "allowRSVP" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["campusEvent"]>
+  export type CampusEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "shortDescription" | "fullDescription" | "objectives" | "rulesAndDiscipline" | "requirements" | "mealsAndHospitality" | "whyChooseThisEvent" | "startDate" | "endDate" | "applicationDeadline" | "location" | "categoryId" | "categoryLabel" | "isPublic" | "allowRSVP" | "branchId" | "createdAt" | "updatedAt" | "status" | "active" | "featuredImage" | "brochurePdf" | "capacity" | "registrationOpen" | "applicationFormEnabled" | "paymentRequired" | "seoMetadata", ExtArgs["result"]["campusEvent"]>
   export type CampusEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
     rsvps?: boolean | CampusEvent$rsvpsArgs<ExtArgs>
+    packages?: boolean | CampusEvent$packagesArgs<ExtArgs>
+    schedules?: boolean | CampusEvent$schedulesArgs<ExtArgs>
+    gallery?: boolean | CampusEvent$galleryArgs<ExtArgs>
+    applications?: boolean | CampusEvent$applicationsArgs<ExtArgs>
     _count?: boolean | CampusEventCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CampusEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type CampusEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CampusEvent$categoryArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
 
   export type $CampusEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CampusEvent"
     objects: {
+      category: Prisma.$EventCategoryPayload<ExtArgs> | null
       branch: Prisma.$BranchPayload<ExtArgs>
       rsvps: Prisma.$EventRSVPPayload<ExtArgs>[]
+      packages: Prisma.$EventPackagePayload<ExtArgs>[]
+      schedules: Prisma.$EventSchedulePayload<ExtArgs>[]
+      gallery: Prisma.$EventGalleryPayload<ExtArgs>[]
+      applications: Prisma.$EventApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      description: string | null
+      slug: string
+      shortDescription: string | null
+      fullDescription: string | null
+      objectives: string[]
+      rulesAndDiscipline: string | null
+      requirements: string[]
+      mealsAndHospitality: string | null
+      whyChooseThisEvent: string[]
       startDate: Date
       endDate: Date
+      applicationDeadline: Date | null
       location: string | null
-      category: string
+      categoryId: string | null
+      categoryLabel: string
       isPublic: boolean
       allowRSVP: boolean
       branchId: string
       createdAt: Date
       updatedAt: Date
+      status: string
+      active: boolean
+      featuredImage: string | null
+      brochurePdf: string | null
+      capacity: number | null
+      registrationOpen: boolean
+      applicationFormEnabled: boolean
+      paymentRequired: boolean
+      seoMetadata: Prisma.JsonValue | null
     }, ExtArgs["result"]["campusEvent"]>
     composites: {}
   }
@@ -148185,8 +150176,13 @@ export namespace Prisma {
    */
   export interface Prisma__CampusEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends CampusEvent$categoryArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$categoryArgs<ExtArgs>>): Prisma__EventCategoryClient<$Result.GetResult<Prisma.$EventCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     rsvps<T extends CampusEvent$rsvpsArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$rsvpsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventRSVPPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    packages<T extends CampusEvent$packagesArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$packagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    schedules<T extends CampusEvent$schedulesArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gallery<T extends CampusEvent$galleryArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$galleryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    applications<T extends CampusEvent$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, CampusEvent$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -148218,16 +150214,34 @@ export namespace Prisma {
   interface CampusEventFieldRefs {
     readonly id: FieldRef<"CampusEvent", 'String'>
     readonly title: FieldRef<"CampusEvent", 'String'>
-    readonly description: FieldRef<"CampusEvent", 'String'>
+    readonly slug: FieldRef<"CampusEvent", 'String'>
+    readonly shortDescription: FieldRef<"CampusEvent", 'String'>
+    readonly fullDescription: FieldRef<"CampusEvent", 'String'>
+    readonly objectives: FieldRef<"CampusEvent", 'String[]'>
+    readonly rulesAndDiscipline: FieldRef<"CampusEvent", 'String'>
+    readonly requirements: FieldRef<"CampusEvent", 'String[]'>
+    readonly mealsAndHospitality: FieldRef<"CampusEvent", 'String'>
+    readonly whyChooseThisEvent: FieldRef<"CampusEvent", 'String[]'>
     readonly startDate: FieldRef<"CampusEvent", 'DateTime'>
     readonly endDate: FieldRef<"CampusEvent", 'DateTime'>
+    readonly applicationDeadline: FieldRef<"CampusEvent", 'DateTime'>
     readonly location: FieldRef<"CampusEvent", 'String'>
-    readonly category: FieldRef<"CampusEvent", 'String'>
+    readonly categoryId: FieldRef<"CampusEvent", 'String'>
+    readonly categoryLabel: FieldRef<"CampusEvent", 'String'>
     readonly isPublic: FieldRef<"CampusEvent", 'Boolean'>
     readonly allowRSVP: FieldRef<"CampusEvent", 'Boolean'>
     readonly branchId: FieldRef<"CampusEvent", 'String'>
     readonly createdAt: FieldRef<"CampusEvent", 'DateTime'>
     readonly updatedAt: FieldRef<"CampusEvent", 'DateTime'>
+    readonly status: FieldRef<"CampusEvent", 'String'>
+    readonly active: FieldRef<"CampusEvent", 'Boolean'>
+    readonly featuredImage: FieldRef<"CampusEvent", 'String'>
+    readonly brochurePdf: FieldRef<"CampusEvent", 'String'>
+    readonly capacity: FieldRef<"CampusEvent", 'Int'>
+    readonly registrationOpen: FieldRef<"CampusEvent", 'Boolean'>
+    readonly applicationFormEnabled: FieldRef<"CampusEvent", 'Boolean'>
+    readonly paymentRequired: FieldRef<"CampusEvent", 'Boolean'>
+    readonly seoMetadata: FieldRef<"CampusEvent", 'Json'>
   }
     
 
@@ -148624,6 +150638,25 @@ export namespace Prisma {
   }
 
   /**
+   * CampusEvent.category
+   */
+  export type CampusEvent$categoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventCategory
+     */
+    select?: EventCategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventCategory
+     */
+    omit?: EventCategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventCategoryInclude<ExtArgs> | null
+    where?: EventCategoryWhereInput
+  }
+
+  /**
    * CampusEvent.rsvps
    */
   export type CampusEvent$rsvpsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -148648,6 +150681,102 @@ export namespace Prisma {
   }
 
   /**
+   * CampusEvent.packages
+   */
+  export type CampusEvent$packagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    where?: EventPackageWhereInput
+    orderBy?: EventPackageOrderByWithRelationInput | EventPackageOrderByWithRelationInput[]
+    cursor?: EventPackageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventPackageScalarFieldEnum | EventPackageScalarFieldEnum[]
+  }
+
+  /**
+   * CampusEvent.schedules
+   */
+  export type CampusEvent$schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    where?: EventScheduleWhereInput
+    orderBy?: EventScheduleOrderByWithRelationInput | EventScheduleOrderByWithRelationInput[]
+    cursor?: EventScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventScheduleScalarFieldEnum | EventScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * CampusEvent.gallery
+   */
+  export type CampusEvent$galleryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    where?: EventGalleryWhereInput
+    orderBy?: EventGalleryOrderByWithRelationInput | EventGalleryOrderByWithRelationInput[]
+    cursor?: EventGalleryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventGalleryScalarFieldEnum | EventGalleryScalarFieldEnum[]
+  }
+
+  /**
+   * CampusEvent.applications
+   */
+  export type CampusEvent$applicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    where?: EventApplicationWhereInput
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    cursor?: EventApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
+  }
+
+  /**
    * CampusEvent without action
    */
   export type CampusEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -148663,6 +150792,4933 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CampusEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EventPackage
+   */
+
+  export type AggregateEventPackage = {
+    _count: EventPackageCountAggregateOutputType | null
+    _avg: EventPackageAvgAggregateOutputType | null
+    _sum: EventPackageSumAggregateOutputType | null
+    _min: EventPackageMinAggregateOutputType | null
+    _max: EventPackageMaxAggregateOutputType | null
+  }
+
+  export type EventPackageAvgAggregateOutputType = {
+    fee: Decimal | null
+    availableSlots: number | null
+  }
+
+  export type EventPackageSumAggregateOutputType = {
+    fee: Decimal | null
+    availableSlots: number | null
+  }
+
+  export type EventPackageMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    title: string | null
+    ageRange: string | null
+    timing: string | null
+    fee: Decimal | null
+    boardingType: string | null
+    availableSlots: number | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventPackageMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    title: string | null
+    ageRange: string | null
+    timing: string | null
+    fee: Decimal | null
+    boardingType: string | null
+    availableSlots: number | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventPackageCountAggregateOutputType = {
+    id: number
+    eventId: number
+    title: number
+    ageRange: number
+    timing: number
+    fee: number
+    boardingType: number
+    availableSlots: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventPackageAvgAggregateInputType = {
+    fee?: true
+    availableSlots?: true
+  }
+
+  export type EventPackageSumAggregateInputType = {
+    fee?: true
+    availableSlots?: true
+  }
+
+  export type EventPackageMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    title?: true
+    ageRange?: true
+    timing?: true
+    fee?: true
+    boardingType?: true
+    availableSlots?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventPackageMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    title?: true
+    ageRange?: true
+    timing?: true
+    fee?: true
+    boardingType?: true
+    availableSlots?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventPackageCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    title?: true
+    ageRange?: true
+    timing?: true
+    fee?: true
+    boardingType?: true
+    availableSlots?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventPackageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventPackage to aggregate.
+     */
+    where?: EventPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPackages to fetch.
+     */
+    orderBy?: EventPackageOrderByWithRelationInput | EventPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventPackages
+    **/
+    _count?: true | EventPackageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventPackageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventPackageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventPackageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventPackageMaxAggregateInputType
+  }
+
+  export type GetEventPackageAggregateType<T extends EventPackageAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventPackage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventPackage[P]>
+      : GetScalarType<T[P], AggregateEventPackage[P]>
+  }
+
+
+
+
+  export type EventPackageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventPackageWhereInput
+    orderBy?: EventPackageOrderByWithAggregationInput | EventPackageOrderByWithAggregationInput[]
+    by: EventPackageScalarFieldEnum[] | EventPackageScalarFieldEnum
+    having?: EventPackageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventPackageCountAggregateInputType | true
+    _avg?: EventPackageAvgAggregateInputType
+    _sum?: EventPackageSumAggregateInputType
+    _min?: EventPackageMinAggregateInputType
+    _max?: EventPackageMaxAggregateInputType
+  }
+
+  export type EventPackageGroupByOutputType = {
+    id: string
+    eventId: string
+    title: string
+    ageRange: string | null
+    timing: string | null
+    fee: Decimal
+    boardingType: string
+    availableSlots: number | null
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EventPackageCountAggregateOutputType | null
+    _avg: EventPackageAvgAggregateOutputType | null
+    _sum: EventPackageSumAggregateOutputType | null
+    _min: EventPackageMinAggregateOutputType | null
+    _max: EventPackageMaxAggregateOutputType | null
+  }
+
+  type GetEventPackageGroupByPayload<T extends EventPackageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventPackageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventPackageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventPackageGroupByOutputType[P]>
+            : GetScalarType<T[P], EventPackageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventPackageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    title?: boolean
+    ageRange?: boolean
+    timing?: boolean
+    fee?: boolean
+    boardingType?: boolean
+    availableSlots?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    applications?: boolean | EventPackage$applicationsArgs<ExtArgs>
+    _count?: boolean | EventPackageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPackage"]>
+
+  export type EventPackageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    title?: boolean
+    ageRange?: boolean
+    timing?: boolean
+    fee?: boolean
+    boardingType?: boolean
+    availableSlots?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPackage"]>
+
+  export type EventPackageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    title?: boolean
+    ageRange?: boolean
+    timing?: boolean
+    fee?: boolean
+    boardingType?: boolean
+    availableSlots?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPackage"]>
+
+  export type EventPackageSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    title?: boolean
+    ageRange?: boolean
+    timing?: boolean
+    fee?: boolean
+    boardingType?: boolean
+    availableSlots?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "title" | "ageRange" | "timing" | "fee" | "boardingType" | "availableSlots" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["eventPackage"]>
+  export type EventPackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    applications?: boolean | EventPackage$applicationsArgs<ExtArgs>
+    _count?: boolean | EventPackageCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EventPackageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+  export type EventPackageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+
+  export type $EventPackagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventPackage"
+    objects: {
+      event: Prisma.$CampusEventPayload<ExtArgs>
+      applications: Prisma.$EventApplicationPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      title: string
+      ageRange: string | null
+      timing: string | null
+      fee: Prisma.Decimal
+      boardingType: string
+      availableSlots: number | null
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eventPackage"]>
+    composites: {}
+  }
+
+  type EventPackageGetPayload<S extends boolean | null | undefined | EventPackageDefaultArgs> = $Result.GetResult<Prisma.$EventPackagePayload, S>
+
+  type EventPackageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventPackageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventPackageCountAggregateInputType | true
+    }
+
+  export interface EventPackageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventPackage'], meta: { name: 'EventPackage' } }
+    /**
+     * Find zero or one EventPackage that matches the filter.
+     * @param {EventPackageFindUniqueArgs} args - Arguments to find a EventPackage
+     * @example
+     * // Get one EventPackage
+     * const eventPackage = await prisma.eventPackage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventPackageFindUniqueArgs>(args: SelectSubset<T, EventPackageFindUniqueArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventPackage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventPackageFindUniqueOrThrowArgs} args - Arguments to find a EventPackage
+     * @example
+     * // Get one EventPackage
+     * const eventPackage = await prisma.eventPackage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventPackageFindUniqueOrThrowArgs>(args: SelectSubset<T, EventPackageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventPackage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageFindFirstArgs} args - Arguments to find a EventPackage
+     * @example
+     * // Get one EventPackage
+     * const eventPackage = await prisma.eventPackage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventPackageFindFirstArgs>(args?: SelectSubset<T, EventPackageFindFirstArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventPackage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageFindFirstOrThrowArgs} args - Arguments to find a EventPackage
+     * @example
+     * // Get one EventPackage
+     * const eventPackage = await prisma.eventPackage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventPackageFindFirstOrThrowArgs>(args?: SelectSubset<T, EventPackageFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventPackages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventPackages
+     * const eventPackages = await prisma.eventPackage.findMany()
+     * 
+     * // Get first 10 EventPackages
+     * const eventPackages = await prisma.eventPackage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventPackageWithIdOnly = await prisma.eventPackage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventPackageFindManyArgs>(args?: SelectSubset<T, EventPackageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventPackage.
+     * @param {EventPackageCreateArgs} args - Arguments to create a EventPackage.
+     * @example
+     * // Create one EventPackage
+     * const EventPackage = await prisma.eventPackage.create({
+     *   data: {
+     *     // ... data to create a EventPackage
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventPackageCreateArgs>(args: SelectSubset<T, EventPackageCreateArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventPackages.
+     * @param {EventPackageCreateManyArgs} args - Arguments to create many EventPackages.
+     * @example
+     * // Create many EventPackages
+     * const eventPackage = await prisma.eventPackage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventPackageCreateManyArgs>(args?: SelectSubset<T, EventPackageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventPackages and returns the data saved in the database.
+     * @param {EventPackageCreateManyAndReturnArgs} args - Arguments to create many EventPackages.
+     * @example
+     * // Create many EventPackages
+     * const eventPackage = await prisma.eventPackage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventPackages and only return the `id`
+     * const eventPackageWithIdOnly = await prisma.eventPackage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventPackageCreateManyAndReturnArgs>(args?: SelectSubset<T, EventPackageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventPackage.
+     * @param {EventPackageDeleteArgs} args - Arguments to delete one EventPackage.
+     * @example
+     * // Delete one EventPackage
+     * const EventPackage = await prisma.eventPackage.delete({
+     *   where: {
+     *     // ... filter to delete one EventPackage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventPackageDeleteArgs>(args: SelectSubset<T, EventPackageDeleteArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventPackage.
+     * @param {EventPackageUpdateArgs} args - Arguments to update one EventPackage.
+     * @example
+     * // Update one EventPackage
+     * const eventPackage = await prisma.eventPackage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventPackageUpdateArgs>(args: SelectSubset<T, EventPackageUpdateArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventPackages.
+     * @param {EventPackageDeleteManyArgs} args - Arguments to filter EventPackages to delete.
+     * @example
+     * // Delete a few EventPackages
+     * const { count } = await prisma.eventPackage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventPackageDeleteManyArgs>(args?: SelectSubset<T, EventPackageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventPackages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventPackages
+     * const eventPackage = await prisma.eventPackage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventPackageUpdateManyArgs>(args: SelectSubset<T, EventPackageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventPackages and returns the data updated in the database.
+     * @param {EventPackageUpdateManyAndReturnArgs} args - Arguments to update many EventPackages.
+     * @example
+     * // Update many EventPackages
+     * const eventPackage = await prisma.eventPackage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventPackages and only return the `id`
+     * const eventPackageWithIdOnly = await prisma.eventPackage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventPackageUpdateManyAndReturnArgs>(args: SelectSubset<T, EventPackageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventPackage.
+     * @param {EventPackageUpsertArgs} args - Arguments to update or create a EventPackage.
+     * @example
+     * // Update or create a EventPackage
+     * const eventPackage = await prisma.eventPackage.upsert({
+     *   create: {
+     *     // ... data to create a EventPackage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventPackage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventPackageUpsertArgs>(args: SelectSubset<T, EventPackageUpsertArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventPackages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageCountArgs} args - Arguments to filter EventPackages to count.
+     * @example
+     * // Count the number of EventPackages
+     * const count = await prisma.eventPackage.count({
+     *   where: {
+     *     // ... the filter for the EventPackages we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventPackageCountArgs>(
+      args?: Subset<T, EventPackageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventPackageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventPackage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventPackageAggregateArgs>(args: Subset<T, EventPackageAggregateArgs>): Prisma.PrismaPromise<GetEventPackageAggregateType<T>>
+
+    /**
+     * Group by EventPackage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPackageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventPackageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventPackageGroupByArgs['orderBy'] }
+        : { orderBy?: EventPackageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventPackageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventPackageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventPackage model
+   */
+  readonly fields: EventPackageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventPackage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventPackageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends CampusEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CampusEventDefaultArgs<ExtArgs>>): Prisma__CampusEventClient<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    applications<T extends EventPackage$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, EventPackage$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventPackage model
+   */
+  interface EventPackageFieldRefs {
+    readonly id: FieldRef<"EventPackage", 'String'>
+    readonly eventId: FieldRef<"EventPackage", 'String'>
+    readonly title: FieldRef<"EventPackage", 'String'>
+    readonly ageRange: FieldRef<"EventPackage", 'String'>
+    readonly timing: FieldRef<"EventPackage", 'String'>
+    readonly fee: FieldRef<"EventPackage", 'Decimal'>
+    readonly boardingType: FieldRef<"EventPackage", 'String'>
+    readonly availableSlots: FieldRef<"EventPackage", 'Int'>
+    readonly description: FieldRef<"EventPackage", 'String'>
+    readonly createdAt: FieldRef<"EventPackage", 'DateTime'>
+    readonly updatedAt: FieldRef<"EventPackage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventPackage findUnique
+   */
+  export type EventPackageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPackage to fetch.
+     */
+    where: EventPackageWhereUniqueInput
+  }
+
+  /**
+   * EventPackage findUniqueOrThrow
+   */
+  export type EventPackageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPackage to fetch.
+     */
+    where: EventPackageWhereUniqueInput
+  }
+
+  /**
+   * EventPackage findFirst
+   */
+  export type EventPackageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPackage to fetch.
+     */
+    where?: EventPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPackages to fetch.
+     */
+    orderBy?: EventPackageOrderByWithRelationInput | EventPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventPackages.
+     */
+    cursor?: EventPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventPackages.
+     */
+    distinct?: EventPackageScalarFieldEnum | EventPackageScalarFieldEnum[]
+  }
+
+  /**
+   * EventPackage findFirstOrThrow
+   */
+  export type EventPackageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPackage to fetch.
+     */
+    where?: EventPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPackages to fetch.
+     */
+    orderBy?: EventPackageOrderByWithRelationInput | EventPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventPackages.
+     */
+    cursor?: EventPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPackages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventPackages.
+     */
+    distinct?: EventPackageScalarFieldEnum | EventPackageScalarFieldEnum[]
+  }
+
+  /**
+   * EventPackage findMany
+   */
+  export type EventPackageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPackages to fetch.
+     */
+    where?: EventPackageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPackages to fetch.
+     */
+    orderBy?: EventPackageOrderByWithRelationInput | EventPackageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventPackages.
+     */
+    cursor?: EventPackageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPackages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPackages.
+     */
+    skip?: number
+    distinct?: EventPackageScalarFieldEnum | EventPackageScalarFieldEnum[]
+  }
+
+  /**
+   * EventPackage create
+   */
+  export type EventPackageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventPackage.
+     */
+    data: XOR<EventPackageCreateInput, EventPackageUncheckedCreateInput>
+  }
+
+  /**
+   * EventPackage createMany
+   */
+  export type EventPackageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventPackages.
+     */
+    data: EventPackageCreateManyInput | EventPackageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventPackage createManyAndReturn
+   */
+  export type EventPackageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventPackages.
+     */
+    data: EventPackageCreateManyInput | EventPackageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventPackage update
+   */
+  export type EventPackageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventPackage.
+     */
+    data: XOR<EventPackageUpdateInput, EventPackageUncheckedUpdateInput>
+    /**
+     * Choose, which EventPackage to update.
+     */
+    where: EventPackageWhereUniqueInput
+  }
+
+  /**
+   * EventPackage updateMany
+   */
+  export type EventPackageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventPackages.
+     */
+    data: XOR<EventPackageUpdateManyMutationInput, EventPackageUncheckedUpdateManyInput>
+    /**
+     * Filter which EventPackages to update
+     */
+    where?: EventPackageWhereInput
+    /**
+     * Limit how many EventPackages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventPackage updateManyAndReturn
+   */
+  export type EventPackageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * The data used to update EventPackages.
+     */
+    data: XOR<EventPackageUpdateManyMutationInput, EventPackageUncheckedUpdateManyInput>
+    /**
+     * Filter which EventPackages to update
+     */
+    where?: EventPackageWhereInput
+    /**
+     * Limit how many EventPackages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventPackage upsert
+   */
+  export type EventPackageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventPackage to update in case it exists.
+     */
+    where: EventPackageWhereUniqueInput
+    /**
+     * In case the EventPackage found by the `where` argument doesn't exist, create a new EventPackage with this data.
+     */
+    create: XOR<EventPackageCreateInput, EventPackageUncheckedCreateInput>
+    /**
+     * In case the EventPackage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventPackageUpdateInput, EventPackageUncheckedUpdateInput>
+  }
+
+  /**
+   * EventPackage delete
+   */
+  export type EventPackageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+    /**
+     * Filter which EventPackage to delete.
+     */
+    where: EventPackageWhereUniqueInput
+  }
+
+  /**
+   * EventPackage deleteMany
+   */
+  export type EventPackageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventPackages to delete
+     */
+    where?: EventPackageWhereInput
+    /**
+     * Limit how many EventPackages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventPackage.applications
+   */
+  export type EventPackage$applicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    where?: EventApplicationWhereInput
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    cursor?: EventApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * EventPackage without action
+   */
+  export type EventPackageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPackage
+     */
+    select?: EventPackageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPackage
+     */
+    omit?: EventPackageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPackageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EventSchedule
+   */
+
+  export type AggregateEventSchedule = {
+    _count: EventScheduleCountAggregateOutputType | null
+    _min: EventScheduleMinAggregateOutputType | null
+    _max: EventScheduleMaxAggregateOutputType | null
+  }
+
+  export type EventScheduleMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    day: string | null
+    period: string | null
+    startTime: string | null
+    endTime: string | null
+    activity: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventScheduleMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    day: string | null
+    period: string | null
+    startTime: string | null
+    endTime: string | null
+    activity: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventScheduleCountAggregateOutputType = {
+    id: number
+    eventId: number
+    day: number
+    period: number
+    startTime: number
+    endTime: number
+    activity: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventScheduleMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    day?: true
+    period?: true
+    startTime?: true
+    endTime?: true
+    activity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventScheduleMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    day?: true
+    period?: true
+    startTime?: true
+    endTime?: true
+    activity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventScheduleCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    day?: true
+    period?: true
+    startTime?: true
+    endTime?: true
+    activity?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventScheduleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventSchedule to aggregate.
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventSchedules to fetch.
+     */
+    orderBy?: EventScheduleOrderByWithRelationInput | EventScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventSchedules
+    **/
+    _count?: true | EventScheduleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventScheduleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventScheduleMaxAggregateInputType
+  }
+
+  export type GetEventScheduleAggregateType<T extends EventScheduleAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventSchedule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventSchedule[P]>
+      : GetScalarType<T[P], AggregateEventSchedule[P]>
+  }
+
+
+
+
+  export type EventScheduleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventScheduleWhereInput
+    orderBy?: EventScheduleOrderByWithAggregationInput | EventScheduleOrderByWithAggregationInput[]
+    by: EventScheduleScalarFieldEnum[] | EventScheduleScalarFieldEnum
+    having?: EventScheduleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventScheduleCountAggregateInputType | true
+    _min?: EventScheduleMinAggregateInputType
+    _max?: EventScheduleMaxAggregateInputType
+  }
+
+  export type EventScheduleGroupByOutputType = {
+    id: string
+    eventId: string
+    day: string
+    period: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt: Date
+    updatedAt: Date
+    _count: EventScheduleCountAggregateOutputType | null
+    _min: EventScheduleMinAggregateOutputType | null
+    _max: EventScheduleMaxAggregateOutputType | null
+  }
+
+  type GetEventScheduleGroupByPayload<T extends EventScheduleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventScheduleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventScheduleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventScheduleGroupByOutputType[P]>
+            : GetScalarType<T[P], EventScheduleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventScheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    day?: boolean
+    period?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    activity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventSchedule"]>
+
+  export type EventScheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    day?: boolean
+    period?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    activity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventSchedule"]>
+
+  export type EventScheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    day?: boolean
+    period?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    activity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventSchedule"]>
+
+  export type EventScheduleSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    day?: boolean
+    period?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    activity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "day" | "period" | "startTime" | "endTime" | "activity" | "createdAt" | "updatedAt", ExtArgs["result"]["eventSchedule"]>
+  export type EventScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+  export type EventScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+  export type EventScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+
+  export type $EventSchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventSchedule"
+    objects: {
+      event: Prisma.$CampusEventPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      day: string
+      period: string | null
+      startTime: string
+      endTime: string
+      activity: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eventSchedule"]>
+    composites: {}
+  }
+
+  type EventScheduleGetPayload<S extends boolean | null | undefined | EventScheduleDefaultArgs> = $Result.GetResult<Prisma.$EventSchedulePayload, S>
+
+  type EventScheduleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventScheduleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventScheduleCountAggregateInputType | true
+    }
+
+  export interface EventScheduleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventSchedule'], meta: { name: 'EventSchedule' } }
+    /**
+     * Find zero or one EventSchedule that matches the filter.
+     * @param {EventScheduleFindUniqueArgs} args - Arguments to find a EventSchedule
+     * @example
+     * // Get one EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventScheduleFindUniqueArgs>(args: SelectSubset<T, EventScheduleFindUniqueArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventSchedule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventScheduleFindUniqueOrThrowArgs} args - Arguments to find a EventSchedule
+     * @example
+     * // Get one EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventScheduleFindUniqueOrThrowArgs>(args: SelectSubset<T, EventScheduleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventSchedule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleFindFirstArgs} args - Arguments to find a EventSchedule
+     * @example
+     * // Get one EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventScheduleFindFirstArgs>(args?: SelectSubset<T, EventScheduleFindFirstArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventSchedule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleFindFirstOrThrowArgs} args - Arguments to find a EventSchedule
+     * @example
+     * // Get one EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventScheduleFindFirstOrThrowArgs>(args?: SelectSubset<T, EventScheduleFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventSchedules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventSchedules
+     * const eventSchedules = await prisma.eventSchedule.findMany()
+     * 
+     * // Get first 10 EventSchedules
+     * const eventSchedules = await prisma.eventSchedule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventScheduleWithIdOnly = await prisma.eventSchedule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventScheduleFindManyArgs>(args?: SelectSubset<T, EventScheduleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventSchedule.
+     * @param {EventScheduleCreateArgs} args - Arguments to create a EventSchedule.
+     * @example
+     * // Create one EventSchedule
+     * const EventSchedule = await prisma.eventSchedule.create({
+     *   data: {
+     *     // ... data to create a EventSchedule
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventScheduleCreateArgs>(args: SelectSubset<T, EventScheduleCreateArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventSchedules.
+     * @param {EventScheduleCreateManyArgs} args - Arguments to create many EventSchedules.
+     * @example
+     * // Create many EventSchedules
+     * const eventSchedule = await prisma.eventSchedule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventScheduleCreateManyArgs>(args?: SelectSubset<T, EventScheduleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventSchedules and returns the data saved in the database.
+     * @param {EventScheduleCreateManyAndReturnArgs} args - Arguments to create many EventSchedules.
+     * @example
+     * // Create many EventSchedules
+     * const eventSchedule = await prisma.eventSchedule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventSchedules and only return the `id`
+     * const eventScheduleWithIdOnly = await prisma.eventSchedule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventScheduleCreateManyAndReturnArgs>(args?: SelectSubset<T, EventScheduleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventSchedule.
+     * @param {EventScheduleDeleteArgs} args - Arguments to delete one EventSchedule.
+     * @example
+     * // Delete one EventSchedule
+     * const EventSchedule = await prisma.eventSchedule.delete({
+     *   where: {
+     *     // ... filter to delete one EventSchedule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventScheduleDeleteArgs>(args: SelectSubset<T, EventScheduleDeleteArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventSchedule.
+     * @param {EventScheduleUpdateArgs} args - Arguments to update one EventSchedule.
+     * @example
+     * // Update one EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventScheduleUpdateArgs>(args: SelectSubset<T, EventScheduleUpdateArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventSchedules.
+     * @param {EventScheduleDeleteManyArgs} args - Arguments to filter EventSchedules to delete.
+     * @example
+     * // Delete a few EventSchedules
+     * const { count } = await prisma.eventSchedule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventScheduleDeleteManyArgs>(args?: SelectSubset<T, EventScheduleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventSchedules
+     * const eventSchedule = await prisma.eventSchedule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventScheduleUpdateManyArgs>(args: SelectSubset<T, EventScheduleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventSchedules and returns the data updated in the database.
+     * @param {EventScheduleUpdateManyAndReturnArgs} args - Arguments to update many EventSchedules.
+     * @example
+     * // Update many EventSchedules
+     * const eventSchedule = await prisma.eventSchedule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventSchedules and only return the `id`
+     * const eventScheduleWithIdOnly = await prisma.eventSchedule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventScheduleUpdateManyAndReturnArgs>(args: SelectSubset<T, EventScheduleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventSchedule.
+     * @param {EventScheduleUpsertArgs} args - Arguments to update or create a EventSchedule.
+     * @example
+     * // Update or create a EventSchedule
+     * const eventSchedule = await prisma.eventSchedule.upsert({
+     *   create: {
+     *     // ... data to create a EventSchedule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventSchedule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventScheduleUpsertArgs>(args: SelectSubset<T, EventScheduleUpsertArgs<ExtArgs>>): Prisma__EventScheduleClient<$Result.GetResult<Prisma.$EventSchedulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleCountArgs} args - Arguments to filter EventSchedules to count.
+     * @example
+     * // Count the number of EventSchedules
+     * const count = await prisma.eventSchedule.count({
+     *   where: {
+     *     // ... the filter for the EventSchedules we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventScheduleCountArgs>(
+      args?: Subset<T, EventScheduleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventScheduleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventScheduleAggregateArgs>(args: Subset<T, EventScheduleAggregateArgs>): Prisma.PrismaPromise<GetEventScheduleAggregateType<T>>
+
+    /**
+     * Group by EventSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventScheduleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventScheduleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventScheduleGroupByArgs['orderBy'] }
+        : { orderBy?: EventScheduleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventScheduleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventScheduleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventSchedule model
+   */
+  readonly fields: EventScheduleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventSchedule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends CampusEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CampusEventDefaultArgs<ExtArgs>>): Prisma__CampusEventClient<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventSchedule model
+   */
+  interface EventScheduleFieldRefs {
+    readonly id: FieldRef<"EventSchedule", 'String'>
+    readonly eventId: FieldRef<"EventSchedule", 'String'>
+    readonly day: FieldRef<"EventSchedule", 'String'>
+    readonly period: FieldRef<"EventSchedule", 'String'>
+    readonly startTime: FieldRef<"EventSchedule", 'String'>
+    readonly endTime: FieldRef<"EventSchedule", 'String'>
+    readonly activity: FieldRef<"EventSchedule", 'String'>
+    readonly createdAt: FieldRef<"EventSchedule", 'DateTime'>
+    readonly updatedAt: FieldRef<"EventSchedule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventSchedule findUnique
+   */
+  export type EventScheduleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which EventSchedule to fetch.
+     */
+    where: EventScheduleWhereUniqueInput
+  }
+
+  /**
+   * EventSchedule findUniqueOrThrow
+   */
+  export type EventScheduleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which EventSchedule to fetch.
+     */
+    where: EventScheduleWhereUniqueInput
+  }
+
+  /**
+   * EventSchedule findFirst
+   */
+  export type EventScheduleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which EventSchedule to fetch.
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventSchedules to fetch.
+     */
+    orderBy?: EventScheduleOrderByWithRelationInput | EventScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventSchedules.
+     */
+    cursor?: EventScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventSchedules.
+     */
+    distinct?: EventScheduleScalarFieldEnum | EventScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * EventSchedule findFirstOrThrow
+   */
+  export type EventScheduleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which EventSchedule to fetch.
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventSchedules to fetch.
+     */
+    orderBy?: EventScheduleOrderByWithRelationInput | EventScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventSchedules.
+     */
+    cursor?: EventScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventSchedules.
+     */
+    distinct?: EventScheduleScalarFieldEnum | EventScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * EventSchedule findMany
+   */
+  export type EventScheduleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which EventSchedules to fetch.
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventSchedules to fetch.
+     */
+    orderBy?: EventScheduleOrderByWithRelationInput | EventScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventSchedules.
+     */
+    cursor?: EventScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventSchedules.
+     */
+    skip?: number
+    distinct?: EventScheduleScalarFieldEnum | EventScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * EventSchedule create
+   */
+  export type EventScheduleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventSchedule.
+     */
+    data: XOR<EventScheduleCreateInput, EventScheduleUncheckedCreateInput>
+  }
+
+  /**
+   * EventSchedule createMany
+   */
+  export type EventScheduleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventSchedules.
+     */
+    data: EventScheduleCreateManyInput | EventScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventSchedule createManyAndReturn
+   */
+  export type EventScheduleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventSchedules.
+     */
+    data: EventScheduleCreateManyInput | EventScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventSchedule update
+   */
+  export type EventScheduleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventSchedule.
+     */
+    data: XOR<EventScheduleUpdateInput, EventScheduleUncheckedUpdateInput>
+    /**
+     * Choose, which EventSchedule to update.
+     */
+    where: EventScheduleWhereUniqueInput
+  }
+
+  /**
+   * EventSchedule updateMany
+   */
+  export type EventScheduleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventSchedules.
+     */
+    data: XOR<EventScheduleUpdateManyMutationInput, EventScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which EventSchedules to update
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * Limit how many EventSchedules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventSchedule updateManyAndReturn
+   */
+  export type EventScheduleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to update EventSchedules.
+     */
+    data: XOR<EventScheduleUpdateManyMutationInput, EventScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which EventSchedules to update
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * Limit how many EventSchedules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventSchedule upsert
+   */
+  export type EventScheduleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventSchedule to update in case it exists.
+     */
+    where: EventScheduleWhereUniqueInput
+    /**
+     * In case the EventSchedule found by the `where` argument doesn't exist, create a new EventSchedule with this data.
+     */
+    create: XOR<EventScheduleCreateInput, EventScheduleUncheckedCreateInput>
+    /**
+     * In case the EventSchedule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventScheduleUpdateInput, EventScheduleUncheckedUpdateInput>
+  }
+
+  /**
+   * EventSchedule delete
+   */
+  export type EventScheduleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+    /**
+     * Filter which EventSchedule to delete.
+     */
+    where: EventScheduleWhereUniqueInput
+  }
+
+  /**
+   * EventSchedule deleteMany
+   */
+  export type EventScheduleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventSchedules to delete
+     */
+    where?: EventScheduleWhereInput
+    /**
+     * Limit how many EventSchedules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventSchedule without action
+   */
+  export type EventScheduleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventSchedule
+     */
+    select?: EventScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventSchedule
+     */
+    omit?: EventScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventScheduleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EventGallery
+   */
+
+  export type AggregateEventGallery = {
+    _count: EventGalleryCountAggregateOutputType | null
+    _avg: EventGalleryAvgAggregateOutputType | null
+    _sum: EventGallerySumAggregateOutputType | null
+    _min: EventGalleryMinAggregateOutputType | null
+    _max: EventGalleryMaxAggregateOutputType | null
+  }
+
+  export type EventGalleryAvgAggregateOutputType = {
+    order: number | null
+  }
+
+  export type EventGallerySumAggregateOutputType = {
+    order: number | null
+  }
+
+  export type EventGalleryMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    imageUrl: string | null
+    isCover: boolean | null
+    order: number | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventGalleryMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    imageUrl: string | null
+    isCover: boolean | null
+    order: number | null
+    caption: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventGalleryCountAggregateOutputType = {
+    id: number
+    eventId: number
+    imageUrl: number
+    isCover: number
+    order: number
+    caption: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventGalleryAvgAggregateInputType = {
+    order?: true
+  }
+
+  export type EventGallerySumAggregateInputType = {
+    order?: true
+  }
+
+  export type EventGalleryMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    imageUrl?: true
+    isCover?: true
+    order?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventGalleryMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    imageUrl?: true
+    isCover?: true
+    order?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventGalleryCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    imageUrl?: true
+    isCover?: true
+    order?: true
+    caption?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventGalleryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventGallery to aggregate.
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventGalleries to fetch.
+     */
+    orderBy?: EventGalleryOrderByWithRelationInput | EventGalleryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventGalleryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventGalleries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventGalleries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventGalleries
+    **/
+    _count?: true | EventGalleryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventGalleryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventGallerySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventGalleryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventGalleryMaxAggregateInputType
+  }
+
+  export type GetEventGalleryAggregateType<T extends EventGalleryAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventGallery]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventGallery[P]>
+      : GetScalarType<T[P], AggregateEventGallery[P]>
+  }
+
+
+
+
+  export type EventGalleryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventGalleryWhereInput
+    orderBy?: EventGalleryOrderByWithAggregationInput | EventGalleryOrderByWithAggregationInput[]
+    by: EventGalleryScalarFieldEnum[] | EventGalleryScalarFieldEnum
+    having?: EventGalleryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventGalleryCountAggregateInputType | true
+    _avg?: EventGalleryAvgAggregateInputType
+    _sum?: EventGallerySumAggregateInputType
+    _min?: EventGalleryMinAggregateInputType
+    _max?: EventGalleryMaxAggregateInputType
+  }
+
+  export type EventGalleryGroupByOutputType = {
+    id: string
+    eventId: string
+    imageUrl: string
+    isCover: boolean
+    order: number
+    caption: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EventGalleryCountAggregateOutputType | null
+    _avg: EventGalleryAvgAggregateOutputType | null
+    _sum: EventGallerySumAggregateOutputType | null
+    _min: EventGalleryMinAggregateOutputType | null
+    _max: EventGalleryMaxAggregateOutputType | null
+  }
+
+  type GetEventGalleryGroupByPayload<T extends EventGalleryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventGalleryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventGalleryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventGalleryGroupByOutputType[P]>
+            : GetScalarType<T[P], EventGalleryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventGallerySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    imageUrl?: boolean
+    isCover?: boolean
+    order?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventGallery"]>
+
+  export type EventGallerySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    imageUrl?: boolean
+    isCover?: boolean
+    order?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventGallery"]>
+
+  export type EventGallerySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    imageUrl?: boolean
+    isCover?: boolean
+    order?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventGallery"]>
+
+  export type EventGallerySelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    imageUrl?: boolean
+    isCover?: boolean
+    order?: boolean
+    caption?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventGalleryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "imageUrl" | "isCover" | "order" | "caption" | "createdAt" | "updatedAt", ExtArgs["result"]["eventGallery"]>
+  export type EventGalleryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+  export type EventGalleryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+  export type EventGalleryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+  }
+
+  export type $EventGalleryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventGallery"
+    objects: {
+      event: Prisma.$CampusEventPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      imageUrl: string
+      isCover: boolean
+      order: number
+      caption: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eventGallery"]>
+    composites: {}
+  }
+
+  type EventGalleryGetPayload<S extends boolean | null | undefined | EventGalleryDefaultArgs> = $Result.GetResult<Prisma.$EventGalleryPayload, S>
+
+  type EventGalleryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventGalleryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventGalleryCountAggregateInputType | true
+    }
+
+  export interface EventGalleryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventGallery'], meta: { name: 'EventGallery' } }
+    /**
+     * Find zero or one EventGallery that matches the filter.
+     * @param {EventGalleryFindUniqueArgs} args - Arguments to find a EventGallery
+     * @example
+     * // Get one EventGallery
+     * const eventGallery = await prisma.eventGallery.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventGalleryFindUniqueArgs>(args: SelectSubset<T, EventGalleryFindUniqueArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventGallery that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventGalleryFindUniqueOrThrowArgs} args - Arguments to find a EventGallery
+     * @example
+     * // Get one EventGallery
+     * const eventGallery = await prisma.eventGallery.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventGalleryFindUniqueOrThrowArgs>(args: SelectSubset<T, EventGalleryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventGallery that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryFindFirstArgs} args - Arguments to find a EventGallery
+     * @example
+     * // Get one EventGallery
+     * const eventGallery = await prisma.eventGallery.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventGalleryFindFirstArgs>(args?: SelectSubset<T, EventGalleryFindFirstArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventGallery that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryFindFirstOrThrowArgs} args - Arguments to find a EventGallery
+     * @example
+     * // Get one EventGallery
+     * const eventGallery = await prisma.eventGallery.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventGalleryFindFirstOrThrowArgs>(args?: SelectSubset<T, EventGalleryFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventGalleries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventGalleries
+     * const eventGalleries = await prisma.eventGallery.findMany()
+     * 
+     * // Get first 10 EventGalleries
+     * const eventGalleries = await prisma.eventGallery.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventGalleryWithIdOnly = await prisma.eventGallery.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventGalleryFindManyArgs>(args?: SelectSubset<T, EventGalleryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventGallery.
+     * @param {EventGalleryCreateArgs} args - Arguments to create a EventGallery.
+     * @example
+     * // Create one EventGallery
+     * const EventGallery = await prisma.eventGallery.create({
+     *   data: {
+     *     // ... data to create a EventGallery
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventGalleryCreateArgs>(args: SelectSubset<T, EventGalleryCreateArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventGalleries.
+     * @param {EventGalleryCreateManyArgs} args - Arguments to create many EventGalleries.
+     * @example
+     * // Create many EventGalleries
+     * const eventGallery = await prisma.eventGallery.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventGalleryCreateManyArgs>(args?: SelectSubset<T, EventGalleryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventGalleries and returns the data saved in the database.
+     * @param {EventGalleryCreateManyAndReturnArgs} args - Arguments to create many EventGalleries.
+     * @example
+     * // Create many EventGalleries
+     * const eventGallery = await prisma.eventGallery.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventGalleries and only return the `id`
+     * const eventGalleryWithIdOnly = await prisma.eventGallery.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventGalleryCreateManyAndReturnArgs>(args?: SelectSubset<T, EventGalleryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventGallery.
+     * @param {EventGalleryDeleteArgs} args - Arguments to delete one EventGallery.
+     * @example
+     * // Delete one EventGallery
+     * const EventGallery = await prisma.eventGallery.delete({
+     *   where: {
+     *     // ... filter to delete one EventGallery
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventGalleryDeleteArgs>(args: SelectSubset<T, EventGalleryDeleteArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventGallery.
+     * @param {EventGalleryUpdateArgs} args - Arguments to update one EventGallery.
+     * @example
+     * // Update one EventGallery
+     * const eventGallery = await prisma.eventGallery.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventGalleryUpdateArgs>(args: SelectSubset<T, EventGalleryUpdateArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventGalleries.
+     * @param {EventGalleryDeleteManyArgs} args - Arguments to filter EventGalleries to delete.
+     * @example
+     * // Delete a few EventGalleries
+     * const { count } = await prisma.eventGallery.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventGalleryDeleteManyArgs>(args?: SelectSubset<T, EventGalleryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventGalleries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventGalleries
+     * const eventGallery = await prisma.eventGallery.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventGalleryUpdateManyArgs>(args: SelectSubset<T, EventGalleryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventGalleries and returns the data updated in the database.
+     * @param {EventGalleryUpdateManyAndReturnArgs} args - Arguments to update many EventGalleries.
+     * @example
+     * // Update many EventGalleries
+     * const eventGallery = await prisma.eventGallery.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventGalleries and only return the `id`
+     * const eventGalleryWithIdOnly = await prisma.eventGallery.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventGalleryUpdateManyAndReturnArgs>(args: SelectSubset<T, EventGalleryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventGallery.
+     * @param {EventGalleryUpsertArgs} args - Arguments to update or create a EventGallery.
+     * @example
+     * // Update or create a EventGallery
+     * const eventGallery = await prisma.eventGallery.upsert({
+     *   create: {
+     *     // ... data to create a EventGallery
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventGallery we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventGalleryUpsertArgs>(args: SelectSubset<T, EventGalleryUpsertArgs<ExtArgs>>): Prisma__EventGalleryClient<$Result.GetResult<Prisma.$EventGalleryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventGalleries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryCountArgs} args - Arguments to filter EventGalleries to count.
+     * @example
+     * // Count the number of EventGalleries
+     * const count = await prisma.eventGallery.count({
+     *   where: {
+     *     // ... the filter for the EventGalleries we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventGalleryCountArgs>(
+      args?: Subset<T, EventGalleryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventGalleryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventGallery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventGalleryAggregateArgs>(args: Subset<T, EventGalleryAggregateArgs>): Prisma.PrismaPromise<GetEventGalleryAggregateType<T>>
+
+    /**
+     * Group by EventGallery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventGalleryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventGalleryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventGalleryGroupByArgs['orderBy'] }
+        : { orderBy?: EventGalleryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventGalleryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventGalleryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventGallery model
+   */
+  readonly fields: EventGalleryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventGallery.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventGalleryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends CampusEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CampusEventDefaultArgs<ExtArgs>>): Prisma__CampusEventClient<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventGallery model
+   */
+  interface EventGalleryFieldRefs {
+    readonly id: FieldRef<"EventGallery", 'String'>
+    readonly eventId: FieldRef<"EventGallery", 'String'>
+    readonly imageUrl: FieldRef<"EventGallery", 'String'>
+    readonly isCover: FieldRef<"EventGallery", 'Boolean'>
+    readonly order: FieldRef<"EventGallery", 'Int'>
+    readonly caption: FieldRef<"EventGallery", 'String'>
+    readonly createdAt: FieldRef<"EventGallery", 'DateTime'>
+    readonly updatedAt: FieldRef<"EventGallery", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventGallery findUnique
+   */
+  export type EventGalleryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventGallery to fetch.
+     */
+    where: EventGalleryWhereUniqueInput
+  }
+
+  /**
+   * EventGallery findUniqueOrThrow
+   */
+  export type EventGalleryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventGallery to fetch.
+     */
+    where: EventGalleryWhereUniqueInput
+  }
+
+  /**
+   * EventGallery findFirst
+   */
+  export type EventGalleryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventGallery to fetch.
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventGalleries to fetch.
+     */
+    orderBy?: EventGalleryOrderByWithRelationInput | EventGalleryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventGalleries.
+     */
+    cursor?: EventGalleryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventGalleries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventGalleries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventGalleries.
+     */
+    distinct?: EventGalleryScalarFieldEnum | EventGalleryScalarFieldEnum[]
+  }
+
+  /**
+   * EventGallery findFirstOrThrow
+   */
+  export type EventGalleryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventGallery to fetch.
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventGalleries to fetch.
+     */
+    orderBy?: EventGalleryOrderByWithRelationInput | EventGalleryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventGalleries.
+     */
+    cursor?: EventGalleryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventGalleries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventGalleries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventGalleries.
+     */
+    distinct?: EventGalleryScalarFieldEnum | EventGalleryScalarFieldEnum[]
+  }
+
+  /**
+   * EventGallery findMany
+   */
+  export type EventGalleryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter, which EventGalleries to fetch.
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventGalleries to fetch.
+     */
+    orderBy?: EventGalleryOrderByWithRelationInput | EventGalleryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventGalleries.
+     */
+    cursor?: EventGalleryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventGalleries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventGalleries.
+     */
+    skip?: number
+    distinct?: EventGalleryScalarFieldEnum | EventGalleryScalarFieldEnum[]
+  }
+
+  /**
+   * EventGallery create
+   */
+  export type EventGalleryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventGallery.
+     */
+    data: XOR<EventGalleryCreateInput, EventGalleryUncheckedCreateInput>
+  }
+
+  /**
+   * EventGallery createMany
+   */
+  export type EventGalleryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventGalleries.
+     */
+    data: EventGalleryCreateManyInput | EventGalleryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventGallery createManyAndReturn
+   */
+  export type EventGalleryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventGalleries.
+     */
+    data: EventGalleryCreateManyInput | EventGalleryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventGallery update
+   */
+  export type EventGalleryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventGallery.
+     */
+    data: XOR<EventGalleryUpdateInput, EventGalleryUncheckedUpdateInput>
+    /**
+     * Choose, which EventGallery to update.
+     */
+    where: EventGalleryWhereUniqueInput
+  }
+
+  /**
+   * EventGallery updateMany
+   */
+  export type EventGalleryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventGalleries.
+     */
+    data: XOR<EventGalleryUpdateManyMutationInput, EventGalleryUncheckedUpdateManyInput>
+    /**
+     * Filter which EventGalleries to update
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * Limit how many EventGalleries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventGallery updateManyAndReturn
+   */
+  export type EventGalleryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * The data used to update EventGalleries.
+     */
+    data: XOR<EventGalleryUpdateManyMutationInput, EventGalleryUncheckedUpdateManyInput>
+    /**
+     * Filter which EventGalleries to update
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * Limit how many EventGalleries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventGallery upsert
+   */
+  export type EventGalleryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventGallery to update in case it exists.
+     */
+    where: EventGalleryWhereUniqueInput
+    /**
+     * In case the EventGallery found by the `where` argument doesn't exist, create a new EventGallery with this data.
+     */
+    create: XOR<EventGalleryCreateInput, EventGalleryUncheckedCreateInput>
+    /**
+     * In case the EventGallery was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventGalleryUpdateInput, EventGalleryUncheckedUpdateInput>
+  }
+
+  /**
+   * EventGallery delete
+   */
+  export type EventGalleryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+    /**
+     * Filter which EventGallery to delete.
+     */
+    where: EventGalleryWhereUniqueInput
+  }
+
+  /**
+   * EventGallery deleteMany
+   */
+  export type EventGalleryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventGalleries to delete
+     */
+    where?: EventGalleryWhereInput
+    /**
+     * Limit how many EventGalleries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventGallery without action
+   */
+  export type EventGalleryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventGallery
+     */
+    select?: EventGallerySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventGallery
+     */
+    omit?: EventGalleryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventGalleryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EventApplication
+   */
+
+  export type AggregateEventApplication = {
+    _count: EventApplicationCountAggregateOutputType | null
+    _avg: EventApplicationAvgAggregateOutputType | null
+    _sum: EventApplicationSumAggregateOutputType | null
+    _min: EventApplicationMinAggregateOutputType | null
+    _max: EventApplicationMaxAggregateOutputType | null
+  }
+
+  export type EventApplicationAvgAggregateOutputType = {
+    age: number | null
+  }
+
+  export type EventApplicationSumAggregateOutputType = {
+    age: number | null
+  }
+
+  export type EventApplicationMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    packageId: string | null
+    branchId: string | null
+    fullName: string | null
+    gender: string | null
+    dateOfBirth: Date | null
+    age: number | null
+    parentName: string | null
+    parentPhone: string | null
+    parentEmail: string | null
+    address: string | null
+    state: string | null
+    localGovernment: string | null
+    memorizationLevel: string | null
+    school: string | null
+    islamicBackground: string | null
+    previousParticipation: string | null
+    medicalConditions: string | null
+    allergies: string | null
+    emergencyContact: string | null
+    accommodationPreference: string | null
+    passportPhotoUrl: string | null
+    birthCertificateUrl: string | null
+    ninUrl: string | null
+    schoolIdUrl: string | null
+    medicalReportUrl: string | null
+    proofOfPaymentUrl: string | null
+    status: string | null
+    paymentStatus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventApplicationMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    packageId: string | null
+    branchId: string | null
+    fullName: string | null
+    gender: string | null
+    dateOfBirth: Date | null
+    age: number | null
+    parentName: string | null
+    parentPhone: string | null
+    parentEmail: string | null
+    address: string | null
+    state: string | null
+    localGovernment: string | null
+    memorizationLevel: string | null
+    school: string | null
+    islamicBackground: string | null
+    previousParticipation: string | null
+    medicalConditions: string | null
+    allergies: string | null
+    emergencyContact: string | null
+    accommodationPreference: string | null
+    passportPhotoUrl: string | null
+    birthCertificateUrl: string | null
+    ninUrl: string | null
+    schoolIdUrl: string | null
+    medicalReportUrl: string | null
+    proofOfPaymentUrl: string | null
+    status: string | null
+    paymentStatus: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventApplicationCountAggregateOutputType = {
+    id: number
+    eventId: number
+    packageId: number
+    branchId: number
+    fullName: number
+    gender: number
+    dateOfBirth: number
+    age: number
+    parentName: number
+    parentPhone: number
+    parentEmail: number
+    address: number
+    state: number
+    localGovernment: number
+    memorizationLevel: number
+    school: number
+    islamicBackground: number
+    previousParticipation: number
+    medicalConditions: number
+    allergies: number
+    emergencyContact: number
+    accommodationPreference: number
+    passportPhotoUrl: number
+    birthCertificateUrl: number
+    ninUrl: number
+    schoolIdUrl: number
+    medicalReportUrl: number
+    proofOfPaymentUrl: number
+    status: number
+    paymentStatus: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventApplicationAvgAggregateInputType = {
+    age?: true
+  }
+
+  export type EventApplicationSumAggregateInputType = {
+    age?: true
+  }
+
+  export type EventApplicationMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    packageId?: true
+    branchId?: true
+    fullName?: true
+    gender?: true
+    dateOfBirth?: true
+    age?: true
+    parentName?: true
+    parentPhone?: true
+    parentEmail?: true
+    address?: true
+    state?: true
+    localGovernment?: true
+    memorizationLevel?: true
+    school?: true
+    islamicBackground?: true
+    previousParticipation?: true
+    medicalConditions?: true
+    allergies?: true
+    emergencyContact?: true
+    accommodationPreference?: true
+    passportPhotoUrl?: true
+    birthCertificateUrl?: true
+    ninUrl?: true
+    schoolIdUrl?: true
+    medicalReportUrl?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    paymentStatus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventApplicationMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    packageId?: true
+    branchId?: true
+    fullName?: true
+    gender?: true
+    dateOfBirth?: true
+    age?: true
+    parentName?: true
+    parentPhone?: true
+    parentEmail?: true
+    address?: true
+    state?: true
+    localGovernment?: true
+    memorizationLevel?: true
+    school?: true
+    islamicBackground?: true
+    previousParticipation?: true
+    medicalConditions?: true
+    allergies?: true
+    emergencyContact?: true
+    accommodationPreference?: true
+    passportPhotoUrl?: true
+    birthCertificateUrl?: true
+    ninUrl?: true
+    schoolIdUrl?: true
+    medicalReportUrl?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    paymentStatus?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventApplicationCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    packageId?: true
+    branchId?: true
+    fullName?: true
+    gender?: true
+    dateOfBirth?: true
+    age?: true
+    parentName?: true
+    parentPhone?: true
+    parentEmail?: true
+    address?: true
+    state?: true
+    localGovernment?: true
+    memorizationLevel?: true
+    school?: true
+    islamicBackground?: true
+    previousParticipation?: true
+    medicalConditions?: true
+    allergies?: true
+    emergencyContact?: true
+    accommodationPreference?: true
+    passportPhotoUrl?: true
+    birthCertificateUrl?: true
+    ninUrl?: true
+    schoolIdUrl?: true
+    medicalReportUrl?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    paymentStatus?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventApplicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventApplication to aggregate.
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventApplications to fetch.
+     */
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventApplications
+    **/
+    _count?: true | EventApplicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventApplicationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventApplicationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventApplicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventApplicationMaxAggregateInputType
+  }
+
+  export type GetEventApplicationAggregateType<T extends EventApplicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventApplication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventApplication[P]>
+      : GetScalarType<T[P], AggregateEventApplication[P]>
+  }
+
+
+
+
+  export type EventApplicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventApplicationWhereInput
+    orderBy?: EventApplicationOrderByWithAggregationInput | EventApplicationOrderByWithAggregationInput[]
+    by: EventApplicationScalarFieldEnum[] | EventApplicationScalarFieldEnum
+    having?: EventApplicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventApplicationCountAggregateInputType | true
+    _avg?: EventApplicationAvgAggregateInputType
+    _sum?: EventApplicationSumAggregateInputType
+    _min?: EventApplicationMinAggregateInputType
+    _max?: EventApplicationMaxAggregateInputType
+  }
+
+  export type EventApplicationGroupByOutputType = {
+    id: string
+    eventId: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date
+    age: number
+    parentName: string | null
+    parentPhone: string | null
+    parentEmail: string | null
+    address: string | null
+    state: string | null
+    localGovernment: string | null
+    memorizationLevel: string | null
+    school: string | null
+    islamicBackground: string | null
+    previousParticipation: string | null
+    medicalConditions: string | null
+    allergies: string | null
+    emergencyContact: string
+    accommodationPreference: string | null
+    passportPhotoUrl: string | null
+    birthCertificateUrl: string | null
+    ninUrl: string | null
+    schoolIdUrl: string | null
+    medicalReportUrl: string | null
+    proofOfPaymentUrl: string | null
+    status: string
+    paymentStatus: string
+    createdAt: Date
+    updatedAt: Date
+    _count: EventApplicationCountAggregateOutputType | null
+    _avg: EventApplicationAvgAggregateOutputType | null
+    _sum: EventApplicationSumAggregateOutputType | null
+    _min: EventApplicationMinAggregateOutputType | null
+    _max: EventApplicationMaxAggregateOutputType | null
+  }
+
+  type GetEventApplicationGroupByPayload<T extends EventApplicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventApplicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventApplicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventApplicationGroupByOutputType[P]>
+            : GetScalarType<T[P], EventApplicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    packageId?: boolean
+    branchId?: boolean
+    fullName?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    age?: boolean
+    parentName?: boolean
+    parentPhone?: boolean
+    parentEmail?: boolean
+    address?: boolean
+    state?: boolean
+    localGovernment?: boolean
+    memorizationLevel?: boolean
+    school?: boolean
+    islamicBackground?: boolean
+    previousParticipation?: boolean
+    medicalConditions?: boolean
+    allergies?: boolean
+    emergencyContact?: boolean
+    accommodationPreference?: boolean
+    passportPhotoUrl?: boolean
+    birthCertificateUrl?: boolean
+    ninUrl?: boolean
+    schoolIdUrl?: boolean
+    medicalReportUrl?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    paymentStatus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    payment?: boolean | EventApplication$paymentArgs<ExtArgs>
+  }, ExtArgs["result"]["eventApplication"]>
+
+  export type EventApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    packageId?: boolean
+    branchId?: boolean
+    fullName?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    age?: boolean
+    parentName?: boolean
+    parentPhone?: boolean
+    parentEmail?: boolean
+    address?: boolean
+    state?: boolean
+    localGovernment?: boolean
+    memorizationLevel?: boolean
+    school?: boolean
+    islamicBackground?: boolean
+    previousParticipation?: boolean
+    medicalConditions?: boolean
+    allergies?: boolean
+    emergencyContact?: boolean
+    accommodationPreference?: boolean
+    passportPhotoUrl?: boolean
+    birthCertificateUrl?: boolean
+    ninUrl?: boolean
+    schoolIdUrl?: boolean
+    medicalReportUrl?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    paymentStatus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventApplication"]>
+
+  export type EventApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    packageId?: boolean
+    branchId?: boolean
+    fullName?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    age?: boolean
+    parentName?: boolean
+    parentPhone?: boolean
+    parentEmail?: boolean
+    address?: boolean
+    state?: boolean
+    localGovernment?: boolean
+    memorizationLevel?: boolean
+    school?: boolean
+    islamicBackground?: boolean
+    previousParticipation?: boolean
+    medicalConditions?: boolean
+    allergies?: boolean
+    emergencyContact?: boolean
+    accommodationPreference?: boolean
+    passportPhotoUrl?: boolean
+    birthCertificateUrl?: boolean
+    ninUrl?: boolean
+    schoolIdUrl?: boolean
+    medicalReportUrl?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    paymentStatus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventApplication"]>
+
+  export type EventApplicationSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    packageId?: boolean
+    branchId?: boolean
+    fullName?: boolean
+    gender?: boolean
+    dateOfBirth?: boolean
+    age?: boolean
+    parentName?: boolean
+    parentPhone?: boolean
+    parentEmail?: boolean
+    address?: boolean
+    state?: boolean
+    localGovernment?: boolean
+    memorizationLevel?: boolean
+    school?: boolean
+    islamicBackground?: boolean
+    previousParticipation?: boolean
+    medicalConditions?: boolean
+    allergies?: boolean
+    emergencyContact?: boolean
+    accommodationPreference?: boolean
+    passportPhotoUrl?: boolean
+    birthCertificateUrl?: boolean
+    ninUrl?: boolean
+    schoolIdUrl?: boolean
+    medicalReportUrl?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    paymentStatus?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "packageId" | "branchId" | "fullName" | "gender" | "dateOfBirth" | "age" | "parentName" | "parentPhone" | "parentEmail" | "address" | "state" | "localGovernment" | "memorizationLevel" | "school" | "islamicBackground" | "previousParticipation" | "medicalConditions" | "allergies" | "emergencyContact" | "accommodationPreference" | "passportPhotoUrl" | "birthCertificateUrl" | "ninUrl" | "schoolIdUrl" | "medicalReportUrl" | "proofOfPaymentUrl" | "status" | "paymentStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["eventApplication"]>
+  export type EventApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+    payment?: boolean | EventApplication$paymentArgs<ExtArgs>
+  }
+  export type EventApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+  export type EventApplicationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | CampusEventDefaultArgs<ExtArgs>
+    package?: boolean | EventPackageDefaultArgs<ExtArgs>
+    branch?: boolean | BranchDefaultArgs<ExtArgs>
+  }
+
+  export type $EventApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventApplication"
+    objects: {
+      event: Prisma.$CampusEventPayload<ExtArgs>
+      package: Prisma.$EventPackagePayload<ExtArgs>
+      branch: Prisma.$BranchPayload<ExtArgs>
+      payment: Prisma.$EventPaymentPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      packageId: string
+      branchId: string
+      fullName: string
+      gender: string
+      dateOfBirth: Date
+      age: number
+      parentName: string | null
+      parentPhone: string | null
+      parentEmail: string | null
+      address: string | null
+      state: string | null
+      localGovernment: string | null
+      memorizationLevel: string | null
+      school: string | null
+      islamicBackground: string | null
+      previousParticipation: string | null
+      medicalConditions: string | null
+      allergies: string | null
+      emergencyContact: string
+      accommodationPreference: string | null
+      passportPhotoUrl: string | null
+      birthCertificateUrl: string | null
+      ninUrl: string | null
+      schoolIdUrl: string | null
+      medicalReportUrl: string | null
+      proofOfPaymentUrl: string | null
+      status: string
+      paymentStatus: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eventApplication"]>
+    composites: {}
+  }
+
+  type EventApplicationGetPayload<S extends boolean | null | undefined | EventApplicationDefaultArgs> = $Result.GetResult<Prisma.$EventApplicationPayload, S>
+
+  type EventApplicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventApplicationCountAggregateInputType | true
+    }
+
+  export interface EventApplicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventApplication'], meta: { name: 'EventApplication' } }
+    /**
+     * Find zero or one EventApplication that matches the filter.
+     * @param {EventApplicationFindUniqueArgs} args - Arguments to find a EventApplication
+     * @example
+     * // Get one EventApplication
+     * const eventApplication = await prisma.eventApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventApplicationFindUniqueArgs>(args: SelectSubset<T, EventApplicationFindUniqueArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventApplicationFindUniqueOrThrowArgs} args - Arguments to find a EventApplication
+     * @example
+     * // Get one EventApplication
+     * const eventApplication = await prisma.eventApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventApplicationFindUniqueOrThrowArgs>(args: SelectSubset<T, EventApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationFindFirstArgs} args - Arguments to find a EventApplication
+     * @example
+     * // Get one EventApplication
+     * const eventApplication = await prisma.eventApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventApplicationFindFirstArgs>(args?: SelectSubset<T, EventApplicationFindFirstArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationFindFirstOrThrowArgs} args - Arguments to find a EventApplication
+     * @example
+     * // Get one EventApplication
+     * const eventApplication = await prisma.eventApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventApplicationFindFirstOrThrowArgs>(args?: SelectSubset<T, EventApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventApplications
+     * const eventApplications = await prisma.eventApplication.findMany()
+     * 
+     * // Get first 10 EventApplications
+     * const eventApplications = await prisma.eventApplication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventApplicationWithIdOnly = await prisma.eventApplication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventApplicationFindManyArgs>(args?: SelectSubset<T, EventApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventApplication.
+     * @param {EventApplicationCreateArgs} args - Arguments to create a EventApplication.
+     * @example
+     * // Create one EventApplication
+     * const EventApplication = await prisma.eventApplication.create({
+     *   data: {
+     *     // ... data to create a EventApplication
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventApplicationCreateArgs>(args: SelectSubset<T, EventApplicationCreateArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventApplications.
+     * @param {EventApplicationCreateManyArgs} args - Arguments to create many EventApplications.
+     * @example
+     * // Create many EventApplications
+     * const eventApplication = await prisma.eventApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventApplicationCreateManyArgs>(args?: SelectSubset<T, EventApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventApplications and returns the data saved in the database.
+     * @param {EventApplicationCreateManyAndReturnArgs} args - Arguments to create many EventApplications.
+     * @example
+     * // Create many EventApplications
+     * const eventApplication = await prisma.eventApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventApplications and only return the `id`
+     * const eventApplicationWithIdOnly = await prisma.eventApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventApplicationCreateManyAndReturnArgs>(args?: SelectSubset<T, EventApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventApplication.
+     * @param {EventApplicationDeleteArgs} args - Arguments to delete one EventApplication.
+     * @example
+     * // Delete one EventApplication
+     * const EventApplication = await prisma.eventApplication.delete({
+     *   where: {
+     *     // ... filter to delete one EventApplication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventApplicationDeleteArgs>(args: SelectSubset<T, EventApplicationDeleteArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventApplication.
+     * @param {EventApplicationUpdateArgs} args - Arguments to update one EventApplication.
+     * @example
+     * // Update one EventApplication
+     * const eventApplication = await prisma.eventApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventApplicationUpdateArgs>(args: SelectSubset<T, EventApplicationUpdateArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventApplications.
+     * @param {EventApplicationDeleteManyArgs} args - Arguments to filter EventApplications to delete.
+     * @example
+     * // Delete a few EventApplications
+     * const { count } = await prisma.eventApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventApplicationDeleteManyArgs>(args?: SelectSubset<T, EventApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventApplications
+     * const eventApplication = await prisma.eventApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventApplicationUpdateManyArgs>(args: SelectSubset<T, EventApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventApplications and returns the data updated in the database.
+     * @param {EventApplicationUpdateManyAndReturnArgs} args - Arguments to update many EventApplications.
+     * @example
+     * // Update many EventApplications
+     * const eventApplication = await prisma.eventApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventApplications and only return the `id`
+     * const eventApplicationWithIdOnly = await prisma.eventApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventApplicationUpdateManyAndReturnArgs>(args: SelectSubset<T, EventApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventApplication.
+     * @param {EventApplicationUpsertArgs} args - Arguments to update or create a EventApplication.
+     * @example
+     * // Update or create a EventApplication
+     * const eventApplication = await prisma.eventApplication.upsert({
+     *   create: {
+     *     // ... data to create a EventApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventApplicationUpsertArgs>(args: SelectSubset<T, EventApplicationUpsertArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationCountArgs} args - Arguments to filter EventApplications to count.
+     * @example
+     * // Count the number of EventApplications
+     * const count = await prisma.eventApplication.count({
+     *   where: {
+     *     // ... the filter for the EventApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventApplicationCountArgs>(
+      args?: Subset<T, EventApplicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventApplicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventApplicationAggregateArgs>(args: Subset<T, EventApplicationAggregateArgs>): Prisma.PrismaPromise<GetEventApplicationAggregateType<T>>
+
+    /**
+     * Group by EventApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventApplicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventApplicationGroupByArgs['orderBy'] }
+        : { orderBy?: EventApplicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventApplication model
+   */
+  readonly fields: EventApplicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventApplication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends CampusEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CampusEventDefaultArgs<ExtArgs>>): Prisma__CampusEventClient<$Result.GetResult<Prisma.$CampusEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    package<T extends EventPackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventPackageDefaultArgs<ExtArgs>>): Prisma__EventPackageClient<$Result.GetResult<Prisma.$EventPackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    payment<T extends EventApplication$paymentArgs<ExtArgs> = {}>(args?: Subset<T, EventApplication$paymentArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventApplication model
+   */
+  interface EventApplicationFieldRefs {
+    readonly id: FieldRef<"EventApplication", 'String'>
+    readonly eventId: FieldRef<"EventApplication", 'String'>
+    readonly packageId: FieldRef<"EventApplication", 'String'>
+    readonly branchId: FieldRef<"EventApplication", 'String'>
+    readonly fullName: FieldRef<"EventApplication", 'String'>
+    readonly gender: FieldRef<"EventApplication", 'String'>
+    readonly dateOfBirth: FieldRef<"EventApplication", 'DateTime'>
+    readonly age: FieldRef<"EventApplication", 'Int'>
+    readonly parentName: FieldRef<"EventApplication", 'String'>
+    readonly parentPhone: FieldRef<"EventApplication", 'String'>
+    readonly parentEmail: FieldRef<"EventApplication", 'String'>
+    readonly address: FieldRef<"EventApplication", 'String'>
+    readonly state: FieldRef<"EventApplication", 'String'>
+    readonly localGovernment: FieldRef<"EventApplication", 'String'>
+    readonly memorizationLevel: FieldRef<"EventApplication", 'String'>
+    readonly school: FieldRef<"EventApplication", 'String'>
+    readonly islamicBackground: FieldRef<"EventApplication", 'String'>
+    readonly previousParticipation: FieldRef<"EventApplication", 'String'>
+    readonly medicalConditions: FieldRef<"EventApplication", 'String'>
+    readonly allergies: FieldRef<"EventApplication", 'String'>
+    readonly emergencyContact: FieldRef<"EventApplication", 'String'>
+    readonly accommodationPreference: FieldRef<"EventApplication", 'String'>
+    readonly passportPhotoUrl: FieldRef<"EventApplication", 'String'>
+    readonly birthCertificateUrl: FieldRef<"EventApplication", 'String'>
+    readonly ninUrl: FieldRef<"EventApplication", 'String'>
+    readonly schoolIdUrl: FieldRef<"EventApplication", 'String'>
+    readonly medicalReportUrl: FieldRef<"EventApplication", 'String'>
+    readonly proofOfPaymentUrl: FieldRef<"EventApplication", 'String'>
+    readonly status: FieldRef<"EventApplication", 'String'>
+    readonly paymentStatus: FieldRef<"EventApplication", 'String'>
+    readonly createdAt: FieldRef<"EventApplication", 'DateTime'>
+    readonly updatedAt: FieldRef<"EventApplication", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventApplication findUnique
+   */
+  export type EventApplicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EventApplication to fetch.
+     */
+    where: EventApplicationWhereUniqueInput
+  }
+
+  /**
+   * EventApplication findUniqueOrThrow
+   */
+  export type EventApplicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EventApplication to fetch.
+     */
+    where: EventApplicationWhereUniqueInput
+  }
+
+  /**
+   * EventApplication findFirst
+   */
+  export type EventApplicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EventApplication to fetch.
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventApplications to fetch.
+     */
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventApplications.
+     */
+    cursor?: EventApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventApplications.
+     */
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * EventApplication findFirstOrThrow
+   */
+  export type EventApplicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EventApplication to fetch.
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventApplications to fetch.
+     */
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventApplications.
+     */
+    cursor?: EventApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventApplications.
+     */
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * EventApplication findMany
+   */
+  export type EventApplicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which EventApplications to fetch.
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventApplications to fetch.
+     */
+    orderBy?: EventApplicationOrderByWithRelationInput | EventApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventApplications.
+     */
+    cursor?: EventApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventApplications.
+     */
+    skip?: number
+    distinct?: EventApplicationScalarFieldEnum | EventApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * EventApplication create
+   */
+  export type EventApplicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventApplication.
+     */
+    data: XOR<EventApplicationCreateInput, EventApplicationUncheckedCreateInput>
+  }
+
+  /**
+   * EventApplication createMany
+   */
+  export type EventApplicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventApplications.
+     */
+    data: EventApplicationCreateManyInput | EventApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventApplication createManyAndReturn
+   */
+  export type EventApplicationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventApplications.
+     */
+    data: EventApplicationCreateManyInput | EventApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventApplication update
+   */
+  export type EventApplicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventApplication.
+     */
+    data: XOR<EventApplicationUpdateInput, EventApplicationUncheckedUpdateInput>
+    /**
+     * Choose, which EventApplication to update.
+     */
+    where: EventApplicationWhereUniqueInput
+  }
+
+  /**
+   * EventApplication updateMany
+   */
+  export type EventApplicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventApplications.
+     */
+    data: XOR<EventApplicationUpdateManyMutationInput, EventApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which EventApplications to update
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * Limit how many EventApplications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventApplication updateManyAndReturn
+   */
+  export type EventApplicationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to update EventApplications.
+     */
+    data: XOR<EventApplicationUpdateManyMutationInput, EventApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which EventApplications to update
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * Limit how many EventApplications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventApplication upsert
+   */
+  export type EventApplicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventApplication to update in case it exists.
+     */
+    where: EventApplicationWhereUniqueInput
+    /**
+     * In case the EventApplication found by the `where` argument doesn't exist, create a new EventApplication with this data.
+     */
+    create: XOR<EventApplicationCreateInput, EventApplicationUncheckedCreateInput>
+    /**
+     * In case the EventApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventApplicationUpdateInput, EventApplicationUncheckedUpdateInput>
+  }
+
+  /**
+   * EventApplication delete
+   */
+  export type EventApplicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
+    /**
+     * Filter which EventApplication to delete.
+     */
+    where: EventApplicationWhereUniqueInput
+  }
+
+  /**
+   * EventApplication deleteMany
+   */
+  export type EventApplicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventApplications to delete
+     */
+    where?: EventApplicationWhereInput
+    /**
+     * Limit how many EventApplications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventApplication.payment
+   */
+  export type EventApplication$paymentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    where?: EventPaymentWhereInput
+  }
+
+  /**
+   * EventApplication without action
+   */
+  export type EventApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventApplication
+     */
+    select?: EventApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventApplication
+     */
+    omit?: EventApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventApplicationInclude<ExtArgs> | null
   }
 
 
@@ -149742,6 +156798,1176 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: EventRSVPInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EventPayment
+   */
+
+  export type AggregateEventPayment = {
+    _count: EventPaymentCountAggregateOutputType | null
+    _avg: EventPaymentAvgAggregateOutputType | null
+    _sum: EventPaymentSumAggregateOutputType | null
+    _min: EventPaymentMinAggregateOutputType | null
+    _max: EventPaymentMaxAggregateOutputType | null
+  }
+
+  export type EventPaymentAvgAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type EventPaymentSumAggregateOutputType = {
+    amount: Decimal | null
+  }
+
+  export type EventPaymentMinAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    amount: Decimal | null
+    paymentMethod: string | null
+    proofOfPaymentUrl: string | null
+    status: string | null
+    verifiedBy: string | null
+    verifiedAt: Date | null
+    rejectionReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventPaymentMaxAggregateOutputType = {
+    id: string | null
+    applicationId: string | null
+    amount: Decimal | null
+    paymentMethod: string | null
+    proofOfPaymentUrl: string | null
+    status: string | null
+    verifiedBy: string | null
+    verifiedAt: Date | null
+    rejectionReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type EventPaymentCountAggregateOutputType = {
+    id: number
+    applicationId: number
+    amount: number
+    paymentMethod: number
+    proofOfPaymentUrl: number
+    status: number
+    verifiedBy: number
+    verifiedAt: number
+    rejectionReason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type EventPaymentAvgAggregateInputType = {
+    amount?: true
+  }
+
+  export type EventPaymentSumAggregateInputType = {
+    amount?: true
+  }
+
+  export type EventPaymentMinAggregateInputType = {
+    id?: true
+    applicationId?: true
+    amount?: true
+    paymentMethod?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    verifiedBy?: true
+    verifiedAt?: true
+    rejectionReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventPaymentMaxAggregateInputType = {
+    id?: true
+    applicationId?: true
+    amount?: true
+    paymentMethod?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    verifiedBy?: true
+    verifiedAt?: true
+    rejectionReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type EventPaymentCountAggregateInputType = {
+    id?: true
+    applicationId?: true
+    amount?: true
+    paymentMethod?: true
+    proofOfPaymentUrl?: true
+    status?: true
+    verifiedBy?: true
+    verifiedAt?: true
+    rejectionReason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type EventPaymentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventPayment to aggregate.
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPayments to fetch.
+     */
+    orderBy?: EventPaymentOrderByWithRelationInput | EventPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EventPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EventPayments
+    **/
+    _count?: true | EventPaymentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EventPaymentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EventPaymentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EventPaymentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EventPaymentMaxAggregateInputType
+  }
+
+  export type GetEventPaymentAggregateType<T extends EventPaymentAggregateArgs> = {
+        [P in keyof T & keyof AggregateEventPayment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEventPayment[P]>
+      : GetScalarType<T[P], AggregateEventPayment[P]>
+  }
+
+
+
+
+  export type EventPaymentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EventPaymentWhereInput
+    orderBy?: EventPaymentOrderByWithAggregationInput | EventPaymentOrderByWithAggregationInput[]
+    by: EventPaymentScalarFieldEnum[] | EventPaymentScalarFieldEnum
+    having?: EventPaymentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EventPaymentCountAggregateInputType | true
+    _avg?: EventPaymentAvgAggregateInputType
+    _sum?: EventPaymentSumAggregateInputType
+    _min?: EventPaymentMinAggregateInputType
+    _max?: EventPaymentMaxAggregateInputType
+  }
+
+  export type EventPaymentGroupByOutputType = {
+    id: string
+    applicationId: string
+    amount: Decimal
+    paymentMethod: string
+    proofOfPaymentUrl: string | null
+    status: string
+    verifiedBy: string | null
+    verifiedAt: Date | null
+    rejectionReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: EventPaymentCountAggregateOutputType | null
+    _avg: EventPaymentAvgAggregateOutputType | null
+    _sum: EventPaymentSumAggregateOutputType | null
+    _min: EventPaymentMinAggregateOutputType | null
+    _max: EventPaymentMaxAggregateOutputType | null
+  }
+
+  type GetEventPaymentGroupByPayload<T extends EventPaymentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EventPaymentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EventPaymentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EventPaymentGroupByOutputType[P]>
+            : GetScalarType<T[P], EventPaymentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EventPaymentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    verifiedBy?: boolean
+    verifiedAt?: boolean
+    rejectionReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPayment"]>
+
+  export type EventPaymentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    verifiedBy?: boolean
+    verifiedAt?: boolean
+    rejectionReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPayment"]>
+
+  export type EventPaymentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicationId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    verifiedBy?: boolean
+    verifiedAt?: boolean
+    rejectionReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["eventPayment"]>
+
+  export type EventPaymentSelectScalar = {
+    id?: boolean
+    applicationId?: boolean
+    amount?: boolean
+    paymentMethod?: boolean
+    proofOfPaymentUrl?: boolean
+    status?: boolean
+    verifiedBy?: boolean
+    verifiedAt?: boolean
+    rejectionReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type EventPaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicationId" | "amount" | "paymentMethod" | "proofOfPaymentUrl" | "status" | "verifiedBy" | "verifiedAt" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["eventPayment"]>
+  export type EventPaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }
+  export type EventPaymentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }
+  export type EventPaymentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | EventApplicationDefaultArgs<ExtArgs>
+  }
+
+  export type $EventPaymentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EventPayment"
+    objects: {
+      application: Prisma.$EventApplicationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      applicationId: string
+      amount: Prisma.Decimal
+      paymentMethod: string
+      proofOfPaymentUrl: string | null
+      status: string
+      verifiedBy: string | null
+      verifiedAt: Date | null
+      rejectionReason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["eventPayment"]>
+    composites: {}
+  }
+
+  type EventPaymentGetPayload<S extends boolean | null | undefined | EventPaymentDefaultArgs> = $Result.GetResult<Prisma.$EventPaymentPayload, S>
+
+  type EventPaymentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EventPaymentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EventPaymentCountAggregateInputType | true
+    }
+
+  export interface EventPaymentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EventPayment'], meta: { name: 'EventPayment' } }
+    /**
+     * Find zero or one EventPayment that matches the filter.
+     * @param {EventPaymentFindUniqueArgs} args - Arguments to find a EventPayment
+     * @example
+     * // Get one EventPayment
+     * const eventPayment = await prisma.eventPayment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EventPaymentFindUniqueArgs>(args: SelectSubset<T, EventPaymentFindUniqueArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EventPayment that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EventPaymentFindUniqueOrThrowArgs} args - Arguments to find a EventPayment
+     * @example
+     * // Get one EventPayment
+     * const eventPayment = await prisma.eventPayment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EventPaymentFindUniqueOrThrowArgs>(args: SelectSubset<T, EventPaymentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventPayment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentFindFirstArgs} args - Arguments to find a EventPayment
+     * @example
+     * // Get one EventPayment
+     * const eventPayment = await prisma.eventPayment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EventPaymentFindFirstArgs>(args?: SelectSubset<T, EventPaymentFindFirstArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EventPayment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentFindFirstOrThrowArgs} args - Arguments to find a EventPayment
+     * @example
+     * // Get one EventPayment
+     * const eventPayment = await prisma.eventPayment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EventPaymentFindFirstOrThrowArgs>(args?: SelectSubset<T, EventPaymentFindFirstOrThrowArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EventPayments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EventPayments
+     * const eventPayments = await prisma.eventPayment.findMany()
+     * 
+     * // Get first 10 EventPayments
+     * const eventPayments = await prisma.eventPayment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const eventPaymentWithIdOnly = await prisma.eventPayment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EventPaymentFindManyArgs>(args?: SelectSubset<T, EventPaymentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EventPayment.
+     * @param {EventPaymentCreateArgs} args - Arguments to create a EventPayment.
+     * @example
+     * // Create one EventPayment
+     * const EventPayment = await prisma.eventPayment.create({
+     *   data: {
+     *     // ... data to create a EventPayment
+     *   }
+     * })
+     * 
+     */
+    create<T extends EventPaymentCreateArgs>(args: SelectSubset<T, EventPaymentCreateArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EventPayments.
+     * @param {EventPaymentCreateManyArgs} args - Arguments to create many EventPayments.
+     * @example
+     * // Create many EventPayments
+     * const eventPayment = await prisma.eventPayment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EventPaymentCreateManyArgs>(args?: SelectSubset<T, EventPaymentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EventPayments and returns the data saved in the database.
+     * @param {EventPaymentCreateManyAndReturnArgs} args - Arguments to create many EventPayments.
+     * @example
+     * // Create many EventPayments
+     * const eventPayment = await prisma.eventPayment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EventPayments and only return the `id`
+     * const eventPaymentWithIdOnly = await prisma.eventPayment.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EventPaymentCreateManyAndReturnArgs>(args?: SelectSubset<T, EventPaymentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EventPayment.
+     * @param {EventPaymentDeleteArgs} args - Arguments to delete one EventPayment.
+     * @example
+     * // Delete one EventPayment
+     * const EventPayment = await prisma.eventPayment.delete({
+     *   where: {
+     *     // ... filter to delete one EventPayment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EventPaymentDeleteArgs>(args: SelectSubset<T, EventPaymentDeleteArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EventPayment.
+     * @param {EventPaymentUpdateArgs} args - Arguments to update one EventPayment.
+     * @example
+     * // Update one EventPayment
+     * const eventPayment = await prisma.eventPayment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EventPaymentUpdateArgs>(args: SelectSubset<T, EventPaymentUpdateArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EventPayments.
+     * @param {EventPaymentDeleteManyArgs} args - Arguments to filter EventPayments to delete.
+     * @example
+     * // Delete a few EventPayments
+     * const { count } = await prisma.eventPayment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EventPaymentDeleteManyArgs>(args?: SelectSubset<T, EventPaymentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EventPayments
+     * const eventPayment = await prisma.eventPayment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EventPaymentUpdateManyArgs>(args: SelectSubset<T, EventPaymentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EventPayments and returns the data updated in the database.
+     * @param {EventPaymentUpdateManyAndReturnArgs} args - Arguments to update many EventPayments.
+     * @example
+     * // Update many EventPayments
+     * const eventPayment = await prisma.eventPayment.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EventPayments and only return the `id`
+     * const eventPaymentWithIdOnly = await prisma.eventPayment.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EventPaymentUpdateManyAndReturnArgs>(args: SelectSubset<T, EventPaymentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EventPayment.
+     * @param {EventPaymentUpsertArgs} args - Arguments to update or create a EventPayment.
+     * @example
+     * // Update or create a EventPayment
+     * const eventPayment = await prisma.eventPayment.upsert({
+     *   create: {
+     *     // ... data to create a EventPayment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EventPayment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EventPaymentUpsertArgs>(args: SelectSubset<T, EventPaymentUpsertArgs<ExtArgs>>): Prisma__EventPaymentClient<$Result.GetResult<Prisma.$EventPaymentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EventPayments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentCountArgs} args - Arguments to filter EventPayments to count.
+     * @example
+     * // Count the number of EventPayments
+     * const count = await prisma.eventPayment.count({
+     *   where: {
+     *     // ... the filter for the EventPayments we want to count
+     *   }
+     * })
+    **/
+    count<T extends EventPaymentCountArgs>(
+      args?: Subset<T, EventPaymentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EventPaymentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EventPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EventPaymentAggregateArgs>(args: Subset<T, EventPaymentAggregateArgs>): Prisma.PrismaPromise<GetEventPaymentAggregateType<T>>
+
+    /**
+     * Group by EventPayment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EventPaymentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EventPaymentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EventPaymentGroupByArgs['orderBy'] }
+        : { orderBy?: EventPaymentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EventPaymentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEventPaymentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EventPayment model
+   */
+  readonly fields: EventPaymentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EventPayment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EventPaymentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends EventApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EventApplicationDefaultArgs<ExtArgs>>): Prisma__EventApplicationClient<$Result.GetResult<Prisma.$EventApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EventPayment model
+   */
+  interface EventPaymentFieldRefs {
+    readonly id: FieldRef<"EventPayment", 'String'>
+    readonly applicationId: FieldRef<"EventPayment", 'String'>
+    readonly amount: FieldRef<"EventPayment", 'Decimal'>
+    readonly paymentMethod: FieldRef<"EventPayment", 'String'>
+    readonly proofOfPaymentUrl: FieldRef<"EventPayment", 'String'>
+    readonly status: FieldRef<"EventPayment", 'String'>
+    readonly verifiedBy: FieldRef<"EventPayment", 'String'>
+    readonly verifiedAt: FieldRef<"EventPayment", 'DateTime'>
+    readonly rejectionReason: FieldRef<"EventPayment", 'String'>
+    readonly createdAt: FieldRef<"EventPayment", 'DateTime'>
+    readonly updatedAt: FieldRef<"EventPayment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EventPayment findUnique
+   */
+  export type EventPaymentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPayment to fetch.
+     */
+    where: EventPaymentWhereUniqueInput
+  }
+
+  /**
+   * EventPayment findUniqueOrThrow
+   */
+  export type EventPaymentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPayment to fetch.
+     */
+    where: EventPaymentWhereUniqueInput
+  }
+
+  /**
+   * EventPayment findFirst
+   */
+  export type EventPaymentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPayment to fetch.
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPayments to fetch.
+     */
+    orderBy?: EventPaymentOrderByWithRelationInput | EventPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventPayments.
+     */
+    cursor?: EventPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventPayments.
+     */
+    distinct?: EventPaymentScalarFieldEnum | EventPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * EventPayment findFirstOrThrow
+   */
+  export type EventPaymentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPayment to fetch.
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPayments to fetch.
+     */
+    orderBy?: EventPaymentOrderByWithRelationInput | EventPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EventPayments.
+     */
+    cursor?: EventPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPayments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EventPayments.
+     */
+    distinct?: EventPaymentScalarFieldEnum | EventPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * EventPayment findMany
+   */
+  export type EventPaymentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter, which EventPayments to fetch.
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EventPayments to fetch.
+     */
+    orderBy?: EventPaymentOrderByWithRelationInput | EventPaymentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EventPayments.
+     */
+    cursor?: EventPaymentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EventPayments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EventPayments.
+     */
+    skip?: number
+    distinct?: EventPaymentScalarFieldEnum | EventPaymentScalarFieldEnum[]
+  }
+
+  /**
+   * EventPayment create
+   */
+  export type EventPaymentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EventPayment.
+     */
+    data: XOR<EventPaymentCreateInput, EventPaymentUncheckedCreateInput>
+  }
+
+  /**
+   * EventPayment createMany
+   */
+  export type EventPaymentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EventPayments.
+     */
+    data: EventPaymentCreateManyInput | EventPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EventPayment createManyAndReturn
+   */
+  export type EventPaymentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to create many EventPayments.
+     */
+    data: EventPaymentCreateManyInput | EventPaymentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventPayment update
+   */
+  export type EventPaymentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EventPayment.
+     */
+    data: XOR<EventPaymentUpdateInput, EventPaymentUncheckedUpdateInput>
+    /**
+     * Choose, which EventPayment to update.
+     */
+    where: EventPaymentWhereUniqueInput
+  }
+
+  /**
+   * EventPayment updateMany
+   */
+  export type EventPaymentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EventPayments.
+     */
+    data: XOR<EventPaymentUpdateManyMutationInput, EventPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which EventPayments to update
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * Limit how many EventPayments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventPayment updateManyAndReturn
+   */
+  export type EventPaymentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * The data used to update EventPayments.
+     */
+    data: XOR<EventPaymentUpdateManyMutationInput, EventPaymentUncheckedUpdateManyInput>
+    /**
+     * Filter which EventPayments to update
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * Limit how many EventPayments to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EventPayment upsert
+   */
+  export type EventPaymentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EventPayment to update in case it exists.
+     */
+    where: EventPaymentWhereUniqueInput
+    /**
+     * In case the EventPayment found by the `where` argument doesn't exist, create a new EventPayment with this data.
+     */
+    create: XOR<EventPaymentCreateInput, EventPaymentUncheckedCreateInput>
+    /**
+     * In case the EventPayment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EventPaymentUpdateInput, EventPaymentUncheckedUpdateInput>
+  }
+
+  /**
+   * EventPayment delete
+   */
+  export type EventPaymentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
+    /**
+     * Filter which EventPayment to delete.
+     */
+    where: EventPaymentWhereUniqueInput
+  }
+
+  /**
+   * EventPayment deleteMany
+   */
+  export type EventPaymentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EventPayments to delete
+     */
+    where?: EventPaymentWhereInput
+    /**
+     * Limit how many EventPayments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EventPayment without action
+   */
+  export type EventPaymentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EventPayment
+     */
+    select?: EventPaymentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EventPayment
+     */
+    omit?: EventPaymentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EventPaymentInclude<ExtArgs> | null
   }
 
 
@@ -208458,22 +216684,134 @@ export namespace Prisma {
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
+  export const EventCategoryScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    slug: 'slug',
+    createdAt: 'createdAt'
+  };
+
+  export type EventCategoryScalarFieldEnum = (typeof EventCategoryScalarFieldEnum)[keyof typeof EventCategoryScalarFieldEnum]
+
+
   export const CampusEventScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    description: 'description',
+    slug: 'slug',
+    shortDescription: 'shortDescription',
+    fullDescription: 'fullDescription',
+    objectives: 'objectives',
+    rulesAndDiscipline: 'rulesAndDiscipline',
+    requirements: 'requirements',
+    mealsAndHospitality: 'mealsAndHospitality',
+    whyChooseThisEvent: 'whyChooseThisEvent',
     startDate: 'startDate',
     endDate: 'endDate',
+    applicationDeadline: 'applicationDeadline',
     location: 'location',
-    category: 'category',
+    categoryId: 'categoryId',
+    categoryLabel: 'categoryLabel',
     isPublic: 'isPublic',
     allowRSVP: 'allowRSVP',
     branchId: 'branchId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    status: 'status',
+    active: 'active',
+    featuredImage: 'featuredImage',
+    brochurePdf: 'brochurePdf',
+    capacity: 'capacity',
+    registrationOpen: 'registrationOpen',
+    applicationFormEnabled: 'applicationFormEnabled',
+    paymentRequired: 'paymentRequired',
+    seoMetadata: 'seoMetadata'
   };
 
   export type CampusEventScalarFieldEnum = (typeof CampusEventScalarFieldEnum)[keyof typeof CampusEventScalarFieldEnum]
+
+
+  export const EventPackageScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    title: 'title',
+    ageRange: 'ageRange',
+    timing: 'timing',
+    fee: 'fee',
+    boardingType: 'boardingType',
+    availableSlots: 'availableSlots',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventPackageScalarFieldEnum = (typeof EventPackageScalarFieldEnum)[keyof typeof EventPackageScalarFieldEnum]
+
+
+  export const EventScheduleScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    day: 'day',
+    period: 'period',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    activity: 'activity',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventScheduleScalarFieldEnum = (typeof EventScheduleScalarFieldEnum)[keyof typeof EventScheduleScalarFieldEnum]
+
+
+  export const EventGalleryScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    imageUrl: 'imageUrl',
+    isCover: 'isCover',
+    order: 'order',
+    caption: 'caption',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventGalleryScalarFieldEnum = (typeof EventGalleryScalarFieldEnum)[keyof typeof EventGalleryScalarFieldEnum]
+
+
+  export const EventApplicationScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    packageId: 'packageId',
+    branchId: 'branchId',
+    fullName: 'fullName',
+    gender: 'gender',
+    dateOfBirth: 'dateOfBirth',
+    age: 'age',
+    parentName: 'parentName',
+    parentPhone: 'parentPhone',
+    parentEmail: 'parentEmail',
+    address: 'address',
+    state: 'state',
+    localGovernment: 'localGovernment',
+    memorizationLevel: 'memorizationLevel',
+    school: 'school',
+    islamicBackground: 'islamicBackground',
+    previousParticipation: 'previousParticipation',
+    medicalConditions: 'medicalConditions',
+    allergies: 'allergies',
+    emergencyContact: 'emergencyContact',
+    accommodationPreference: 'accommodationPreference',
+    passportPhotoUrl: 'passportPhotoUrl',
+    birthCertificateUrl: 'birthCertificateUrl',
+    ninUrl: 'ninUrl',
+    schoolIdUrl: 'schoolIdUrl',
+    medicalReportUrl: 'medicalReportUrl',
+    proofOfPaymentUrl: 'proofOfPaymentUrl',
+    status: 'status',
+    paymentStatus: 'paymentStatus',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventApplicationScalarFieldEnum = (typeof EventApplicationScalarFieldEnum)[keyof typeof EventApplicationScalarFieldEnum]
 
 
   export const EventRSVPScalarFieldEnum: {
@@ -208486,6 +216824,23 @@ export namespace Prisma {
   };
 
   export type EventRSVPScalarFieldEnum = (typeof EventRSVPScalarFieldEnum)[keyof typeof EventRSVPScalarFieldEnum]
+
+
+  export const EventPaymentScalarFieldEnum: {
+    id: 'id',
+    applicationId: 'applicationId',
+    amount: 'amount',
+    paymentMethod: 'paymentMethod',
+    proofOfPaymentUrl: 'proofOfPaymentUrl',
+    status: 'status',
+    verifiedBy: 'verifiedBy',
+    verifiedAt: 'verifiedAt',
+    rejectionReason: 'rejectionReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type EventPaymentScalarFieldEnum = (typeof EventPaymentScalarFieldEnum)[keyof typeof EventPaymentScalarFieldEnum]
 
 
   export const CampusAccessLogScalarFieldEnum: {
@@ -210019,6 +218374,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     resultSummaries?: ResultSummaryListRelationFilter
+    eventApplications?: EventApplicationListRelationFilter
     gradingScales?: GradingScaleListRelationFilter
     globalSettings?: GlobalSettingListRelationFilter
     moduleConfigurations?: ModuleConfigurationListRelationFilter
@@ -210159,6 +218515,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordOrderByRelationAggregateInput
     behaviouralRatings?: BehaviouralRatingOrderByRelationAggregateInput
     resultSummaries?: ResultSummaryOrderByRelationAggregateInput
+    eventApplications?: EventApplicationOrderByRelationAggregateInput
     gradingScales?: GradingScaleOrderByRelationAggregateInput
     globalSettings?: GlobalSettingOrderByRelationAggregateInput
     moduleConfigurations?: ModuleConfigurationOrderByRelationAggregateInput
@@ -210302,6 +218659,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordListRelationFilter
     behaviouralRatings?: BehaviouralRatingListRelationFilter
     resultSummaries?: ResultSummaryListRelationFilter
+    eventApplications?: EventApplicationListRelationFilter
     gradingScales?: GradingScaleListRelationFilter
     globalSettings?: GlobalSettingListRelationFilter
     moduleConfigurations?: ModuleConfigurationListRelationFilter
@@ -220370,79 +228728,218 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
+  export type EventCategoryWhereInput = {
+    AND?: EventCategoryWhereInput | EventCategoryWhereInput[]
+    OR?: EventCategoryWhereInput[]
+    NOT?: EventCategoryWhereInput | EventCategoryWhereInput[]
+    id?: StringFilter<"EventCategory"> | string
+    name?: StringFilter<"EventCategory"> | string
+    slug?: StringFilter<"EventCategory"> | string
+    createdAt?: DateTimeFilter<"EventCategory"> | Date | string
+    events?: CampusEventListRelationFilter
+  }
+
+  export type EventCategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+    events?: CampusEventOrderByRelationAggregateInput
+  }
+
+  export type EventCategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    slug?: string
+    AND?: EventCategoryWhereInput | EventCategoryWhereInput[]
+    OR?: EventCategoryWhereInput[]
+    NOT?: EventCategoryWhereInput | EventCategoryWhereInput[]
+    createdAt?: DateTimeFilter<"EventCategory"> | Date | string
+    events?: CampusEventListRelationFilter
+  }, "id" | "name" | "slug">
+
+  export type EventCategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+    _count?: EventCategoryCountOrderByAggregateInput
+    _max?: EventCategoryMaxOrderByAggregateInput
+    _min?: EventCategoryMinOrderByAggregateInput
+  }
+
+  export type EventCategoryScalarWhereWithAggregatesInput = {
+    AND?: EventCategoryScalarWhereWithAggregatesInput | EventCategoryScalarWhereWithAggregatesInput[]
+    OR?: EventCategoryScalarWhereWithAggregatesInput[]
+    NOT?: EventCategoryScalarWhereWithAggregatesInput | EventCategoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventCategory"> | string
+    name?: StringWithAggregatesFilter<"EventCategory"> | string
+    slug?: StringWithAggregatesFilter<"EventCategory"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EventCategory"> | Date | string
+  }
+
   export type CampusEventWhereInput = {
     AND?: CampusEventWhereInput | CampusEventWhereInput[]
     OR?: CampusEventWhereInput[]
     NOT?: CampusEventWhereInput | CampusEventWhereInput[]
     id?: StringFilter<"CampusEvent"> | string
     title?: StringFilter<"CampusEvent"> | string
-    description?: StringNullableFilter<"CampusEvent"> | string | null
+    slug?: StringFilter<"CampusEvent"> | string
+    shortDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    fullDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    objectives?: StringNullableListFilter<"CampusEvent">
+    rulesAndDiscipline?: StringNullableFilter<"CampusEvent"> | string | null
+    requirements?: StringNullableListFilter<"CampusEvent">
+    mealsAndHospitality?: StringNullableFilter<"CampusEvent"> | string | null
+    whyChooseThisEvent?: StringNullableListFilter<"CampusEvent">
     startDate?: DateTimeFilter<"CampusEvent"> | Date | string
     endDate?: DateTimeFilter<"CampusEvent"> | Date | string
+    applicationDeadline?: DateTimeNullableFilter<"CampusEvent"> | Date | string | null
     location?: StringNullableFilter<"CampusEvent"> | string | null
-    category?: StringFilter<"CampusEvent"> | string
+    categoryId?: StringNullableFilter<"CampusEvent"> | string | null
+    categoryLabel?: StringFilter<"CampusEvent"> | string
     isPublic?: BoolFilter<"CampusEvent"> | boolean
     allowRSVP?: BoolFilter<"CampusEvent"> | boolean
     branchId?: StringFilter<"CampusEvent"> | string
     createdAt?: DateTimeFilter<"CampusEvent"> | Date | string
     updatedAt?: DateTimeFilter<"CampusEvent"> | Date | string
+    status?: StringFilter<"CampusEvent"> | string
+    active?: BoolFilter<"CampusEvent"> | boolean
+    featuredImage?: StringNullableFilter<"CampusEvent"> | string | null
+    brochurePdf?: StringNullableFilter<"CampusEvent"> | string | null
+    capacity?: IntNullableFilter<"CampusEvent"> | number | null
+    registrationOpen?: BoolFilter<"CampusEvent"> | boolean
+    applicationFormEnabled?: BoolFilter<"CampusEvent"> | boolean
+    paymentRequired?: BoolFilter<"CampusEvent"> | boolean
+    seoMetadata?: JsonNullableFilter<"CampusEvent">
+    category?: XOR<EventCategoryNullableScalarRelationFilter, EventCategoryWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     rsvps?: EventRSVPListRelationFilter
+    packages?: EventPackageListRelationFilter
+    schedules?: EventScheduleListRelationFilter
+    gallery?: EventGalleryListRelationFilter
+    applications?: EventApplicationListRelationFilter
   }
 
   export type CampusEventOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    shortDescription?: SortOrderInput | SortOrder
+    fullDescription?: SortOrderInput | SortOrder
+    objectives?: SortOrder
+    rulesAndDiscipline?: SortOrderInput | SortOrder
+    requirements?: SortOrder
+    mealsAndHospitality?: SortOrderInput | SortOrder
+    whyChooseThisEvent?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    applicationDeadline?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
-    category?: SortOrder
+    categoryId?: SortOrderInput | SortOrder
+    categoryLabel?: SortOrder
     isPublic?: SortOrder
     allowRSVP?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
+    active?: SortOrder
+    featuredImage?: SortOrderInput | SortOrder
+    brochurePdf?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    registrationOpen?: SortOrder
+    applicationFormEnabled?: SortOrder
+    paymentRequired?: SortOrder
+    seoMetadata?: SortOrderInput | SortOrder
+    category?: EventCategoryOrderByWithRelationInput
     branch?: BranchOrderByWithRelationInput
     rsvps?: EventRSVPOrderByRelationAggregateInput
+    packages?: EventPackageOrderByRelationAggregateInput
+    schedules?: EventScheduleOrderByRelationAggregateInput
+    gallery?: EventGalleryOrderByRelationAggregateInput
+    applications?: EventApplicationOrderByRelationAggregateInput
   }
 
   export type CampusEventWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    slug?: string
     AND?: CampusEventWhereInput | CampusEventWhereInput[]
     OR?: CampusEventWhereInput[]
     NOT?: CampusEventWhereInput | CampusEventWhereInput[]
     title?: StringFilter<"CampusEvent"> | string
-    description?: StringNullableFilter<"CampusEvent"> | string | null
+    shortDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    fullDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    objectives?: StringNullableListFilter<"CampusEvent">
+    rulesAndDiscipline?: StringNullableFilter<"CampusEvent"> | string | null
+    requirements?: StringNullableListFilter<"CampusEvent">
+    mealsAndHospitality?: StringNullableFilter<"CampusEvent"> | string | null
+    whyChooseThisEvent?: StringNullableListFilter<"CampusEvent">
     startDate?: DateTimeFilter<"CampusEvent"> | Date | string
     endDate?: DateTimeFilter<"CampusEvent"> | Date | string
+    applicationDeadline?: DateTimeNullableFilter<"CampusEvent"> | Date | string | null
     location?: StringNullableFilter<"CampusEvent"> | string | null
-    category?: StringFilter<"CampusEvent"> | string
+    categoryId?: StringNullableFilter<"CampusEvent"> | string | null
+    categoryLabel?: StringFilter<"CampusEvent"> | string
     isPublic?: BoolFilter<"CampusEvent"> | boolean
     allowRSVP?: BoolFilter<"CampusEvent"> | boolean
     branchId?: StringFilter<"CampusEvent"> | string
     createdAt?: DateTimeFilter<"CampusEvent"> | Date | string
     updatedAt?: DateTimeFilter<"CampusEvent"> | Date | string
+    status?: StringFilter<"CampusEvent"> | string
+    active?: BoolFilter<"CampusEvent"> | boolean
+    featuredImage?: StringNullableFilter<"CampusEvent"> | string | null
+    brochurePdf?: StringNullableFilter<"CampusEvent"> | string | null
+    capacity?: IntNullableFilter<"CampusEvent"> | number | null
+    registrationOpen?: BoolFilter<"CampusEvent"> | boolean
+    applicationFormEnabled?: BoolFilter<"CampusEvent"> | boolean
+    paymentRequired?: BoolFilter<"CampusEvent"> | boolean
+    seoMetadata?: JsonNullableFilter<"CampusEvent">
+    category?: XOR<EventCategoryNullableScalarRelationFilter, EventCategoryWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
     rsvps?: EventRSVPListRelationFilter
-  }, "id">
+    packages?: EventPackageListRelationFilter
+    schedules?: EventScheduleListRelationFilter
+    gallery?: EventGalleryListRelationFilter
+    applications?: EventApplicationListRelationFilter
+  }, "id" | "slug">
 
   export type CampusEventOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    slug?: SortOrder
+    shortDescription?: SortOrderInput | SortOrder
+    fullDescription?: SortOrderInput | SortOrder
+    objectives?: SortOrder
+    rulesAndDiscipline?: SortOrderInput | SortOrder
+    requirements?: SortOrder
+    mealsAndHospitality?: SortOrderInput | SortOrder
+    whyChooseThisEvent?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    applicationDeadline?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
-    category?: SortOrder
+    categoryId?: SortOrderInput | SortOrder
+    categoryLabel?: SortOrder
     isPublic?: SortOrder
     allowRSVP?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
+    active?: SortOrder
+    featuredImage?: SortOrderInput | SortOrder
+    brochurePdf?: SortOrderInput | SortOrder
+    capacity?: SortOrderInput | SortOrder
+    registrationOpen?: SortOrder
+    applicationFormEnabled?: SortOrder
+    paymentRequired?: SortOrder
+    seoMetadata?: SortOrderInput | SortOrder
     _count?: CampusEventCountOrderByAggregateInput
+    _avg?: CampusEventAvgOrderByAggregateInput
     _max?: CampusEventMaxOrderByAggregateInput
     _min?: CampusEventMinOrderByAggregateInput
+    _sum?: CampusEventSumOrderByAggregateInput
   }
 
   export type CampusEventScalarWhereWithAggregatesInput = {
@@ -220451,16 +228948,472 @@ export namespace Prisma {
     NOT?: CampusEventScalarWhereWithAggregatesInput | CampusEventScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"CampusEvent"> | string
     title?: StringWithAggregatesFilter<"CampusEvent"> | string
-    description?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    slug?: StringWithAggregatesFilter<"CampusEvent"> | string
+    shortDescription?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    fullDescription?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    objectives?: StringNullableListFilter<"CampusEvent">
+    rulesAndDiscipline?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    requirements?: StringNullableListFilter<"CampusEvent">
+    mealsAndHospitality?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    whyChooseThisEvent?: StringNullableListFilter<"CampusEvent">
     startDate?: DateTimeWithAggregatesFilter<"CampusEvent"> | Date | string
     endDate?: DateTimeWithAggregatesFilter<"CampusEvent"> | Date | string
+    applicationDeadline?: DateTimeNullableWithAggregatesFilter<"CampusEvent"> | Date | string | null
     location?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
-    category?: StringWithAggregatesFilter<"CampusEvent"> | string
+    categoryId?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    categoryLabel?: StringWithAggregatesFilter<"CampusEvent"> | string
     isPublic?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
     allowRSVP?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
     branchId?: StringWithAggregatesFilter<"CampusEvent"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CampusEvent"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CampusEvent"> | Date | string
+    status?: StringWithAggregatesFilter<"CampusEvent"> | string
+    active?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
+    featuredImage?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    brochurePdf?: StringNullableWithAggregatesFilter<"CampusEvent"> | string | null
+    capacity?: IntNullableWithAggregatesFilter<"CampusEvent"> | number | null
+    registrationOpen?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
+    applicationFormEnabled?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
+    paymentRequired?: BoolWithAggregatesFilter<"CampusEvent"> | boolean
+    seoMetadata?: JsonNullableWithAggregatesFilter<"CampusEvent">
+  }
+
+  export type EventPackageWhereInput = {
+    AND?: EventPackageWhereInput | EventPackageWhereInput[]
+    OR?: EventPackageWhereInput[]
+    NOT?: EventPackageWhereInput | EventPackageWhereInput[]
+    id?: StringFilter<"EventPackage"> | string
+    eventId?: StringFilter<"EventPackage"> | string
+    title?: StringFilter<"EventPackage"> | string
+    ageRange?: StringNullableFilter<"EventPackage"> | string | null
+    timing?: StringNullableFilter<"EventPackage"> | string | null
+    fee?: DecimalFilter<"EventPackage"> | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFilter<"EventPackage"> | string
+    availableSlots?: IntNullableFilter<"EventPackage"> | number | null
+    description?: StringNullableFilter<"EventPackage"> | string | null
+    createdAt?: DateTimeFilter<"EventPackage"> | Date | string
+    updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+    applications?: EventApplicationListRelationFilter
+  }
+
+  export type EventPackageOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    title?: SortOrder
+    ageRange?: SortOrderInput | SortOrder
+    timing?: SortOrderInput | SortOrder
+    fee?: SortOrder
+    boardingType?: SortOrder
+    availableSlots?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: CampusEventOrderByWithRelationInput
+    applications?: EventApplicationOrderByRelationAggregateInput
+  }
+
+  export type EventPackageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EventPackageWhereInput | EventPackageWhereInput[]
+    OR?: EventPackageWhereInput[]
+    NOT?: EventPackageWhereInput | EventPackageWhereInput[]
+    eventId?: StringFilter<"EventPackage"> | string
+    title?: StringFilter<"EventPackage"> | string
+    ageRange?: StringNullableFilter<"EventPackage"> | string | null
+    timing?: StringNullableFilter<"EventPackage"> | string | null
+    fee?: DecimalFilter<"EventPackage"> | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFilter<"EventPackage"> | string
+    availableSlots?: IntNullableFilter<"EventPackage"> | number | null
+    description?: StringNullableFilter<"EventPackage"> | string | null
+    createdAt?: DateTimeFilter<"EventPackage"> | Date | string
+    updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+    applications?: EventApplicationListRelationFilter
+  }, "id">
+
+  export type EventPackageOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    title?: SortOrder
+    ageRange?: SortOrderInput | SortOrder
+    timing?: SortOrderInput | SortOrder
+    fee?: SortOrder
+    boardingType?: SortOrder
+    availableSlots?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventPackageCountOrderByAggregateInput
+    _avg?: EventPackageAvgOrderByAggregateInput
+    _max?: EventPackageMaxOrderByAggregateInput
+    _min?: EventPackageMinOrderByAggregateInput
+    _sum?: EventPackageSumOrderByAggregateInput
+  }
+
+  export type EventPackageScalarWhereWithAggregatesInput = {
+    AND?: EventPackageScalarWhereWithAggregatesInput | EventPackageScalarWhereWithAggregatesInput[]
+    OR?: EventPackageScalarWhereWithAggregatesInput[]
+    NOT?: EventPackageScalarWhereWithAggregatesInput | EventPackageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventPackage"> | string
+    eventId?: StringWithAggregatesFilter<"EventPackage"> | string
+    title?: StringWithAggregatesFilter<"EventPackage"> | string
+    ageRange?: StringNullableWithAggregatesFilter<"EventPackage"> | string | null
+    timing?: StringNullableWithAggregatesFilter<"EventPackage"> | string | null
+    fee?: DecimalWithAggregatesFilter<"EventPackage"> | Decimal | DecimalJsLike | number | string
+    boardingType?: StringWithAggregatesFilter<"EventPackage"> | string
+    availableSlots?: IntNullableWithAggregatesFilter<"EventPackage"> | number | null
+    description?: StringNullableWithAggregatesFilter<"EventPackage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EventPackage"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EventPackage"> | Date | string
+  }
+
+  export type EventScheduleWhereInput = {
+    AND?: EventScheduleWhereInput | EventScheduleWhereInput[]
+    OR?: EventScheduleWhereInput[]
+    NOT?: EventScheduleWhereInput | EventScheduleWhereInput[]
+    id?: StringFilter<"EventSchedule"> | string
+    eventId?: StringFilter<"EventSchedule"> | string
+    day?: StringFilter<"EventSchedule"> | string
+    period?: StringNullableFilter<"EventSchedule"> | string | null
+    startTime?: StringFilter<"EventSchedule"> | string
+    endTime?: StringFilter<"EventSchedule"> | string
+    activity?: StringFilter<"EventSchedule"> | string
+    createdAt?: DateTimeFilter<"EventSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"EventSchedule"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+  }
+
+  export type EventScheduleOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    day?: SortOrder
+    period?: SortOrderInput | SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    activity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: CampusEventOrderByWithRelationInput
+  }
+
+  export type EventScheduleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EventScheduleWhereInput | EventScheduleWhereInput[]
+    OR?: EventScheduleWhereInput[]
+    NOT?: EventScheduleWhereInput | EventScheduleWhereInput[]
+    eventId?: StringFilter<"EventSchedule"> | string
+    day?: StringFilter<"EventSchedule"> | string
+    period?: StringNullableFilter<"EventSchedule"> | string | null
+    startTime?: StringFilter<"EventSchedule"> | string
+    endTime?: StringFilter<"EventSchedule"> | string
+    activity?: StringFilter<"EventSchedule"> | string
+    createdAt?: DateTimeFilter<"EventSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"EventSchedule"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+  }, "id">
+
+  export type EventScheduleOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    day?: SortOrder
+    period?: SortOrderInput | SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    activity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventScheduleCountOrderByAggregateInput
+    _max?: EventScheduleMaxOrderByAggregateInput
+    _min?: EventScheduleMinOrderByAggregateInput
+  }
+
+  export type EventScheduleScalarWhereWithAggregatesInput = {
+    AND?: EventScheduleScalarWhereWithAggregatesInput | EventScheduleScalarWhereWithAggregatesInput[]
+    OR?: EventScheduleScalarWhereWithAggregatesInput[]
+    NOT?: EventScheduleScalarWhereWithAggregatesInput | EventScheduleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventSchedule"> | string
+    eventId?: StringWithAggregatesFilter<"EventSchedule"> | string
+    day?: StringWithAggregatesFilter<"EventSchedule"> | string
+    period?: StringNullableWithAggregatesFilter<"EventSchedule"> | string | null
+    startTime?: StringWithAggregatesFilter<"EventSchedule"> | string
+    endTime?: StringWithAggregatesFilter<"EventSchedule"> | string
+    activity?: StringWithAggregatesFilter<"EventSchedule"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EventSchedule"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EventSchedule"> | Date | string
+  }
+
+  export type EventGalleryWhereInput = {
+    AND?: EventGalleryWhereInput | EventGalleryWhereInput[]
+    OR?: EventGalleryWhereInput[]
+    NOT?: EventGalleryWhereInput | EventGalleryWhereInput[]
+    id?: StringFilter<"EventGallery"> | string
+    eventId?: StringFilter<"EventGallery"> | string
+    imageUrl?: StringFilter<"EventGallery"> | string
+    isCover?: BoolFilter<"EventGallery"> | boolean
+    order?: IntFilter<"EventGallery"> | number
+    caption?: StringNullableFilter<"EventGallery"> | string | null
+    createdAt?: DateTimeFilter<"EventGallery"> | Date | string
+    updatedAt?: DateTimeFilter<"EventGallery"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+  }
+
+  export type EventGalleryOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    imageUrl?: SortOrder
+    isCover?: SortOrder
+    order?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: CampusEventOrderByWithRelationInput
+  }
+
+  export type EventGalleryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EventGalleryWhereInput | EventGalleryWhereInput[]
+    OR?: EventGalleryWhereInput[]
+    NOT?: EventGalleryWhereInput | EventGalleryWhereInput[]
+    eventId?: StringFilter<"EventGallery"> | string
+    imageUrl?: StringFilter<"EventGallery"> | string
+    isCover?: BoolFilter<"EventGallery"> | boolean
+    order?: IntFilter<"EventGallery"> | number
+    caption?: StringNullableFilter<"EventGallery"> | string | null
+    createdAt?: DateTimeFilter<"EventGallery"> | Date | string
+    updatedAt?: DateTimeFilter<"EventGallery"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+  }, "id">
+
+  export type EventGalleryOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    imageUrl?: SortOrder
+    isCover?: SortOrder
+    order?: SortOrder
+    caption?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventGalleryCountOrderByAggregateInput
+    _avg?: EventGalleryAvgOrderByAggregateInput
+    _max?: EventGalleryMaxOrderByAggregateInput
+    _min?: EventGalleryMinOrderByAggregateInput
+    _sum?: EventGallerySumOrderByAggregateInput
+  }
+
+  export type EventGalleryScalarWhereWithAggregatesInput = {
+    AND?: EventGalleryScalarWhereWithAggregatesInput | EventGalleryScalarWhereWithAggregatesInput[]
+    OR?: EventGalleryScalarWhereWithAggregatesInput[]
+    NOT?: EventGalleryScalarWhereWithAggregatesInput | EventGalleryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventGallery"> | string
+    eventId?: StringWithAggregatesFilter<"EventGallery"> | string
+    imageUrl?: StringWithAggregatesFilter<"EventGallery"> | string
+    isCover?: BoolWithAggregatesFilter<"EventGallery"> | boolean
+    order?: IntWithAggregatesFilter<"EventGallery"> | number
+    caption?: StringNullableWithAggregatesFilter<"EventGallery"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EventGallery"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EventGallery"> | Date | string
+  }
+
+  export type EventApplicationWhereInput = {
+    AND?: EventApplicationWhereInput | EventApplicationWhereInput[]
+    OR?: EventApplicationWhereInput[]
+    NOT?: EventApplicationWhereInput | EventApplicationWhereInput[]
+    id?: StringFilter<"EventApplication"> | string
+    eventId?: StringFilter<"EventApplication"> | string
+    packageId?: StringFilter<"EventApplication"> | string
+    branchId?: StringFilter<"EventApplication"> | string
+    fullName?: StringFilter<"EventApplication"> | string
+    gender?: StringFilter<"EventApplication"> | string
+    dateOfBirth?: DateTimeFilter<"EventApplication"> | Date | string
+    age?: IntFilter<"EventApplication"> | number
+    parentName?: StringNullableFilter<"EventApplication"> | string | null
+    parentPhone?: StringNullableFilter<"EventApplication"> | string | null
+    parentEmail?: StringNullableFilter<"EventApplication"> | string | null
+    address?: StringNullableFilter<"EventApplication"> | string | null
+    state?: StringNullableFilter<"EventApplication"> | string | null
+    localGovernment?: StringNullableFilter<"EventApplication"> | string | null
+    memorizationLevel?: StringNullableFilter<"EventApplication"> | string | null
+    school?: StringNullableFilter<"EventApplication"> | string | null
+    islamicBackground?: StringNullableFilter<"EventApplication"> | string | null
+    previousParticipation?: StringNullableFilter<"EventApplication"> | string | null
+    medicalConditions?: StringNullableFilter<"EventApplication"> | string | null
+    allergies?: StringNullableFilter<"EventApplication"> | string | null
+    emergencyContact?: StringFilter<"EventApplication"> | string
+    accommodationPreference?: StringNullableFilter<"EventApplication"> | string | null
+    passportPhotoUrl?: StringNullableFilter<"EventApplication"> | string | null
+    birthCertificateUrl?: StringNullableFilter<"EventApplication"> | string | null
+    ninUrl?: StringNullableFilter<"EventApplication"> | string | null
+    schoolIdUrl?: StringNullableFilter<"EventApplication"> | string | null
+    medicalReportUrl?: StringNullableFilter<"EventApplication"> | string | null
+    proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
+    status?: StringFilter<"EventApplication"> | string
+    paymentStatus?: StringFilter<"EventApplication"> | string
+    createdAt?: DateTimeFilter<"EventApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+    package?: XOR<EventPackageScalarRelationFilter, EventPackageWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    payment?: XOR<EventPaymentNullableScalarRelationFilter, EventPaymentWhereInput> | null
+  }
+
+  export type EventApplicationOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    packageId?: SortOrder
+    branchId?: SortOrder
+    fullName?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    age?: SortOrder
+    parentName?: SortOrderInput | SortOrder
+    parentPhone?: SortOrderInput | SortOrder
+    parentEmail?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    localGovernment?: SortOrderInput | SortOrder
+    memorizationLevel?: SortOrderInput | SortOrder
+    school?: SortOrderInput | SortOrder
+    islamicBackground?: SortOrderInput | SortOrder
+    previousParticipation?: SortOrderInput | SortOrder
+    medicalConditions?: SortOrderInput | SortOrder
+    allergies?: SortOrderInput | SortOrder
+    emergencyContact?: SortOrder
+    accommodationPreference?: SortOrderInput | SortOrder
+    passportPhotoUrl?: SortOrderInput | SortOrder
+    birthCertificateUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    schoolIdUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    proofOfPaymentUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paymentStatus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    event?: CampusEventOrderByWithRelationInput
+    package?: EventPackageOrderByWithRelationInput
+    branch?: BranchOrderByWithRelationInput
+    payment?: EventPaymentOrderByWithRelationInput
+  }
+
+  export type EventApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: EventApplicationWhereInput | EventApplicationWhereInput[]
+    OR?: EventApplicationWhereInput[]
+    NOT?: EventApplicationWhereInput | EventApplicationWhereInput[]
+    eventId?: StringFilter<"EventApplication"> | string
+    packageId?: StringFilter<"EventApplication"> | string
+    branchId?: StringFilter<"EventApplication"> | string
+    fullName?: StringFilter<"EventApplication"> | string
+    gender?: StringFilter<"EventApplication"> | string
+    dateOfBirth?: DateTimeFilter<"EventApplication"> | Date | string
+    age?: IntFilter<"EventApplication"> | number
+    parentName?: StringNullableFilter<"EventApplication"> | string | null
+    parentPhone?: StringNullableFilter<"EventApplication"> | string | null
+    parentEmail?: StringNullableFilter<"EventApplication"> | string | null
+    address?: StringNullableFilter<"EventApplication"> | string | null
+    state?: StringNullableFilter<"EventApplication"> | string | null
+    localGovernment?: StringNullableFilter<"EventApplication"> | string | null
+    memorizationLevel?: StringNullableFilter<"EventApplication"> | string | null
+    school?: StringNullableFilter<"EventApplication"> | string | null
+    islamicBackground?: StringNullableFilter<"EventApplication"> | string | null
+    previousParticipation?: StringNullableFilter<"EventApplication"> | string | null
+    medicalConditions?: StringNullableFilter<"EventApplication"> | string | null
+    allergies?: StringNullableFilter<"EventApplication"> | string | null
+    emergencyContact?: StringFilter<"EventApplication"> | string
+    accommodationPreference?: StringNullableFilter<"EventApplication"> | string | null
+    passportPhotoUrl?: StringNullableFilter<"EventApplication"> | string | null
+    birthCertificateUrl?: StringNullableFilter<"EventApplication"> | string | null
+    ninUrl?: StringNullableFilter<"EventApplication"> | string | null
+    schoolIdUrl?: StringNullableFilter<"EventApplication"> | string | null
+    medicalReportUrl?: StringNullableFilter<"EventApplication"> | string | null
+    proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
+    status?: StringFilter<"EventApplication"> | string
+    paymentStatus?: StringFilter<"EventApplication"> | string
+    createdAt?: DateTimeFilter<"EventApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
+    event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
+    package?: XOR<EventPackageScalarRelationFilter, EventPackageWhereInput>
+    branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
+    payment?: XOR<EventPaymentNullableScalarRelationFilter, EventPaymentWhereInput> | null
+  }, "id">
+
+  export type EventApplicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    packageId?: SortOrder
+    branchId?: SortOrder
+    fullName?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    age?: SortOrder
+    parentName?: SortOrderInput | SortOrder
+    parentPhone?: SortOrderInput | SortOrder
+    parentEmail?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    state?: SortOrderInput | SortOrder
+    localGovernment?: SortOrderInput | SortOrder
+    memorizationLevel?: SortOrderInput | SortOrder
+    school?: SortOrderInput | SortOrder
+    islamicBackground?: SortOrderInput | SortOrder
+    previousParticipation?: SortOrderInput | SortOrder
+    medicalConditions?: SortOrderInput | SortOrder
+    allergies?: SortOrderInput | SortOrder
+    emergencyContact?: SortOrder
+    accommodationPreference?: SortOrderInput | SortOrder
+    passportPhotoUrl?: SortOrderInput | SortOrder
+    birthCertificateUrl?: SortOrderInput | SortOrder
+    ninUrl?: SortOrderInput | SortOrder
+    schoolIdUrl?: SortOrderInput | SortOrder
+    medicalReportUrl?: SortOrderInput | SortOrder
+    proofOfPaymentUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    paymentStatus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventApplicationCountOrderByAggregateInput
+    _avg?: EventApplicationAvgOrderByAggregateInput
+    _max?: EventApplicationMaxOrderByAggregateInput
+    _min?: EventApplicationMinOrderByAggregateInput
+    _sum?: EventApplicationSumOrderByAggregateInput
+  }
+
+  export type EventApplicationScalarWhereWithAggregatesInput = {
+    AND?: EventApplicationScalarWhereWithAggregatesInput | EventApplicationScalarWhereWithAggregatesInput[]
+    OR?: EventApplicationScalarWhereWithAggregatesInput[]
+    NOT?: EventApplicationScalarWhereWithAggregatesInput | EventApplicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventApplication"> | string
+    eventId?: StringWithAggregatesFilter<"EventApplication"> | string
+    packageId?: StringWithAggregatesFilter<"EventApplication"> | string
+    branchId?: StringWithAggregatesFilter<"EventApplication"> | string
+    fullName?: StringWithAggregatesFilter<"EventApplication"> | string
+    gender?: StringWithAggregatesFilter<"EventApplication"> | string
+    dateOfBirth?: DateTimeWithAggregatesFilter<"EventApplication"> | Date | string
+    age?: IntWithAggregatesFilter<"EventApplication"> | number
+    parentName?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    parentPhone?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    parentEmail?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    address?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    state?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    localGovernment?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    memorizationLevel?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    school?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    islamicBackground?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    previousParticipation?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    medicalConditions?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    allergies?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    emergencyContact?: StringWithAggregatesFilter<"EventApplication"> | string
+    accommodationPreference?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    passportPhotoUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    birthCertificateUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    ninUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    schoolIdUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    medicalReportUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    proofOfPaymentUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    status?: StringWithAggregatesFilter<"EventApplication"> | string
+    paymentStatus?: StringWithAggregatesFilter<"EventApplication"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"EventApplication"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EventApplication"> | Date | string
   }
 
   export type EventRSVPWhereInput = {
@@ -220525,6 +229478,93 @@ export namespace Prisma {
     status?: EnumEventParticipationStatusWithAggregatesFilter<"EventRSVP"> | $Enums.EventParticipationStatus
     createdAt?: DateTimeWithAggregatesFilter<"EventRSVP"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EventRSVP"> | Date | string
+  }
+
+  export type EventPaymentWhereInput = {
+    AND?: EventPaymentWhereInput | EventPaymentWhereInput[]
+    OR?: EventPaymentWhereInput[]
+    NOT?: EventPaymentWhereInput | EventPaymentWhereInput[]
+    id?: StringFilter<"EventPayment"> | string
+    applicationId?: StringFilter<"EventPayment"> | string
+    amount?: DecimalFilter<"EventPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFilter<"EventPayment"> | string
+    proofOfPaymentUrl?: StringNullableFilter<"EventPayment"> | string | null
+    status?: StringFilter<"EventPayment"> | string
+    verifiedBy?: StringNullableFilter<"EventPayment"> | string | null
+    verifiedAt?: DateTimeNullableFilter<"EventPayment"> | Date | string | null
+    rejectionReason?: StringNullableFilter<"EventPayment"> | string | null
+    createdAt?: DateTimeFilter<"EventPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"EventPayment"> | Date | string
+    application?: XOR<EventApplicationScalarRelationFilter, EventApplicationWhereInput>
+  }
+
+  export type EventPaymentOrderByWithRelationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    proofOfPaymentUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    verifiedBy?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    application?: EventApplicationOrderByWithRelationInput
+  }
+
+  export type EventPaymentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    applicationId?: string
+    AND?: EventPaymentWhereInput | EventPaymentWhereInput[]
+    OR?: EventPaymentWhereInput[]
+    NOT?: EventPaymentWhereInput | EventPaymentWhereInput[]
+    amount?: DecimalFilter<"EventPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFilter<"EventPayment"> | string
+    proofOfPaymentUrl?: StringNullableFilter<"EventPayment"> | string | null
+    status?: StringFilter<"EventPayment"> | string
+    verifiedBy?: StringNullableFilter<"EventPayment"> | string | null
+    verifiedAt?: DateTimeNullableFilter<"EventPayment"> | Date | string | null
+    rejectionReason?: StringNullableFilter<"EventPayment"> | string | null
+    createdAt?: DateTimeFilter<"EventPayment"> | Date | string
+    updatedAt?: DateTimeFilter<"EventPayment"> | Date | string
+    application?: XOR<EventApplicationScalarRelationFilter, EventApplicationWhereInput>
+  }, "id" | "applicationId">
+
+  export type EventPaymentOrderByWithAggregationInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    proofOfPaymentUrl?: SortOrderInput | SortOrder
+    status?: SortOrder
+    verifiedBy?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    rejectionReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: EventPaymentCountOrderByAggregateInput
+    _avg?: EventPaymentAvgOrderByAggregateInput
+    _max?: EventPaymentMaxOrderByAggregateInput
+    _min?: EventPaymentMinOrderByAggregateInput
+    _sum?: EventPaymentSumOrderByAggregateInput
+  }
+
+  export type EventPaymentScalarWhereWithAggregatesInput = {
+    AND?: EventPaymentScalarWhereWithAggregatesInput | EventPaymentScalarWhereWithAggregatesInput[]
+    OR?: EventPaymentScalarWhereWithAggregatesInput[]
+    NOT?: EventPaymentScalarWhereWithAggregatesInput | EventPaymentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"EventPayment"> | string
+    applicationId?: StringWithAggregatesFilter<"EventPayment"> | string
+    amount?: DecimalWithAggregatesFilter<"EventPayment"> | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringWithAggregatesFilter<"EventPayment"> | string
+    proofOfPaymentUrl?: StringNullableWithAggregatesFilter<"EventPayment"> | string | null
+    status?: StringWithAggregatesFilter<"EventPayment"> | string
+    verifiedBy?: StringNullableWithAggregatesFilter<"EventPayment"> | string | null
+    verifiedAt?: DateTimeNullableWithAggregatesFilter<"EventPayment"> | Date | string | null
+    rejectionReason?: StringNullableWithAggregatesFilter<"EventPayment"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"EventPayment"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"EventPayment"> | Date | string
   }
 
   export type CampusAccessLogWhereInput = {
@@ -224653,6 +233693,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -224793,6 +233834,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -224933,6 +233975,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -225073,6 +234116,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -236212,110 +245256,810 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type EventCategoryCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    events?: CampusEventCreateNestedManyWithoutCategoryInput
+  }
+
+  export type EventCategoryUncheckedCreateInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+    events?: CampusEventUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type EventCategoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: CampusEventUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type EventCategoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    events?: CampusEventUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type EventCategoryCreateManyInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+  }
+
+  export type EventCategoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventCategoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type CampusEventCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
     branch: BranchCreateNestedOneWithoutCampusEventsInput
     rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
   }
 
   export type CampusEventUncheckedCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryId?: string | null
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
     rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type CampusEventUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
     branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
     rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
   }
 
   export type CampusEventUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
     rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type CampusEventCreateManyInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryId?: string | null
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CampusEventUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CampusEventUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type EventPackageCreateInput = {
+    id?: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutPackagesInput
+    applications?: EventApplicationCreateNestedManyWithoutPackageInput
+  }
+
+  export type EventPackageUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type EventPackageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutPackagesNestedInput
+    applications?: EventApplicationUpdateManyWithoutPackageNestedInput
+  }
+
+  export type EventPackageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: EventApplicationUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type EventPackageCreateManyInput = {
+    id?: string
+    eventId: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPackageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPackageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleCreateInput = {
+    id?: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutSchedulesInput
+  }
+
+  export type EventScheduleUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventScheduleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutSchedulesNestedInput
+  }
+
+  export type EventScheduleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleCreateManyInput = {
+    id?: string
+    eventId: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventScheduleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryCreateInput = {
+    id?: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutGalleryInput
+  }
+
+  export type EventGalleryUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventGalleryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutGalleryNestedInput
+  }
+
+  export type EventGalleryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryCreateManyInput = {
+    id?: string
+    eventId: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventGalleryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventApplicationCreateInput = {
+    id?: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutApplicationsInput
+    package: EventPackageCreateNestedOneWithoutApplicationsInput
+    branch: BranchCreateNestedOneWithoutEventApplicationsInput
+    payment?: EventPaymentCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
+    package?: EventPackageUpdateOneRequiredWithoutApplicationsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutEventApplicationsNestedInput
+    payment?: EventPaymentUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationCreateManyInput = {
+    id?: string
+    eventId: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventApplicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventApplicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -236377,6 +246121,103 @@ export namespace Prisma {
     eventId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventParticipationStatusFieldUpdateOperationsInput | $Enums.EventParticipationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPaymentCreateInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string
+    proofOfPaymentUrl?: string | null
+    status?: string
+    verifiedBy?: string | null
+    verifiedAt?: Date | string | null
+    rejectionReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    application: EventApplicationCreateNestedOneWithoutPaymentInput
+  }
+
+  export type EventPaymentUncheckedCreateInput = {
+    id?: string
+    applicationId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string
+    proofOfPaymentUrl?: string | null
+    status?: string
+    verifiedBy?: string | null
+    verifiedAt?: Date | string | null
+    rejectionReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPaymentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    application?: EventApplicationUpdateOneRequiredWithoutPaymentNestedInput
+  }
+
+  export type EventPaymentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPaymentCreateManyInput = {
+    id?: string
+    applicationId: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string
+    proofOfPaymentUrl?: string | null
+    status?: string
+    verifiedBy?: string | null
+    verifiedAt?: Date | string | null
+    rejectionReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPaymentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPaymentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -241047,6 +250888,12 @@ export namespace Prisma {
     none?: ResultSummaryWhereInput
   }
 
+  export type EventApplicationListRelationFilter = {
+    every?: EventApplicationWhereInput
+    some?: EventApplicationWhereInput
+    none?: EventApplicationWhereInput
+  }
+
   export type GradingScaleListRelationFilter = {
     every?: GradingScaleWhereInput
     some?: GradingScaleWhereInput
@@ -241679,6 +251526,10 @@ export namespace Prisma {
   }
 
   export type ResultSummaryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EventApplicationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -248559,54 +258410,424 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type EventCategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EventCategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type EventCategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    slug?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type EventCategoryNullableScalarRelationFilter = {
+    is?: EventCategoryWhereInput | null
+    isNot?: EventCategoryWhereInput | null
+  }
+
+  export type EventPackageListRelationFilter = {
+    every?: EventPackageWhereInput
+    some?: EventPackageWhereInput
+    none?: EventPackageWhereInput
+  }
+
+  export type EventScheduleListRelationFilter = {
+    every?: EventScheduleWhereInput
+    some?: EventScheduleWhereInput
+    none?: EventScheduleWhereInput
+  }
+
+  export type EventGalleryListRelationFilter = {
+    every?: EventGalleryWhereInput
+    some?: EventGalleryWhereInput
+    none?: EventGalleryWhereInput
+  }
+
+  export type EventPackageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EventScheduleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EventGalleryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type CampusEventCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    slug?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    objectives?: SortOrder
+    rulesAndDiscipline?: SortOrder
+    requirements?: SortOrder
+    mealsAndHospitality?: SortOrder
+    whyChooseThisEvent?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    applicationDeadline?: SortOrder
     location?: SortOrder
-    category?: SortOrder
+    categoryId?: SortOrder
+    categoryLabel?: SortOrder
     isPublic?: SortOrder
     allowRSVP?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
+    active?: SortOrder
+    featuredImage?: SortOrder
+    brochurePdf?: SortOrder
+    capacity?: SortOrder
+    registrationOpen?: SortOrder
+    applicationFormEnabled?: SortOrder
+    paymentRequired?: SortOrder
+    seoMetadata?: SortOrder
+  }
+
+  export type CampusEventAvgOrderByAggregateInput = {
+    capacity?: SortOrder
   }
 
   export type CampusEventMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    slug?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    rulesAndDiscipline?: SortOrder
+    mealsAndHospitality?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    applicationDeadline?: SortOrder
     location?: SortOrder
-    category?: SortOrder
+    categoryId?: SortOrder
+    categoryLabel?: SortOrder
     isPublic?: SortOrder
     allowRSVP?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
+    active?: SortOrder
+    featuredImage?: SortOrder
+    brochurePdf?: SortOrder
+    capacity?: SortOrder
+    registrationOpen?: SortOrder
+    applicationFormEnabled?: SortOrder
+    paymentRequired?: SortOrder
   }
 
   export type CampusEventMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    slug?: SortOrder
+    shortDescription?: SortOrder
+    fullDescription?: SortOrder
+    rulesAndDiscipline?: SortOrder
+    mealsAndHospitality?: SortOrder
     startDate?: SortOrder
     endDate?: SortOrder
+    applicationDeadline?: SortOrder
     location?: SortOrder
-    category?: SortOrder
+    categoryId?: SortOrder
+    categoryLabel?: SortOrder
     isPublic?: SortOrder
     allowRSVP?: SortOrder
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    status?: SortOrder
+    active?: SortOrder
+    featuredImage?: SortOrder
+    brochurePdf?: SortOrder
+    capacity?: SortOrder
+    registrationOpen?: SortOrder
+    applicationFormEnabled?: SortOrder
+    paymentRequired?: SortOrder
+  }
+
+  export type CampusEventSumOrderByAggregateInput = {
+    capacity?: SortOrder
   }
 
   export type CampusEventScalarRelationFilter = {
     is?: CampusEventWhereInput
     isNot?: CampusEventWhereInput
+  }
+
+  export type EventPackageCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    title?: SortOrder
+    ageRange?: SortOrder
+    timing?: SortOrder
+    fee?: SortOrder
+    boardingType?: SortOrder
+    availableSlots?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPackageAvgOrderByAggregateInput = {
+    fee?: SortOrder
+    availableSlots?: SortOrder
+  }
+
+  export type EventPackageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    title?: SortOrder
+    ageRange?: SortOrder
+    timing?: SortOrder
+    fee?: SortOrder
+    boardingType?: SortOrder
+    availableSlots?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPackageMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    title?: SortOrder
+    ageRange?: SortOrder
+    timing?: SortOrder
+    fee?: SortOrder
+    boardingType?: SortOrder
+    availableSlots?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPackageSumOrderByAggregateInput = {
+    fee?: SortOrder
+    availableSlots?: SortOrder
+  }
+
+  export type EventScheduleCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    day?: SortOrder
+    period?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    activity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventScheduleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    day?: SortOrder
+    period?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    activity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventScheduleMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    day?: SortOrder
+    period?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    activity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventGalleryCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    imageUrl?: SortOrder
+    isCover?: SortOrder
+    order?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventGalleryAvgOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type EventGalleryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    imageUrl?: SortOrder
+    isCover?: SortOrder
+    order?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventGalleryMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    imageUrl?: SortOrder
+    isCover?: SortOrder
+    order?: SortOrder
+    caption?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventGallerySumOrderByAggregateInput = {
+    order?: SortOrder
+  }
+
+  export type EventPackageScalarRelationFilter = {
+    is?: EventPackageWhereInput
+    isNot?: EventPackageWhereInput
+  }
+
+  export type EventPaymentNullableScalarRelationFilter = {
+    is?: EventPaymentWhereInput | null
+    isNot?: EventPaymentWhereInput | null
+  }
+
+  export type EventApplicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    packageId?: SortOrder
+    branchId?: SortOrder
+    fullName?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    age?: SortOrder
+    parentName?: SortOrder
+    parentPhone?: SortOrder
+    parentEmail?: SortOrder
+    address?: SortOrder
+    state?: SortOrder
+    localGovernment?: SortOrder
+    memorizationLevel?: SortOrder
+    school?: SortOrder
+    islamicBackground?: SortOrder
+    previousParticipation?: SortOrder
+    medicalConditions?: SortOrder
+    allergies?: SortOrder
+    emergencyContact?: SortOrder
+    accommodationPreference?: SortOrder
+    passportPhotoUrl?: SortOrder
+    birthCertificateUrl?: SortOrder
+    ninUrl?: SortOrder
+    schoolIdUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    paymentStatus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventApplicationAvgOrderByAggregateInput = {
+    age?: SortOrder
+  }
+
+  export type EventApplicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    packageId?: SortOrder
+    branchId?: SortOrder
+    fullName?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    age?: SortOrder
+    parentName?: SortOrder
+    parentPhone?: SortOrder
+    parentEmail?: SortOrder
+    address?: SortOrder
+    state?: SortOrder
+    localGovernment?: SortOrder
+    memorizationLevel?: SortOrder
+    school?: SortOrder
+    islamicBackground?: SortOrder
+    previousParticipation?: SortOrder
+    medicalConditions?: SortOrder
+    allergies?: SortOrder
+    emergencyContact?: SortOrder
+    accommodationPreference?: SortOrder
+    passportPhotoUrl?: SortOrder
+    birthCertificateUrl?: SortOrder
+    ninUrl?: SortOrder
+    schoolIdUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    paymentStatus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventApplicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    packageId?: SortOrder
+    branchId?: SortOrder
+    fullName?: SortOrder
+    gender?: SortOrder
+    dateOfBirth?: SortOrder
+    age?: SortOrder
+    parentName?: SortOrder
+    parentPhone?: SortOrder
+    parentEmail?: SortOrder
+    address?: SortOrder
+    state?: SortOrder
+    localGovernment?: SortOrder
+    memorizationLevel?: SortOrder
+    school?: SortOrder
+    islamicBackground?: SortOrder
+    previousParticipation?: SortOrder
+    medicalConditions?: SortOrder
+    allergies?: SortOrder
+    emergencyContact?: SortOrder
+    accommodationPreference?: SortOrder
+    passportPhotoUrl?: SortOrder
+    birthCertificateUrl?: SortOrder
+    ninUrl?: SortOrder
+    schoolIdUrl?: SortOrder
+    medicalReportUrl?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    paymentStatus?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventApplicationSumOrderByAggregateInput = {
+    age?: SortOrder
   }
 
   export type EventRSVPEventIdUserIdCompoundUniqueInput = {
@@ -248639,6 +258860,61 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EventApplicationScalarRelationFilter = {
+    is?: EventApplicationWhereInput
+    isNot?: EventApplicationWhereInput
+  }
+
+  export type EventPaymentCountOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    verifiedBy?: SortOrder
+    verifiedAt?: SortOrder
+    rejectionReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPaymentAvgOrderByAggregateInput = {
+    amount?: SortOrder
+  }
+
+  export type EventPaymentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    verifiedBy?: SortOrder
+    verifiedAt?: SortOrder
+    rejectionReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPaymentMinOrderByAggregateInput = {
+    id?: SortOrder
+    applicationId?: SortOrder
+    amount?: SortOrder
+    paymentMethod?: SortOrder
+    proofOfPaymentUrl?: SortOrder
+    status?: SortOrder
+    verifiedBy?: SortOrder
+    verifiedAt?: SortOrder
+    rejectionReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EventPaymentSumOrderByAggregateInput = {
+    amount?: SortOrder
   }
 
   export type CampusAccessLogCountOrderByAggregateInput = {
@@ -250042,14 +260318,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type ApiKeyCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -251244,6 +261512,13 @@ export namespace Prisma {
     connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
   }
 
+  export type EventApplicationCreateNestedManyWithoutBranchInput = {
+    create?: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput> | EventApplicationCreateWithoutBranchInput[] | EventApplicationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutBranchInput | EventApplicationCreateOrConnectWithoutBranchInput[]
+    createMany?: EventApplicationCreateManyBranchInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+  }
+
   export type GradingScaleCreateNestedManyWithoutBranchInput = {
     create?: XOR<GradingScaleCreateWithoutBranchInput, GradingScaleUncheckedCreateWithoutBranchInput> | GradingScaleCreateWithoutBranchInput[] | GradingScaleUncheckedCreateWithoutBranchInput[]
     connectOrCreate?: GradingScaleCreateOrConnectWithoutBranchInput | GradingScaleCreateOrConnectWithoutBranchInput[]
@@ -252109,6 +262384,13 @@ export namespace Prisma {
     connectOrCreate?: ResultSummaryCreateOrConnectWithoutBranchInput | ResultSummaryCreateOrConnectWithoutBranchInput[]
     createMany?: ResultSummaryCreateManyBranchInputEnvelope
     connect?: ResultSummaryWhereUniqueInput | ResultSummaryWhereUniqueInput[]
+  }
+
+  export type EventApplicationUncheckedCreateNestedManyWithoutBranchInput = {
+    create?: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput> | EventApplicationCreateWithoutBranchInput[] | EventApplicationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutBranchInput | EventApplicationCreateOrConnectWithoutBranchInput[]
+    createMany?: EventApplicationCreateManyBranchInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
   }
 
   export type GradingScaleUncheckedCreateNestedManyWithoutBranchInput = {
@@ -253374,6 +263656,20 @@ export namespace Prisma {
     update?: ResultSummaryUpdateWithWhereUniqueWithoutBranchInput | ResultSummaryUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: ResultSummaryUpdateManyWithWhereWithoutBranchInput | ResultSummaryUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+  }
+
+  export type EventApplicationUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput> | EventApplicationCreateWithoutBranchInput[] | EventApplicationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutBranchInput | EventApplicationCreateOrConnectWithoutBranchInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutBranchInput | EventApplicationUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: EventApplicationCreateManyBranchInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutBranchInput | EventApplicationUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutBranchInput | EventApplicationUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
   }
 
   export type GradingScaleUpdateManyWithoutBranchNestedInput = {
@@ -255106,6 +265402,20 @@ export namespace Prisma {
     update?: ResultSummaryUpdateWithWhereUniqueWithoutBranchInput | ResultSummaryUpdateWithWhereUniqueWithoutBranchInput[]
     updateMany?: ResultSummaryUpdateManyWithWhereWithoutBranchInput | ResultSummaryUpdateManyWithWhereWithoutBranchInput[]
     deleteMany?: ResultSummaryScalarWhereInput | ResultSummaryScalarWhereInput[]
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutBranchNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput> | EventApplicationCreateWithoutBranchInput[] | EventApplicationUncheckedCreateWithoutBranchInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutBranchInput | EventApplicationCreateOrConnectWithoutBranchInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutBranchInput | EventApplicationUpsertWithWhereUniqueWithoutBranchInput[]
+    createMany?: EventApplicationCreateManyBranchInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutBranchInput | EventApplicationUpdateWithWhereUniqueWithoutBranchInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutBranchInput | EventApplicationUpdateManyWithWhereWithoutBranchInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
   }
 
   export type GradingScaleUncheckedUpdateManyWithoutBranchNestedInput = {
@@ -265820,6 +276130,66 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSentMessagesInput, UserUpdateWithoutSentMessagesInput>, UserUncheckedUpdateWithoutSentMessagesInput>
   }
 
+  export type CampusEventCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput> | CampusEventCreateWithoutCategoryInput[] | CampusEventUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CampusEventCreateOrConnectWithoutCategoryInput | CampusEventCreateOrConnectWithoutCategoryInput[]
+    createMany?: CampusEventCreateManyCategoryInputEnvelope
+    connect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+  }
+
+  export type CampusEventUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput> | CampusEventCreateWithoutCategoryInput[] | CampusEventUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CampusEventCreateOrConnectWithoutCategoryInput | CampusEventCreateOrConnectWithoutCategoryInput[]
+    createMany?: CampusEventCreateManyCategoryInputEnvelope
+    connect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+  }
+
+  export type CampusEventUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput> | CampusEventCreateWithoutCategoryInput[] | CampusEventUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CampusEventCreateOrConnectWithoutCategoryInput | CampusEventCreateOrConnectWithoutCategoryInput[]
+    upsert?: CampusEventUpsertWithWhereUniqueWithoutCategoryInput | CampusEventUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CampusEventCreateManyCategoryInputEnvelope
+    set?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    disconnect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    delete?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    connect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    update?: CampusEventUpdateWithWhereUniqueWithoutCategoryInput | CampusEventUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CampusEventUpdateManyWithWhereWithoutCategoryInput | CampusEventUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CampusEventScalarWhereInput | CampusEventScalarWhereInput[]
+  }
+
+  export type CampusEventUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput> | CampusEventCreateWithoutCategoryInput[] | CampusEventUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CampusEventCreateOrConnectWithoutCategoryInput | CampusEventCreateOrConnectWithoutCategoryInput[]
+    upsert?: CampusEventUpsertWithWhereUniqueWithoutCategoryInput | CampusEventUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CampusEventCreateManyCategoryInputEnvelope
+    set?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    disconnect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    delete?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    connect?: CampusEventWhereUniqueInput | CampusEventWhereUniqueInput[]
+    update?: CampusEventUpdateWithWhereUniqueWithoutCategoryInput | CampusEventUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CampusEventUpdateManyWithWhereWithoutCategoryInput | CampusEventUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CampusEventScalarWhereInput | CampusEventScalarWhereInput[]
+  }
+
+  export type CampusEventCreateobjectivesInput = {
+    set: string[]
+  }
+
+  export type CampusEventCreaterequirementsInput = {
+    set: string[]
+  }
+
+  export type CampusEventCreatewhyChooseThisEventInput = {
+    set: string[]
+  }
+
+  export type EventCategoryCreateNestedOneWithoutEventsInput = {
+    create?: XOR<EventCategoryCreateWithoutEventsInput, EventCategoryUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: EventCategoryCreateOrConnectWithoutEventsInput
+    connect?: EventCategoryWhereUniqueInput
+  }
+
   export type BranchCreateNestedOneWithoutCampusEventsInput = {
     create?: XOR<BranchCreateWithoutCampusEventsInput, BranchUncheckedCreateWithoutCampusEventsInput>
     connectOrCreate?: BranchCreateOrConnectWithoutCampusEventsInput
@@ -265833,11 +276203,92 @@ export namespace Prisma {
     connect?: EventRSVPWhereUniqueInput | EventRSVPWhereUniqueInput[]
   }
 
+  export type EventPackageCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput> | EventPackageCreateWithoutEventInput[] | EventPackageUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventPackageCreateOrConnectWithoutEventInput | EventPackageCreateOrConnectWithoutEventInput[]
+    createMany?: EventPackageCreateManyEventInputEnvelope
+    connect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+  }
+
+  export type EventScheduleCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput> | EventScheduleCreateWithoutEventInput[] | EventScheduleUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventScheduleCreateOrConnectWithoutEventInput | EventScheduleCreateOrConnectWithoutEventInput[]
+    createMany?: EventScheduleCreateManyEventInputEnvelope
+    connect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+  }
+
+  export type EventGalleryCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput> | EventGalleryCreateWithoutEventInput[] | EventGalleryUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventGalleryCreateOrConnectWithoutEventInput | EventGalleryCreateOrConnectWithoutEventInput[]
+    createMany?: EventGalleryCreateManyEventInputEnvelope
+    connect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+  }
+
+  export type EventApplicationCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput> | EventApplicationCreateWithoutEventInput[] | EventApplicationUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutEventInput | EventApplicationCreateOrConnectWithoutEventInput[]
+    createMany?: EventApplicationCreateManyEventInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+  }
+
   export type EventRSVPUncheckedCreateNestedManyWithoutEventInput = {
     create?: XOR<EventRSVPCreateWithoutEventInput, EventRSVPUncheckedCreateWithoutEventInput> | EventRSVPCreateWithoutEventInput[] | EventRSVPUncheckedCreateWithoutEventInput[]
     connectOrCreate?: EventRSVPCreateOrConnectWithoutEventInput | EventRSVPCreateOrConnectWithoutEventInput[]
     createMany?: EventRSVPCreateManyEventInputEnvelope
     connect?: EventRSVPWhereUniqueInput | EventRSVPWhereUniqueInput[]
+  }
+
+  export type EventPackageUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput> | EventPackageCreateWithoutEventInput[] | EventPackageUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventPackageCreateOrConnectWithoutEventInput | EventPackageCreateOrConnectWithoutEventInput[]
+    createMany?: EventPackageCreateManyEventInputEnvelope
+    connect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+  }
+
+  export type EventScheduleUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput> | EventScheduleCreateWithoutEventInput[] | EventScheduleUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventScheduleCreateOrConnectWithoutEventInput | EventScheduleCreateOrConnectWithoutEventInput[]
+    createMany?: EventScheduleCreateManyEventInputEnvelope
+    connect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+  }
+
+  export type EventGalleryUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput> | EventGalleryCreateWithoutEventInput[] | EventGalleryUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventGalleryCreateOrConnectWithoutEventInput | EventGalleryCreateOrConnectWithoutEventInput[]
+    createMany?: EventGalleryCreateManyEventInputEnvelope
+    connect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+  }
+
+  export type EventApplicationUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput> | EventApplicationCreateWithoutEventInput[] | EventApplicationUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutEventInput | EventApplicationCreateOrConnectWithoutEventInput[]
+    createMany?: EventApplicationCreateManyEventInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+  }
+
+  export type CampusEventUpdateobjectivesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CampusEventUpdaterequirementsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type CampusEventUpdatewhyChooseThisEventInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EventCategoryUpdateOneWithoutEventsNestedInput = {
+    create?: XOR<EventCategoryCreateWithoutEventsInput, EventCategoryUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: EventCategoryCreateOrConnectWithoutEventsInput
+    upsert?: EventCategoryUpsertWithoutEventsInput
+    disconnect?: EventCategoryWhereInput | boolean
+    delete?: EventCategoryWhereInput | boolean
+    connect?: EventCategoryWhereUniqueInput
+    update?: XOR<XOR<EventCategoryUpdateToOneWithWhereWithoutEventsInput, EventCategoryUpdateWithoutEventsInput>, EventCategoryUncheckedUpdateWithoutEventsInput>
   }
 
   export type BranchUpdateOneRequiredWithoutCampusEventsNestedInput = {
@@ -265862,6 +276313,62 @@ export namespace Prisma {
     deleteMany?: EventRSVPScalarWhereInput | EventRSVPScalarWhereInput[]
   }
 
+  export type EventPackageUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput> | EventPackageCreateWithoutEventInput[] | EventPackageUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventPackageCreateOrConnectWithoutEventInput | EventPackageCreateOrConnectWithoutEventInput[]
+    upsert?: EventPackageUpsertWithWhereUniqueWithoutEventInput | EventPackageUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventPackageCreateManyEventInputEnvelope
+    set?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    disconnect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    delete?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    connect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    update?: EventPackageUpdateWithWhereUniqueWithoutEventInput | EventPackageUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventPackageUpdateManyWithWhereWithoutEventInput | EventPackageUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventPackageScalarWhereInput | EventPackageScalarWhereInput[]
+  }
+
+  export type EventScheduleUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput> | EventScheduleCreateWithoutEventInput[] | EventScheduleUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventScheduleCreateOrConnectWithoutEventInput | EventScheduleCreateOrConnectWithoutEventInput[]
+    upsert?: EventScheduleUpsertWithWhereUniqueWithoutEventInput | EventScheduleUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventScheduleCreateManyEventInputEnvelope
+    set?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    disconnect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    delete?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    connect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    update?: EventScheduleUpdateWithWhereUniqueWithoutEventInput | EventScheduleUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventScheduleUpdateManyWithWhereWithoutEventInput | EventScheduleUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventScheduleScalarWhereInput | EventScheduleScalarWhereInput[]
+  }
+
+  export type EventGalleryUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput> | EventGalleryCreateWithoutEventInput[] | EventGalleryUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventGalleryCreateOrConnectWithoutEventInput | EventGalleryCreateOrConnectWithoutEventInput[]
+    upsert?: EventGalleryUpsertWithWhereUniqueWithoutEventInput | EventGalleryUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventGalleryCreateManyEventInputEnvelope
+    set?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    disconnect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    delete?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    connect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    update?: EventGalleryUpdateWithWhereUniqueWithoutEventInput | EventGalleryUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventGalleryUpdateManyWithWhereWithoutEventInput | EventGalleryUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventGalleryScalarWhereInput | EventGalleryScalarWhereInput[]
+  }
+
+  export type EventApplicationUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput> | EventApplicationCreateWithoutEventInput[] | EventApplicationUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutEventInput | EventApplicationCreateOrConnectWithoutEventInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutEventInput | EventApplicationUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventApplicationCreateManyEventInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutEventInput | EventApplicationUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutEventInput | EventApplicationUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+  }
+
   export type EventRSVPUncheckedUpdateManyWithoutEventNestedInput = {
     create?: XOR<EventRSVPCreateWithoutEventInput, EventRSVPUncheckedCreateWithoutEventInput> | EventRSVPCreateWithoutEventInput[] | EventRSVPUncheckedCreateWithoutEventInput[]
     connectOrCreate?: EventRSVPCreateOrConnectWithoutEventInput | EventRSVPCreateOrConnectWithoutEventInput[]
@@ -265874,6 +276381,220 @@ export namespace Prisma {
     update?: EventRSVPUpdateWithWhereUniqueWithoutEventInput | EventRSVPUpdateWithWhereUniqueWithoutEventInput[]
     updateMany?: EventRSVPUpdateManyWithWhereWithoutEventInput | EventRSVPUpdateManyWithWhereWithoutEventInput[]
     deleteMany?: EventRSVPScalarWhereInput | EventRSVPScalarWhereInput[]
+  }
+
+  export type EventPackageUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput> | EventPackageCreateWithoutEventInput[] | EventPackageUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventPackageCreateOrConnectWithoutEventInput | EventPackageCreateOrConnectWithoutEventInput[]
+    upsert?: EventPackageUpsertWithWhereUniqueWithoutEventInput | EventPackageUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventPackageCreateManyEventInputEnvelope
+    set?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    disconnect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    delete?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    connect?: EventPackageWhereUniqueInput | EventPackageWhereUniqueInput[]
+    update?: EventPackageUpdateWithWhereUniqueWithoutEventInput | EventPackageUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventPackageUpdateManyWithWhereWithoutEventInput | EventPackageUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventPackageScalarWhereInput | EventPackageScalarWhereInput[]
+  }
+
+  export type EventScheduleUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput> | EventScheduleCreateWithoutEventInput[] | EventScheduleUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventScheduleCreateOrConnectWithoutEventInput | EventScheduleCreateOrConnectWithoutEventInput[]
+    upsert?: EventScheduleUpsertWithWhereUniqueWithoutEventInput | EventScheduleUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventScheduleCreateManyEventInputEnvelope
+    set?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    disconnect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    delete?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    connect?: EventScheduleWhereUniqueInput | EventScheduleWhereUniqueInput[]
+    update?: EventScheduleUpdateWithWhereUniqueWithoutEventInput | EventScheduleUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventScheduleUpdateManyWithWhereWithoutEventInput | EventScheduleUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventScheduleScalarWhereInput | EventScheduleScalarWhereInput[]
+  }
+
+  export type EventGalleryUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput> | EventGalleryCreateWithoutEventInput[] | EventGalleryUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventGalleryCreateOrConnectWithoutEventInput | EventGalleryCreateOrConnectWithoutEventInput[]
+    upsert?: EventGalleryUpsertWithWhereUniqueWithoutEventInput | EventGalleryUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventGalleryCreateManyEventInputEnvelope
+    set?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    disconnect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    delete?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    connect?: EventGalleryWhereUniqueInput | EventGalleryWhereUniqueInput[]
+    update?: EventGalleryUpdateWithWhereUniqueWithoutEventInput | EventGalleryUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventGalleryUpdateManyWithWhereWithoutEventInput | EventGalleryUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventGalleryScalarWhereInput | EventGalleryScalarWhereInput[]
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput> | EventApplicationCreateWithoutEventInput[] | EventApplicationUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutEventInput | EventApplicationCreateOrConnectWithoutEventInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutEventInput | EventApplicationUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: EventApplicationCreateManyEventInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutEventInput | EventApplicationUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutEventInput | EventApplicationUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+  }
+
+  export type CampusEventCreateNestedOneWithoutPackagesInput = {
+    create?: XOR<CampusEventCreateWithoutPackagesInput, CampusEventUncheckedCreateWithoutPackagesInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutPackagesInput
+    connect?: CampusEventWhereUniqueInput
+  }
+
+  export type EventApplicationCreateNestedManyWithoutPackageInput = {
+    create?: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput> | EventApplicationCreateWithoutPackageInput[] | EventApplicationUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPackageInput | EventApplicationCreateOrConnectWithoutPackageInput[]
+    createMany?: EventApplicationCreateManyPackageInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+  }
+
+  export type EventApplicationUncheckedCreateNestedManyWithoutPackageInput = {
+    create?: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput> | EventApplicationCreateWithoutPackageInput[] | EventApplicationUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPackageInput | EventApplicationCreateOrConnectWithoutPackageInput[]
+    createMany?: EventApplicationCreateManyPackageInputEnvelope
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+  }
+
+  export type CampusEventUpdateOneRequiredWithoutPackagesNestedInput = {
+    create?: XOR<CampusEventCreateWithoutPackagesInput, CampusEventUncheckedCreateWithoutPackagesInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutPackagesInput
+    upsert?: CampusEventUpsertWithoutPackagesInput
+    connect?: CampusEventWhereUniqueInput
+    update?: XOR<XOR<CampusEventUpdateToOneWithWhereWithoutPackagesInput, CampusEventUpdateWithoutPackagesInput>, CampusEventUncheckedUpdateWithoutPackagesInput>
+  }
+
+  export type EventApplicationUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput> | EventApplicationCreateWithoutPackageInput[] | EventApplicationUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPackageInput | EventApplicationCreateOrConnectWithoutPackageInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutPackageInput | EventApplicationUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: EventApplicationCreateManyPackageInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutPackageInput | EventApplicationUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutPackageInput | EventApplicationUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutPackageNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput> | EventApplicationCreateWithoutPackageInput[] | EventApplicationUncheckedCreateWithoutPackageInput[]
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPackageInput | EventApplicationCreateOrConnectWithoutPackageInput[]
+    upsert?: EventApplicationUpsertWithWhereUniqueWithoutPackageInput | EventApplicationUpsertWithWhereUniqueWithoutPackageInput[]
+    createMany?: EventApplicationCreateManyPackageInputEnvelope
+    set?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    disconnect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    delete?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    connect?: EventApplicationWhereUniqueInput | EventApplicationWhereUniqueInput[]
+    update?: EventApplicationUpdateWithWhereUniqueWithoutPackageInput | EventApplicationUpdateWithWhereUniqueWithoutPackageInput[]
+    updateMany?: EventApplicationUpdateManyWithWhereWithoutPackageInput | EventApplicationUpdateManyWithWhereWithoutPackageInput[]
+    deleteMany?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+  }
+
+  export type CampusEventCreateNestedOneWithoutSchedulesInput = {
+    create?: XOR<CampusEventCreateWithoutSchedulesInput, CampusEventUncheckedCreateWithoutSchedulesInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutSchedulesInput
+    connect?: CampusEventWhereUniqueInput
+  }
+
+  export type CampusEventUpdateOneRequiredWithoutSchedulesNestedInput = {
+    create?: XOR<CampusEventCreateWithoutSchedulesInput, CampusEventUncheckedCreateWithoutSchedulesInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutSchedulesInput
+    upsert?: CampusEventUpsertWithoutSchedulesInput
+    connect?: CampusEventWhereUniqueInput
+    update?: XOR<XOR<CampusEventUpdateToOneWithWhereWithoutSchedulesInput, CampusEventUpdateWithoutSchedulesInput>, CampusEventUncheckedUpdateWithoutSchedulesInput>
+  }
+
+  export type CampusEventCreateNestedOneWithoutGalleryInput = {
+    create?: XOR<CampusEventCreateWithoutGalleryInput, CampusEventUncheckedCreateWithoutGalleryInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutGalleryInput
+    connect?: CampusEventWhereUniqueInput
+  }
+
+  export type CampusEventUpdateOneRequiredWithoutGalleryNestedInput = {
+    create?: XOR<CampusEventCreateWithoutGalleryInput, CampusEventUncheckedCreateWithoutGalleryInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutGalleryInput
+    upsert?: CampusEventUpsertWithoutGalleryInput
+    connect?: CampusEventWhereUniqueInput
+    update?: XOR<XOR<CampusEventUpdateToOneWithWhereWithoutGalleryInput, CampusEventUpdateWithoutGalleryInput>, CampusEventUncheckedUpdateWithoutGalleryInput>
+  }
+
+  export type CampusEventCreateNestedOneWithoutApplicationsInput = {
+    create?: XOR<CampusEventCreateWithoutApplicationsInput, CampusEventUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutApplicationsInput
+    connect?: CampusEventWhereUniqueInput
+  }
+
+  export type EventPackageCreateNestedOneWithoutApplicationsInput = {
+    create?: XOR<EventPackageCreateWithoutApplicationsInput, EventPackageUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: EventPackageCreateOrConnectWithoutApplicationsInput
+    connect?: EventPackageWhereUniqueInput
+  }
+
+  export type BranchCreateNestedOneWithoutEventApplicationsInput = {
+    create?: XOR<BranchCreateWithoutEventApplicationsInput, BranchUncheckedCreateWithoutEventApplicationsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutEventApplicationsInput
+    connect?: BranchWhereUniqueInput
+  }
+
+  export type EventPaymentCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: EventPaymentCreateOrConnectWithoutApplicationInput
+    connect?: EventPaymentWhereUniqueInput
+  }
+
+  export type EventPaymentUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: EventPaymentCreateOrConnectWithoutApplicationInput
+    connect?: EventPaymentWhereUniqueInput
+  }
+
+  export type CampusEventUpdateOneRequiredWithoutApplicationsNestedInput = {
+    create?: XOR<CampusEventCreateWithoutApplicationsInput, CampusEventUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: CampusEventCreateOrConnectWithoutApplicationsInput
+    upsert?: CampusEventUpsertWithoutApplicationsInput
+    connect?: CampusEventWhereUniqueInput
+    update?: XOR<XOR<CampusEventUpdateToOneWithWhereWithoutApplicationsInput, CampusEventUpdateWithoutApplicationsInput>, CampusEventUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type EventPackageUpdateOneRequiredWithoutApplicationsNestedInput = {
+    create?: XOR<EventPackageCreateWithoutApplicationsInput, EventPackageUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: EventPackageCreateOrConnectWithoutApplicationsInput
+    upsert?: EventPackageUpsertWithoutApplicationsInput
+    connect?: EventPackageWhereUniqueInput
+    update?: XOR<XOR<EventPackageUpdateToOneWithWhereWithoutApplicationsInput, EventPackageUpdateWithoutApplicationsInput>, EventPackageUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type BranchUpdateOneRequiredWithoutEventApplicationsNestedInput = {
+    create?: XOR<BranchCreateWithoutEventApplicationsInput, BranchUncheckedCreateWithoutEventApplicationsInput>
+    connectOrCreate?: BranchCreateOrConnectWithoutEventApplicationsInput
+    upsert?: BranchUpsertWithoutEventApplicationsInput
+    connect?: BranchWhereUniqueInput
+    update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutEventApplicationsInput, BranchUpdateWithoutEventApplicationsInput>, BranchUncheckedUpdateWithoutEventApplicationsInput>
+  }
+
+  export type EventPaymentUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: EventPaymentCreateOrConnectWithoutApplicationInput
+    upsert?: EventPaymentUpsertWithoutApplicationInput
+    disconnect?: EventPaymentWhereInput | boolean
+    delete?: EventPaymentWhereInput | boolean
+    connect?: EventPaymentWhereUniqueInput
+    update?: XOR<XOR<EventPaymentUpdateToOneWithWhereWithoutApplicationInput, EventPaymentUpdateWithoutApplicationInput>, EventPaymentUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: EventPaymentCreateOrConnectWithoutApplicationInput
+    upsert?: EventPaymentUpsertWithoutApplicationInput
+    disconnect?: EventPaymentWhereInput | boolean
+    delete?: EventPaymentWhereInput | boolean
+    connect?: EventPaymentWhereUniqueInput
+    update?: XOR<XOR<EventPaymentUpdateToOneWithWhereWithoutApplicationInput, EventPaymentUpdateWithoutApplicationInput>, EventPaymentUncheckedUpdateWithoutApplicationInput>
   }
 
   export type CampusEventCreateNestedOneWithoutRsvpsInput = {
@@ -265902,6 +276623,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutEventRSVPsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEventRSVPsInput, UserUpdateWithoutEventRSVPsInput>, UserUncheckedUpdateWithoutEventRSVPsInput>
+  }
+
+  export type EventApplicationCreateNestedOneWithoutPaymentInput = {
+    create?: XOR<EventApplicationCreateWithoutPaymentInput, EventApplicationUncheckedCreateWithoutPaymentInput>
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPaymentInput
+    connect?: EventApplicationWhereUniqueInput
+  }
+
+  export type EventApplicationUpdateOneRequiredWithoutPaymentNestedInput = {
+    create?: XOR<EventApplicationCreateWithoutPaymentInput, EventApplicationUncheckedCreateWithoutPaymentInput>
+    connectOrCreate?: EventApplicationCreateOrConnectWithoutPaymentInput
+    upsert?: EventApplicationUpsertWithoutPaymentInput
+    connect?: EventApplicationWhereUniqueInput
+    update?: XOR<XOR<EventApplicationUpdateToOneWithWhereWithoutPaymentInput, EventApplicationUpdateWithoutPaymentInput>, EventApplicationUncheckedUpdateWithoutPaymentInput>
   }
 
   export type BranchCreateNestedOneWithoutAccessLogsInput = {
@@ -269313,31 +280048,75 @@ export namespace Prisma {
   export type CampusEventCreateWithoutBranchInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
     rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
   }
 
   export type CampusEventUncheckedCreateWithoutBranchInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryId?: string | null
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
     rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type CampusEventCreateOrConnectWithoutBranchInput = {
@@ -271566,6 +282345,86 @@ export namespace Prisma {
 
   export type ResultSummaryCreateManyBranchInputEnvelope = {
     data: ResultSummaryCreateManyBranchInput | ResultSummaryCreateManyBranchInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventApplicationCreateWithoutBranchInput = {
+    id?: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutApplicationsInput
+    package: EventPackageCreateNestedOneWithoutApplicationsInput
+    payment?: EventPaymentCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationUncheckedCreateWithoutBranchInput = {
+    id?: string
+    eventId: string
+    packageId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationCreateOrConnectWithoutBranchInput = {
+    where: EventApplicationWhereUniqueInput
+    create: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput>
+  }
+
+  export type EventApplicationCreateManyBranchInputEnvelope = {
+    data: EventApplicationCreateManyBranchInput | EventApplicationCreateManyBranchInput[]
     skipDuplicates?: boolean
   }
 
@@ -274284,16 +285143,34 @@ export namespace Prisma {
     NOT?: CampusEventScalarWhereInput | CampusEventScalarWhereInput[]
     id?: StringFilter<"CampusEvent"> | string
     title?: StringFilter<"CampusEvent"> | string
-    description?: StringNullableFilter<"CampusEvent"> | string | null
+    slug?: StringFilter<"CampusEvent"> | string
+    shortDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    fullDescription?: StringNullableFilter<"CampusEvent"> | string | null
+    objectives?: StringNullableListFilter<"CampusEvent">
+    rulesAndDiscipline?: StringNullableFilter<"CampusEvent"> | string | null
+    requirements?: StringNullableListFilter<"CampusEvent">
+    mealsAndHospitality?: StringNullableFilter<"CampusEvent"> | string | null
+    whyChooseThisEvent?: StringNullableListFilter<"CampusEvent">
     startDate?: DateTimeFilter<"CampusEvent"> | Date | string
     endDate?: DateTimeFilter<"CampusEvent"> | Date | string
+    applicationDeadline?: DateTimeNullableFilter<"CampusEvent"> | Date | string | null
     location?: StringNullableFilter<"CampusEvent"> | string | null
-    category?: StringFilter<"CampusEvent"> | string
+    categoryId?: StringNullableFilter<"CampusEvent"> | string | null
+    categoryLabel?: StringFilter<"CampusEvent"> | string
     isPublic?: BoolFilter<"CampusEvent"> | boolean
     allowRSVP?: BoolFilter<"CampusEvent"> | boolean
     branchId?: StringFilter<"CampusEvent"> | string
     createdAt?: DateTimeFilter<"CampusEvent"> | Date | string
     updatedAt?: DateTimeFilter<"CampusEvent"> | Date | string
+    status?: StringFilter<"CampusEvent"> | string
+    active?: BoolFilter<"CampusEvent"> | boolean
+    featuredImage?: StringNullableFilter<"CampusEvent"> | string | null
+    brochurePdf?: StringNullableFilter<"CampusEvent"> | string | null
+    capacity?: IntNullableFilter<"CampusEvent"> | number | null
+    registrationOpen?: BoolFilter<"CampusEvent"> | boolean
+    applicationFormEnabled?: BoolFilter<"CampusEvent"> | boolean
+    paymentRequired?: BoolFilter<"CampusEvent"> | boolean
+    seoMetadata?: JsonNullableFilter<"CampusEvent">
   }
 
   export type CertificateUpsertWithWhereUniqueWithoutBranchInput = {
@@ -275987,6 +286864,60 @@ export namespace Prisma {
     isLocked?: BoolFilter<"ResultSummary"> | boolean
     createdAt?: DateTimeFilter<"ResultSummary"> | Date | string
     updatedAt?: DateTimeFilter<"ResultSummary"> | Date | string
+  }
+
+  export type EventApplicationUpsertWithWhereUniqueWithoutBranchInput = {
+    where: EventApplicationWhereUniqueInput
+    update: XOR<EventApplicationUpdateWithoutBranchInput, EventApplicationUncheckedUpdateWithoutBranchInput>
+    create: XOR<EventApplicationCreateWithoutBranchInput, EventApplicationUncheckedCreateWithoutBranchInput>
+  }
+
+  export type EventApplicationUpdateWithWhereUniqueWithoutBranchInput = {
+    where: EventApplicationWhereUniqueInput
+    data: XOR<EventApplicationUpdateWithoutBranchInput, EventApplicationUncheckedUpdateWithoutBranchInput>
+  }
+
+  export type EventApplicationUpdateManyWithWhereWithoutBranchInput = {
+    where: EventApplicationScalarWhereInput
+    data: XOR<EventApplicationUpdateManyMutationInput, EventApplicationUncheckedUpdateManyWithoutBranchInput>
+  }
+
+  export type EventApplicationScalarWhereInput = {
+    AND?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+    OR?: EventApplicationScalarWhereInput[]
+    NOT?: EventApplicationScalarWhereInput | EventApplicationScalarWhereInput[]
+    id?: StringFilter<"EventApplication"> | string
+    eventId?: StringFilter<"EventApplication"> | string
+    packageId?: StringFilter<"EventApplication"> | string
+    branchId?: StringFilter<"EventApplication"> | string
+    fullName?: StringFilter<"EventApplication"> | string
+    gender?: StringFilter<"EventApplication"> | string
+    dateOfBirth?: DateTimeFilter<"EventApplication"> | Date | string
+    age?: IntFilter<"EventApplication"> | number
+    parentName?: StringNullableFilter<"EventApplication"> | string | null
+    parentPhone?: StringNullableFilter<"EventApplication"> | string | null
+    parentEmail?: StringNullableFilter<"EventApplication"> | string | null
+    address?: StringNullableFilter<"EventApplication"> | string | null
+    state?: StringNullableFilter<"EventApplication"> | string | null
+    localGovernment?: StringNullableFilter<"EventApplication"> | string | null
+    memorizationLevel?: StringNullableFilter<"EventApplication"> | string | null
+    school?: StringNullableFilter<"EventApplication"> | string | null
+    islamicBackground?: StringNullableFilter<"EventApplication"> | string | null
+    previousParticipation?: StringNullableFilter<"EventApplication"> | string | null
+    medicalConditions?: StringNullableFilter<"EventApplication"> | string | null
+    allergies?: StringNullableFilter<"EventApplication"> | string | null
+    emergencyContact?: StringFilter<"EventApplication"> | string
+    accommodationPreference?: StringNullableFilter<"EventApplication"> | string | null
+    passportPhotoUrl?: StringNullableFilter<"EventApplication"> | string | null
+    birthCertificateUrl?: StringNullableFilter<"EventApplication"> | string | null
+    ninUrl?: StringNullableFilter<"EventApplication"> | string | null
+    schoolIdUrl?: StringNullableFilter<"EventApplication"> | string | null
+    medicalReportUrl?: StringNullableFilter<"EventApplication"> | string | null
+    proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
+    status?: StringFilter<"EventApplication"> | string
+    paymentStatus?: StringFilter<"EventApplication"> | string
+    createdAt?: DateTimeFilter<"EventApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
   }
 
   export type GradingScaleUpsertWithWhereUniqueWithoutBranchInput = {
@@ -278290,6 +289221,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -278429,6 +289361,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -278620,6 +289553,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -278759,6 +289693,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -278914,6 +289849,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -279053,6 +289989,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -279392,6 +290329,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -279531,6 +290469,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -279867,6 +290806,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -280006,6 +290946,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -280271,6 +291212,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -280410,6 +291352,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -281531,6 +292474,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -281670,6 +292614,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -282655,6 +293600,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -282794,6 +293740,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -283297,6 +294244,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
@@ -283436,6 +294384,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
@@ -283591,6 +294540,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
@@ -283730,6 +294680,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
@@ -283869,6 +294820,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -284008,6 +294960,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -284163,6 +295116,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -284302,6 +295256,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -286126,6 +297081,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -286265,6 +297221,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -287248,6 +298205,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -287387,6 +298345,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -288048,6 +299007,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -288187,6 +299147,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -288611,6 +299572,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -288750,6 +299712,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -289216,6 +300179,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -289355,6 +300319,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -289526,6 +300491,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -289665,6 +300631,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -289804,6 +300771,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -289943,6 +300911,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -291251,6 +302220,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -291390,6 +302360,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -293561,6 +304532,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -293700,6 +304672,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -294058,6 +305031,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -294197,6 +305171,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -294592,6 +305567,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -294731,6 +305707,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -295116,6 +306093,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -295255,6 +306233,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -295393,6 +306372,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -295532,6 +306512,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -295938,6 +306919,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -296077,6 +307059,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -296485,6 +307468,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -296624,6 +307608,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -296840,6 +307825,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -296979,6 +307965,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -297185,6 +308172,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -297324,6 +308312,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -297545,6 +308534,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -297684,6 +308674,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -298327,6 +309318,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -298466,6 +309458,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -298819,6 +309812,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -298958,6 +309952,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -299258,6 +310253,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -299397,6 +310393,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -299719,6 +310716,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -299858,6 +310856,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -300022,6 +311021,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -300161,6 +311161,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -300347,6 +311348,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -300486,6 +311488,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -300624,6 +311627,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -300763,6 +311767,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -300972,6 +311977,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -301111,6 +312117,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -301624,6 +312631,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -301763,6 +312771,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -302149,6 +313158,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -302288,6 +313298,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -302534,6 +313545,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -302673,6 +313685,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -302873,6 +313886,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -303012,6 +314026,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -303374,6 +314389,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -303513,6 +314529,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -303872,6 +314889,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -304011,6 +315029,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -305120,6 +316139,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -305259,6 +316279,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -305497,6 +316518,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -305636,6 +316658,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -305820,6 +316843,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -305959,6 +316983,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -306130,6 +317155,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -306269,6 +317295,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -306438,6 +317465,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -306577,6 +317605,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -306748,6 +317777,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -306887,6 +317917,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -307027,6 +318058,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -307166,6 +318198,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -307574,6 +318607,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -307713,6 +318747,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -308108,6 +319143,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -308247,6 +319283,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -308666,6 +319703,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -308805,6 +319843,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -309409,6 +320448,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -309548,6 +320588,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -309986,6 +321027,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -310125,6 +321167,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -310344,6 +321387,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -310483,6 +321527,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -311802,6 +322847,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -311941,6 +322987,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -312432,6 +323479,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -312571,6 +323619,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -313082,6 +324131,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -313221,6 +324271,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -313728,6 +324779,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -313867,6 +324919,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -314258,6 +325311,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -314397,6 +325451,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -314784,6 +325839,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -314923,6 +325979,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -315314,6 +326371,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -315453,6 +326511,7 @@ export namespace Prisma {
     attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -315841,6 +326900,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
@@ -315980,6 +327040,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
@@ -316135,6 +327196,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
@@ -316274,6 +327336,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
@@ -316413,6 +327476,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -316552,6 +327616,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -316965,6 +328030,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -317104,6 +328170,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -317525,6 +328592,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -317664,6 +328732,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -317819,6 +328888,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -317958,6 +329028,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -318097,6 +329168,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -318236,6 +329308,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -318494,6 +329567,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -318633,6 +329707,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -319413,6 +330488,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -319552,6 +330628,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -319707,6 +330784,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -319846,6 +330924,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -319985,6 +331064,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -320124,6 +331204,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -320279,6 +331360,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -320418,6 +331500,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -320557,6 +331640,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -320696,6 +331780,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -320851,6 +331936,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -320990,6 +332076,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -321129,6 +332216,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -321268,6 +332356,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -321423,6 +332512,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -321562,6 +332652,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -321701,6 +332792,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -321840,6 +332932,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -321995,6 +333088,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -322134,6 +333228,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -322273,6 +333368,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -322412,6 +333508,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -322597,6 +333694,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -322736,6 +333834,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -322985,6 +334084,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -323124,6 +334224,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -323279,6 +334380,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -323418,6 +334520,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -323557,6 +334660,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -323696,6 +334800,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -323851,6 +334956,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -323990,6 +335096,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -324129,6 +335236,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -324268,6 +335376,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -324423,6 +335532,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -324562,6 +335672,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -324701,6 +335812,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -324840,6 +335952,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -324995,6 +336108,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -325134,6 +336248,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -325273,6 +336388,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
@@ -325412,6 +336528,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
     scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
@@ -325567,6 +336684,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
@@ -325706,6 +336824,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
     scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
@@ -326080,6 +337199,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -326219,6 +337339,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -326422,6 +337543,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -326561,6 +337683,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -326797,6 +337920,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -326936,6 +338060,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -327437,6 +338562,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -327576,6 +338702,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -327992,6 +339119,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -328131,6 +339259,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -328352,6 +339481,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -328491,6 +339621,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -328646,6 +339777,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -328785,6 +339917,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -329006,6 +340139,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -329145,6 +340279,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -329300,6 +340435,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -329439,6 +340575,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -329698,6 +340835,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -329837,6 +340975,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -330290,6 +341429,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -330429,6 +341569,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -330853,6 +341994,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -330992,6 +342134,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -331164,6 +342307,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -331303,6 +342447,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -331497,6 +342642,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -331636,6 +342782,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -331836,6 +342983,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -331975,6 +343123,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -332197,6 +343346,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -332336,6 +343486,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -332536,6 +343687,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -332675,6 +343827,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -332897,6 +344050,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -333036,6 +344190,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -333236,6 +344391,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -333375,6 +344531,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -333597,6 +344754,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -333736,6 +344894,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -333936,6 +345095,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -334075,6 +345235,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -334297,6 +345458,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -334436,6 +345598,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -334636,6 +345799,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -334775,6 +345939,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -334997,6 +346162,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -335136,6 +346302,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -335274,6 +346441,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -335413,6 +346581,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -335568,6 +346737,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -335707,6 +346877,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -335846,6 +347017,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -335985,6 +347157,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -336376,6 +347549,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -336515,6 +347689,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -337640,6 +348815,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -337779,6 +348955,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -337966,6 +349143,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -338105,6 +349283,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -338863,6 +350042,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -339002,6 +350182,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -339643,6 +350824,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -339782,6 +350964,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -340367,6 +351550,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -340506,6 +351690,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -340661,6 +351846,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -340800,6 +351986,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -340939,6 +352126,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -341078,6 +352266,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -341233,6 +352422,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -341372,6 +352562,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -341511,6 +352702,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -341650,6 +352842,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -341805,6 +352998,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -341944,6 +353138,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -342083,6 +353278,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -342222,6 +353418,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -342377,6 +353574,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -342516,6 +353714,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -342655,6 +353854,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -342794,6 +353994,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -342949,6 +354150,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -343088,6 +354290,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -343227,6 +354430,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -343366,6 +354570,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -343569,6 +354774,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -343708,6 +354914,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -343911,6 +355118,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -344050,6 +355258,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -344221,6 +355430,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -344360,6 +355570,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -344535,6 +355746,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -344674,6 +355886,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -344845,6 +356058,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -344984,6 +356198,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -345171,6 +356386,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -345310,6 +356526,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -345481,6 +356698,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -345620,6 +356838,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -345797,6 +357016,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -345936,6 +357156,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -346244,6 +357465,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -346383,6 +357605,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -346637,6 +357860,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -346776,6 +358000,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -347003,6 +358228,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -347142,6 +358368,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -347365,6 +358592,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -347504,6 +358732,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -347702,6 +358931,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -347841,6 +359071,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -348029,6 +359260,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -348168,6 +359400,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -348588,6 +359821,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -348727,6 +359961,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -349149,6 +360384,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -349288,6 +360524,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -349630,6 +360867,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -349769,6 +361007,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -350103,6 +361342,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -350242,6 +361482,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -350423,6 +361664,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -350562,6 +361804,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -350857,6 +362100,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -350996,6 +362240,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -351205,6 +362450,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -351344,6 +362590,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -351895,6 +363142,125 @@ export namespace Prisma {
     createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
+  export type CampusEventCreateWithoutCategoryInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    branch: BranchCreateNestedOneWithoutCampusEventsInput
+    rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventUncheckedCreateWithoutCategoryInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventCreateOrConnectWithoutCategoryInput = {
+    where: CampusEventWhereUniqueInput
+    create: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type CampusEventCreateManyCategoryInputEnvelope = {
+    data: CampusEventCreateManyCategoryInput | CampusEventCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CampusEventUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: CampusEventWhereUniqueInput
+    update: XOR<CampusEventUpdateWithoutCategoryInput, CampusEventUncheckedUpdateWithoutCategoryInput>
+    create: XOR<CampusEventCreateWithoutCategoryInput, CampusEventUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type CampusEventUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: CampusEventWhereUniqueInput
+    data: XOR<CampusEventUpdateWithoutCategoryInput, CampusEventUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type CampusEventUpdateManyWithWhereWithoutCategoryInput = {
+    where: CampusEventScalarWhereInput
+    data: XOR<CampusEventUpdateManyMutationInput, CampusEventUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type EventCategoryCreateWithoutEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+  }
+
+  export type EventCategoryUncheckedCreateWithoutEventsInput = {
+    id?: string
+    name: string
+    slug: string
+    createdAt?: Date | string
+  }
+
+  export type EventCategoryCreateOrConnectWithoutEventsInput = {
+    where: EventCategoryWhereUniqueInput
+    create: XOR<EventCategoryCreateWithoutEventsInput, EventCategoryUncheckedCreateWithoutEventsInput>
+  }
+
   export type BranchCreateWithoutCampusEventsInput = {
     id?: string
     name: string
@@ -351963,6 +363329,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -352102,6 +363469,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -352204,6 +363572,211 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EventPackageCreateWithoutEventInput = {
+    id?: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: EventApplicationCreateNestedManyWithoutPackageInput
+  }
+
+  export type EventPackageUncheckedCreateWithoutEventInput = {
+    id?: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutPackageInput
+  }
+
+  export type EventPackageCreateOrConnectWithoutEventInput = {
+    where: EventPackageWhereUniqueInput
+    create: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventPackageCreateManyEventInputEnvelope = {
+    data: EventPackageCreateManyEventInput | EventPackageCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventScheduleCreateWithoutEventInput = {
+    id?: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventScheduleUncheckedCreateWithoutEventInput = {
+    id?: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventScheduleCreateOrConnectWithoutEventInput = {
+    where: EventScheduleWhereUniqueInput
+    create: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventScheduleCreateManyEventInputEnvelope = {
+    data: EventScheduleCreateManyEventInput | EventScheduleCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventGalleryCreateWithoutEventInput = {
+    id?: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventGalleryUncheckedCreateWithoutEventInput = {
+    id?: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventGalleryCreateOrConnectWithoutEventInput = {
+    where: EventGalleryWhereUniqueInput
+    create: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventGalleryCreateManyEventInputEnvelope = {
+    data: EventGalleryCreateManyEventInput | EventGalleryCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventApplicationCreateWithoutEventInput = {
+    id?: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    package: EventPackageCreateNestedOneWithoutApplicationsInput
+    branch: BranchCreateNestedOneWithoutEventApplicationsInput
+    payment?: EventPaymentCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationUncheckedCreateWithoutEventInput = {
+    id?: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationCreateOrConnectWithoutEventInput = {
+    where: EventApplicationWhereUniqueInput
+    create: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventApplicationCreateManyEventInputEnvelope = {
+    data: EventApplicationCreateManyEventInput | EventApplicationCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type EventCategoryUpsertWithoutEventsInput = {
+    update: XOR<EventCategoryUpdateWithoutEventsInput, EventCategoryUncheckedUpdateWithoutEventsInput>
+    create: XOR<EventCategoryCreateWithoutEventsInput, EventCategoryUncheckedCreateWithoutEventsInput>
+    where?: EventCategoryWhereInput
+  }
+
+  export type EventCategoryUpdateToOneWithWhereWithoutEventsInput = {
+    where?: EventCategoryWhereInput
+    data: XOR<EventCategoryUpdateWithoutEventsInput, EventCategoryUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type EventCategoryUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventCategoryUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BranchUpsertWithoutCampusEventsInput = {
     update: XOR<BranchUpdateWithoutCampusEventsInput, BranchUncheckedUpdateWithoutCampusEventsInput>
     create: XOR<BranchCreateWithoutCampusEventsInput, BranchUncheckedCreateWithoutCampusEventsInput>
@@ -352283,6 +363856,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -352422,6 +363996,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -352509,34 +364084,1656 @@ export namespace Prisma {
     data: XOR<EventRSVPUpdateManyMutationInput, EventRSVPUncheckedUpdateManyWithoutEventInput>
   }
 
-  export type CampusEventCreateWithoutRsvpsInput = {
+  export type EventPackageUpsertWithWhereUniqueWithoutEventInput = {
+    where: EventPackageWhereUniqueInput
+    update: XOR<EventPackageUpdateWithoutEventInput, EventPackageUncheckedUpdateWithoutEventInput>
+    create: XOR<EventPackageCreateWithoutEventInput, EventPackageUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventPackageUpdateWithWhereUniqueWithoutEventInput = {
+    where: EventPackageWhereUniqueInput
+    data: XOR<EventPackageUpdateWithoutEventInput, EventPackageUncheckedUpdateWithoutEventInput>
+  }
+
+  export type EventPackageUpdateManyWithWhereWithoutEventInput = {
+    where: EventPackageScalarWhereInput
+    data: XOR<EventPackageUpdateManyMutationInput, EventPackageUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type EventPackageScalarWhereInput = {
+    AND?: EventPackageScalarWhereInput | EventPackageScalarWhereInput[]
+    OR?: EventPackageScalarWhereInput[]
+    NOT?: EventPackageScalarWhereInput | EventPackageScalarWhereInput[]
+    id?: StringFilter<"EventPackage"> | string
+    eventId?: StringFilter<"EventPackage"> | string
+    title?: StringFilter<"EventPackage"> | string
+    ageRange?: StringNullableFilter<"EventPackage"> | string | null
+    timing?: StringNullableFilter<"EventPackage"> | string | null
+    fee?: DecimalFilter<"EventPackage"> | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFilter<"EventPackage"> | string
+    availableSlots?: IntNullableFilter<"EventPackage"> | number | null
+    description?: StringNullableFilter<"EventPackage"> | string | null
+    createdAt?: DateTimeFilter<"EventPackage"> | Date | string
+    updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
+  }
+
+  export type EventScheduleUpsertWithWhereUniqueWithoutEventInput = {
+    where: EventScheduleWhereUniqueInput
+    update: XOR<EventScheduleUpdateWithoutEventInput, EventScheduleUncheckedUpdateWithoutEventInput>
+    create: XOR<EventScheduleCreateWithoutEventInput, EventScheduleUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventScheduleUpdateWithWhereUniqueWithoutEventInput = {
+    where: EventScheduleWhereUniqueInput
+    data: XOR<EventScheduleUpdateWithoutEventInput, EventScheduleUncheckedUpdateWithoutEventInput>
+  }
+
+  export type EventScheduleUpdateManyWithWhereWithoutEventInput = {
+    where: EventScheduleScalarWhereInput
+    data: XOR<EventScheduleUpdateManyMutationInput, EventScheduleUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type EventScheduleScalarWhereInput = {
+    AND?: EventScheduleScalarWhereInput | EventScheduleScalarWhereInput[]
+    OR?: EventScheduleScalarWhereInput[]
+    NOT?: EventScheduleScalarWhereInput | EventScheduleScalarWhereInput[]
+    id?: StringFilter<"EventSchedule"> | string
+    eventId?: StringFilter<"EventSchedule"> | string
+    day?: StringFilter<"EventSchedule"> | string
+    period?: StringNullableFilter<"EventSchedule"> | string | null
+    startTime?: StringFilter<"EventSchedule"> | string
+    endTime?: StringFilter<"EventSchedule"> | string
+    activity?: StringFilter<"EventSchedule"> | string
+    createdAt?: DateTimeFilter<"EventSchedule"> | Date | string
+    updatedAt?: DateTimeFilter<"EventSchedule"> | Date | string
+  }
+
+  export type EventGalleryUpsertWithWhereUniqueWithoutEventInput = {
+    where: EventGalleryWhereUniqueInput
+    update: XOR<EventGalleryUpdateWithoutEventInput, EventGalleryUncheckedUpdateWithoutEventInput>
+    create: XOR<EventGalleryCreateWithoutEventInput, EventGalleryUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventGalleryUpdateWithWhereUniqueWithoutEventInput = {
+    where: EventGalleryWhereUniqueInput
+    data: XOR<EventGalleryUpdateWithoutEventInput, EventGalleryUncheckedUpdateWithoutEventInput>
+  }
+
+  export type EventGalleryUpdateManyWithWhereWithoutEventInput = {
+    where: EventGalleryScalarWhereInput
+    data: XOR<EventGalleryUpdateManyMutationInput, EventGalleryUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type EventGalleryScalarWhereInput = {
+    AND?: EventGalleryScalarWhereInput | EventGalleryScalarWhereInput[]
+    OR?: EventGalleryScalarWhereInput[]
+    NOT?: EventGalleryScalarWhereInput | EventGalleryScalarWhereInput[]
+    id?: StringFilter<"EventGallery"> | string
+    eventId?: StringFilter<"EventGallery"> | string
+    imageUrl?: StringFilter<"EventGallery"> | string
+    isCover?: BoolFilter<"EventGallery"> | boolean
+    order?: IntFilter<"EventGallery"> | number
+    caption?: StringNullableFilter<"EventGallery"> | string | null
+    createdAt?: DateTimeFilter<"EventGallery"> | Date | string
+    updatedAt?: DateTimeFilter<"EventGallery"> | Date | string
+  }
+
+  export type EventApplicationUpsertWithWhereUniqueWithoutEventInput = {
+    where: EventApplicationWhereUniqueInput
+    update: XOR<EventApplicationUpdateWithoutEventInput, EventApplicationUncheckedUpdateWithoutEventInput>
+    create: XOR<EventApplicationCreateWithoutEventInput, EventApplicationUncheckedCreateWithoutEventInput>
+  }
+
+  export type EventApplicationUpdateWithWhereUniqueWithoutEventInput = {
+    where: EventApplicationWhereUniqueInput
+    data: XOR<EventApplicationUpdateWithoutEventInput, EventApplicationUncheckedUpdateWithoutEventInput>
+  }
+
+  export type EventApplicationUpdateManyWithWhereWithoutEventInput = {
+    where: EventApplicationScalarWhereInput
+    data: XOR<EventApplicationUpdateManyMutationInput, EventApplicationUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type CampusEventCreateWithoutPackagesInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
     branch: BranchCreateNestedOneWithoutCampusEventsInput
+    rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
   }
 
-  export type CampusEventUncheckedCreateWithoutRsvpsInput = {
+  export type CampusEventUncheckedCreateWithoutPackagesInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryId?: string | null
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     branchId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventCreateOrConnectWithoutPackagesInput = {
+    where: CampusEventWhereUniqueInput
+    create: XOR<CampusEventCreateWithoutPackagesInput, CampusEventUncheckedCreateWithoutPackagesInput>
+  }
+
+  export type EventApplicationCreateWithoutPackageInput = {
+    id?: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutApplicationsInput
+    branch: BranchCreateNestedOneWithoutEventApplicationsInput
+    payment?: EventPaymentCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationUncheckedCreateWithoutPackageInput = {
+    id?: string
+    eventId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type EventApplicationCreateOrConnectWithoutPackageInput = {
+    where: EventApplicationWhereUniqueInput
+    create: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput>
+  }
+
+  export type EventApplicationCreateManyPackageInputEnvelope = {
+    data: EventApplicationCreateManyPackageInput | EventApplicationCreateManyPackageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CampusEventUpsertWithoutPackagesInput = {
+    update: XOR<CampusEventUpdateWithoutPackagesInput, CampusEventUncheckedUpdateWithoutPackagesInput>
+    create: XOR<CampusEventCreateWithoutPackagesInput, CampusEventUncheckedCreateWithoutPackagesInput>
+    where?: CampusEventWhereInput
+  }
+
+  export type CampusEventUpdateToOneWithWhereWithoutPackagesInput = {
+    where?: CampusEventWhereInput
+    data: XOR<CampusEventUpdateWithoutPackagesInput, CampusEventUncheckedUpdateWithoutPackagesInput>
+  }
+
+  export type CampusEventUpdateWithoutPackagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateWithoutPackagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventApplicationUpsertWithWhereUniqueWithoutPackageInput = {
+    where: EventApplicationWhereUniqueInput
+    update: XOR<EventApplicationUpdateWithoutPackageInput, EventApplicationUncheckedUpdateWithoutPackageInput>
+    create: XOR<EventApplicationCreateWithoutPackageInput, EventApplicationUncheckedCreateWithoutPackageInput>
+  }
+
+  export type EventApplicationUpdateWithWhereUniqueWithoutPackageInput = {
+    where: EventApplicationWhereUniqueInput
+    data: XOR<EventApplicationUpdateWithoutPackageInput, EventApplicationUncheckedUpdateWithoutPackageInput>
+  }
+
+  export type EventApplicationUpdateManyWithWhereWithoutPackageInput = {
+    where: EventApplicationScalarWhereInput
+    data: XOR<EventApplicationUpdateManyMutationInput, EventApplicationUncheckedUpdateManyWithoutPackageInput>
+  }
+
+  export type CampusEventCreateWithoutSchedulesInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
+    branch: BranchCreateNestedOneWithoutCampusEventsInput
+    rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventUncheckedCreateWithoutSchedulesInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryId?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventCreateOrConnectWithoutSchedulesInput = {
+    where: CampusEventWhereUniqueInput
+    create: XOR<CampusEventCreateWithoutSchedulesInput, CampusEventUncheckedCreateWithoutSchedulesInput>
+  }
+
+  export type CampusEventUpsertWithoutSchedulesInput = {
+    update: XOR<CampusEventUpdateWithoutSchedulesInput, CampusEventUncheckedUpdateWithoutSchedulesInput>
+    create: XOR<CampusEventCreateWithoutSchedulesInput, CampusEventUncheckedCreateWithoutSchedulesInput>
+    where?: CampusEventWhereInput
+  }
+
+  export type CampusEventUpdateToOneWithWhereWithoutSchedulesInput = {
+    where?: CampusEventWhereInput
+    data: XOR<CampusEventUpdateWithoutSchedulesInput, CampusEventUncheckedUpdateWithoutSchedulesInput>
+  }
+
+  export type CampusEventUpdateWithoutSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateWithoutSchedulesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventCreateWithoutGalleryInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
+    branch: BranchCreateNestedOneWithoutCampusEventsInput
+    rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventUncheckedCreateWithoutGalleryInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryId?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventCreateOrConnectWithoutGalleryInput = {
+    where: CampusEventWhereUniqueInput
+    create: XOR<CampusEventCreateWithoutGalleryInput, CampusEventUncheckedCreateWithoutGalleryInput>
+  }
+
+  export type CampusEventUpsertWithoutGalleryInput = {
+    update: XOR<CampusEventUpdateWithoutGalleryInput, CampusEventUncheckedUpdateWithoutGalleryInput>
+    create: XOR<CampusEventCreateWithoutGalleryInput, CampusEventUncheckedCreateWithoutGalleryInput>
+    where?: CampusEventWhereInput
+  }
+
+  export type CampusEventUpdateToOneWithWhereWithoutGalleryInput = {
+    where?: CampusEventWhereInput
+    data: XOR<CampusEventUpdateWithoutGalleryInput, CampusEventUncheckedUpdateWithoutGalleryInput>
+  }
+
+  export type CampusEventUpdateWithoutGalleryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateWithoutGalleryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventCreateWithoutApplicationsInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
+    branch: BranchCreateNestedOneWithoutCampusEventsInput
+    rsvps?: EventRSVPCreateNestedManyWithoutEventInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventUncheckedCreateWithoutApplicationsInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryId?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedCreateNestedManyWithoutEventInput
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventCreateOrConnectWithoutApplicationsInput = {
+    where: CampusEventWhereUniqueInput
+    create: XOR<CampusEventCreateWithoutApplicationsInput, CampusEventUncheckedCreateWithoutApplicationsInput>
+  }
+
+  export type EventPackageCreateWithoutApplicationsInput = {
+    id?: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutPackagesInput
+  }
+
+  export type EventPackageUncheckedCreateWithoutApplicationsInput = {
+    id?: string
+    eventId: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPackageCreateOrConnectWithoutApplicationsInput = {
+    where: EventPackageWhereUniqueInput
+    create: XOR<EventPackageCreateWithoutApplicationsInput, EventPackageUncheckedCreateWithoutApplicationsInput>
+  }
+
+  export type BranchCreateWithoutEventApplicationsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
+    alumni?: AlumniCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigCreateNestedManyWithoutBranchInput
+    books?: BookCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventCreateNestedManyWithoutBranchInput
+    certificates?: CertificateCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateCreateNestedManyWithoutBranchInput
+    classes?: ClassCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintCreateNestedManyWithoutBranchInput
+    conversations?: ConversationCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryCreateNestedManyWithoutBranchInput
+    departments?: DepartmentCreateNestedManyWithoutBranchInput
+    designations?: DesignationCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigCreateNestedOneWithoutBranchInput
+    hostels?: HostelCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordCreateNestedManyWithoutBranchInput
+    studentAccounts?: StudentAccountCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupCreateNestedManyWithoutBranchInput
+    students?: StudentCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryCreateNestedManyWithoutBranchInput
+    subjects?: SubjectCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteCreateNestedManyWithoutBranchInput
+    users?: UserCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateCreateNestedManyWithoutBranchInput
+    notifications?: NotificationCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotCreateNestedManyWithoutBranchInput
+    creditTransactions?: CreditTransactionCreateNestedManyWithoutBranchInput
+    counters?: CounterCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointCreateNestedManyWithoutBranchInput
+    exams?: ExamCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceCreateNestedManyWithoutBranchInput
+    payments?: PaymentCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleCreateNestedManyWithoutBranchInput
+    idCards?: IdCardCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketCreateNestedManyWithoutBranchInput
+    roles?: RoleCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentCreateNestedManyWithoutBranchInput
+    chartOfAccounts?: ChartOfAccountCreateNestedManyWithoutBranchInput
+    journalEntries?: JournalEntryCreateNestedManyWithoutBranchInput
+    generalLedgerEntries?: GeneralLedgerEntryCreateNestedManyWithoutBranchInput
+    taxRates?: TaxRateCreateNestedManyWithoutBranchInput
+    bankStatementLines?: BankStatementLineCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchUncheckedCreateWithoutEventApplicationsInput = {
+    id?: string
+    name: string
+    code: string
+    address?: string | null
+    phone?: string | null
+    email?: string | null
+    logoUrl?: string | null
+    primaryColor?: string | null
+    emailFooter?: string | null
+    smsSenderId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
+    alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
+    alumniEvents?: AlumniEventUncheckedCreateNestedManyWithoutBranchInput
+    assignments?: AssignmentUncheckedCreateNestedManyWithoutBranchInput
+    automationConfigs?: AutomationConfigUncheckedCreateNestedManyWithoutBranchInput
+    books?: BookUncheckedCreateNestedManyWithoutBranchInput
+    callLogs?: CallLogUncheckedCreateNestedManyWithoutBranchInput
+    accessLogs?: CampusAccessLogUncheckedCreateNestedManyWithoutBranchInput
+    campusEvents?: CampusEventUncheckedCreateNestedManyWithoutBranchInput
+    certificates?: CertificateUncheckedCreateNestedManyWithoutBranchInput
+    certificateTemplates?: CertificateTemplateUncheckedCreateNestedManyWithoutBranchInput
+    classes?: ClassUncheckedCreateNestedManyWithoutBranchInput
+    complaints?: ComplaintUncheckedCreateNestedManyWithoutBranchInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutBranchInput
+    deactivationReasons?: DeactivationReasonUncheckedCreateNestedManyWithoutBranchInput
+    attachmentCategories?: AttachmentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    departments?: DepartmentUncheckedCreateNestedManyWithoutBranchInput
+    designations?: DesignationUncheckedCreateNestedManyWithoutBranchInput
+    digitalResources?: DigitalResourceUncheckedCreateNestedManyWithoutBranchInput
+    expenseCategories?: ExpenseCategoryUncheckedCreateNestedManyWithoutBranchInput
+    feeCategories?: FeeCategoryUncheckedCreateNestedManyWithoutBranchInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedCreateNestedOneWithoutBranchInput
+    hostels?: HostelUncheckedCreateNestedManyWithoutBranchInput
+    idCardTemplates?: IdCardTemplateUncheckedCreateNestedManyWithoutBranchInput
+    inventoryCategories?: InventoryCategoryUncheckedCreateNestedManyWithoutBranchInput
+    inventoryIssues?: InventoryIssueUncheckedCreateNestedManyWithoutBranchInput
+    inventoryProducts?: InventoryProductUncheckedCreateNestedManyWithoutBranchInput
+    inventoryPurchases?: InventoryPurchaseUncheckedCreateNestedManyWithoutBranchInput
+    inventorySales?: InventorySaleUncheckedCreateNestedManyWithoutBranchInput
+    inventoryStores?: InventoryStoreUncheckedCreateNestedManyWithoutBranchInput
+    inventorySuppliers?: InventorySupplierUncheckedCreateNestedManyWithoutBranchInput
+    inventoryUnits?: InventoryUnitUncheckedCreateNestedManyWithoutBranchInput
+    liveClassSessions?: LiveClassSessionUncheckedCreateNestedManyWithoutBranchInput
+    loginDeactivations?: LoginDeactivationUncheckedCreateNestedManyWithoutBranchInput
+    onlineAdmissions?: OnlineAdmissionUncheckedCreateNestedManyWithoutBranchInput
+    onlineExams?: OnlineExamUncheckedCreateNestedManyWithoutBranchInput
+    postalRecords?: PostalRecordUncheckedCreateNestedManyWithoutBranchInput
+    studentAccounts?: StudentAccountUncheckedCreateNestedManyWithoutBranchInput
+    questionGroups?: QuestionGroupUncheckedCreateNestedManyWithoutBranchInput
+    students?: StudentUncheckedCreateNestedManyWithoutBranchInput
+    studentCategories?: StudentCategoryUncheckedCreateNestedManyWithoutBranchInput
+    subjects?: SubjectUncheckedCreateNestedManyWithoutBranchInput
+    routes?: TransportRouteUncheckedCreateNestedManyWithoutBranchInput
+    users?: UserUncheckedCreateNestedManyWithoutBranchInput
+    vehicles?: VehicleUncheckedCreateNestedManyWithoutBranchInput
+    visitorLogs?: VisitorLogUncheckedCreateNestedManyWithoutBranchInput
+    vouchers?: VoucherUncheckedCreateNestedManyWithoutBranchInput
+    academicSessions?: AcademicSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendance?: AttendanceUncheckedCreateNestedManyWithoutBranchInput
+    staffAttendance?: StaffAttendanceUncheckedCreateNestedManyWithoutBranchInput
+    attendanceSessions?: AttendanceSessionUncheckedCreateNestedManyWithoutBranchInput
+    attendanceScans?: AttendanceScanUncheckedCreateNestedManyWithoutBranchInput
+    assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
+    behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
+    resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
+    globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
+    moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
+    scheduledJobs?: ScheduledJobUncheckedCreateNestedManyWithoutBranchInput
+    emailTemplates?: EmailTemplateUncheckedCreateNestedManyWithoutBranchInput
+    smsTemplates?: SmsTemplateUncheckedCreateNestedManyWithoutBranchInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutBranchInput
+    notificationPreferences?: NotificationPreferenceUncheckedCreateNestedManyWithoutBranchInput
+    campaigns?: CampaignUncheckedCreateNestedManyWithoutBranchInput
+    campaignRecipients?: CampaignRecipientUncheckedCreateNestedManyWithoutBranchInput
+    queueJobLogs?: QueueJobLogUncheckedCreateNestedManyWithoutBranchInput
+    automationExecutions?: AutomationExecutionUncheckedCreateNestedManyWithoutBranchInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedCreateNestedManyWithoutBranchInput
+    providerHealthLogs?: ProviderHealthLogUncheckedCreateNestedManyWithoutBranchInput
+    webhookEvents?: WebhookEventUncheckedCreateNestedManyWithoutBranchInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedCreateNestedManyWithoutBranchInput
+    realtimeConnections?: RealtimeConnectionUncheckedCreateNestedManyWithoutBranchInput
+    queueMetrics?: QueueMetricUncheckedCreateNestedManyWithoutBranchInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedCreateNestedManyWithoutBranchInput
+    messageRetryEvents?: MessageRetryEventUncheckedCreateNestedManyWithoutBranchInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedCreateNestedManyWithoutBranchInput
+    creditTransactions?: CreditTransactionUncheckedCreateNestedManyWithoutBranchInput
+    counters?: CounterUncheckedCreateNestedManyWithoutBranchInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedCreateNestedManyWithoutBranchInput
+    academicExports?: AcademicExportUncheckedCreateNestedManyWithoutBranchInput
+    reportTemplates?: ReportTemplateUncheckedCreateNestedManyWithoutBranchInput
+    computationJobs?: ComputationJobUncheckedCreateNestedManyWithoutBranchInput
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutBranchInput
+    webhookEndpoints?: WebhookEndpointUncheckedCreateNestedManyWithoutBranchInput
+    exams?: ExamUncheckedCreateNestedManyWithoutBranchInput
+    examTypes?: ExamTypeUncheckedCreateNestedManyWithoutBranchInput
+    assessmentComponents?: AssessmentComponentUncheckedCreateNestedManyWithoutBranchInput
+    resultApprovals?: ResultApprovalUncheckedCreateNestedManyWithoutBranchInput
+    resultPublications?: ResultPublicationUncheckedCreateNestedManyWithoutBranchInput
+    gpaRecords?: GPARecordUncheckedCreateNestedManyWithoutBranchInput
+    studentRankings?: StudentRankingUncheckedCreateNestedManyWithoutBranchInput
+    broadsheets?: BroadsheetUncheckedCreateNestedManyWithoutBranchInput
+    transcripts?: TranscriptUncheckedCreateNestedManyWithoutBranchInput
+    academicRemarks?: AcademicRemarkUncheckedCreateNestedManyWithoutBranchInput
+    subjectPositions?: SubjectPositionUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedCreateNestedManyWithoutBranchInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedCreateNestedManyWithoutBranchInput
+    invoices?: InvoiceUncheckedCreateNestedManyWithoutBranchInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutBranchInput
+    borrowRecords?: BorrowRecordUncheckedCreateNestedManyWithoutBranchInput
+    libraryFines?: LibraryFineUncheckedCreateNestedManyWithoutBranchInput
+    salaryTemplates?: SalaryTemplateUncheckedCreateNestedManyWithoutBranchInput
+    payrolls?: PayrollUncheckedCreateNestedManyWithoutBranchInput
+    leaveRequests?: LeaveRequestUncheckedCreateNestedManyWithoutBranchInput
+    staffAwards?: StaffAwardUncheckedCreateNestedManyWithoutBranchInput
+    advanceSalaries?: AdvanceSalaryUncheckedCreateNestedManyWithoutBranchInput
+    hostelAllocations?: HostelAllocationUncheckedCreateNestedManyWithoutBranchInput
+    hostelLeaves?: HostelLeaveUncheckedCreateNestedManyWithoutBranchInput
+    maintenanceRequests?: MaintenanceRequestUncheckedCreateNestedManyWithoutBranchInput
+    submissions?: SubmissionUncheckedCreateNestedManyWithoutBranchInput
+    classSchedules?: ClassScheduleUncheckedCreateNestedManyWithoutBranchInput
+    idCards?: IdCardUncheckedCreateNestedManyWithoutBranchInput
+    bookCopies?: BookCopyUncheckedCreateNestedManyWithoutBranchInput
+    bookReservations?: BookReservationUncheckedCreateNestedManyWithoutBranchInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedCreateNestedManyWithoutBranchInput
+    roles?: RoleUncheckedCreateNestedManyWithoutBranchInput
+    admissionInterviews?: AdmissionInterviewUncheckedCreateNestedManyWithoutBranchInput
+    admissionExams?: AdmissionExamUncheckedCreateNestedManyWithoutBranchInput
+    transportAssignments?: TransportAssignmentUncheckedCreateNestedManyWithoutBranchInput
+    chartOfAccounts?: ChartOfAccountUncheckedCreateNestedManyWithoutBranchInput
+    journalEntries?: JournalEntryUncheckedCreateNestedManyWithoutBranchInput
+    generalLedgerEntries?: GeneralLedgerEntryUncheckedCreateNestedManyWithoutBranchInput
+    taxRates?: TaxRateUncheckedCreateNestedManyWithoutBranchInput
+    bankStatementLines?: BankStatementLineUncheckedCreateNestedManyWithoutBranchInput
+  }
+
+  export type BranchCreateOrConnectWithoutEventApplicationsInput = {
+    where: BranchWhereUniqueInput
+    create: XOR<BranchCreateWithoutEventApplicationsInput, BranchUncheckedCreateWithoutEventApplicationsInput>
+  }
+
+  export type EventPaymentCreateWithoutApplicationInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string
+    proofOfPaymentUrl?: string | null
+    status?: string
+    verifiedBy?: string | null
+    verifiedAt?: Date | string | null
+    rejectionReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPaymentUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    amount: Decimal | DecimalJsLike | number | string
+    paymentMethod?: string
+    proofOfPaymentUrl?: string | null
+    status?: string
+    verifiedBy?: string | null
+    verifiedAt?: Date | string | null
+    rejectionReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPaymentCreateOrConnectWithoutApplicationInput = {
+    where: EventPaymentWhereUniqueInput
+    create: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type CampusEventUpsertWithoutApplicationsInput = {
+    update: XOR<CampusEventUpdateWithoutApplicationsInput, CampusEventUncheckedUpdateWithoutApplicationsInput>
+    create: XOR<CampusEventCreateWithoutApplicationsInput, CampusEventUncheckedCreateWithoutApplicationsInput>
+    where?: CampusEventWhereInput
+  }
+
+  export type CampusEventUpdateToOneWithWhereWithoutApplicationsInput = {
+    where?: CampusEventWhereInput
+    data: XOR<CampusEventUpdateWithoutApplicationsInput, CampusEventUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type CampusEventUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type EventPackageUpsertWithoutApplicationsInput = {
+    update: XOR<EventPackageUpdateWithoutApplicationsInput, EventPackageUncheckedUpdateWithoutApplicationsInput>
+    create: XOR<EventPackageCreateWithoutApplicationsInput, EventPackageUncheckedCreateWithoutApplicationsInput>
+    where?: EventPackageWhereInput
+  }
+
+  export type EventPackageUpdateToOneWithWhereWithoutApplicationsInput = {
+    where?: EventPackageWhereInput
+    data: XOR<EventPackageUpdateWithoutApplicationsInput, EventPackageUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type EventPackageUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutPackagesNestedInput
+  }
+
+  export type EventPackageUncheckedUpdateWithoutApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BranchUpsertWithoutEventApplicationsInput = {
+    update: XOR<BranchUpdateWithoutEventApplicationsInput, BranchUncheckedUpdateWithoutEventApplicationsInput>
+    create: XOR<BranchCreateWithoutEventApplicationsInput, BranchUncheckedCreateWithoutEventApplicationsInput>
+    where?: BranchWhereInput
+  }
+
+  export type BranchUpdateToOneWithWhereWithoutEventApplicationsInput = {
+    where?: BranchWhereInput
+    data: XOR<BranchUpdateWithoutEventApplicationsInput, BranchUncheckedUpdateWithoutEventApplicationsInput>
+  }
+
+  export type BranchUpdateWithoutEventApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUpdateManyWithoutBranchNestedInput
+    books?: BookUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUpdateManyWithoutBranchNestedInput
+    classes?: ClassUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUpdateManyWithoutBranchNestedInput
+    studentAccounts?: StudentAccountUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUpdateManyWithoutBranchNestedInput
+    students?: StudentUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUpdateManyWithoutBranchNestedInput
+    users?: UserUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUpdateManyWithoutBranchNestedInput
+    creditTransactions?: CreditTransactionUpdateManyWithoutBranchNestedInput
+    counters?: CounterUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUpdateManyWithoutBranchNestedInput
+    exams?: ExamUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUpdateManyWithoutBranchNestedInput
+    roles?: RoleUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUpdateManyWithoutBranchNestedInput
+    chartOfAccounts?: ChartOfAccountUpdateManyWithoutBranchNestedInput
+    journalEntries?: JournalEntryUpdateManyWithoutBranchNestedInput
+    generalLedgerEntries?: GeneralLedgerEntryUpdateManyWithoutBranchNestedInput
+    taxRates?: TaxRateUpdateManyWithoutBranchNestedInput
+    bankStatementLines?: BankStatementLineUpdateManyWithoutBranchNestedInput
+  }
+
+  export type BranchUncheckedUpdateWithoutEventApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryColor?: NullableStringFieldUpdateOperationsInput | string | null
+    emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
+    alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
+    alumniEvents?: AlumniEventUncheckedUpdateManyWithoutBranchNestedInput
+    assignments?: AssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    automationConfigs?: AutomationConfigUncheckedUpdateManyWithoutBranchNestedInput
+    books?: BookUncheckedUpdateManyWithoutBranchNestedInput
+    callLogs?: CallLogUncheckedUpdateManyWithoutBranchNestedInput
+    accessLogs?: CampusAccessLogUncheckedUpdateManyWithoutBranchNestedInput
+    campusEvents?: CampusEventUncheckedUpdateManyWithoutBranchNestedInput
+    certificates?: CertificateUncheckedUpdateManyWithoutBranchNestedInput
+    certificateTemplates?: CertificateTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    classes?: ClassUncheckedUpdateManyWithoutBranchNestedInput
+    complaints?: ComplaintUncheckedUpdateManyWithoutBranchNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutBranchNestedInput
+    deactivationReasons?: DeactivationReasonUncheckedUpdateManyWithoutBranchNestedInput
+    attachmentCategories?: AttachmentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    departments?: DepartmentUncheckedUpdateManyWithoutBranchNestedInput
+    designations?: DesignationUncheckedUpdateManyWithoutBranchNestedInput
+    digitalResources?: DigitalResourceUncheckedUpdateManyWithoutBranchNestedInput
+    expenseCategories?: ExpenseCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    feeCategories?: FeeCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    googleMeetConfig?: GoogleMeetConfigUncheckedUpdateOneWithoutBranchNestedInput
+    hostels?: HostelUncheckedUpdateManyWithoutBranchNestedInput
+    idCardTemplates?: IdCardTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryCategories?: InventoryCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryIssues?: InventoryIssueUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryProducts?: InventoryProductUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryPurchases?: InventoryPurchaseUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySales?: InventorySaleUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryStores?: InventoryStoreUncheckedUpdateManyWithoutBranchNestedInput
+    inventorySuppliers?: InventorySupplierUncheckedUpdateManyWithoutBranchNestedInput
+    inventoryUnits?: InventoryUnitUncheckedUpdateManyWithoutBranchNestedInput
+    liveClassSessions?: LiveClassSessionUncheckedUpdateManyWithoutBranchNestedInput
+    loginDeactivations?: LoginDeactivationUncheckedUpdateManyWithoutBranchNestedInput
+    onlineAdmissions?: OnlineAdmissionUncheckedUpdateManyWithoutBranchNestedInput
+    onlineExams?: OnlineExamUncheckedUpdateManyWithoutBranchNestedInput
+    postalRecords?: PostalRecordUncheckedUpdateManyWithoutBranchNestedInput
+    studentAccounts?: StudentAccountUncheckedUpdateManyWithoutBranchNestedInput
+    questionGroups?: QuestionGroupUncheckedUpdateManyWithoutBranchNestedInput
+    students?: StudentUncheckedUpdateManyWithoutBranchNestedInput
+    studentCategories?: StudentCategoryUncheckedUpdateManyWithoutBranchNestedInput
+    subjects?: SubjectUncheckedUpdateManyWithoutBranchNestedInput
+    routes?: TransportRouteUncheckedUpdateManyWithoutBranchNestedInput
+    users?: UserUncheckedUpdateManyWithoutBranchNestedInput
+    vehicles?: VehicleUncheckedUpdateManyWithoutBranchNestedInput
+    visitorLogs?: VisitorLogUncheckedUpdateManyWithoutBranchNestedInput
+    vouchers?: VoucherUncheckedUpdateManyWithoutBranchNestedInput
+    academicSessions?: AcademicSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendance?: AttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    staffAttendance?: StaffAttendanceUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceSessions?: AttendanceSessionUncheckedUpdateManyWithoutBranchNestedInput
+    attendanceScans?: AttendanceScanUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
+    behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
+    resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
+    globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
+    moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
+    scheduledJobs?: ScheduledJobUncheckedUpdateManyWithoutBranchNestedInput
+    emailTemplates?: EmailTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    smsTemplates?: SmsTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutBranchNestedInput
+    notificationPreferences?: NotificationPreferenceUncheckedUpdateManyWithoutBranchNestedInput
+    campaigns?: CampaignUncheckedUpdateManyWithoutBranchNestedInput
+    campaignRecipients?: CampaignRecipientUncheckedUpdateManyWithoutBranchNestedInput
+    queueJobLogs?: QueueJobLogUncheckedUpdateManyWithoutBranchNestedInput
+    automationExecutions?: AutomationExecutionUncheckedUpdateManyWithoutBranchNestedInput
+    messageDeliveryLogs?: MessageDeliveryLogUncheckedUpdateManyWithoutBranchNestedInput
+    providerHealthLogs?: ProviderHealthLogUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEvents?: WebhookEventUncheckedUpdateManyWithoutBranchNestedInput
+    deliveryWebhookLogs?: DeliveryWebhookLogUncheckedUpdateManyWithoutBranchNestedInput
+    realtimeConnections?: RealtimeConnectionUncheckedUpdateManyWithoutBranchNestedInput
+    queueMetrics?: QueueMetricUncheckedUpdateManyWithoutBranchNestedInput
+    providerFailoverEvents?: ProviderFailoverEventUncheckedUpdateManyWithoutBranchNestedInput
+    messageRetryEvents?: MessageRetryEventUncheckedUpdateManyWithoutBranchNestedInput
+    providerBalanceSnapshots?: ProviderBalanceSnapshotUncheckedUpdateManyWithoutBranchNestedInput
+    creditTransactions?: CreditTransactionUncheckedUpdateManyWithoutBranchNestedInput
+    counters?: CounterUncheckedUpdateManyWithoutBranchNestedInput
+    notificationDeliveryEvents?: NotificationDeliveryEventUncheckedUpdateManyWithoutBranchNestedInput
+    academicExports?: AcademicExportUncheckedUpdateManyWithoutBranchNestedInput
+    reportTemplates?: ReportTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    computationJobs?: ComputationJobUncheckedUpdateManyWithoutBranchNestedInput
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutBranchNestedInput
+    webhookEndpoints?: WebhookEndpointUncheckedUpdateManyWithoutBranchNestedInput
+    exams?: ExamUncheckedUpdateManyWithoutBranchNestedInput
+    examTypes?: ExamTypeUncheckedUpdateManyWithoutBranchNestedInput
+    assessmentComponents?: AssessmentComponentUncheckedUpdateManyWithoutBranchNestedInput
+    resultApprovals?: ResultApprovalUncheckedUpdateManyWithoutBranchNestedInput
+    resultPublications?: ResultPublicationUncheckedUpdateManyWithoutBranchNestedInput
+    gpaRecords?: GPARecordUncheckedUpdateManyWithoutBranchNestedInput
+    studentRankings?: StudentRankingUncheckedUpdateManyWithoutBranchNestedInput
+    broadsheets?: BroadsheetUncheckedUpdateManyWithoutBranchNestedInput
+    transcripts?: TranscriptUncheckedUpdateManyWithoutBranchNestedInput
+    academicRemarks?: AcademicRemarkUncheckedUpdateManyWithoutBranchNestedInput
+    subjectPositions?: SubjectPositionUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezAssessments?: TahfeezAssessmentUncheckedUpdateManyWithoutBranchNestedInput
+    tahfeezMemorizationProgresses?: TahfeezMemorizationProgressUncheckedUpdateManyWithoutBranchNestedInput
+    invoices?: InvoiceUncheckedUpdateManyWithoutBranchNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutBranchNestedInput
+    borrowRecords?: BorrowRecordUncheckedUpdateManyWithoutBranchNestedInput
+    libraryFines?: LibraryFineUncheckedUpdateManyWithoutBranchNestedInput
+    salaryTemplates?: SalaryTemplateUncheckedUpdateManyWithoutBranchNestedInput
+    payrolls?: PayrollUncheckedUpdateManyWithoutBranchNestedInput
+    leaveRequests?: LeaveRequestUncheckedUpdateManyWithoutBranchNestedInput
+    staffAwards?: StaffAwardUncheckedUpdateManyWithoutBranchNestedInput
+    advanceSalaries?: AdvanceSalaryUncheckedUpdateManyWithoutBranchNestedInput
+    hostelAllocations?: HostelAllocationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelLeaves?: HostelLeaveUncheckedUpdateManyWithoutBranchNestedInput
+    maintenanceRequests?: MaintenanceRequestUncheckedUpdateManyWithoutBranchNestedInput
+    submissions?: SubmissionUncheckedUpdateManyWithoutBranchNestedInput
+    classSchedules?: ClassScheduleUncheckedUpdateManyWithoutBranchNestedInput
+    idCards?: IdCardUncheckedUpdateManyWithoutBranchNestedInput
+    bookCopies?: BookCopyUncheckedUpdateManyWithoutBranchNestedInput
+    bookReservations?: BookReservationUncheckedUpdateManyWithoutBranchNestedInput
+    hostelMaintenanceTickets?: HostelMaintenanceTicketUncheckedUpdateManyWithoutBranchNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutBranchNestedInput
+    admissionInterviews?: AdmissionInterviewUncheckedUpdateManyWithoutBranchNestedInput
+    admissionExams?: AdmissionExamUncheckedUpdateManyWithoutBranchNestedInput
+    transportAssignments?: TransportAssignmentUncheckedUpdateManyWithoutBranchNestedInput
+    chartOfAccounts?: ChartOfAccountUncheckedUpdateManyWithoutBranchNestedInput
+    journalEntries?: JournalEntryUncheckedUpdateManyWithoutBranchNestedInput
+    generalLedgerEntries?: GeneralLedgerEntryUncheckedUpdateManyWithoutBranchNestedInput
+    taxRates?: TaxRateUncheckedUpdateManyWithoutBranchNestedInput
+    bankStatementLines?: BankStatementLineUncheckedUpdateManyWithoutBranchNestedInput
+  }
+
+  export type EventPaymentUpsertWithoutApplicationInput = {
+    update: XOR<EventPaymentUpdateWithoutApplicationInput, EventPaymentUncheckedUpdateWithoutApplicationInput>
+    create: XOR<EventPaymentCreateWithoutApplicationInput, EventPaymentUncheckedCreateWithoutApplicationInput>
+    where?: EventPaymentWhereInput
+  }
+
+  export type EventPaymentUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: EventPaymentWhereInput
+    data: XOR<EventPaymentUpdateWithoutApplicationInput, EventPaymentUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type EventPaymentUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPaymentUncheckedUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    paymentMethod?: StringFieldUpdateOperationsInput | string
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    verifiedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CampusEventCreateWithoutRsvpsInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryCreateNestedOneWithoutEventsInput
+    branch: BranchCreateNestedOneWithoutCampusEventsInput
+    packages?: EventPackageCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryCreateNestedManyWithoutEventInput
+    applications?: EventApplicationCreateNestedManyWithoutEventInput
+  }
+
+  export type CampusEventUncheckedCreateWithoutRsvpsInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryId?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    packages?: EventPackageUncheckedCreateNestedManyWithoutEventInput
+    schedules?: EventScheduleUncheckedCreateNestedManyWithoutEventInput
+    gallery?: EventGalleryUncheckedCreateNestedManyWithoutEventInput
+    applications?: EventApplicationUncheckedCreateNestedManyWithoutEventInput
   }
 
   export type CampusEventCreateOrConnectWithoutRsvpsInput = {
@@ -352639,31 +365836,75 @@ export namespace Prisma {
   export type CampusEventUpdateWithoutRsvpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
     branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
   }
 
   export type CampusEventUncheckedUpdateWithoutRsvpsInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     branchId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type UserUpsertWithoutEventRSVPsInput = {
@@ -352753,6 +365994,162 @@ export namespace Prisma {
     createdExams?: ExamUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
+  export type EventApplicationCreateWithoutPaymentInput = {
+    id?: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    event: CampusEventCreateNestedOneWithoutApplicationsInput
+    package: EventPackageCreateNestedOneWithoutApplicationsInput
+    branch: BranchCreateNestedOneWithoutEventApplicationsInput
+  }
+
+  export type EventApplicationUncheckedCreateWithoutPaymentInput = {
+    id?: string
+    eventId: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventApplicationCreateOrConnectWithoutPaymentInput = {
+    where: EventApplicationWhereUniqueInput
+    create: XOR<EventApplicationCreateWithoutPaymentInput, EventApplicationUncheckedCreateWithoutPaymentInput>
+  }
+
+  export type EventApplicationUpsertWithoutPaymentInput = {
+    update: XOR<EventApplicationUpdateWithoutPaymentInput, EventApplicationUncheckedUpdateWithoutPaymentInput>
+    create: XOR<EventApplicationCreateWithoutPaymentInput, EventApplicationUncheckedCreateWithoutPaymentInput>
+    where?: EventApplicationWhereInput
+  }
+
+  export type EventApplicationUpdateToOneWithWhereWithoutPaymentInput = {
+    where?: EventApplicationWhereInput
+    data: XOR<EventApplicationUpdateWithoutPaymentInput, EventApplicationUncheckedUpdateWithoutPaymentInput>
+  }
+
+  export type EventApplicationUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
+    package?: EventPackageUpdateOneRequiredWithoutApplicationsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutEventApplicationsNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateWithoutPaymentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BranchCreateWithoutAccessLogsInput = {
     id?: string
     name: string
@@ -352821,6 +366218,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -352960,6 +366358,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -353271,6 +366670,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -353410,6 +366810,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -353717,6 +367118,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -353856,6 +367258,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -354041,6 +367444,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -354180,6 +367584,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -354369,6 +367774,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -354508,6 +367914,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -354679,6 +368086,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -354818,6 +368226,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -355282,6 +368691,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -355421,6 +368831,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -355924,6 +369335,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -356063,6 +369475,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -356201,6 +369614,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -356340,6 +369754,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -356543,6 +369958,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -356682,6 +370098,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -356862,6 +370279,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -357001,6 +370419,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -357496,6 +370915,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -357635,6 +371055,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -358362,6 +371783,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -358501,6 +371923,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -358656,6 +372079,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -358795,6 +372219,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -358934,6 +372359,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -359073,6 +372499,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -359228,6 +372655,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -359367,6 +372795,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -359506,6 +372935,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -359645,6 +373075,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -359881,6 +373312,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -360020,6 +373452,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -360246,6 +373679,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -360385,6 +373819,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -360621,6 +374056,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -360760,6 +374196,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -360986,6 +374423,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -361125,6 +374563,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -361310,6 +374749,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -361449,6 +374889,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -361712,6 +375153,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -361851,6 +375293,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -362126,6 +375569,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -362265,6 +375709,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -362403,6 +375848,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -362542,6 +375988,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -362967,6 +376414,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -363106,6 +376554,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -363507,6 +376956,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -363646,6 +377096,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -364003,6 +377454,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -364142,6 +377594,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -364496,6 +377949,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -364635,6 +378089,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -364790,6 +378245,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -364929,6 +378385,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -365097,6 +378554,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -365236,6 +378694,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -365426,6 +378885,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -365565,6 +379025,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -365704,6 +379165,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -365843,6 +379305,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -365998,6 +379461,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -366137,6 +379601,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -366276,6 +379741,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -366415,6 +379881,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -366570,6 +380037,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -366709,6 +380177,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -366848,6 +380317,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -366987,6 +380457,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -367142,6 +380613,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -367281,6 +380753,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -367420,6 +380893,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -367559,6 +381033,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -367714,6 +381189,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -367853,6 +381329,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -367992,6 +381469,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -368131,6 +381609,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -368367,6 +381846,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -368506,6 +381986,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -368732,6 +382213,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -368871,6 +382353,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -369026,6 +382509,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -369165,6 +382649,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -369304,6 +382789,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -369443,6 +382929,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -369598,6 +383085,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -369737,6 +383225,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -369876,6 +383365,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -370015,6 +383505,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -370170,6 +383661,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -370309,6 +383801,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -370448,6 +383941,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -370587,6 +384081,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -370742,6 +384237,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -370881,6 +384377,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -371020,6 +384517,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -371159,6 +384657,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -371314,6 +384813,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -371453,6 +384953,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -371592,6 +385093,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -371731,6 +385233,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -372042,6 +385545,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -372181,6 +385685,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -372488,6 +385993,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -372627,6 +386133,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -372857,6 +386364,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -372996,6 +386504,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -373216,6 +386725,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -373355,6 +386865,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -373591,6 +387102,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -373730,6 +387242,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -374039,6 +387552,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -374178,6 +387692,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -374400,6 +387915,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -374539,6 +388055,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -374884,6 +388401,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -375023,6 +388541,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -375396,6 +388915,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -375535,6 +389055,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -375701,6 +389222,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -375840,6 +389362,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -376028,6 +389551,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -376167,6 +389691,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -376690,6 +390215,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -376829,6 +390355,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -376984,6 +390511,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -377123,6 +390651,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -377262,6 +390791,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -377401,6 +390931,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -377590,6 +391121,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -377729,6 +391261,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -377960,6 +391493,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -378099,6 +391633,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -378254,6 +391789,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -378393,6 +391929,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -378692,6 +392229,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -378831,6 +392369,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -379264,6 +392803,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -379403,6 +392943,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -379667,6 +393208,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -379806,6 +393348,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -380069,6 +393612,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -380208,6 +393752,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -380428,6 +393973,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -380567,6 +394113,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -380833,6 +394380,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -380972,6 +394520,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -382101,6 +395650,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -382240,6 +395790,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -382670,6 +396221,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -382809,6 +396361,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -383027,6 +396580,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -383166,6 +396720,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -383487,6 +397042,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -383626,6 +397182,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -383862,6 +397419,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -384001,6 +397559,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -384263,6 +397822,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -384402,6 +397962,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -384706,6 +398267,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -384845,6 +398407,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -385155,6 +398718,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -385294,6 +398858,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -385514,6 +399079,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -385653,6 +399219,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -385883,6 +399450,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -386022,6 +399590,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -386275,6 +399844,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationCreateNestedManyWithoutBranchInput
@@ -386414,6 +399984,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedCreateNestedManyWithoutBranchInput
     behaviouralRatings?: BehaviouralRatingUncheckedCreateNestedManyWithoutBranchInput
     resultSummaries?: ResultSummaryUncheckedCreateNestedManyWithoutBranchInput
+    eventApplications?: EventApplicationUncheckedCreateNestedManyWithoutBranchInput
     gradingScales?: GradingScaleUncheckedCreateNestedManyWithoutBranchInput
     globalSettings?: GlobalSettingUncheckedCreateNestedManyWithoutBranchInput
     moduleConfigurations?: ModuleConfigurationUncheckedCreateNestedManyWithoutBranchInput
@@ -386683,6 +400254,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUpdateManyWithoutBranchNestedInput
@@ -386822,6 +400394,7 @@ export namespace Prisma {
     assessmentRecords?: AssessmentRecordUncheckedUpdateManyWithoutBranchNestedInput
     behaviouralRatings?: BehaviouralRatingUncheckedUpdateManyWithoutBranchNestedInput
     resultSummaries?: ResultSummaryUncheckedUpdateManyWithoutBranchNestedInput
+    eventApplications?: EventApplicationUncheckedUpdateManyWithoutBranchNestedInput
     gradingScales?: GradingScaleUncheckedUpdateManyWithoutBranchNestedInput
     globalSettings?: GlobalSettingUncheckedUpdateManyWithoutBranchNestedInput
     moduleConfigurations?: ModuleConfigurationUncheckedUpdateManyWithoutBranchNestedInput
@@ -387081,15 +400654,33 @@ export namespace Prisma {
   export type CampusEventCreateManyBranchInput = {
     id?: string
     title: string
-    description?: string | null
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
     startDate: Date | string
     endDate: Date | string
+    applicationDeadline?: Date | string | null
     location?: string | null
-    category: string
+    categoryId?: string | null
+    categoryLabel?: string
     isPublic?: boolean
     allowRSVP?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CertificateCreateManyBranchInput = {
@@ -387830,6 +401421,40 @@ export namespace Prisma {
     examTerm: $Enums.ExamTerm
     isActive?: boolean
     isLocked?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventApplicationCreateManyBranchInput = {
+    id?: string
+    eventId: string
+    packageId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -389019,45 +402644,107 @@ export namespace Prisma {
   export type CampusEventUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    category?: EventCategoryUpdateOneWithoutEventsNestedInput
     rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
   }
 
   export type CampusEventUncheckedUpdateWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
     rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
   }
 
   export type CampusEventUncheckedUpdateManyWithoutBranchInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: StringFieldUpdateOperationsInput | string
+    categoryId?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
     isPublic?: BoolFieldUpdateOperationsInput | boolean
     allowRSVP?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type CertificateUpdateWithoutBranchInput = {
@@ -391522,6 +405209,110 @@ export namespace Prisma {
     examTerm?: EnumExamTermFieldUpdateOperationsInput | $Enums.ExamTerm
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isLocked?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventApplicationUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
+    package?: EventPackageUpdateOneRequiredWithoutApplicationsNestedInput
+    payment?: EventPaymentUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutBranchInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -407065,10 +420856,216 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type CampusEventCreateManyCategoryInput = {
+    id?: string
+    title: string
+    slug?: string
+    shortDescription?: string | null
+    fullDescription?: string | null
+    objectives?: CampusEventCreateobjectivesInput | string[]
+    rulesAndDiscipline?: string | null
+    requirements?: CampusEventCreaterequirementsInput | string[]
+    mealsAndHospitality?: string | null
+    whyChooseThisEvent?: CampusEventCreatewhyChooseThisEventInput | string[]
+    startDate: Date | string
+    endDate: Date | string
+    applicationDeadline?: Date | string | null
+    location?: string | null
+    categoryLabel?: string
+    isPublic?: boolean
+    allowRSVP?: boolean
+    branchId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    status?: string
+    active?: boolean
+    featuredImage?: string | null
+    brochurePdf?: string | null
+    capacity?: number | null
+    registrationOpen?: boolean
+    applicationFormEnabled?: boolean
+    paymentRequired?: boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type CampusEventUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    branch?: BranchUpdateOneRequiredWithoutCampusEventsNestedInput
+    rsvps?: EventRSVPUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+    rsvps?: EventRSVPUncheckedUpdateManyWithoutEventNestedInput
+    packages?: EventPackageUncheckedUpdateManyWithoutEventNestedInput
+    schedules?: EventScheduleUncheckedUpdateManyWithoutEventNestedInput
+    gallery?: EventGalleryUncheckedUpdateManyWithoutEventNestedInput
+    applications?: EventApplicationUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type CampusEventUncheckedUpdateManyWithoutCategoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    shortDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    fullDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    objectives?: CampusEventUpdateobjectivesInput | string[]
+    rulesAndDiscipline?: NullableStringFieldUpdateOperationsInput | string | null
+    requirements?: CampusEventUpdaterequirementsInput | string[]
+    mealsAndHospitality?: NullableStringFieldUpdateOperationsInput | string | null
+    whyChooseThisEvent?: CampusEventUpdatewhyChooseThisEventInput | string[]
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicationDeadline?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    categoryLabel?: StringFieldUpdateOperationsInput | string
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    allowRSVP?: BoolFieldUpdateOperationsInput | boolean
+    branchId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    featuredImage?: NullableStringFieldUpdateOperationsInput | string | null
+    brochurePdf?: NullableStringFieldUpdateOperationsInput | string | null
+    capacity?: NullableIntFieldUpdateOperationsInput | number | null
+    registrationOpen?: BoolFieldUpdateOperationsInput | boolean
+    applicationFormEnabled?: BoolFieldUpdateOperationsInput | boolean
+    paymentRequired?: BoolFieldUpdateOperationsInput | boolean
+    seoMetadata?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type EventRSVPCreateManyEventInput = {
     id?: string
     userId: string
     status?: $Enums.EventParticipationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventPackageCreateManyEventInput = {
+    id?: string
+    title: string
+    ageRange?: string | null
+    timing?: string | null
+    fee: Decimal | DecimalJsLike | number | string
+    boardingType: string
+    availableSlots?: number | null
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventScheduleCreateManyEventInput = {
+    id?: string
+    day: string
+    period?: string | null
+    startTime: string
+    endTime: string
+    activity: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventGalleryCreateManyEventInput = {
+    id?: string
+    imageUrl: string
+    isCover?: boolean
+    order?: number
+    caption?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventApplicationCreateManyEventInput = {
+    id?: string
+    packageId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -407093,6 +421090,352 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: EnumEventParticipationStatusFieldUpdateOperationsInput | $Enums.EventParticipationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventPackageUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: EventApplicationUpdateManyWithoutPackageNestedInput
+  }
+
+  export type EventPackageUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applications?: EventApplicationUncheckedUpdateManyWithoutPackageNestedInput
+  }
+
+  export type EventPackageUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    ageRange?: NullableStringFieldUpdateOperationsInput | string | null
+    timing?: NullableStringFieldUpdateOperationsInput | string | null
+    fee?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    boardingType?: StringFieldUpdateOperationsInput | string
+    availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventScheduleUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    day?: StringFieldUpdateOperationsInput | string
+    period?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: StringFieldUpdateOperationsInput | string
+    endTime?: StringFieldUpdateOperationsInput | string
+    activity?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventGalleryUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    isCover?: BoolFieldUpdateOperationsInput | boolean
+    order?: IntFieldUpdateOperationsInput | number
+    caption?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventApplicationUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: EventPackageUpdateOneRequiredWithoutApplicationsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutEventApplicationsNestedInput
+    payment?: EventPaymentUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EventApplicationCreateManyPackageInput = {
+    id?: string
+    eventId: string
+    branchId: string
+    fullName: string
+    gender: string
+    dateOfBirth: Date | string
+    age: number
+    parentName?: string | null
+    parentPhone?: string | null
+    parentEmail?: string | null
+    address?: string | null
+    state?: string | null
+    localGovernment?: string | null
+    memorizationLevel?: string | null
+    school?: string | null
+    islamicBackground?: string | null
+    previousParticipation?: string | null
+    medicalConditions?: string | null
+    allergies?: string | null
+    emergencyContact: string
+    accommodationPreference?: string | null
+    passportPhotoUrl?: string | null
+    birthCertificateUrl?: string | null
+    ninUrl?: string | null
+    schoolIdUrl?: string | null
+    medicalReportUrl?: string | null
+    proofOfPaymentUrl?: string | null
+    status?: string
+    paymentStatus?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EventApplicationUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
+    branch?: BranchUpdateOneRequiredWithoutEventApplicationsNestedInput
+    payment?: EventPaymentUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
+  }
+
+  export type EventApplicationUncheckedUpdateManyWithoutPackageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    branchId?: StringFieldUpdateOperationsInput | string
+    fullName?: StringFieldUpdateOperationsInput | string
+    gender?: StringFieldUpdateOperationsInput | string
+    dateOfBirth?: DateTimeFieldUpdateOperationsInput | Date | string
+    age?: IntFieldUpdateOperationsInput | number
+    parentName?: NullableStringFieldUpdateOperationsInput | string | null
+    parentPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    parentEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    state?: NullableStringFieldUpdateOperationsInput | string | null
+    localGovernment?: NullableStringFieldUpdateOperationsInput | string | null
+    memorizationLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    school?: NullableStringFieldUpdateOperationsInput | string | null
+    islamicBackground?: NullableStringFieldUpdateOperationsInput | string | null
+    previousParticipation?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalConditions?: NullableStringFieldUpdateOperationsInput | string | null
+    allergies?: NullableStringFieldUpdateOperationsInput | string | null
+    emergencyContact?: StringFieldUpdateOperationsInput | string
+    accommodationPreference?: NullableStringFieldUpdateOperationsInput | string | null
+    passportPhotoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    birthCertificateUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    ninUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    schoolIdUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    medicalReportUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    paymentStatus?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

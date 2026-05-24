@@ -28,6 +28,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 interface Student {
     id: string;
@@ -73,7 +74,7 @@ const PAGE_SIZE = 20;
 
 const PaginationControls = ({ currentPage, totalPages, onPageChange }: { currentPage: number; totalPages: number; onPageChange: (page: number) => void }) => (
     <div className="flex items-center justify-between mt-4 px-2">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-[12px] text-foreground/60">
             Page {currentPage} of {totalPages || 1}
         </p>
         <div className="flex items-center gap-2">
@@ -284,8 +285,8 @@ export default function StudentLoginDeactivationPage() {
                 <BranchContextBanner />
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Student Login Management</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Deactivate and reactivate student portal access.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Student Login Management</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Deactivate and reactivate student portal access.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="relative">
@@ -324,59 +325,59 @@ export default function StudentLoginDeactivationPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="p-6 bg-card rounded-2xl border border-border">
+                <div className={STAT_CARD}>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                             <Users size={20} className="text-primary" />
                         </div>
                         <div>
-                            <p className="text-xs font-semibold uppercase text-muted-foreground">Total Students</p>
-                            <p className="text-2xl font-bold">{activeTotal + inactiveTotal}</p>
+                            <p className={STAT_LABEL}>Total Students</p>
+                            <p className={STAT_VALUE}>{activeTotal + inactiveTotal}</p>
                         </div>
                     </div>
                 </div>
-                <div className="p-6 bg-card rounded-2xl border border-border">
+                <div className={STAT_CARD}>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                             <UserCheck size={20} className="text-primary" />
                         </div>
                         <div>
-                            <p className="text-xs font-semibold uppercase text-muted-foreground">Active Logins</p>
-                            <p className="text-2xl font-bold">{activeTotal}</p>
+                            <p className={STAT_LABEL}>Active Logins</p>
+                            <p className={STAT_VALUE}>{activeTotal}</p>
                         </div>
                     </div>
                 </div>
-                <div className="p-6 bg-card rounded-2xl border border-border">
+                <div className={STAT_CARD}>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
                             <UserX size={20} className="text-red-500" />
                         </div>
                         <div>
-                            <p className="text-xs font-semibold uppercase text-muted-foreground">Inactive Logins</p>
-                            <p className="text-2xl font-bold">{inactiveTotal}</p>
+                            <p className={STAT_LABEL}>Inactive Logins</p>
+                            <p className={STAT_VALUE}>{inactiveTotal}</p>
                         </div>
                     </div>
                 </div>
-                <div className="p-6 bg-card rounded-2xl border border-border">
+                <div className={STAT_CARD}>
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
                             <History size={20} className="text-amber-500" />
                         </div>
                         <div>
-                            <p className="text-xs font-semibold uppercase text-muted-foreground">Total Deactivations</p>
-                            <p className="text-2xl font-bold">{deactivations.length}</p>
+                            <p className={STAT_LABEL}>Total Deactivations</p>
+                            <p className={STAT_VALUE}>{deactivations.length}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Active Students */}
-            <div className="bg-card rounded-2xl border border-border overflow-hidden">
-                <div className="p-6 border-b border-border flex items-center justify-between">
+            <div className="bg-card rounded-2xl border border-primary/20 overflow-hidden">
+                <div className="p-4 border-b border-primary/20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <UserCheck size={20} className="text-primary" />
-                        <h2 className="font-bold text-lg">Active Student Logins</h2>
-                        <span className="text-sm text-muted-foreground">({activeStudents.length})</span>
+                        <h2 className="font-bold text-[14px]">Active Student Logins</h2>
+                        <span className="text-[12px] text-foreground/60">({activeStudents.length})</span>
                     </div>
                     {selectedStudents.length > 0 && hasActiveSelection && (
                         <Dialog open={showDeactivateDialog} onOpenChange={setShowDeactivateDialog}>
@@ -438,50 +439,50 @@ export default function StudentLoginDeactivationPage() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className={TABLE_ROOT}>
                         <thead>
-                            <tr className="border-b border-border/50 bg-muted/30">
-                                <th className="px-6 py-4 w-12">
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-12"}>
                                     <Checkbox
                                         checked={activeStudents.length > 0 && selectedStudents.length >= activeStudents.length}
                                         onCheckedChange={(checked) => handleSelectAll(!!checked, activeStudents)}
                                     />
                                 </th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Student</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Email</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Class</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Status</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Student</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Email</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Class</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border/30">
+                        <tbody className={TABLE_BODY}>
                             {activeStudents.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="px-6 py-16 text-center">
-                                        <UserCheck size={40} className="mx-auto text-muted-foreground/30 mb-3" />
-                                        <p className="text-muted-foreground font-medium">No active students found</p>
+                                    <td colSpan={5} className="px-3 py-16 text-center">
+                                        <UserCheck size={40} className="mx-auto text-foreground/30 mb-3" />
+                                        <p className="text-foreground/60 font-medium">No active students found</p>
                                     </td>
                                 </tr>
                             ) : (
                                 activeStudents.map(student => (
-                                    <tr key={student.id} className="hover:bg-muted/10 transition-colors">
-                                        <td className="px-6 py-4">
+                                    <tr key={student.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL}>
                                             <Checkbox
                                                 checked={selectedStudents.includes(student.id)}
                                                 onCheckedChange={(checked) => handleSelectStudent(student.id, !!checked)}
                                             />
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className={TABLE_CELL_PRIMARY}>
                                             <div>
-                                                <p className="font-semibold">{student.firstName} {student.lastName}</p>
-                                                <p className="text-xs text-muted-foreground font-mono">{student.admissionNumber || "N/A"}</p>
+                                                <p>{student.firstName} {student.lastName}</p>
+                                                <p className="text-[12px] text-foreground/60 font-mono">{student.admissionNumber || "N/A"}</p>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm">{student.user?.email || "N/A"}</td>
-                                        <td className="px-6 py-4 text-sm">
+                                        <td className={TABLE_CELL}>{student.user?.email || "N/A"}</td>
+                                        <td className={TABLE_CELL}>
                                             {student.class ? `${student.class.name}${student.section ? ` - ${student.section.name}` : ""}` : "N/A"}
                                         </td>
-                                        <td className="px-6 py-4">
-                                            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">
+                                        <td className={TABLE_CELL}>
+                                            <span className="px-3 py-1 rounded-full text-[12px] font-semibold bg-primary/10 text-primary">
                                                 Active
                                             </span>
                                         </td>
@@ -497,12 +498,12 @@ export default function StudentLoginDeactivationPage() {
             </div>
 
             {/* Inactive Students */}
-            <div className="bg-card rounded-2xl border border-border overflow-hidden">
-                <div className="p-6 border-b border-border flex items-center justify-between">
+            <div className="bg-card rounded-2xl border border-primary/20 overflow-hidden">
+                <div className="p-4 border-b border-primary/20 flex items-center justify-between">
                     <div className="flex items-center gap-3">
                         <UserX size={20} className="text-red-500" />
-                        <h2 className="font-bold text-lg">Deactivated Student Logins</h2>
-                        <span className="text-sm text-muted-foreground">({inactiveStudents.length})</span>
+                        <h2 className="font-bold text-[14px]">Deactivated Student Logins</h2>
+                        <span className="text-[12px] text-foreground/60">({inactiveStudents.length})</span>
                     </div>
                     {selectedStudents.length > 0 && hasInactiveSelection && (
                         <Button
@@ -517,65 +518,65 @@ export default function StudentLoginDeactivationPage() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className={TABLE_ROOT}>
                         <thead>
-                            <tr className="border-b border-border/50 bg-muted/30">
-                                <th className="px-6 py-4 w-12">
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-12"}>
                                     <Checkbox
                                         checked={inactiveStudents.length > 0 && selectedStudents.filter(id => inactiveStudents.some(s => s.id === id)).length === inactiveStudents.length}
                                         onCheckedChange={(checked) => handleSelectAll(!!checked, inactiveStudents)}
                                     />
                                 </th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Student</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Email</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Deactivated</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Reason</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground">Status</th>
-                                <th className="px-6 py-4 text-xs font-semibold uppercase text-muted-foreground text-right">Actions</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Student</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Email</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Deactivated</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Reason</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border/30">
+                        <tbody className={TABLE_BODY}>
                             {inactiveStudents.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-16 text-center">
+                                    <td colSpan={7} className="px-3 py-16 text-center">
                                         <UserCheck size={40} className="mx-auto text-primary/30 mb-3" />
-                                        <p className="text-muted-foreground font-medium">All students have active logins</p>
+                                        <p className="text-foreground/60 font-medium">All students have active logins</p>
                                     </td>
                                 </tr>
                             ) : (
                                 inactiveStudents.map(student => {
                                     const deactivation = deactivationMap.get(student.userId || "");
                                     return (
-                                        <tr key={student.id} className="hover:bg-muted/10 transition-colors">
-                                            <td className="px-6 py-4">
+                                        <tr key={student.id} className={TABLE_ROW}>
+                                            <td className={TABLE_CELL}>
                                                 <Checkbox
                                                     checked={selectedStudents.includes(student.id)}
                                                     onCheckedChange={(checked) => handleSelectStudent(student.id, !!checked)}
                                                 />
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td className={TABLE_CELL_PRIMARY}>
                                                 <div>
-                                                    <p className="font-semibold">{student.firstName} {student.lastName}</p>
-                                                    <p className="text-xs text-muted-foreground font-mono">{student.admissionNumber || "N/A"}</p>
+                                                    <p>{student.firstName} {student.lastName}</p>
+                                                    <p className="text-[12px] text-foreground/60 font-mono">{student.admissionNumber || "N/A"}</p>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 text-sm">{student.user?.email || "N/A"}</td>
-                                            <td className="px-6 py-4 text-sm">
+                                            <td className={TABLE_CELL}>{student.user?.email || "N/A"}</td>
+                                            <td className={TABLE_CELL}>
                                                 {deactivation ? new Date(deactivation.createdAt).toLocaleDateString() : "N/A"}
                                             </td>
-                                            <td className="px-6 py-4 text-sm max-w-xs truncate" title={deactivation?.reason}>
+                                            <td className={TABLE_CELL} title={deactivation?.reason}>
                                                 {deactivation?.reason || "No reason provided"}
                                             </td>
-                                            <td className="px-6 py-4">
-                                                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-600">
+                                            <td className={TABLE_CELL}>
+                                                <span className="px-3 py-1 rounded-full text-[12px] font-semibold bg-red-500/10 text-red-600">
                                                     Inactive
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 text-right">
+                                            <td className={TABLE_CELL_ACTIONS}>
                                                 <Button
                                                     size="sm"
                                                     variant="outline"
-                                                    className="text-primary hover:bg-primary/10 border-primary/20"
+                                                    className="text-primary hover:bg-primary/10 border-primary/20 text-[12px]"
                                                     onClick={() => handleReactivate(student)}
                                                 >
                                                     <UserCheck size={14} className="mr-1" />

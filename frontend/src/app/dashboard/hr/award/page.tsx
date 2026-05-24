@@ -14,6 +14,7 @@ import { DataTable } from "@/components/DataTable";
 import { useNotification } from '@/context/NotificationContext';
 import { useAuth } from "@/context/AuthContext";
 import api from "@/lib/api";
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function StaffAwardsPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -155,16 +156,16 @@ export default function StaffAwardsPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-4">
                 <BranchContextBanner />
                 {/* Header */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">
                             Staff Awards & Recognition
                         </h1>
-                        <p className="text-slate-600 mt-2">
+                        <p className="text-foreground/60 mt-2 text-[12px]">
                             {isAdmin
                                 ? "Recognize and reward outstanding staff performance"
                                 : "View your awards and achievements"}
@@ -258,33 +259,33 @@ export default function StaffAwardsPage() {
 
             {/* Stats Cards */}
             {isAdmin && (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <Trophy className="w-8 h-8 text-yellow-600" />
+                            <Trophy className="w-6 h-6 text-yellow-600" />
                         </div>
-                        <p className="text-sm text-slate-600">Total Awards</p>
-                        <p className="text-h1 font-bold text-slate-900">
+                        <p className={STAT_LABEL}>Total Awards</p>
+                        <p className={STAT_VALUE}>
                             {stats.total}
                         </p>
                     </div>
 
-                    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <Star className="w-8 h-8 text-primary" />
+                            <Star className="w-6 h-6 text-primary" />
                         </div>
-                        <p className="text-sm text-slate-600">This Month</p>
-                        <p className="text-h1 font-bold text-slate-900">
+                        <p className={STAT_LABEL}>This Month</p>
+                        <p className={STAT_VALUE}>
                             {stats.thisMonth}
                         </p>
                     </div>
 
-                    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
+                    <div className={STAT_CARD}>
                         <div className="flex items-center justify-between mb-2">
-                            <Medal className="w-8 h-8 text-primary" />
+                            <Medal className="w-6 h-6 text-primary" />
                         </div>
-                        <p className="text-sm text-slate-600">This Year</p>
-                        <p className="text-h1 font-bold text-slate-900">
+                        <p className={STAT_LABEL}>This Year</p>
+                        <p className={STAT_VALUE}>
                             {stats.thisYear}
                         </p>
                     </div>
@@ -322,8 +323,8 @@ export default function StaffAwardsPage() {
             )}
 
             {/* Awards Table */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
-                <h2 className="text-xl font-semibold mb-4">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-primary/20">
+                <h2 className="text-[16px] font-semibold mb-4">
                     {isAdmin ? "All Awards" : "My Awards"}
                 </h2>
                 {awards.length === 0 ? (

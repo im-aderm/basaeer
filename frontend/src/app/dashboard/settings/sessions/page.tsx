@@ -18,6 +18,7 @@ import {
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function SessionsPage() {
     const { showSuccess, showError } = useNotification();
@@ -127,8 +128,8 @@ export default function SessionsPage() {
                 {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Sessions</h1>
-                    <p className="text-muted-foreground mt-1">Manage school years and set current active term.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Academic Sessions</h1>
+                    <p className="text-foreground/60 mt-1 text-[12px]">Manage school years and set current active term.</p>
                 </div>
                 <button
                     onClick={() => handleOpenModal()}
@@ -140,61 +141,61 @@ export default function SessionsPage() {
             </div>
 
             {/* Sessions List */}
-            <div className="bg-white/75 border border-border rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-white/75 border border-primary/20 rounded-2xl overflow-hidden shadow-sm">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                        <thead className="bg-muted/50 border-b border-border">
+                    <table className={TABLE_ROOT}>
+                        <thead className={TABLE_HEADER}>
                             <tr>
-                                <th className="px-6 py-4 text-sm font-semibold">Session Name</th>
-                                <th className="px-6 py-4 text-sm font-semibold">Duration</th>
-                                <th className="px-6 py-4 text-sm font-semibold">Status</th>
-                                <th className="px-6 py-4 text-sm font-semibold text-right">Actions</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Session Name</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Duration</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                <th className={`${TABLE_HEADER_CELL_NO_SORT} text-right`}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border">
+                        <tbody className={TABLE_BODY}>
                             {sessions.map((session) => (
-                                <tr key={session.id} className="hover:bg-muted/30 transition-colors group">
-                                    <td className="px-6 py-4">
+                                <tr key={session.id} className={TABLE_ROW}>
+                                    <td className={TABLE_CELL_PRIMARY}>
                                         <div className="flex items-center gap-3">
                                             <div className={clsx(
-                                                "p-2 rounded-lg",
+                                                "p-1.5 rounded-lg",
                                                 session.isActive ? "bg-green-500/10 text-green-600" : "bg-primary/10 text-primary"
                                             )}>
-                                                <Calendar size={18} />
+                                                <Calendar size={16} />
                                             </div>
-                                            <span className="font-medium">{session.name}</span>
+                                            <span className="font-medium text-[12px]">{session.name}</span>
                                         </div>
                                     </td>
-                                    <td className="px-6 py-4 text-sm text-muted-foreground">
+                                    <td className={TABLE_CELL}>
                                         {new Date(session.startDate).toLocaleDateString()} - {new Date(session.endDate).toLocaleDateString()}
                                     </td>
-                                    <td className="px-6 py-4">
+                                    <td className={TABLE_CELL}>
                                         {session.isActive ? (
-                                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/10 text-green-600 text-xs font-bold ring-1 ring-inset ring-green-600/20">
+                                            <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-green-500/10 text-green-600 text-[12px] font-bold ring-1 ring-inset ring-green-600/20">
                                                 <CheckCircle2 size={12} /> Active
                                             </span>
                                         ) : (
                                             <button
                                                 onClick={() => toggleActive(session)}
-                                                className="text-xs text-muted-foreground hover:text-primary transition-colors underline decoration-dotted"
+                                                className="text-[12px] text-foreground/60 hover:text-primary transition-colors underline decoration-dotted"
                                             >
                                                 Mark as Active
                                             </button>
                                         )}
                                     </td>
-                                    <td className="px-6 py-4 text-right">
+                                    <td className={TABLE_CELL_ACTIONS}>
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={() => handleOpenModal(session)}
-                                                className="p-2 hover:bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors"
+                                                className="p-1.5 hover:bg-muted rounded-lg text-foreground/60 hover:text-foreground transition-colors"
                                             >
-                                                <Edit size={16} />
+                                                <Edit size={14} />
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(session.id)}
-                                                className="p-2 hover:bg-red-500/10 rounded-lg text-muted-foreground hover:text-red-600 transition-colors"
+                                                className="p-1.5 hover:bg-red-500/10 rounded-lg text-foreground/60 hover:text-red-600 transition-colors"
                                             >
-                                                <Trash2 size={16} />
+                                                <Trash2 size={14} />
                                             </button>
                                         </div>
                                     </td>
@@ -202,10 +203,10 @@ export default function SessionsPage() {
                             ))}
                             {sessions.length === 0 && (
                                 <tr>
-                                    <td colSpan={4} className="px-6 py-12 text-center">
-                                        <div className="flex flex-col items-center gap-3 text-muted-foreground">
-                                            <AlertCircle size={40} className=" opacity-20" />
-                                            <p>No academic sessions found. Create one to get started.</p>
+                                    <td colSpan={4} className="px-3 py-8 text-center">
+                                        <div className="flex flex-col items-center gap-3 text-foreground/60">
+                                            <AlertCircle size={32} className="opacity-20" />
+                                            <p className="text-[12px]">No academic sessions found. Create one to get started.</p>
                                         </div>
                                     </td>
                                 </tr>

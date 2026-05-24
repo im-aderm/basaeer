@@ -20,6 +20,7 @@ import {
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function SubjectsPage() {
     const { showSuccess, showError } = useNotification();
@@ -134,11 +135,11 @@ export default function SubjectsPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <BookOpen className="text-primary w-10 h-10" />
                         Subjects Registry
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg">Manage all subjects offered across different classes.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px]">Manage all subjects offered across different classes.</p>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="relative group">
@@ -166,57 +167,57 @@ export default function SubjectsPage() {
             </div>
 
             {/* Subjects Table */}
-            <div className="bg-white/75 border border-border rounded-[2.5rem] shadow-sm overflow-hidden border-t-4 border-t-primary/20">
+            <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden border-t-4 border-t-primary/20">
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse">
+                    <table className={TABLE_ROOT}>
                         <thead>
-                            <tr className="bg-muted/30 text-left border-b border-border">
-                                <th className="px-10 py-6 text-[10px] items-center gap-2 uppercase tracking-[0.2em] font-semibold text-muted-foreground">Subject Details</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Code</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Date Registered</th>
-                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Subject Details</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Code</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Date Registered</th>
+                                <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-right")}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border/50">
+                        <tbody className={TABLE_BODY}>
                             {filteredSubjects.map(subject => (
-                                <tr key={subject.id} className="hover:bg-muted/10 transition-colors group">
-                                    <td className="px-10 py-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className="p-3.5 bg-primary/10 rounded-2xl text-primary group-hover:scale-110 transition-transform">
-                                                <BookOpen size={20} />
+                                <tr key={subject.id} className={TABLE_ROW}>
+                                    <td className={TABLE_CELL_PRIMARY}>
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-primary/10 rounded-xl text-primary">
+                                                <BookOpen size={16} />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-lg leading-tight">{subject.name}</p>
-                                                <p className="text-xs text-muted-foreground font-semibold mt-1 flex items-center gap-1.5">
-                                                    <Tag size={12} className="text-primary/50" />
+                                                <p className="font-semibold leading-tight">{subject.name}</p>
+                                                <p className="text-[10px] text-foreground/60 font-semibold mt-0.5 flex items-center gap-1">
+                                                    <Tag size={10} className="text-primary/50" />
                                                     Academic Curriculum
                                                 </p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-6">
-                                        <span className="px-4 py-2 bg-muted/50 border border-border rounded-xl text-xs font-semibold font-mono uppercase tracking-widest text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                                    <td className={TABLE_CELL}>
+                                        <span className="px-2 py-1 bg-muted/50 border border-primary/20 rounded-lg text-[10px] font-semibold font-mono uppercase tracking-widest text-foreground/60">
                                             {subject.code || "---"}
                                         </span>
                                     </td>
-                                    <td className="px-8 py-6 text-sm text-muted-foreground font-medium">
+                                    <td className={TABLE_CELL}>
                                         {new Date(subject.createdAt).toLocaleDateString(undefined, {
                                             year: 'numeric',
                                             month: 'long',
                                             day: 'numeric'
                                         })}
                                     </td>
-                                    <td className="px-10 py-6">
-                                        <div className="flex items-center justify-end gap-3">
+                                    <td className={TABLE_CELL_ACTIONS}>
+                                        <div className="flex items-center justify-end gap-2">
                                             <button
                                                 onClick={() => {
                                                     setSelectedSubject(subject);
                                                     setIsAssignModalOpen(true);
                                                 }}
-                                                className="p-3 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-xl transition-all"
+                                                className="p-1.5 bg-muted hover:bg-primary/10 text-foreground/60 hover:text-primary rounded-lg transition-all"
                                                 title="Assign Teacher"
                                             >
-                                                <UserCheck size={18} />
+                                                <UserCheck size={14} />
                                             </button>
                                             <button
                                                 onClick={() => {
@@ -224,17 +225,17 @@ export default function SubjectsPage() {
                                                     setFormData({ name: subject.name, code: subject.code || "" });
                                                     setIsModalOpen(true);
                                                 }}
-                                                className="p-3 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-xl transition-all"
+                                                className="p-1.5 bg-muted hover:bg-primary/10 text-foreground/60 hover:text-primary rounded-lg transition-all"
                                                 title="Edit Subject"
                                             >
-                                                <Edit2 size={18} />
+                                                <Edit2 size={14} />
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(subject.id)}
-                                                className="p-3 bg-muted hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-all"
+                                                className="p-1.5 bg-muted hover:bg-red-500/10 text-foreground/60 hover:text-red-600 rounded-lg transition-all"
                                                 title="Delete Subject"
                                             >
-                                                <Trash2 size={18} />
+                                                <Trash2 size={14} />
                                             </button>
                                         </div>
                                     </td>
@@ -244,12 +245,12 @@ export default function SubjectsPage() {
                     </table>
                 </div>
                 {filteredSubjects.length === 0 && (
-                    <div className="py-32 text-center animate-in fade-in zoom-in-95">
-                        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
-                            <Hash size={48} className="text-muted-foreground/30" />
+                    <div className="py-16 text-center animate-in fade-in zoom-in-95">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                            <Hash size={32} className="text-foreground/30" />
                         </div>
-                        <h2 className="text-h3 font-semibold">No subjects found</h2>
-                        <p className="text-muted-foreground mt-2 max-w-xs mx-auto font-medium">Try adjusting your search or add a new subject to the registry.</p>
+                        <h2 className="text-[14px] font-semibold">No subjects found</h2>
+                        <p className="text-foreground/60 mt-1 max-w-xs mx-auto text-[12px]">Try adjusting your search or add a new subject to the registry.</p>
                     </div>
                 )}
             </div>
@@ -257,37 +258,37 @@ export default function SubjectsPage() {
             {/* Create/Edit Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-                    <div className="bg-white/75 w-full max-w-lg rounded-[3rem] border border-border shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-lg rounded-2xl border border-primary/20 shadow-2xl animate-in zoom-in-95 duration-300 overflow-hidden">
                         <form onSubmit={handleCreateOrUpdate}>
-                            <div className="p-12 border-b border-border bg-muted/20">
-                                <h3 className="text-h1 font-semibold">{selectedSubject ? "Edit Subject" : "Create Subject"}</h3>
-                                <p className="text-muted-foreground mt-2 text-lg font-medium">Registration details for school subjects.</p>
+                            <div className="p-6 border-b border-primary/20 bg-muted/20">
+                                <h3 className="text-[16px] font-semibold">{selectedSubject ? "Edit Subject" : "Create Subject"}</h3>
+                                <p className="text-foreground/60 mt-1 text-[12px]">Registration details for school subjects.</p>
                             </div>
-                            <div className="p-12 space-y-8">
-                                <div className="space-y-3">
-                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Subject Name</label>
+                            <div className="p-6 space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Subject Name</label>
                                     <input
                                         required
                                         placeholder="e.g. Mathematics, English Language"
-                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold text-xl"
+                                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none transition-all font-semibold"
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
                                 </div>
-                                <div className="space-y-3">
-                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Subject Code (Optional)</label>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Subject Code (Optional)</label>
                                     <input
                                         placeholder="e.g. MATH-101"
-                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-semibold font-mono uppercase tracking-widest"
+                                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none transition-all font-semibold font-mono uppercase tracking-widest"
                                         value={formData.code}
                                         onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                                     />
                                 </div>
                             </div>
-                            <div className="p-12 border-t border-border bg-muted/20 flex gap-4">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-5 font-semibold rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
-                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-semibold transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50">
-                                    {submitting ? <Loader2 className="animate-spin mx-auto" /> : (selectedSubject ? "Update Subject" : "Register Subject")}
+                            <div className="p-4 border-t border-primary/20 bg-muted/20 flex gap-3">
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 py-2.5 font-semibold rounded-xl bg-muted hover:bg-muted/80 transition-colors text-[12px]">Cancel</button>
+                                <button type="submit" disabled={submitting} className="flex-2 py-2.5 bg-primary text-white rounded-xl font-semibold transition-all shadow-sm active:scale-95 disabled:opacity-50 text-[12px]">
+                                    {submitting ? <Loader2 className="animate-spin mx-auto" size={16} /> : (selectedSubject ? "Update Subject" : "Register Subject")}
                                 </button>
                             </div>
                         </form>
@@ -298,18 +299,18 @@ export default function SubjectsPage() {
             {/* Assign Teacher Modal */}
             {isAssignModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in">
-                    <div className="bg-white/75 w-full max-w-lg rounded-[3rem] border border-border shadow-2xl overflow-hidden">
+                    <div className="bg-white/75 w-full max-w-lg rounded-2xl border border-primary/20 shadow-2xl overflow-hidden">
                         <form onSubmit={handleAssignTeacher}>
-                            <div className="p-12 border-b border-border bg-muted/20">
-                                <h3 className="text-h3 font-semibold">Assign Subject Teacher</h3>
-                                <p className="text-muted-foreground font-medium mt-2">Associate a specialist teacher with <span className="text-foreground font-semibold">{selectedSubject?.name}</span>.</p>
+                            <div className="p-6 border-b border-primary/20 bg-muted/20">
+                                <h3 className="text-[14px] font-semibold">Assign Subject Teacher</h3>
+                                <p className="text-foreground/60 text-[12px] mt-1">Associate a specialist teacher with <span className="text-foreground font-semibold">{selectedSubject?.name}</span>.</p>
                             </div>
-                            <div className="p-12 space-y-8">
-                                <div className="space-y-3">
-                                    <label className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Select Teacher</label>
+                            <div className="p-6 space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Select Teacher</label>
                                     <select
                                         required
-                                        className="w-full p-5 bg-white border-2 border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:24px] bg-[right_1.25rem_center] bg-no-repeat"
+                                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none transition-all font-semibold appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207L10%2012L15%207%22%20stroke%3D%22%236B7280%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[length:24px] bg-[right_1.25rem_center] bg-no-repeat"
                                         value={selectedTeacherId}
                                         onChange={(e) => setSelectedTeacherId(e.target.value)}
                                     >
@@ -320,10 +321,10 @@ export default function SubjectsPage() {
                                     </select>
                                 </div>
                             </div>
-                            <div className="p-12 border-t border-border bg-muted/20 flex gap-4">
-                                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="flex-1 py-5 font-semibold rounded-2xl bg-muted hover:bg-muted/80 transition-colors">Cancel</button>
-                                <button type="submit" disabled={submitting} className="flex-2 py-5 bg-primary text-white rounded-2xl font-semibold transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2">
-                                    {submitting && <Loader2 size={20} className="animate-spin" />}
+                            <div className="p-4 border-t border-primary/20 bg-muted/20 flex gap-3">
+                                <button type="button" onClick={() => setIsAssignModalOpen(false)} className="flex-1 py-2.5 font-semibold rounded-xl bg-muted hover:bg-muted/80 transition-colors text-[12px]">Cancel</button>
+                                <button type="submit" disabled={submitting} className="flex-2 py-2.5 bg-primary text-white rounded-xl font-semibold transition-all shadow-sm active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2 text-[12px]">
+                                    {submitting && <Loader2 size={16} className="animate-spin" />}
                                     Assign Specialist
                                 </button>
                             </div>

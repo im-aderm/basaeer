@@ -25,6 +25,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from "@/lib/table-styles";
 
 export default function LibraryBorrowingPage() {
     const { showSuccess, showError, showInfo } = useNotification();
@@ -97,24 +98,24 @@ export default function LibraryBorrowingPage() {
             case 'BORROWED': return 'bg-blue-500/10 text-blue-500';
             case 'OVERDUE': return 'bg-red-500/10 text-red-500';
             case 'RETURNED': return 'bg-green-500/10 text-green-500';
-            default: return 'bg-muted text-muted-foreground';
+            default: return 'bg-muted text-foreground/60';
         }
     };
 
-    if (loading && borrowingHistory.length === 0) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading && borrowingHistory.length === 0) return <div className="p-4 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in duration-500 pb-20">
+            <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-500 pb-20">
                 <BranchContextBanner />
             {/* Header section */}
-            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="bg-white/75 border border-primary/20 p-4 rounded-2xl shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div className="relative z-10">
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3 text-purple-600">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3 text-purple-600">
                         <Bookmark className="w-10 h-10" />
                         Borrowing Records
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Track book circulations and manage student returns.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px] font-medium">Track book circulations and manage student returns.</p>
                 </div>
                 <div className="relative z-10">
                     <Dialog open={isIssueModalOpen} onOpenChange={setIsIssueModalOpen}>
@@ -123,9 +124,9 @@ export default function LibraryBorrowingPage() {
                                 Issue New Book <ArrowRight size={20} />
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-md rounded-[2.5rem] p-8">
+                        <DialogContent className="max-w-md rounded-2xl p-4">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold mb-6">Issue Book</DialogTitle>
+                                <DialogTitle className="text-[12px] font-semibold mb-4">Issue Book</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={handleIssueBook} className="space-y-4">
                                 <div className="space-y-1.5">
@@ -177,65 +178,65 @@ export default function LibraryBorrowingPage() {
             </div>
 
             {/* Records Log Design */}
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-purple-500">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden border-t-8 border-t-purple-500">
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse">
+                    <table className={TABLE_ROOT}>
                         <thead>
-                            <tr className="bg-muted/30 text-left border-b border-border">
-                                <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center w-20">Status</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Resource / Book</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center">Dates</th>
-                                <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student Details</th>
-                                <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " text-center w-20"}>Status</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Resource / Book</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Dates</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Student Details</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-border/50">
+                        <tbody className={TABLE_BODY}>
                             {borrowingHistory.length > 0 ? borrowingHistory.map(record => (
-                                <tr key={record.id} className="hover:bg-muted/5 transition-all group">
-                                    <td className="px-10 py-8 text-center">
+                                <tr key={record.id} className={TABLE_ROW + " group"}>
+                                    <td className={TABLE_CELL + " text-center"}>
                                         <div className={`mx-auto w-12 h-12 rounded-2xl flex items-center justify-center font-semibold ${getStatusColor(record.status)} shadow-lg shadow-current/5`}>
                                             {record.status === 'BORROWED' && <Clock size={24} />}
                                             {record.status === 'OVERDUE' && <AlertCircle size={24} />}
                                             {record.status === 'RETURNED' && <CheckCircle size={24} />}
                                         </div>
                                     </td>
-                                    <td className="px-8 py-8">
+                                    <td className={TABLE_CELL_PRIMARY}>
                                         <div className="flex items-center gap-4">
-                                            <div className="w-12 h-16 bg-muted/30 rounded-lg flex items-center justify-center border border-border/50">
-                                                <BookOpen size={20} className="text-muted-foreground/50" />
+                                            <div className="w-12 h-16 bg-muted/30 rounded-lg flex items-center justify-center border border-primary/20">
+                                                <BookOpen size={20} className="text-foreground/30" />
                                             </div>
                                             <div>
-                                                <p className="font-semibold text-lg tracking-tight">{record.book?.title}</p>
-                                                <p className="text-xs font-bold text-muted-foreground capitalize">{record.book?.category}</p>
+                                                <p className="font-semibold text-[12px] tracking-tight">{record.book?.title}</p>
+                                                <p className="text-[10px] font-bold text-foreground/60 capitalize">{record.book?.category}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-8 text-center">
+                                    <td className={TABLE_CELL + " text-center"}>
                                         <div className="inline-block text-left space-y-1">
-                                            <p className="flex items-center gap-2 text-xs font-bold">
+                                            <p className="flex items-center gap-2 text-[12px] font-bold">
                                                 <CalendarDays size={14} className="text-blue-500" />
-                                                <span className="text-muted-foreground shrink-0 uppercase tracking-tighter w-14">Issued:</span>
+                                                <span className="text-foreground/60 shrink-0 uppercase tracking-tighter w-14">Issued:</span>
                                                 <span>{new Date(record.borrowDate).toLocaleDateString()}</span>
                                             </p>
-                                            <p className="flex items-center gap-2 text-xs font-bold">
+                                            <p className="flex items-center gap-2 text-[12px] font-bold">
                                                 <Clock size={14} className="text-red-500" />
-                                                <span className="text-muted-foreground shrink-0 uppercase tracking-tighter w-14 text-center">Due:</span>
+                                                <span className="text-foreground/60 shrink-0 uppercase tracking-tighter w-14 text-center">Due:</span>
                                                 <span className="text-red-500">{new Date(record.dueDate).toLocaleDateString()}</span>
                                             </p>
                                         </div>
                                     </td>
-                                    <td className="px-8 py-8">
+                                    <td className={TABLE_CELL}>
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                                                 <User size={18} />
                                             </div>
                                             <div>
                                                 <p className="font-semibold">{record.student?.firstName} {record.student?.lastName}</p>
-                                                <p className="text-label text-muted-foreground">ID: {record.student?.id.split('-')[0].toUpperCase()}</p>
+                                                <p className="text-[12px] text-foreground/60">ID: {record.student?.id.split('-')[0].toUpperCase()}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="px-10 py-8 text-right">
+                                    <td className={TABLE_CELL_ACTIONS}>
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all">
                                             {record.status !== 'RETURNED' && (
                                                 <Button
@@ -254,12 +255,12 @@ export default function LibraryBorrowingPage() {
                                 </tr>
                             )) : (
                                 <tr>
-                                    <td colSpan={5} className="py-20 text-center space-y-4">
-                                        <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto border-2 border-dashed border-border">
-                                            <Search size={32} className="text-muted-foreground/30" />
+                                    <td colSpan={5} className="py-12 text-center space-y-4">
+                                        <div className="w-20 h-20 bg-muted/50 rounded-full flex items-center justify-center mx-auto border-2 border-dashed border-primary/20">
+                                            <Search size={32} className="text-foreground/30" />
                                         </div>
-                                        <h3 className="text-h3 font-semibold">No records found</h3>
-                                        <p className="text-muted-foreground font-medium">Active book circulations will appear here.</p>
+                                        <h3 className="text-[12px] font-semibold">No records found</h3>
+                                        <p className="text-foreground/60 font-medium">Active book circulations will appear here.</p>
                                     </td>
                                 </tr>
                             )}

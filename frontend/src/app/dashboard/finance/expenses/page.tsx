@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Check, X } from 'lucide-react';
@@ -81,14 +82,14 @@ export default function ExpensesPage() {
         }
     };
 
-    if (loading) return <RequireBranch requireSpecificBranch><div className="p-8"><BranchContextBanner />Loading...</div></RequireBranch>;
+    if (loading) return <RequireBranch requireSpecificBranch><div className="p-4"><BranchContextBanner />Loading...</div></RequireBranch>;
 
     return (
         <RequireBranch requireSpecificBranch>
         <div className="space-y-6">
             <BranchContextBanner />
             <div className="flex justify-between items-center">
-                <h1 className="text-h1 font-bold tracking-tight text-primary">Office Expenses</h1>
+                <h1 className="text-[20px] font-bold tracking-tight text-primary">Office Expenses</h1>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">
@@ -170,37 +171,37 @@ export default function ExpensesPage() {
                     <CardTitle>Expense History</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Table>
+                    <Table className={TABLE_ROOT}>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>Ref</TableHead>
-                                <TableHead>Date</TableHead>
-                                <TableHead>Category</TableHead>
-                                <TableHead>Description</TableHead>
-                                <TableHead>Paid To</TableHead>
-                                <TableHead>Amount</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Actions</TableHead>
+                            <TableRow className={TABLE_HEADER}>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Ref</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Date</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Category</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Description</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Paid To</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Amount</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Status</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {vouchers.map((voucher) => (
-                                <TableRow key={voucher.id}>
-                                    <TableCell className="font-mono text-xs">{voucher.voucherNumber}</TableCell>
-                                    <TableCell>{new Date(voucher.date).toLocaleDateString()}</TableCell>
-                                    <TableCell>{voucher.category?.name}</TableCell>
-                                    <TableCell>{voucher.description}</TableCell>
-                                    <TableCell>{voucher.paidTo}</TableCell>
-                                    <TableCell className="font-bold">₦{voucher.amount.toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${voucher.status === 'APPROVED' ? 'bg-green-100 text-green-700' :
+                                <TableRow key={voucher.id} className={TABLE_ROW}>
+                                    <TableCell className={`${TABLE_CELL} font-mono`}>{voucher.voucherNumber}</TableCell>
+                                    <TableCell className={TABLE_CELL}>{new Date(voucher.date).toLocaleDateString()}</TableCell>
+                                    <TableCell className={TABLE_CELL}>{voucher.category?.name}</TableCell>
+                                    <TableCell className={TABLE_CELL}>{voucher.description}</TableCell>
+                                    <TableCell className={TABLE_CELL}>{voucher.paidTo}</TableCell>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>₦{voucher.amount.toLocaleString()}</TableCell>
+                                    <TableCell className={TABLE_CELL}>
+                                        <span className={`px-2 py-1 rounded-full text-[12px] font-medium ${voucher.status === 'APPROVED' ? 'bg-green-100 text-green-700' :
                                             voucher.status === 'REJECTED' ? 'bg-red-100 text-red-700' :
                                                 'bg-yellow-100 text-yellow-700'
                                             }`}>
                                             {voucher.status}
                                         </span>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         {voucher.status === 'PENDING' && (
                                             <div className="flex gap-2">
                                                 <Button size="icon" variant="ghost" className="h-8 w-8 text-primary" onClick={() => updateStatus(voucher.id, 'APPROVED')}>
@@ -216,7 +217,7 @@ export default function ExpensesPage() {
                             ))}
                             {vouchers.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                                    <TableCell colSpan={8} className={`${TABLE_CELL} text-center py-8 text-foreground/60`}>
                                         No expenses recorded yet.
                                     </TableCell>
                                 </TableRow>

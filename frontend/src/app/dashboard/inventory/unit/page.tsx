@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -90,8 +91,8 @@ export default function InventoryUnitPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Units of Measure</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Define quantities like KG, Pcs, Liters, etc.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Units of Measure</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Define quantities like KG, Pcs, Liters, etc.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -101,9 +102,9 @@ export default function InventoryUnitPage() {
                                 Add Unit
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem]">
+                        <DialogContent className="rounded-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">New Unit</DialogTitle>
+                                <DialogTitle className="text-[14px] font-semibold">New Unit</DialogTitle>
                                 <DialogDescription className="font-bold">Define a new measurement unit for products.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -126,28 +127,28 @@ export default function InventoryUnitPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Ruler className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="px-4 py-3 border-b border-primary/20 flex flex-row items-center justify-between">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Ruler className="h-5 w-5 text-primary" />
                         Measurement Units
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Unit Name</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Unit Name</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {units.map((u) => (
-                                <TableRow key={u.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
+                                <TableRow key={u.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         {u.name}
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             <Button
                                                 variant="secondary"
@@ -175,9 +176,9 @@ export default function InventoryUnitPage() {
             </Card>
 
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent className="rounded-[2.5rem]">
+                <DialogContent className="rounded-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Unit</DialogTitle>
+                        <DialogTitle className="text-[14px] font-semibold">Edit Unit</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">

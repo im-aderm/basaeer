@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { DataTable } from "@/components/DataTable";
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from "@/lib/table-styles";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import api from "@/lib/api";
@@ -105,13 +106,13 @@ export default function ExamTypesPage() {
             header: "Exam Type",
             accessorKey: "name",
             cell: (row: any) => (
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg">
-                        <FileText className="w-5 h-5 text-blue-600" />
+                <div className="flex items-center gap-2">
+                    <div className="p-1.5 bg-primary/10 rounded-md shrink-0">
+                        <FileText className="w-4 h-4 text-primary" />
                     </div>
-                    <div>
-                        <p className="font-semibold text-slate-900">{row.name}</p>
-                        <p className="text-sm text-slate-600 line-clamp-1">
+                    <div className="min-w-0">
+                        <p className="font-semibold text-[12px] truncate">{row.name}</p>
+                        <p className="text-[11px] text-foreground/60 truncate">
                             {row.description || "No description"}
                         </p>
                     </div>
@@ -122,14 +123,14 @@ export default function ExamTypesPage() {
             header: "Weightage",
             accessorKey: "weightage",
             cell: (row: any) => (
-                <span className="font-medium">{row.weightage || 0}%</span>
+                <span className="font-medium text-[12px]">{row.weightage || 0}%</span>
             ),
         },
         {
             header: "Exams",
             accessorKey: "_count.exams",
             cell: (row: any) => (
-                <span className="text-slate-600">
+                <span className="text-foreground/60 text-[12px]">
                     {row._count?.exams || 0} exams
                 </span>
             ),
@@ -137,29 +138,29 @@ export default function ExamTypesPage() {
         {
             header: "Created",
             accessorKey: "createdAt",
-            cell: (row: any) => new Date(row.createdAt).toLocaleDateString(),
+            cell: (row: any) => <span className="text-[12px]">{new Date(row.createdAt).toLocaleDateString()}</span>,
         },
         {
             header: "Actions",
             accessorKey: "actions",
             cell: (row: any) => (
-                <div className="flex gap-2">
-                    <Button size="sm" variant="outline" onClick={() => handleEdit(row)}>
-                        <Edit2 className="w-4 h-4 mr-1" />
+                <div className="flex gap-1">
+                    <Button size="sm" variant="outline" onClick={() => handleEdit(row)} className="h-7 text-[12px] px-2">
+                        <Edit2 className="w-3 h-3 mr-1" />
                         Edit
                     </Button>
-                    <Button size="sm" variant="outline" onClick={() => handleDuplicate(row)}>
-                        <Copy className="w-4 h-4 mr-1" />
+                    <Button size="sm" variant="outline" onClick={() => handleDuplicate(row)} className="h-7 text-[12px] px-2">
+                        <Copy className="w-3 h-3 mr-1" />
                         Duplicate
                     </Button>
                     <Button
                         size="sm"
                         variant="outline"
-                        className="text-red-600 hover:bg-red-50"
+                        className="text-red-600 hover:bg-red-50 h-7 text-[12px] px-2"
                         onClick={() => handleDelete(row.id)}
                         disabled={row._count?.exams > 0}
                     >
-                        <Trash2 className="w-4 h-4 mr-1" />
+                        <Trash2 className="w-3 h-3 mr-1" />
                         Delete
                     </Button>
                 </div>
@@ -180,13 +181,13 @@ export default function ExamTypesPage() {
             <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 p-6">
                 <BranchContextBanner />
                 {/* Header */}
-            <div className="mb-8">
+            <div className="mb-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">
                             Exam Types
                         </h1>
-                        <p className="text-slate-600 mt-2">
+                        <p className="text-foreground/60 mt-1 text-[12px]">
                             Manage exam types and their weightage
                         </p>
                     </div>
@@ -273,11 +274,11 @@ export default function ExamTypesPage() {
             </div>
 
             {/* Info Card */}
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
-                <h3 className="font-semibold text-blue-900 mb-2">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+                <h3 className="font-semibold text-blue-900 mb-1 text-[14px]">
                     About Exam Types
                 </h3>
-                <p className="text-sm text-blue-700">
+                <p className="text-[12px] text-blue-700">
                     Exam types help categorize different kinds of examinations (e.g., Mid-Term, Final, Quiz).
                     Assign weightage to determine how much each exam type contributes to the final grade.
                     The total weightage across all exam types should ideally equal 100%.
@@ -285,15 +286,15 @@ export default function ExamTypesPage() {
             </div>
 
             {/* Exam Types Table */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
-                <h2 className="text-xl font-semibold mb-4">All Exam Types</h2>
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-primary/20">
+                <h2 className="text-[14px] font-semibold mb-3">All Exam Types</h2>
                 {examTypes.length === 0 ? (
                     <div className="text-center py-12">
-                        <FileText className="w-16 h-16 mx-auto text-slate-300 mb-4" />
-                        <h3 className="text-lg font-semibold text-slate-600 mb-2">
+                        <FileText className="w-12 h-12 mx-auto text-foreground/20 mb-3" />
+                        <h3 className="text-[14px] font-semibold text-foreground/60 mb-1">
                             No exam types yet
                         </h3>
-                        <p className="text-slate-500 mb-4">
+                        <p className="text-foreground/50 text-[12px] mb-3">
                             Create your first exam type to get started
                         </p>
                     </div>
@@ -304,8 +305,8 @@ export default function ExamTypesPage() {
 
             {/* Common Exam Types Suggestions */}
             {examTypes.length === 0 && (
-                <div className="mt-8 bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50">
-                    <h3 className="font-semibold mb-4">Common Exam Type Examples</h3>
+                <div className="mt-6 bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-primary/20">
+                    <h3 className="font-semibold mb-3 text-[14px]">Common Exam Type Examples</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {[
                             { name: "Mid-Term Exam", weightage: 30, desc: "Conducted mid-semester" },
@@ -317,7 +318,7 @@ export default function ExamTypesPage() {
                         ].map((suggestion) => (
                             <button
                                 key={suggestion.name}
-                                className="text-left p-4 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+                                className="text-left p-3 rounded-lg border border-primary/20 hover:bg-primary/5 transition-colors"
                                 onClick={() => {
                                     setFormData({
                                         name: suggestion.name,
@@ -327,15 +328,15 @@ export default function ExamTypesPage() {
                                     setIsDialogOpen(true);
                                 }}
                             >
-                                <div className="flex items-center justify-between mb-1">
-                                    <p className="text-sm font-medium text-slate-900">
+                                <div className="flex items-center justify-between mb-0.5">
+                                    <p className="text-[12px] font-medium text-foreground">
                                         {suggestion.name}
                                     </p>
-                                    <span className="text-xs font-semibold text-blue-600">
+                                    <span className="text-[11px] font-semibold text-primary">
                                         {suggestion.weightage}%
                                     </span>
                                 </div>
-                                <p className="text-xs text-slate-500">
+                                <p className="text-[11px] text-foreground/50">
                                     {suggestion.desc}
                                 </p>
                             </button>

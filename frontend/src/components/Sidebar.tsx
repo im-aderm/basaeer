@@ -300,8 +300,14 @@ const navigation: NavItem[] = [
         title: "Events",
         icon: Calendar,
         children: [
-            // { title: "Event Type", href: "/dashboard/events/type" },
-            { title: "Events", href: "/dashboard/events" },
+            { title: "Overview", href: "/dashboard/events/overview" },
+            { title: "All Events", href: "/dashboard/events" },
+            { title: "Create Event", href: "/dashboard/events/create" },
+            { title: "Applications", href: "/dashboard/events/applications" },
+            { title: "Payments", href: "/dashboard/events/payments" },
+            { title: "Analytics", href: "/dashboard/events/analytics" },
+            { title: "Media Gallery", href: "/dashboard/events/gallery" },
+            { title: "Settings", href: "/dashboard/events/settings" },
         ],
     },
     {

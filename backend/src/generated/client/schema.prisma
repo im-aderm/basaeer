@@ -78,6 +78,7 @@ model Branch {
   assessmentRecords             AssessmentRecord[]
   behaviouralRatings            BehaviouralRating[]
   resultSummaries               ResultSummary[]
+  eventApplications             EventApplication[]
   gradingScales                 GradingScale[]
   globalSettings                GlobalSetting[]
   moduleConfigurations          ModuleConfiguration[]
@@ -2303,22 +2304,144 @@ model Message {
   @@index([conversationId, createdAt])
 }
 
-model CampusEvent {
-  id          String      @id @default(uuid())
-  title       String
-  description String?
-  startDate   DateTime
-  endDate     DateTime
-  location    String?
-  category    String
-  isPublic    Boolean     @default(true)
-  allowRSVP   Boolean     @default(true)
-  branchId    String
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  branch      Branch      @relation(fields: [branchId], references: [id])
-  rsvps       EventRSVP[]
+model EventCategory {
+  id        String        @id @default(uuid())
+  name      String        @unique
+  slug      String        @unique
+  events    CampusEvent[]
+  createdAt DateTime      @default(now())
+}
 
+model CampusEvent {
+  id                     String             @id @default(uuid())
+  title                  String
+  slug                   String             @unique @default(uuid())
+  shortDescription       String?
+  fullDescription        String?
+  objectives             String[]           @default([])
+  rulesAndDiscipline     String?
+  requirements           String[]           @default([])
+  mealsAndHospitality    String?
+  whyChooseThisEvent     String[]           @default([])
+  startDate              DateTime
+  endDate                DateTime
+  applicationDeadline    DateTime?
+  location               String?
+  categoryId             String?
+  category               EventCategory?     @relation(fields: [categoryId], references: [id])
+  categoryLabel          String             @default("OTHERS") // Legacy string label for backward compat
+  isPublic               Boolean            @default(true)
+  allowRSVP              Boolean            @default(true)
+  branchId               String
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  status                 String             @default("DRAFT")
+  active                 Boolean            @default(true)
+  featuredImage          String?
+  brochurePdf            String?
+  capacity               Int?
+  registrationOpen       Boolean            @default(true)
+  applicationFormEnabled Boolean            @default(true)
+  paymentRequired        Boolean            @default(false)
+  seoMetadata            Json?
+  branch                 Branch             @relation(fields: [branchId], references: [id])
+  rsvps                  EventRSVP[]
+  packages               EventPackage[]
+  schedules              EventSchedule[]
+  gallery                EventGallery[]
+  applications           EventApplication[]
+
+  @@index([branchId])
+  @@index([categoryId])
+}
+
+model EventPackage {
+  id             String             @id @default(uuid())
+  eventId        String
+  title          String
+  ageRange       String?
+  timing         String?
+  fee            Decimal            @db.Decimal(12, 2)
+  boardingType   String
+  availableSlots Int?
+  description    String?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  event          CampusEvent        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  applications   EventApplication[]
+
+  @@index([eventId])
+}
+
+model EventSchedule {
+  id        String      @id @default(uuid())
+  eventId   String
+  day       String
+  period    String?
+  startTime String
+  endTime   String
+  activity  String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  event     CampusEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
+
+model EventGallery {
+  id        String      @id @default(uuid())
+  eventId   String
+  imageUrl  String
+  isCover   Boolean     @default(false)
+  order     Int         @default(0)
+  caption   String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  event     CampusEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+}
+
+model EventApplication {
+  id                      String        @id @default(uuid())
+  eventId                 String
+  packageId               String
+  branchId                String
+  fullName                String
+  gender                  String
+  dateOfBirth             DateTime
+  age                     Int
+  parentName              String?
+  parentPhone             String?
+  parentEmail             String?
+  address                 String?
+  state                   String?
+  localGovernment         String?
+  memorizationLevel       String?
+  school                  String?
+  islamicBackground       String?
+  previousParticipation   String?
+  medicalConditions       String?
+  allergies               String?
+  emergencyContact        String
+  accommodationPreference String?
+  passportPhotoUrl        String?
+  birthCertificateUrl     String?
+  ninUrl                  String?
+  schoolIdUrl             String?
+  medicalReportUrl        String?
+  proofOfPaymentUrl       String?
+  status                  String        @default("PENDING") // PENDING, UNDER_REVIEW, APPROVED, REJECTED, WAITLISTED
+  paymentStatus           String        @default("PENDING") // PENDING, VERIFIED, REJECTED
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+  event                   CampusEvent   @relation(fields: [eventId], references: [id])
+  package                 EventPackage  @relation(fields: [packageId], references: [id])
+  branch                  Branch        @relation(fields: [branchId], references: [id])
+  payment                 EventPayment?
+
+  @@index([eventId])
+  @@index([packageId])
   @@index([branchId])
 }
 
@@ -2333,6 +2456,24 @@ model EventRSVP {
   user      User                     @relation(fields: [userId], references: [id])
 
   @@unique([eventId, userId])
+}
+
+model EventPayment {
+  id                String           @id @default(uuid())
+  applicationId     String           @unique
+  amount            Decimal          @db.Decimal(12, 2)
+  paymentMethod     String           @default("BANK_TRANSFER") // BANK_TRANSFER, GATEWAY (future)
+  proofOfPaymentUrl String?
+  status            String           @default("PENDING") // PENDING, VERIFIED, REJECTED
+  verifiedBy        String?
+  verifiedAt        DateTime?
+  rejectionReason   String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  application       EventApplication @relation(fields: [applicationId], references: [id])
+
+  @@index([applicationId])
+  @@index([status])
 }
 
 model CampusAccessLog {

@@ -7,12 +7,12 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Trash2 } from 'lucide-react';
 import api from '@/lib/api';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function DesignationsPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -76,7 +76,7 @@ export default function DesignationsPage() {
         setConfirmDelete(null);
     };
 
-    if (loading) return <RequireBranch requireSpecificBranch><div className="p-8"><BranchContextBanner />Loading...</div></RequireBranch>;
+    if (loading) return <RequireBranch requireSpecificBranch><div className="p-4"><BranchContextBanner />Loading...</div></RequireBranch>;
 
     return (
         <RequireBranch requireSpecificBranch>
@@ -84,40 +84,40 @@ export default function DesignationsPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Designations</h1>
-                    <p className="text-muted-foreground font-medium">Manage and organize staff designations.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Designations</h1>
+                    <p className="text-[12px] text-foreground/60 font-medium">Manage and organize staff designations.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
-                        <Button className="gap-2 rounded-xl h-12 px-6 font-bold shadow-lg shadow-primary/20">
+                        <Button className="gap-2 rounded-2xl h-9 px-4 font-medium shadow-lg shadow-primary/20 text-[12px]">
                             <Plus className="h-4 w-4" /> Add Designation
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[2.5rem] border-border/50 shadow-2xl p-10 max-w-lg">
+                    <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 max-w-lg">
                         <DialogHeader>
-                            <DialogTitle className="text-h1 font-semibold mb-6">Add New Designation</DialogTitle>
+                            <DialogTitle className="text-[16px] font-semibold mb-4">Add New Designation</DialogTitle>
                         </DialogHeader>
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Designation Name</label>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60 ml-1">Designation Name</label>
                                 <Input
                                     placeholder="e.g. Senior Teacher, HOD, Principal"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                    className="h-10 rounded-xl bg-muted/30 border-none font-medium text-[14px]"
                                     required
                                 />
                             </div>
-                            <div className="space-y-3">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Description</label>
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/60 ml-1">Description</label>
                                 <Input
                                     placeholder="Optional description"
                                     value={formData.description}
                                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                                    className="h-14 rounded-2xl bg-muted/30 border-none font-bold text-lg"
+                                    className="h-10 rounded-xl bg-muted/30 border-none font-medium text-[14px]"
                                 />
                             </div>
-                            <Button type="submit" className="w-full h-14 rounded-2xl font-semibold text-h3 shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
+                            <Button type="submit" className="w-full h-10 rounded-xl font-semibold text-[14px] shadow-xl shadow-primary/20 mt-4 transition-all hover:scale-[1.02]">
                                 Create Designation
                             </Button>
                         </form>
@@ -125,46 +125,46 @@ export default function DesignationsPage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
-                <CardHeader className="pb-4">
-                    <CardTitle className="text-h3 font-semibold">Designation List</CardTitle>
+            <Card className="rounded-2xl shadow-2xl shadow-primary/5 border-primary/20 overflow-hidden border-t-4 border-t-primary/20">
+                <CardHeader className="pb-3">
+                    <CardTitle className="text-[14px] font-semibold">Designation List</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <div className="rounded-2xl border border-border/50 overflow-hidden">
-                        <Table>
-                            <TableHeader className="bg-muted/50">
-                                <TableRow className="hover:bg-transparent border-border/50">
-                                    <TableHead className="font-semibold h-14">Name</TableHead>
-                                    <TableHead className="font-semibold h-14">Description</TableHead>
-                                    <TableHead className="text-right font-semibold h-14 px-6">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
+                    <div className="rounded-2xl border border-primary/20 overflow-hidden">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Name</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Description</th>
+                                    <th className={`${TABLE_HEADER_CELL_NO_SORT} text-right`}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
                                 {designations.map((desig) => (
-                                    <TableRow key={desig.id} className="border-border/50 hover:bg-muted/30 transition-colors">
-                                        <TableCell className="font-bold py-4">{desig.name}</TableCell>
-                                        <TableCell className="text-muted-foreground font-medium">{desig.description || '-'}</TableCell>
-                                        <TableCell className="text-right px-6">
+                                    <tr key={desig.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>{desig.name}</td>
+                                        <td className={`${TABLE_CELL} text-foreground/60`}>{desig.description || '-'}</td>
+                                        <td className={TABLE_CELL_ACTIONS}>
                                             <Button
                                                 size="icon"
                                                 variant="ghost"
-                                                className="h-10 w-10 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive transition-all"
+                                                className="h-8 w-8 rounded-lg text-destructive hover:bg-destructive/10 hover:text-destructive transition-all"
                                                 onClick={() => handleDelete(desig.id)}
                                             >
-                                                <Trash2 className="h-5 w-5" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                        </td>
+                                    </tr>
                                 ))}
                                 {designations.length === 0 && (
-                                    <TableRow>
-                                        <TableCell colSpan={3} className="text-center py-12 text-muted-foreground font-medium">
+                                    <tr>
+                                        <td colSpan={3} className="text-center py-8 text-foreground/60 font-medium text-[12px]">
                                             No designations found.
-                                        </TableCell>
-                                    </TableRow>
+                                        </td>
+                                    </tr>
                                 )}
-                            </TableBody>
-                        </Table>
+                            </tbody>
+                        </table>
                     </div>
                 </CardContent>
             </Card>

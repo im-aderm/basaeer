@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -71,8 +72,8 @@ export default function InventoryPurchasePage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Purchase Records</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Track procurement history and manage incoming stock shipments.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Purchase Records</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Track procurement history and manage incoming stock shipments.</p>
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
@@ -81,9 +82,9 @@ export default function InventoryPurchasePage() {
                             Record New Purchase
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[2.5rem] max-w-xl border-none shadow-2xl">
+                    <DialogContent className="rounded-2xl max-w-xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold">New Stock Purchase</DialogTitle>
+                            <DialogTitle className="text-[14px] font-semibold">New Stock Purchase</DialogTitle>
                             <DialogDescription className="font-bold">Enter details of the procurement to update inventory levels.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
@@ -127,14 +128,14 @@ export default function InventoryPurchasePage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-primary">
-                        <Receipt className="h-8 w-8" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
+                <CardHeader className="px-4 py-3 border-b border-primary/20 flex flex-row items-center justify-between bg-muted/10">
+                    <CardTitle className="text-[14px] font-semibold flex items-center gap-3 text-primary">
+                        <Receipt className="h-5 w-5" />
                         Procurement History
                     </CardTitle>
                     <div className="relative w-80">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                         <Input
                             placeholder="Filter by voucher or product..."
                             className="pl-11 h-12 rounded-2xl font-bold"
@@ -145,37 +146,37 @@ export default function InventoryPurchasePage() {
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 py-6 uppercase tracking-widest text-[10px] text-muted-foreground">Voucher / Date</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product Details</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Supplier</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Amount</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Voucher / Date</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Product Details</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Supplier</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Amount</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {purchases.filter(p => p.voucherNo?.toLowerCase().includes(searchTerm.toLowerCase()) || p.product?.name.toLowerCase().includes(searchTerm.toLowerCase())).map((p) => (
-                                <TableRow key={p.id} className="border-border/50 transition-all hover:bg-muted/30 group">
-                                    <TableCell className="px-8 py-6">
+                                <TableRow key={p.id} className={TABLE_ROW + " group"}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-lg group-hover:text-primary transition-colors">{p.voucherNo || 'V-AUTO-' + p.id.slice(0, 4).toUpperCase()}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 flex items-center gap-1 mt-0.5"><Calendar className="h-3 w-3" /> {new Date(p.createdAt).toLocaleDateString()}</span>
+                                            <span className="font-semibold uppercase text-[12px] group-hover:text-primary transition-colors">{p.voucherNo || 'V-AUTO-' + p.id.slice(0, 4).toUpperCase()}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60 opacity-50 flex items-center gap-1 mt-0.5"><Calendar className="h-3 w-3" /> {new Date(p.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-xs">{p.product?.name}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50">QTY: {p.quantity} {p.product?.unit?.name}</span>
+                                            <span className="font-semibold uppercase text-[12px]">{p.product?.name}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60 opacity-50">QTY: {p.quantity} {p.product?.unit?.name}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-primary bg-primary/5 px-2.5 py-1 rounded-lg w-fit">
                                             <Truck className="h-3 w-3" /> {p.supplier?.name}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 text-center">
+                                    <TableCell className={TABLE_CELL + " text-center"}>
                                         <div className="flex flex-col items-center">
-                                            <span className="text-h3 font-semibold text-primary">₦{(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</span>
+                                            <span className="text-[14px] font-semibold text-primary">₦{(Number(p.quantity) * Number(p.unitPrice)).toFixed(2)}</span>
                                             <span className="text-[10px] font-semibold uppercase opacity-30">₦{Number(p.unitPrice)}/unit</span>
                                         </div>
                                     </TableCell>

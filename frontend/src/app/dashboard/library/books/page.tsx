@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from "@/lib/table-styles";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { useNotification } from '@/context/NotificationContext';
@@ -90,7 +90,7 @@ export default function LibraryBooksPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                <Loader2 className="h-8 w-8 animate-spin text-foreground/60" />
             </div>
         );
     }
@@ -102,8 +102,8 @@ export default function LibraryBooksPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Library Books</h1>
-                    <p className="text-muted-foreground text-sm mt-1">Manage your school&apos;s book inventory</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Library Books</h1>
+                    <p className="text-foreground/60 text-sm mt-1">Manage your school&apos;s book inventory</p>
                 </div>
                 <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
                     <DialogTrigger asChild>
@@ -189,7 +189,7 @@ export default function LibraryBooksPage() {
 
             {/* Search */}
             <div className="relative max-w-sm">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                 <Input
                     placeholder="Search by title..."
                     className="pl-9"
@@ -200,29 +200,29 @@ export default function LibraryBooksPage() {
 
             {/* Table */}
             <Card>
-                <CardHeader>
-                    <CardTitle>All Books</CardTitle>
+                <CardHeader className="px-3 py-2">
+                    <CardTitle className="text-[12px] font-semibold">All Books</CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead className="w-10"></TableHead>
-                                    <TableHead>Title</TableHead>
-                                    <TableHead>Author</TableHead>
-                                    <TableHead>ISBN</TableHead>
-                                    <TableHead>Category</TableHead>
-                                    <TableHead>Available / Total</TableHead>
-                                    <TableHead className="text-right">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
+                        <table className={TABLE_ROOT}>
+                            <thead>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " w-10"}></th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Title</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Author</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>ISBN</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Category</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Available / Total</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
                                 {books.length === 0 ? (
-                                    <TableRow>
-                                        <TableCell colSpan={7} className="text-center py-12 text-muted-foreground">
+                                    <tr>
+                                        <td colSpan={7} className="text-center py-12 text-foreground/60">
                                             <div className="flex flex-col items-center gap-2">
-                                                <BookOpen className="h-8 w-8 text-muted-foreground/50" />
+                                                <BookOpen className="h-8 w-8 text-foreground/30" />
                                                 <p>No books found{search ? " matching your search" : ""}.</p>
                                                 {!search && (
                                                     <Button variant="outline" size="sm" onClick={() => setIsAddOpen(true)}>
@@ -230,38 +230,38 @@ export default function LibraryBooksPage() {
                                                     </Button>
                                                 )}
                                             </div>
-                                        </TableCell>
-                                    </TableRow>
+                                        </td>
+                                    </tr>
                                 ) : (
                                     books.map((book) => (
                                         <>
-                                            <TableRow
+                                            <tr
                                                 key={book.id}
-                                                className="cursor-pointer"
+                                                className={TABLE_ROW + " cursor-pointer"}
                                                 onClick={() => setExpandedId(expandedId === book.id ? null : book.id)}
                                             >
-                                                <TableCell>
+                                                <td className={TABLE_CELL}>
                                                     {expandedId === book.id ? (
-                                                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                                                        <ChevronDown className="h-4 w-4 text-foreground/60" />
                                                     ) : (
-                                                        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                                                        <ChevronRight className="h-4 w-4 text-foreground/60" />
                                                     )}
-                                                </TableCell>
-                                                <TableCell className="font-medium">{book.title}</TableCell>
-                                                <TableCell>{book.author}</TableCell>
-                                                <TableCell className="font-mono text-xs">{book.isbn || "—"}</TableCell>
-                                                <TableCell>
-                                                    <Badge variant="secondary" className="rounded-md font-normal">
+                                                </td>
+                                                <td className={TABLE_CELL_PRIMARY}>{book.title}</td>
+                                                <td className={TABLE_CELL}>{book.author}</td>
+                                                <td className={TABLE_CELL + " font-mono"}>{book.isbn || "—"}</td>
+                                                <td className={TABLE_CELL}>
+                                                    <Badge variant="secondary" className="rounded-md font-normal text-[12px]">
                                                         {book.category}
                                                     </Badge>
-                                                </TableCell>
-                                                <TableCell>
+                                                </td>
+                                                <td className={TABLE_CELL}>
                                                     <span className={book.available > 0 ? "text-primary font-semibold" : "text-red-600 font-semibold"}>
                                                         {book.available}
                                                     </span>
-                                                    <span className="text-muted-foreground"> / {book.quantity}</span>
-                                                </TableCell>
-                                                <TableCell className="text-right">
+                                                    <span className="text-foreground/60"> / {book.quantity}</span>
+                                                </td>
+                                                <td className={TABLE_CELL_ACTIONS}>
                                                     <Button
                                                         size="icon"
                                                         variant="ghost"
@@ -273,39 +273,39 @@ export default function LibraryBooksPage() {
                                                     >
                                                         <Trash2 className="h-4 w-4" />
                                                     </Button>
-                                                </TableCell>
-                                            </TableRow>
+                                                </td>
+                                            </tr>
                                             {expandedId === book.id && (
-                                                <TableRow key={`${book.id}-detail`}>
-                                                    <TableCell colSpan={7} className="bg-muted/30 px-10 py-6">
-                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                                                <tr key={`${book.id}-detail`}>
+                                                    <td colSpan={7} className="bg-muted/30 px-3 py-1.5">
+                                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-[12px]">
                                                             <div>
-                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Location</span>
+                                                                <span className="text-foreground/60 block text-[10px] uppercase tracking-wide mb-1">Location</span>
                                                                 <span className="font-medium">{book.location || "Not specified"}</span>
                                                             </div>
                                                             <div>
-                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Added</span>
+                                                                <span className="text-foreground/60 block text-[10px] uppercase tracking-wide mb-1">Added</span>
                                                                 <span className="font-medium">{new Date(book.createdAt).toLocaleDateString()}</span>
                                                             </div>
                                                             <div>
-                                                                <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Branch ID</span>
-                                                                <span className="font-mono text-xs">{book.branchId}</span>
+                                                                <span className="text-foreground/60 block text-[10px] uppercase tracking-wide mb-1">Branch ID</span>
+                                                                <span className="font-mono text-[12px]">{book.branchId}</span>
                                                             </div>
                                                             {book.description && (
                                                                 <div className="sm:col-span-3">
-                                                                    <span className="text-muted-foreground block text-xs uppercase tracking-wide mb-1">Description</span>
+                                                                    <span className="text-foreground/60 block text-[10px] uppercase tracking-wide mb-1">Description</span>
                                                                     <span className="font-medium">{book.description}</span>
                                                                 </div>
                                                             )}
                                                         </div>
-                                                    </TableCell>
-                                                </TableRow>
+                                                    </td>
+                                                </tr>
                                             )}
                                         </>
                                     ))
                                 )}
-                            </TableBody>
-                        </Table>
+                            </tbody>
+                        </table>
                     </div>
                 </CardContent>
             </Card>

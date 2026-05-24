@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -111,8 +112,8 @@ export default function InventoryProductPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Product Catalog</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage and organize all inventory items and assets.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Product Catalog</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Manage and organize all inventory items and assets.</p>
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
@@ -121,9 +122,9 @@ export default function InventoryProductPage() {
                             Add New Product
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[2.5rem] max-w-2xl border-none shadow-2xl">
+                    <DialogContent className="rounded-2xl max-w-2xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold">New Product Registration</DialogTitle>
+                            <DialogTitle className="text-[14px] font-semibold">New Product Registration</DialogTitle>
                             <DialogDescription className="font-bold">Enter the product details to add it to your inventory.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
@@ -196,14 +197,14 @@ export default function InventoryProductPage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Package className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
+                <CardHeader className="px-4 py-3 border-b border-primary/20 flex flex-row items-center justify-between bg-muted/10">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Package className="h-5 w-5 text-primary" />
                         Master Product List
                     </CardTitle>
                     <div className="relative w-80">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                         <Input
                             placeholder="Filter products..."
                             className="pl-11 h-12 rounded-2xl font-bold"
@@ -214,40 +215,40 @@ export default function InventoryProductPage() {
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 py-6 uppercase tracking-widest text-[10px] text-muted-foreground w-[40%]">Product Info</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Category / Store</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Stock</TableHead>
-                                <TableHead className="font-semibold px-8 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " w-[40%]"}>Product Info</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Category / Store</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Stock</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()) || p.code?.toLowerCase().includes(searchTerm.toLowerCase())).map((p) => (
-                                <TableRow key={p.id} className="border-border/50 transition-all hover:bg-muted/30 group">
-                                    <TableCell className="px-8 py-6">
+                                <TableRow key={p.id} className={TABLE_ROW + " group"}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-lg group-hover:text-primary transition-colors">{p.name}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 mt-0.5">ID: {p.code || 'NO-CODE'}</span>
+                                            <span className="font-semibold uppercase text-[12px] group-hover:text-primary transition-colors">{p.name}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60 opacity-50 mt-0.5">ID: {p.code || 'NO-CODE'}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col gap-1.5">
                                             <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-primary/70 bg-primary/5 px-2.5 py-1 rounded-lg w-fit">
                                                 <Layers className="h-3 w-3" /> {p.category?.name}
                                             </div>
-                                            <div className="inline-flex items-center gap-1.5 font-bold text-[10px] uppercase text-muted-foreground px-2.5 py-1 rounded-lg w-fit bg-muted/50">
+                                            <div className="inline-flex items-center gap-1.5 font-bold text-[10px] uppercase text-foreground/60 px-2.5 py-1 rounded-lg w-fit bg-muted/50">
                                                 <Warehouse className="h-3 w-3" /> {p.store?.name || 'No Store'}
                                             </div>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 text-center">
+                                    <TableCell className={TABLE_CELL + " text-center"}>
                                         <div className="inline-flex flex-col items-center">
-                                            <span className={`text-h3 font-semibold ${p.stock <= (p.lowStockThreshold ?? 5) ? 'text-destructive' : 'text-primary'}`}>{p.stock}</span>
+                                            <span className={`text-[14px] font-semibold ${p.stock <= (p.lowStockThreshold ?? 5) ? 'text-destructive' : 'text-primary'}`}>{p.stock}</span>
                                             <span className="text-[10px] font-semibold uppercase opacity-30">{p.unit?.name}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             <Button
                                                 variant="secondary"
@@ -290,9 +291,9 @@ export default function InventoryProductPage() {
             </Card>
 
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent className="rounded-[2.5rem] max-w-2xl border-none shadow-2xl">
+                <DialogContent className="rounded-2xl max-w-2xl border-none shadow-2xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Product: {selectedProduct?.name}</DialogTitle>
+                        <DialogTitle className="text-[14px] font-semibold">Edit Product: {selectedProduct?.name}</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-4 pt-4">
                         <div className="grid grid-cols-2 gap-4">

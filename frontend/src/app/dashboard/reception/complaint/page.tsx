@@ -17,6 +17,7 @@ import { ReceptionService, Complaint } from '@/services/receptionService';
 import { SettingsService, GlobalSetting } from '@/services/settingsService';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function ComplaintPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -184,8 +185,8 @@ export default function ComplaintPage() {
             <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Complaints & Feedback</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Track and resolve issues raised by parents, students, or staff.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Complaints & Feedback</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Track and resolve issues raised by parents, students, or staff.</p>
                 </div>
                 <div className="flex gap-4 w-full md:w-auto">
                     <div className="relative flex-1 md:w-80">
@@ -204,10 +205,10 @@ export default function ComplaintPage() {
                                 Log Complaint
                             </Button>
                         </DialogTrigger>
-        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">New Complaint</DialogTitle>
-                                <DialogDescription className="font-bold text-muted-foreground">Record details of the complaint for tracking and resolution.</DialogDescription>
+                                <DialogTitle className="text-[12px] font-semibold">New Complaint</DialogTitle>
+                                <DialogDescription className="font-bold text-foreground/60">Record details of the complaint for tracking and resolution.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
                                 <ComplaintForm form={form} setForm={setForm} complaintTypes={complaintTypes} />
@@ -220,39 +221,41 @@ export default function ComplaintPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
-                <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <MessageSquare className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden">
+                <CardHeader className="px-3 py-2 border-b border-primary/20 bg-muted/20">
+                    <CardTitle className="text-[12px] font-semibold tracking-tight text-primary flex items-center gap-3">
+                        <MessageSquare className="h-5 w-5 text-primary" />
                         Complaint Records
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Complainant</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Type/Source</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Description</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Status</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                    <Table className={TABLE_ROOT}>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Complainant</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Type/Source</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Description</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Status</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {filtered.map((c) => (
-                                <TableRow key={c.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                    <TableCell className="px-8 flex flex-col justify-center h-24">
-                                        <span className="font-semibold uppercase text-sm leading-tight">{c.name}</span>
-                                        <span className="text-[10px] font-bold text-muted-foreground opacity-60 tracking-wider">#{c.phone}</span>
+                                <TableRow key={c.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
+                                        <div className="flex flex-col">
+                                            <span>{c.name}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60 tracking-wider">#{c.phone}</span>
+                                        </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-[10px]">
+                                    <TableCell className={TABLE_CELL}>
                                         <span className="block text-primary">{c.complaintType}</span>
-                                        <span className="block text-muted-foreground opacity-50">{c.source}</span>
+                                        <span className="block text-foreground/60">{c.source}</span>
                                     </TableCell>
-                                    <TableCell className="px-8 max-w-xs font-medium text-xs text-muted-foreground truncate">
+                                    <TableCell className={TABLE_CELL}>
                                         "{c.description}"
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <Select value={c.status} onValueChange={(v) => handleStatusUpdate(c.id, v)}>
                                             <SelectTrigger className="h-9 w-36 rounded-full font-semibold uppercase text-[10px]">
                                                 <div className="flex items-center gap-2">
@@ -267,7 +270,7 @@ export default function ComplaintPage() {
                                             </SelectContent>
                                         </Select>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(c)}>
                                                 <Edit3 className="h-4 w-4" />
@@ -286,9 +289,9 @@ export default function ComplaintPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingComplaint} onOpenChange={(open) => { if (!open) setEditingComplaint(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Complaint</DialogTitle>
+                        <DialogTitle className="text-[12px] font-semibold">Edit Complaint</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update tracking info for {editingComplaint?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">

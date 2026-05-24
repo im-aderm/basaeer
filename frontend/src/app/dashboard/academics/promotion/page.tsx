@@ -11,10 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowRight, GraduationCap, Users } from 'lucide-react';
+import { clsx } from 'clsx';
 import { ClassService, Class, Section } from '@/services/classService';
 import { StudentService, Student } from '@/services/studentService';
 import { AcademicService } from '@/services/academicService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY } from '@/lib/table-styles';
 
 export default function StudentPromotionPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -119,88 +121,88 @@ export default function StudentPromotionPage() {
                 <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Student Promotion</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Move students to the next academic level.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Student Promotion</h1>
+                    <p className="text-foreground/60 font-medium mt-1 text-[12px]">Move students to the next academic level.</p>
                 </div>
                 <div className="flex gap-4">
                     <div className="text-right">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Selected</p>
-                        <p className="text-h3 font-semibold">{selectedStudentIds.length} <span className="text-sm text-muted-foreground">Students</span></p>
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Selected</p>
+                        <p className="text-[16px] font-semibold">{selectedStudentIds.length} <span className="text-[12px] text-foreground/60">Students</span></p>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Source/Target Selection */}
-                <Card className="lg:col-span-1 rounded-[2.5rem] shadow-2xl p-2 h-fit sticky top-8">
-                    <CardHeader className="bg-primary/5 rounded-[2rem] mb-2">
-                        <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                            <GraduationCap className="h-5 w-5" /> Selection
+                <Card className="lg:col-span-1 rounded-2xl shadow-sm p-1.5 h-fit sticky top-8">
+                    <CardHeader className="bg-primary/5 rounded-xl mb-1.5">
+                        <CardTitle className="text-[14px] font-semibold flex items-center gap-2">
+                            <GraduationCap className="h-4 w-4" /> Selection
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className="space-y-8 pt-6">
+                    <CardContent className="space-y-4 pt-4">
                         {/* Source */}
-                        <div className="space-y-4">
-                            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/60 px-2">Source Level</h3>
-                            <div className="space-y-4 p-4 bg-muted/30 rounded-3xl border">
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-1">Class</label>
+                        <div className="space-y-3">
+                            <h3 className="text-[9px] font-semibold uppercase tracking-[0.2em] text-primary/60 px-1">Source Level</h3>
+                            <div className="space-y-3 p-3 bg-muted/30 rounded-xl border">
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Class</label>
                                     <Select value={selectedClass} onValueChange={handleClassChange}>
-                                        <SelectTrigger className="h-12 rounded-2xl font-bold">
+                                        <SelectTrigger className="h-10 rounded-lg font-semibold text-[12px]">
                                             <SelectValue placeholder="Select class" />
                                         </SelectTrigger>
-                                        <SelectContent className="rounded-2xl">
+                                        <SelectContent className="rounded-xl">
                                             {classes.map(c => (
-                                                <SelectItem key={c.id} value={c.id} className="font-bold">{c.name}</SelectItem>
+                                                <SelectItem key={c.id} value={c.id} className="font-semibold text-[12px]">{c.name}</SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-1">Section</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Section</label>
                                     <Select value={selectedSection} onValueChange={setSelectedSection}>
-                                        <SelectTrigger className="h-12 rounded-2xl font-bold">
+                                        <SelectTrigger className="h-10 rounded-lg font-semibold text-[12px]">
                                             <SelectValue placeholder="Select section" />
                                         </SelectTrigger>
-                                        <SelectContent className="rounded-2xl">
+                                        <SelectContent className="rounded-xl">
                                             {sections.map(s => (
-                                                <SelectItem key={s.id} value={s.id} className="font-bold">{s.name}</SelectItem>
+                                                <SelectItem key={s.id} value={s.id} className="font-semibold text-[12px]">{s.name}</SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <Button className="w-full h-12 rounded-2xl font-semibold" onClick={fetchStudents} disabled={!selectedSection}>
+                                <Button className="w-full h-10 rounded-lg font-semibold text-[12px]" onClick={fetchStudents} disabled={!selectedSection}>
                                     Find Students
                                 </Button>
                             </div>
                         </div>
 
                         {/* Target */}
-                        <div className="space-y-4">
-                            <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/60 px-2">Target Level</h3>
-                            <div className="space-y-4 p-4 bg-primary/5 rounded-3xl border border-primary/10">
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-1">Target Class</label>
+                        <div className="space-y-3">
+                            <h3 className="text-[9px] font-semibold uppercase tracking-[0.2em] text-primary/60 px-1">Target Level</h3>
+                            <div className="space-y-3 p-3 bg-primary/5 rounded-xl border border-primary/10">
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Target Class</label>
                                     <Select value={targetClass} onValueChange={handleTargetClassChange}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-primary/10 font-bold">
+                                        <SelectTrigger className="h-10 rounded-lg border-primary/10 font-semibold text-[12px]">
                                             <SelectValue placeholder="To class" />
                                         </SelectTrigger>
-                                        <SelectContent className="rounded-2xl">
+                                        <SelectContent className="rounded-xl">
                                             {classes.map(c => (
-                                                <SelectItem key={c.id} value={c.id} className="font-bold">{c.name}</SelectItem>
+                                                <SelectItem key={c.id} value={c.id} className="font-semibold text-[12px]">{c.name}</SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-1">Target Section</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Target Section</label>
                                     <Select value={targetSection} onValueChange={setTargetSection}>
-                                        <SelectTrigger className="h-12 rounded-2xl border-primary/10 font-bold">
+                                        <SelectTrigger className="h-10 rounded-lg border-primary/10 font-semibold text-[12px]">
                                             <SelectValue placeholder="To section" />
                                         </SelectTrigger>
-                                        <SelectContent className="rounded-2xl">
+                                        <SelectContent className="rounded-xl">
                                             {targetSections.map(s => (
-                                                <SelectItem key={s.id} value={s.id} className="font-bold">{s.name}</SelectItem>
+                                                <SelectItem key={s.id} value={s.id} className="font-semibold text-[12px]">{s.name}</SelectItem>
                                             ))}
                                         </SelectContent>
                                     </Select>
@@ -209,92 +211,91 @@ export default function StudentPromotionPage() {
                         </div>
 
                         <Button
-                            className="w-full h-16 rounded-3xl font-semibold text-h3 shadow-xl shadow-primary/20 bg-primary hover:scale-[1.02] transition-all"
+                            className="w-full h-12 rounded-xl font-semibold shadow-sm bg-primary hover:scale-[1.01] transition-all text-[12px]"
                             disabled={selectedStudentIds.length === 0 || !targetSection || isPromoting}
                             onClick={handlePromote}
                         >
-                            Promote <ArrowRight className="ml-2 h-6 w-6" />
+                            Promote <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                     </CardContent>
                 </Card>
 
                 {/* Students List */}
                 <div className="lg:col-span-3">
-                    <Card className="rounded-[3rem] shadow-2xl overflow-hidden min-h-[600px] flex flex-col">
-                        <CardHeader className="p-8 pb-4">
+                    <Card className="rounded-2xl shadow-sm overflow-hidden min-h-[400px] flex flex-col">
+                        <CardHeader className="p-4 pb-3">
                             <div className="flex justify-between items-center">
-                                <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                                    <Users className="h-7 w-7 text-primary" />
+                                <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-2">
+                                    <Users className="h-5 w-5 text-primary" />
                                     Student List
-                                    {students.length > 0 && <span className="text-sm font-medium text-muted-foreground ml-2 not-italic">({students.length} found)</span>}
+                                    {students.length > 0 && <span className="text-[10px] font-medium text-foreground/60 ml-1 not-italic">({students.length} found)</span>}
                                 </CardTitle>
                                 {students.length > 0 && (
-                                    <div className="flex items-center gap-3 bg-muted/50 p-3 rounded-2xl">
+                                    <div className="flex items-center gap-2 bg-muted/50 p-2 rounded-lg">
                                         <Checkbox
                                             id="select-all"
                                             checked={selectedStudentIds.length === students.length && students.length > 0}
                                             onCheckedChange={toggleAll}
-                                            className="h-5 w-5 rounded-lg border-2 border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                                            className="h-4 w-4 rounded border border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                                         />
-                                        <label htmlFor="select-all" className="text-sm font-semibold cursor-pointer">Select All</label>
+                                        <label htmlFor="select-all" className="text-[12px] font-semibold cursor-pointer">Select All</label>
                                     </div>
                                 )}
                             </div>
                         </CardHeader>
                         <CardContent className="p-0 flex-grow">
                             <div className="h-full">
-                                <Table>
-                                    <TableHeader className="bg-muted/30 h-16">
-                                        <TableRow className="hover:bg-transparent">
-                                            <TableHead className="w-16 px-8"></TableHead>
-                                            <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Admission No</TableHead>
-                                            <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Full Name</TableHead>
-                                            <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Father Name</TableHead>
-                                            <TableHead className="font-semibold px-4 uppercase tracking-tighter text-muted-foreground">Previous Grade</TableHead>
-                                        </TableRow>
-                                    </TableHeader>
-                                    <TableBody>
+                                <table className={TABLE_ROOT}>
+                                    <thead>
+                                        <tr className={TABLE_HEADER}>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "w-12")}></th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Admission No</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Full Name</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Father Name</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Previous Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className={TABLE_BODY}>
                                         {students.map((student) => (
-                                            <TableRow
+                                            <tr
                                                 key={student.id}
-                                                className={`border-border/30 h-16 transition-colors hover:bg-primary/5 cursor-pointer ${selectedStudentIds.includes(student.id) ? 'bg-primary/5' : ''
-                                                    }`}
+                                                className={`transition-colors hover:bg-primary/5 cursor-pointer ${selectedStudentIds.includes(student.id) ? 'bg-primary/5' : ''}`}
                                                 onClick={() => toggleStudent(student.id)}
                                             >
-                                                <TableCell className="px-8" onClick={(e) => e.stopPropagation()}>
+                                                <td className={TABLE_CELL} onClick={(e) => e.stopPropagation()}>
                                                     <Checkbox
                                                         checked={selectedStudentIds.includes(student.id)}
                                                         onCheckedChange={() => toggleStudent(student.id)}
-                                                        className="h-6 w-6 rounded-xl border-2 border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-all"
+                                                        className="h-4 w-4 rounded border border-primary/20 data-[state=checked]:bg-primary data-[state=checked]:border-primary transition-all"
                                                     />
-                                                </TableCell>
-                                                <TableCell className="font-semibold text-primary/70">{student.admissionNumber || 'N/A'}</TableCell>
-                                                <TableCell className="font-bold flex items-center gap-3 h-16">
-                                                    <div className="h-10 w-10 rounded-2xl bg-primary/10 flex items-center justify-center font-semibold text-primary text-xs">
+                                                </td>
+                                                <td className={clsx(TABLE_CELL, "text-primary/70 font-semibold")}>{student.admissionNumber || 'N/A'}</td>
+                                                <td className={clsx(TABLE_CELL_PRIMARY, "flex items-center gap-2")}>
+                                                    <div className="h-7 w-7 rounded-lg bg-primary/10 flex items-center justify-center font-semibold text-primary text-[9px]">
                                                         {student.firstName[0]}{student.lastName[0]}
                                                     </div>
                                                     {student.firstName} {student.lastName}
-                                                </TableCell>
-                                                <TableCell className="font-medium text-muted-foreground">{student.parent?.user?.firstName || 'N/A'}</TableCell>
-                                                <TableCell>
-                                                    <Badge variant="secondary" className="font-semibold text-[10px] bg-muted/50">
+                                                </td>
+                                                <td className={TABLE_CELL}>{student.parent?.user?.firstName || 'N/A'}</td>
+                                                <td className={TABLE_CELL}>
+                                                    <Badge variant="secondary" className="font-semibold text-[9px] bg-muted/50">
                                                         {student.class?.name} - {student.section?.name}
                                                     </Badge>
-                                                </TableCell>
-                                            </TableRow>
+                                                </td>
+                                            </tr>
                                         ))}
                                         {students.length === 0 && (
-                                            <TableRow>
-                                                <TableCell colSpan={5} className="h-[400px]">
-                                                    <div className="flex flex-col items-center justify-center gap-4 text-muted-foreground opacity-50">
-                                                        <Users className="h-20 w-20 stroke-[1]" />
-                                                        <p className="font-semibold text-h3">Select a class & section to begin</p>
+                                            <tr>
+                                                <td colSpan={5} className="py-20">
+                                                    <div className="flex flex-col items-center justify-center gap-3 text-foreground/60 opacity-50">
+                                                        <Users className="h-12 w-12 stroke-[1]" />
+                                                        <p className="font-semibold text-[14px]">Select a class & section to begin</p>
                                                     </div>
-                                                </TableCell>
-                                            </TableRow>
+                                                </td>
+                                            </tr>
                                         )}
-                                    </TableBody>
-                                </Table>
+                                    </tbody>
+                                </table>
                             </div>
                         </CardContent>
                     </Card>

@@ -9,28 +9,29 @@ import { useAuth } from "@/context/AuthContext";
 import {
     Users,
     Search,
-    Filter,
-    MoreHorizontal,
-    Edit3,
     CheckCircle,
     XCircle,
     Eye,
-    ChevronLeft,
-    ChevronRight,
     Loader2,
-    Calendar,
     GraduationCap,
     Clock,
-    UserCircle,
     ShieldAlert,
-    Copy,
-    ExternalLink,
-    Receipt
+    Receipt,
+    ArrowUp,
+    ArrowDown,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import SharableLink from "@/components/admission/SharableLink";
+import { AdmissionDetailDialog } from "@/components/admission/AdmissionDetailDialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE, STATUS_TAB, STATUS_TAB_ACTIVE, STATUS_TAB_INACTIVE, SORT_ICON } from "@/lib/table-styles";
+
+type SortField = "name" | "class" | "guardian" | "status" | "payment" | "date";
 
 export default function AdmissionsManagementPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -44,18 +45,19 @@ export default function AdmissionsManagementPage() {
     const [branches, setBranches] = useState<Branch[]>([]);
     const [confirmAction, setConfirmAction] = useState<{ type: 'approve' | 'reject', id: string } | null>(null);
     const [processing, setProcessing] = useState(false);
+    const [rejectReason, setRejectReason] = useState("");
+    const [showRejectDialog, setShowRejectDialog] = useState(false);
+    const [sortField, setSortField] = useState<SortField>("date");
+    const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
     useEffect(() => {
         if (user) {
             if (resolvedBranchId) {
-                // resolvedBranchId from useAuth()
                 fetchAdmissions(resolvedBranchId);
             } else {
-                // Super Admin case - fetch all branches to find a fallback
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
-                        // resolvedBranchId from useAuth();
                         fetchAdmissions(data[0].id);
                     } else {
                         setLoading(false);
@@ -90,17 +92,12 @@ export default function AdmissionsManagementPage() {
             if (confirmAction.type === 'approve') {
                 await OnlineAdmissionService.approve(confirmAction.id);
                 showSuccess("Application approved and student record created successfully!");
-            } else {
-                await OnlineAdmissionService.update(confirmAction.id, { status: 'REJECTED' });
-                showSuccess("Application rejected");
             }
             fetchAdmissions();
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Action failed:", error);
             if (confirmAction.type === 'approve') {
                 showError("Approval failed. Please ensure the student doesn't already exist.");
-            } else {
-                showError("Rejection failed");
             }
         } finally {
             setProcessing(false);
@@ -109,19 +106,68 @@ export default function AdmissionsManagementPage() {
         }
     };
 
-    const handleReject = async (id: string) => {
+    const handleRejectClick = (id: string) => {
         setProcessingId(id);
         setConfirmAction({ type: 'reject', id });
+        setShowRejectDialog(true);
+    };
+
+    const handleVerifyPayment = async (id: string) => {
+        try {
+            await OnlineAdmissionService.verifyPayment(id);
+            showSuccess("Payment verified successfully!");
+            fetchAdmissions();
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Payment verification failed:", error);
+            showError("Payment verification failed");
+        }
+    };
+
+    const handleConfirmReject = async () => {
+        if (!confirmAction) return;
+        if (!rejectReason.trim()) {
+            showError("Please provide a rejection reason");
+            return;
+        }
+        setProcessing(true);
+        try {
+            await OnlineAdmissionService.reject(confirmAction.id, rejectReason);
+            showSuccess("Application rejected");
+            setShowRejectDialog(false);
+            setRejectReason("");
+            fetchAdmissions();
+        } catch (error) {
+            if (process.env.NODE_ENV === 'development') console.error("Rejection failed:", error);
+            showError("Rejection failed");
+        } finally {
+            setProcessing(false);
+            setConfirmAction(null);
+            setProcessingId(null);
+        }
+    };
+
+    const handleSort = (field: SortField) => {
+        if (sortField === field) {
+            setSortDirection(d => d === "asc" ? "desc" : "asc");
+        } else {
+            setSortField(field);
+            setSortDirection("asc");
+        }
+    };
+
+    const SortIndicator = ({ field }: { field: SortField }) => {
+        if (sortField !== field) return <span className={SORT_ICON}>↕</span>;
+        return <span className={SORT_ICON}>{sortDirection === "asc" ? <ArrowUp size={10} /> : <ArrowDown size={10} />}</span>;
     };
 
     const getPaymentBadge = (status?: string) => {
         switch (status) {
             case 'VERIFIED':
-                return <span className="bg-emerald-500 text-white font-semibold text-[10px] px-2 py-0.5 rounded-full">PAID</span>;
+                return <span className="bg-emerald-500/10 text-emerald-600 font-semibold text-[11px] px-2 py-0.5 rounded-full border border-emerald-500/20">PAID</span>;
             case 'REJECTED':
-                return <span className="bg-red-500 text-white font-semibold text-[10px] px-2 py-0.5 rounded-full">FAILED</span>;
+                return <span className="bg-red-500/10 text-red-600 font-semibold text-[11px] px-2 py-0.5 rounded-full border border-red-500/20">FAILED</span>;
             default:
-                return <span className="bg-amber-500/20 text-amber-600 font-semibold text-[10px] px-2 py-0.5 rounded-full">PENDING</span>;
+                return <span className="bg-amber-500/10 text-amber-600 font-semibold text-[11px] px-2 py-0.5 rounded-full border border-amber-500/20">PENDING</span>;
         }
     };
 
@@ -131,213 +177,299 @@ export default function AdmissionsManagementPage() {
         return matchesSearch && matchesStatus;
     });
 
+    const sortedAdmissions = [...filteredAdmissions].sort((a, b) => {
+        let cmp = 0;
+        switch (sortField) {
+            case "name":
+                cmp = `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`);
+                break;
+            case "class":
+                cmp = (a.desiredClass?.name || "").localeCompare(b.desiredClass?.name || "");
+                break;
+            case "guardian":
+                cmp = (a.guardianName || "").localeCompare(b.guardianName || "");
+                break;
+            case "status":
+                cmp = (a.status || "").localeCompare(b.status || "");
+                break;
+            case "payment":
+                cmp = (a.paymentStatus || "").localeCompare(b.paymentStatus || "");
+                break;
+            case "date":
+                cmp = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+                break;
+        }
+        return sortDirection === "asc" ? cmp : -cmp;
+    });
+
+    const statusCounts = {
+        ALL: admissions.length,
+        PENDING: (admissions ?? []).filter(a => a.status === 'PENDING').length,
+        APPROVED: (admissions ?? []).filter(a => a.status === 'APPROVED').length,
+        ENROLLED: (admissions ?? []).filter(a => a.status === 'ENROLLED').length,
+        REJECTED: (admissions ?? []).filter(a => a.status === 'REJECTED').length,
+    };
+
+    const statusTabs = [
+        { label: "All", status: "ALL" },
+        { label: "New", status: "PENDING" },
+        { label: "Approved", status: "APPROVED" },
+        { label: "Enrolled", status: "ENROLLED" },
+        { label: "Rejected", status: "REJECTED" },
+    ];
+
     if (loading) {
         return (
             <div className="flex h-[80vh] items-center justify-center">
-                <Loader2 className="w-12 h-12 animate-spin text-primary" />
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-[1600px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-6">
-            <BranchContextBanner />
-            {/* Header */}
-            <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-8 bg-white/75 border border-border p-10 rounded-[3rem] shadow-2xl shadow-primary/5 relative overflow-hidden">
-                <div className="space-y-3 relative z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-semibold uppercase tracking-widest">
-                        <Users size={14} /> Registrar Control
-                    </div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Management</h1>
-                    <p className="text-muted-foreground font-medium text-lg">Process, verify and enroll prospective students into the academy.</p>
-                </div>
+            <div className="max-w-[1600px] mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20 px-4">
+                <BranchContextBanner />
 
-                <div className="flex flex-col sm:flex-row items-center gap-4 relative z-10">
+                {/* Header */}
+                <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4 bg-white/75 border border-primary/20 p-5 rounded-2xl shadow-sm">
+                    <div className="space-y-1">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary rounded-full text-[11px] font-semibold uppercase tracking-wide">
+                            <Users size={12} /> Registrar
+                        </div>
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">Admission Management</h1>
+                        <p className="text-foreground/60 text-[12px] font-medium">Process, verify and enroll prospective students.</p>
+                    </div>
                     <div className="relative group">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={20} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-primary transition-colors" size={16} />
                         <input
                             placeholder="Search applicants..."
-                            className="pl-12 pr-6 py-4 bg-muted/30 border-2 border-transparent focus:border-primary/20 focus:bg-background rounded-2xl outline-none font-bold min-w-[300px] transition-all"
+                            className="pl-10 pr-4 py-2.5 bg-muted/30 border border-primary/20 focus:border-primary/40 rounded-xl outline-none text-[12px] font-medium min-w-[260px] transition-all"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
                 </div>
-            </div>
 
-            {/* Sharable Link Section */}
-            {resolvedBranchId && (
-                <SharableLink branchId={resolvedBranchId} />
-            )}
+                {/* Sharable Link */}
+                {resolvedBranchId && <SharableLink branchId={resolvedBranchId} />}
 
-            {/* Stats / Filters */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                {[
-                    { label: "Total Applications", value: admissions.length, color: "bg-primary", status: "ALL" },
-                    { label: "Pending Review", value: (admissions ?? []).filter(a => a.status === 'PENDING').length, color: "bg-yellow-500", status: "PENDING" },
-                    { label: "Approved (Not Enrolled)", value: (admissions ?? []).filter(a => a.status === 'APPROVED').length, color: "bg-blue-500", status: "APPROVED" },
-                    { label: "Enrolled", value: (admissions ?? []).filter(a => a.status === 'ENROLLED').length, color: "bg-green-500", status: "ENROLLED" },
-                    { label: "Rejected", value: (admissions ?? []).filter(a => a.status === 'REJECTED').length, color: "bg-red-500", status: "REJECTED" },
-                ].map(stat => (
-                    <button
-                        key={stat.status}
-                        onClick={() => setStatusFilter(stat.status)}
-                        className={clsx(
-                            "p-8 rounded-[2.5rem] border transition-all text-left space-y-2 group shadow-lg",
-                            statusFilter === stat.status ? "bg-card border-primary ring-4 ring-primary/10 scale-105" : "bg-card border-border hover:border-primary/60"
-                        )}
-                    >
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
-                        <div className="flex items-end justify-between">
-                            <h3 className="text-h1 font-semibold">{stat.value}</h3>
-                            <div className={clsx("w-3 h-3 rounded-full animate-pulse", stat.color)} />
-                        </div>
-                    </button>
-                ))}
-            </div>
+                {/* Status Tabs */}
+                <div className="flex items-center gap-2 flex-wrap">
+                    {statusTabs.map(tab => (
+                        <button
+                            key={tab.status}
+                            onClick={() => setStatusFilter(tab.status)}
+                            className={clsx(STATUS_TAB, statusFilter === tab.status ? STATUS_TAB_ACTIVE : STATUS_TAB_INACTIVE)}
+                        >
+                            {tab.label}
+                            <span className="ml-1.5 text-[10px] opacity-70">{statusCounts[tab.status as keyof typeof statusCounts]}</span>
+                        </button>
+                    ))}
+                </div>
 
-            {/* Table */}
-            <div className="bg-white/75 border border-border rounded-[3.5rem] shadow-2xl shadow-primary/5 overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                        <thead>
-                            <tr className="border-b border-border/50">
-                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Applicant</th>
-                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Academic Intent</th>
-                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Guardian Info</th>
-                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Status</th>
-                                <th className="px-10 py-8 text-xs font-semibold uppercase tracking-widest text-muted-foreground text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border/30">
-                            {filteredAdmissions.length === 0 ? (
-                                <tr>
-                                    <td colSpan={5} className="px-10 py-32 text-center">
-                                        <div className="flex flex-col items-center gap-4">
-                                            <div className="w-20 h-20 bg-muted/20 rounded-full flex items-center justify-center text-muted-foreground/30">
-                                                <Users size={40} />
-                                            </div>
-                                            <p className="text-muted-foreground font-semibold text-h3">No applications found in this category.</p>
-                                        </div>
-                                    </td>
+                {/* Table */}
+                <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden">
+                    <div className="overflow-x-auto">
+                        <table className={TABLE_ROOT}>
+                            <thead>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("name")}>
+                                        Applicant <SortIndicator field="name" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("class")}>
+                                        Class <SortIndicator field="class" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("guardian")}>
+                                        Guardian <SortIndicator field="guardian" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("status")}>
+                                        Status <SortIndicator field="status" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("payment")}>
+                                        Payment <SortIndicator field="payment" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL} onClick={() => handleSort("date")}>
+                                        Date <SortIndicator field="date" />
+                                    </th>
+                                    <th className={TABLE_HEADER_CELL + " text-right"}>Actions</th>
                                 </tr>
-                            ) : (
-                                filteredAdmissions.map(adm => (
-                                    <tr key={adm.id} className="hover:bg-muted/10 transition-colors group">
-                                        <td className="px-10 py-8">
-                                            <div className="flex items-center gap-6">
-                                                <div className="w-16 h-16 rounded-[1.25rem] bg-muted/30 flex items-center justify-center font-semibold text-h3 text-primary border-2 border-border group-hover:border-primary/20 transition-all">
-                                                    {adm.firstName[0]}{adm.lastName[0]}
-                                                </div>
-                                                <div className="space-y-1">
-                                                    <p className="font-semibold text-h3 tracking-tight">{adm.firstName} {adm.lastName}</p>
-                                                    <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                                                        <Clock size={12} /> Applied: {new Date(adm.createdAt).toLocaleDateString()}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <div className="space-y-1">
-                                                <p className="font-semibold text-foreground flex items-center gap-2">
-                                                    <GraduationCap size={16} className="text-primary" /> {adm.desiredClass?.name || "N/A"}
-                                                </p>
-                                                <p className="text-sm font-bold text-muted-foreground">{adm.academicSession?.name || "No Session"}</p>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <div className="space-y-2">
-                                                <div className="space-y-1">
-                                                    <p className="font-bold text-foreground">{adm.guardianName}</p>
-                                                    <p className="text-sm font-bold text-muted-foreground">{adm.guardianPhone}</p>
-                                                </div>
-                                                <div className="flex flex-col gap-1.5 pt-1 border-t border-border/30">
-                                                    {getPaymentBadge(adm.paymentStatus)}
-                                                    {adm.paymentReceiptUrl && (
-                                                        <a
-                                                            href={adm.paymentReceiptUrl}
-                                                            target="_blank"
-                                                            className="text-[10px] text-primary font-semibold flex items-center gap-1 hover:underline group/receipt"
-                                                        >
-                                                            <Receipt className="h-3 w-3 group-hover/receipt:scale-110 transition-transform" /> VIEW RECEIPT
-                                                        </a>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8">
-                                            <div className={clsx(
-                                                "inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest",
-                                                adm.status === 'PENDING' ? "bg-yellow-500/10 text-yellow-600 border border-yellow-500/20" :
-                                                    adm.status === 'ENROLLED' ? "bg-green-500/10 text-green-600 border border-green-500/20" :
-                                                        adm.status === 'APPROVED' ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" :
-                                                            "bg-red-500/10 text-red-600 border border-red-500/20"
-                                            )}>
-                                                <div className={clsx("w-1.5 h-1.5 rounded-full",
-                                                    adm.status === 'PENDING' ? "bg-yellow-500" :
-                                                        adm.status === 'ENROLLED' ? "bg-primary" :
-                                                            adm.status === 'APPROVED' ? "bg-blue-500" : "bg-red-500"
-                                                )} />
-                                                {adm.status}
-                                            </div>
-                                        </td>
-                                        <td className="px-10 py-8 text-right">
-                                            <div className="flex items-center justify-end gap-3">
-                                                <button className="p-3 bg-muted/20 hover:bg-primary/10 hover:text-primary rounded-xl transition-all" title="View Details">
-                                                    <Eye size={20} />
-                                                </button>
-                                                {adm.status === 'PENDING' && (
-                                                    <>
-                                                        <button
-                                                            disabled={processingId === adm.id}
-                                                            onClick={() => handleApprove(adm.id)}
-                                                            className="p-3 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl transition-all disabled:opacity-50"
-                                                            title="Approve Policy"
-                                                        >
-                                                            {processingId === adm.id ? <Loader2 size={20} className="animate-spin" /> : <CheckCircle size={20} />}
-                                                        </button>
-                                                        <button
-                                                            disabled={processingId === adm.id}
-                                                            onClick={() => handleReject(adm.id)}
-                                                            className="p-3 bg-red-500/10 text-red-600 hover:bg-red-500 hover:text-white rounded-xl transition-all disabled:opacity-50"
-                                                            title="Reject Policy"
-                                                        >
-                                                            {processingId === adm.id ? <Loader2 size={20} className="animate-spin" /> : <XCircle size={20} />}
-                                                        </button>
-                                                    </>
-                                                )}
+                            </thead>
+                            <tbody className={TABLE_BODY}>
+                                {sortedAdmissions.length === 0 ? (
+                                    <tr>
+                                        <td colSpan={7} className="px-6 py-16 text-center text-foreground/50 text-[12px]">
+                                            <div className="flex flex-col items-center gap-2">
+                                                <Users size={24} className="text-foreground/20" />
+                                                <p>No applications found.</p>
                                             </div>
                                         </td>
                                     </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
+                                ) : (
+                                    sortedAdmissions.map(adm => (
+                                        <tr key={adm.id} className={TABLE_ROW + " group"}>
+                                            <td className={TABLE_CELL_PRIMARY}>
+                                                <div className="flex items-center gap-2.5">
+                                                    <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center text-primary font-semibold text-[11px] shrink-0">
+                                                        {adm.firstName[0]}{adm.lastName[0]}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <p className="font-semibold text-[12px] truncate">{adm.firstName} {adm.lastName}</p>
+                                                        <p className="text-[11px] text-foreground/50 flex items-center gap-1">
+                                                            <Clock size={10} /> {new Date(adm.createdAt).toLocaleDateString()}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <div className="flex items-center gap-1.5">
+                                                    <GraduationCap size={12} className="text-primary shrink-0" />
+                                                    <span className="truncate">{adm.desiredClass?.name || "N/A"}</span>
+                                                </div>
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <div className="min-w-0">
+                                                    <p className="text-[12px] font-medium truncate">{adm.guardianName}</p>
+                                                    <p className="text-[11px] text-foreground/50 truncate">{adm.guardianPhone}</p>
+                                                </div>
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <span className={clsx(
+                                                    "inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold",
+                                                    adm.status === 'PENDING' ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" :
+                                                    adm.status === 'ENROLLED' ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" :
+                                                    adm.status === 'APPROVED' ? "bg-primary/10 text-primary border border-primary/20" :
+                                                    "bg-red-500/10 text-red-600 border border-red-500/20"
+                                                )}>
+                                                    <div className={clsx("w-1.5 h-1.5 rounded-full",
+                                                        adm.status === 'PENDING' ? "bg-amber-500" :
+                                                        adm.status === 'ENROLLED' ? "bg-emerald-500" :
+                                                        adm.status === 'APPROVED' ? "bg-primary" : "bg-red-500"
+                                                    )} />
+                                                    {adm.status}
+                                                </span>
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <div className="flex items-center gap-2">
+                                                    {getPaymentBadge(adm.paymentStatus)}
+                                                    {adm.paymentReceiptUrl && (
+                                                        <a href={adm.paymentReceiptUrl} target="_blank" className="text-[11px] text-primary hover:underline flex items-center gap-0.5">
+                                                            <Receipt size={10} /> Receipt
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <span className="text-[11px] text-foreground/60">{new Date(adm.createdAt).toLocaleDateString()}</span>
+                                            </td>
+                                            <td className={TABLE_CELL_ACTIONS}>
+                                                <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <button
+                                                        onClick={() => setSelectedAdmission(adm)}
+                                                        className="p-1.5 rounded-md text-foreground/60 hover:text-primary hover:bg-primary/10 transition-all"
+                                                        title="View Details"
+                                                    >
+                                                        <Eye size={14} />
+                                                    </button>
+                                                    {adm.status === 'PENDING' && (
+                                                        <>
+                                                            <button
+                                                                disabled={processingId === adm.id}
+                                                                onClick={() => handleApprove(adm.id)}
+                                                                className="p-1.5 rounded-md text-primary hover:bg-primary/10 disabled:opacity-50 transition-all"
+                                                                title="Approve"
+                                                            >
+                                                                {processingId === adm.id ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle size={14} />}
+                                                            </button>
+                                                            <button
+                                                                disabled={processingId === adm.id}
+                                                                onClick={() => handleRejectClick(adm.id)}
+                                                                className="p-1.5 rounded-md text-red-600 hover:bg-red-500/10 disabled:opacity-50 transition-all"
+                                                                title="Reject"
+                                                            >
+                                                                {processingId === adm.id ? <Loader2 size={14} className="animate-spin" /> : <XCircle size={14} />}
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
-            {/* Warning Dialog */}
-            <div className="p-10 bg-yellow-500/5 border-2 border-yellow-500/20 rounded-[3rem] flex flex-col md:flex-row items-center gap-8">
-                <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center text-yellow-500 shrink-0">
-                    <ShieldAlert size={32} />
+                {/* Advisory */}
+                <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-xl flex items-center gap-4">
+                    <div className="w-10 h-10 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-500 shrink-0">
+                        <ShieldAlert size={20} />
+                    </div>
+                    <div className="space-y-0.5">
+                        <h4 className="text-[12px] font-semibold text-amber-600">Administrative Advisory</h4>
+                        <p className="text-[12px] text-amber-600/70 font-medium">Approving an application generates a Student ID and portal account. Verify all documents before enrollment.</p>
+                    </div>
                 </div>
-                <div className="space-y-1 text-center md:text-left">
-                    <h4 className="text-h3 font-semibold text-yellow-600">Administrative Advisory</h4>
-                    <p className="text-yellow-600/70 font-bold leading-relaxed max-w-4xl">Approving an application will automatically generate a new Student ID and a portal account. Ensure all uploaded documents have been verified against school policy before final enrollment.</p>
-                </div>
-            </div>
-            <ConfirmDialog
-                isOpen={!!confirmAction}
-                onConfirm={handleConfirmAction}
-                onCancel={() => { setConfirmAction(null); setProcessingId(null); }}
-                title={confirmAction?.type === 'approve' ? "Approve Application" : "Reject Application"}
-                message={confirmAction?.type === 'approve'
-                    ? "Are you sure you want to approve this application and create a student record?"
-                    : "Are you sure you want to reject this application?"}
-                confirmLabel={confirmAction?.type === 'approve' ? "Approve" : "Reject"}
-                loading={processing}
-            />
+
+                {/* Detail Dialog */}
+                {selectedAdmission && (
+                    <AdmissionDetailDialog
+                        admission={selectedAdmission}
+                        onClose={() => setSelectedAdmission(null)}
+                        onApprove={(id) => { handleApprove(id); setSelectedAdmission(null); }}
+                        onReject={(id) => { handleRejectClick(id); setSelectedAdmission(null); }}
+                        onVerifyPayment={handleVerifyPayment}
+                    />
+                )}
+
+                {/* Approve Confirm */}
+                <ConfirmDialog
+                    isOpen={!!confirmAction && confirmAction.type === 'approve'}
+                    onConfirm={handleConfirmAction}
+                    onCancel={() => { setConfirmAction(null); setProcessingId(null); }}
+                    title="Approve Application"
+                    message="Are you sure you want to approve this application and create a student record?"
+                    confirmLabel="Approve"
+                    loading={processing}
+                />
+
+                {/* Reject Dialog with Reason */}
+                <Dialog open={showRejectDialog} onOpenChange={(open: boolean) => { if (!open) { setShowRejectDialog(false); setConfirmAction(null); setProcessingId(null); } }}>
+                    <DialogContent className="rounded-2xl border-primary/20">
+                        <DialogHeader>
+                            <DialogTitle className="text-[16px] font-semibold text-red-600 flex items-center gap-2">
+                                <XCircle size={18} /> Reject Application
+                            </DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-4 py-2">
+                            <div>
+                                <Label htmlFor="reject-reason" className="text-[12px] font-medium">Rejection Reason *</Label>
+                                <Textarea
+                                    id="reject-reason"
+                                    value={rejectReason}
+                                    onChange={e => setRejectReason(e.target.value)}
+                                    rows={3}
+                                    placeholder="Provide a reason for rejection..."
+                                    className="text-[12px] border-primary/20 focus:border-primary"
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button variant="outline" onClick={() => { setShowRejectDialog(false); setConfirmAction(null); setProcessingId(null); }} className="text-[12px]">
+                                Cancel
+                            </Button>
+                            <Button
+                                onClick={handleConfirmReject}
+                                disabled={processing || !rejectReason.trim()}
+                                className="bg-red-500 hover:bg-red-600 text-[12px]"
+                            >
+                                {processing ? <Loader2 size={14} className="animate-spin mr-2" /> : null}
+                                Reject
+                            </Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
             </div>
         </RequireBranch>
     );

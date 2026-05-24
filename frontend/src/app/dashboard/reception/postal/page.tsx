@@ -16,6 +16,7 @@ import { Mail, Search, Send, FileText, ArrowUpLeft, ArrowDownRight, Package, Tra
 import { ReceptionService, PostalRecord } from '@/services/receptionService';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function PostalRecordPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -147,8 +148,8 @@ export default function PostalRecordPage() {
             <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Postal Records</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage dispatch and receipt of physical mail/parcels.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Postal Records</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Manage dispatch and receipt of physical mail/parcels.</p>
                 </div>
 
                 <div className="flex gap-4 w-full md:w-auto">
@@ -168,9 +169,9 @@ export default function PostalRecordPage() {
                                 New Record
                             </Button>
                         </DialogTrigger>
-        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">Postal Entry</DialogTitle>
+                                <DialogTitle className="text-[12px] font-semibold">Postal Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Log details of the physical mail/courier.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
@@ -184,49 +185,49 @@ export default function PostalRecordPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
-                <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Package className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden">
+                <CardHeader className="px-3 py-2 border-b border-primary/20 bg-muted/20">
+                    <CardTitle className="text-[12px] font-semibold tracking-tight text-primary flex items-center gap-3">
+                        <Package className="h-5 w-5 text-primary" />
                         Logistics History
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">From / To</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Reference</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Type</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Date</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                    <Table className={TABLE_ROOT}>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>From / To</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Reference</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Type</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Date</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {filtered.map((r) => (
-                                <TableRow key={r.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                    <TableCell className="px-8 font-semibold uppercase leading-tight text-sm">
+                                <TableRow key={r.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         <div className="flex flex-col gap-1">
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50">From: {r.fromTitle}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60">From: {r.fromTitle}</span>
                                             <span>To: {r.toTitle}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-xs uppercase opacity-60">
+                                    <TableCell className={TABLE_CELL}>
                                         #{r.referenceNumber || 'N/A'}
                                     </TableCell>
-                                    <TableCell className="px-8 text-center text-[10px] font-semibold">
+                                    <TableCell className={TABLE_CELL + " text-center"}>
                                         <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-current font-semibold ${r.type === 'RECEIVE' ? 'bg-primary/10 text-primary' : 'bg-blue-500/10 text-blue-600'}`}>
                                             {r.type === 'RECEIVE' ? <ArrowDownRight className="h-3 w-3" /> : <ArrowUpLeft className="h-3 w-3" />}
                                             {r.type}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-xs whitespace-nowrap opacity-60">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex items-center gap-1.5">
                                             <Calendar className="h-3 w-3 text-primary" />
                                             {new Date(r.date).toLocaleDateString()}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(r)}>
                                                 <Edit3 className="h-4 w-4" />
@@ -245,9 +246,9 @@ export default function PostalRecordPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingRecord} onOpenChange={(open) => { if (!open) setEditingRecord(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Postal Record</DialogTitle>
+                        <DialogTitle className="text-[12px] font-semibold">Edit Postal Record</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for this entry</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">

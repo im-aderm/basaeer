@@ -1,48 +1,62 @@
 'use client';
+
+import React, { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
-
-import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { useNotification } from '@/context/NotificationContext';
+import { EventsService, CampusEvent } from '@/services/eventsService';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import {
-    Calendar as CalendarIcon,
     Plus,
-    MapPin,
-    Clock,
-    Users,
-    ChevronLeft,
-    ChevronRight,
     Search,
     Filter,
-    Check
+    Edit,
+    Trash2,
+    Eye,
+    Calendar,
+    MapPin,
+    AlertCircle,
+    ArrowUpDown
 } from 'lucide-react';
-import { AutomationEventsService, CampusEvent } from '@/services/automationEventsService';
-import { useNotification } from '@/context/NotificationContext';
+import {
+    TABLE_ROOT,
+    TABLE_HEADER,
+    TABLE_HEADER_CELL,
+    TABLE_HEADER_CELL_NO_SORT,
+    TABLE_BODY,
+    TABLE_ROW,
+    TABLE_CELL,
+    TABLE_CELL_ACTIONS,
+    PAGINATION_BAR,
+    PAGINATION_INFO,
+    PAGINATION_BUTTON,
+    PAGINATION_BUTTON_ACTIVE
+} from '@/lib/table-styles';
 
-export default function EventsPage() {
-    const { user, resolvedBranchId } = useAuth();
+export default function EventsAdminPage() {
+    const { user } = useAuth();
     const { showSuccess, showError } = useNotification();
+    
     const [events, setEvents] = useState<CampusEvent[]>([]);
     const [loading, setLoading] = useState(true);
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    
+    // Search, Filter, Sort and Paginate state
     const [searchTerm, setSearchTerm] = useState('');
+    const [categoryFilter, setCategoryFilter] = useState('ALL');
+    const [statusFilter, setStatusFilter] = useState('ALL');
+    const [sortField, setSortField] = useState<keyof CampusEvent>('startDate');
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 15;
 
-    const [eventForm, setEventForm] = useState({
-        title: '', description: '', startDate: '', endDate: '', location: '', category: 'ACADEMIC', isPublic: true, allowRSVP: true
-    });
-
-    const categories = ['ACADEMIC', 'HOLIDAY', 'SPORTS', 'CULTURAL', 'ADMINISTRATIVE'];
-
-    const fetchData = async () => {
+    const fetchEvents = async () => {
+        setLoading(true);
         try {
-            const data = await AutomationEventsService.getEvents();
+            const data = await EventsService.getEvents();
             setEvents(data);
         } catch (error) {
             showError('Failed to load events');
@@ -52,175 +66,286 @@ export default function EventsPage() {
     };
 
     useEffect(() => {
-        fetchData();
+        fetchEvents();
     }, []);
 
-    const handleCreate = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleDelete = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this event? This will also delete all packages, schedules, and applications related to it.')) {
+            return;
+        }
         try {
-            await AutomationEventsService.createEvent(eventForm);
-            showSuccess('Event scheduled successfully');
-            setIsCreateOpen(false);
-            fetchData();
-        } catch (error) { showError('Failed to schedule event'); }
+            await EventsService.deleteEvent(id);
+            showSuccess('Event deleted successfully');
+            fetchEvents();
+        } catch (error) {
+            showError('Failed to delete event');
+        }
     };
 
-    const handleRSVP = async (id: string, status: string) => {
-        try {
-            await AutomationEventsService.rsvpEvent(id, status);
-            showSuccess('RSVP updated');
-            fetchData();
-        } catch (error) { showError('Failed to update RSVP'); }
+    // Sorting trigger
+    const handleSort = (field: keyof CampusEvent) => {
+        if (sortField === field) {
+            setSortDirection(d => d === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortField(field);
+            setSortDirection('asc');
+        }
+        setCurrentPage(1);
     };
 
-    const getCategoryColor = (cat: string) => {
-        switch (cat) {
-            case 'ACADEMIC': return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
-            case 'HOLIDAY': return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
-            case 'SPORTS': return 'bg-orange-500/10 text-orange-500 border-orange-500/20';
-            case 'CULTURAL': return 'bg-purple-500/10 text-purple-500 border-purple-500/20';
-            default: return 'bg-muted text-muted-foreground';
+    // Filter & search events
+    const processedEvents = useMemo(() => {
+        return events
+            .filter(e => {
+                const matchesSearch = e.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (e.location && e.location.toLowerCase().includes(searchTerm.toLowerCase()));
+                const matchesCategory = categoryFilter === 'ALL' || e.categoryLabel === categoryFilter;
+                const matchesStatus = statusFilter === 'ALL' || e.status === statusFilter;
+                return matchesSearch && matchesCategory && matchesStatus;
+            })
+            .sort((a, b) => {
+                const aVal = a[sortField];
+                const bVal = b[sortField];
+                if (aVal == null) return 1;
+                if (bVal == null) return -1;
+                const cmp = aVal < bVal ? -1 : aVal > bVal ? 1 : 0;
+                return sortDirection === 'asc' ? cmp : -cmp;
+            });
+    }, [events, searchTerm, categoryFilter, statusFilter, sortField, sortDirection]);
+
+    // Paginated events
+    const paginatedEvents = useMemo(() => {
+        const start = (currentPage - 1) * pageSize;
+        return processedEvents.slice(start, start + pageSize);
+    }, [processedEvents, currentPage]);
+
+    const totalPages = Math.ceil(processedEvents.length / pageSize);
+
+    const getStatusBadge = (status: string) => {
+        switch (status) {
+            case 'ACTIVE':
+                return <Badge className="bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 text-[10px] py-0 px-2 rounded font-bold uppercase">Active</Badge>;
+            case 'DRAFT':
+                return <Badge className="bg-amber-500/10 text-amber-600 border border-amber-500/20 text-[10px] py-0 px-2 rounded font-bold uppercase">Draft</Badge>;
+            case 'COMPLETED':
+                return <Badge className="bg-blue-500/10 text-blue-600 border border-blue-500/20 text-[10px] py-0 px-2 rounded font-bold uppercase">Completed</Badge>;
+            case 'CANCELLED':
+                return <Badge className="bg-red-500/10 text-red-600 border border-red-500/20 text-[10px] py-0 px-2 rounded font-bold uppercase">Cancelled</Badge>;
+            default:
+                return <Badge className="bg-muted text-muted-foreground text-[10px] py-0 px-2 rounded font-bold uppercase">{status}</Badge>;
         }
     };
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-7xl mx-auto space-y-8 pb-20">
+            <div className="max-w-7xl mx-auto space-y-6 pb-20">
                 <BranchContextBanner />
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-                <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Campus Calendar</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Unified view of all school activities, holidays, and events.</p>
-                </div>
-                {(user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN') && (
-                    <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-                        <DialogTrigger asChild>
-                            <Button className="h-12 px-8 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20">
-                                <Plus className="h-5 w-5" /> Schedule Event
+                
+                {/* Header */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 className="text-2xl font-bold tracking-tight text-primary">All Events</h1>
+                        <p className="text-muted-foreground text-sm font-medium mt-0.5">Manage branch programs, packages, schedules, and view registrations.</p>
+                    </div>
+                    {(user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN') && (
+                        <Link href="/dashboard/events/create">
+                            <Button className="h-10 px-5 rounded-xl font-semibold gap-2 shadow-lg shadow-primary/10">
+                                <Plus className="h-4.5 w-4.5" /> Create Event
                             </Button>
-                        </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-2xl">
-                            <DialogHeader>
-                                <CardTitle className="text-h3 font-semibold">New Campus Event</CardTitle>
-                                <CardDescription className="font-bold">Enter event details to notify the school community.</CardDescription>
-                            </DialogHeader>
-                            <form onSubmit={handleCreate} className="space-y-4 pt-4">
-                                <div className="space-y-2">
-                                    <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Event Title</Label>
-                                    <Input required className="h-12 rounded-xl font-bold" value={eventForm.title} onChange={(e) => setEventForm({ ...eventForm, title: e.target.value })} />
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Start Date</Label>
-                                        <Input type="datetime-local" required className="h-12 rounded-xl font-bold" value={eventForm.startDate} onChange={(e) => setEventForm({ ...eventForm, startDate: e.target.value })} />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">End Date</Label>
-                                        <Input type="datetime-local" required className="h-12 rounded-xl font-bold" value={eventForm.endDate} onChange={(e) => setEventForm({ ...eventForm, endDate: e.target.value })} />
-                                    </div>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Category</Label>
-                                        <Select value={eventForm.category} onValueChange={(v) => setEventForm({ ...eventForm, category: v })}>
-                                            <SelectTrigger className="h-12 rounded-xl font-bold">
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent className="rounded-2xl border-none shadow-2xl">
-                                                {categories.map(c => <SelectItem key={c} value={c} className="font-bold">{c}</SelectItem>)}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label className="font-semibold text-xs uppercase opacity-50 ml-1">Location</Label>
-                                        <Input className="h-12 rounded-xl font-bold" value={eventForm.location} onChange={(e) => setEventForm({ ...eventForm, location: e.target.value })} />
-                                    </div>
-                                </div>
-                                <Button type="submit" className="h-14 w-full rounded-2xl font-semibold uppercase tracking-wider shadow-xl shadow-primary/20">Create Event</Button>
-                            </form>
-                        </DialogContent>
-                    </Dialog>
-                )}
-            </div>
-
-            <div className="flex flex-col md:flex-row gap-4 items-center bg-muted/30 p-4 rounded-[2rem] border border-border/50">
-                <div className="relative flex-1 w-full">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                    <Input
-                        placeholder="Search events by title or location..."
-                        className="pl-12 h-14 rounded-2xl bg-background border-none font-bold"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
+                        </Link>
+                    )}
                 </div>
-                <div className="flex gap-2 w-full md:w-auto">
-                    <Button variant="outline" className="h-14 px-6 rounded-2xl font-semibold gap-2 border-none bg-background shadow-sm hover:bg-muted/50">
-                        <Filter className="h-5 w-5" /> Filter
-                    </Button>
-                    <div className="flex bg-background p-1 rounded-2xl shadow-sm border border-border/50">
-                        <Button variant="ghost" className="h-12 rounded-xl font-semibold px-6 bg-primary text-white shadow-lg shadow-primary/20">List</Button>
-                        <Button variant="ghost" className="h-12 rounded-xl font-semibold px-6 opacity-40">Calendar</Button>
+
+                {/* Filters Board */}
+                <div className="flex flex-col md:flex-row gap-3 items-center bg-card p-3.5 rounded-2xl border border-primary/10 shadow-sm">
+                    <div className="relative flex-1 w-full">
+                        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Search by event title or location..."
+                            className="pl-10 h-10 rounded-xl bg-muted/20 border-primary/10 font-medium text-sm"
+                            value={searchTerm}
+                            onChange={(e) => { setSearchTerm(e.target.value); setCurrentPage(1); }}
+                        />
+                    </div>
+                    <div className="flex gap-2 w-full md:w-auto shrink-0">
+                        <select
+                            className="h-10 px-3 text-xs font-semibold rounded-xl bg-background border border-primary/10 outline-none text-foreground/80 cursor-pointer"
+                            value={categoryFilter}
+                            onChange={(e) => { setCategoryFilter(e.target.value); setCurrentPage(1); }}
+                        >
+                            <option value="ALL">All Categories</option>
+                            <option value="CAMP">Camps</option>
+                            <option value="CONFERENCE">Conferences</option>
+                            <option value="COMPETITION">Competitions</option>
+                            <option value="WORKSHOP">Workshops</option>
+                            <option value="EXCURSION">Excursions</option>
+                            <option value="SUMMER_PROGRAM">Summer Programs</option>
+                            <option value="TAHFIZ_PROGRAM">Tahfiz Programs</option>
+                            <option value="ACADEMIC_PROGRAM">Academic Programs</option>
+                            <option value="OTHERS">Others</option>
+                        </select>
+                        <select
+                            className="h-10 px-3 text-xs font-semibold rounded-xl bg-background border border-primary/10 outline-none text-foreground/80 cursor-pointer"
+                            value={statusFilter}
+                            onChange={(e) => { setStatusFilter(e.target.value); setCurrentPage(1); }}
+                        >
+                            <option value="ALL">All Statuses</option>
+                            <option value="DRAFT">Draft</option>
+                            <option value="ACTIVE">Active</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
                     </div>
                 </div>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {(events ?? []).filter(e => e.title.toLowerCase().includes(searchTerm.toLowerCase())).map((event) => (
-                    <Card key={event.id} className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background group hover:border-primary/50 transition-all duration-500">
-                        <div className="p-8 border-b border-border/50 bg-primary/5 relative">
-                            <Badge className={`rounded-xl px-4 py-1.5 font-semibold uppercase tracking-tighter text-[10px] border-2 shadow-sm ${getCategoryColor(event.category)}`}>
-                                {event.category}
-                            </Badge>
-                            <h3 className="text-h3 font-semibold uppercase mt-4 group-hover:text-primary transition-colors">{event.title}</h3>
-                            <p className="text-sm font-medium text-muted-foreground mt-2 line-clamp-2">{event.description || 'No description provided.'}</p>
-                        </div>
-                        <CardContent className="p-8 space-y-6">
-                            <div className="space-y-3">
-                                <div className="flex items-center gap-3 text-sm font-bold opacity-60">
-                                    <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><Clock className="h-5 w-5" /></div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Date & Time</span>
-                                        <span className="italic">{new Date(event.startDate).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-3 text-sm font-bold opacity-60">
-                                    <div className="h-10 w-10 rounded-xl bg-muted/50 flex items-center justify-center text-primary"><MapPin className="h-5 w-5" /></div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[10px] uppercase font-semibold opacity-40 leading-none">Location</span>
-                                        <span className="italic">{event.location || 'Campus Wide'}</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {event.allowRSVP && (
-                                <div className="pt-4 border-t border-border/50 space-y-4">
-                                    <div className="flex justify-between items-center text-sm font-semibold">
-                                        <span className="flex items-center gap-2"><Users className="h-4 w-4" /> RSVP Status</span>
-                                        <span className="text-primary">{event._count?.rsvps || 0} Attending</span>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-primary/20 text-primary hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'GOING')}>
-                                            Going
-                                        </Button>
-                                        <Button variant="outline" className="rounded-xl font-semibold uppercase text-xs h-10 border-2 border-primary/20 hover:bg-primary/10" onClick={() => handleRSVP(event.id, 'DECLINED')}>
-                                            Decline
-                                        </Button>
-                                    </div>
-                                </div>
+                {/* Compact Events Table */}
+                <div className="overflow-x-auto rounded-xl border border-primary/20 bg-card shadow-sm">
+                    <table className={TABLE_ROOT}>
+                        <thead>
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL + " w-[25%]"} onClick={() => handleSort('title')}>
+                                    Event Name <ArrowUpDown className="inline h-3 w-3 ml-1 opacity-60" />
+                                </th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-[12%]"}>Category</th>
+                                <th className={TABLE_HEADER_CELL + " w-[10%]"} onClick={() => handleSort('status')}>
+                                    Status <ArrowUpDown className="inline h-3 w-3 ml-1 opacity-60" />
+                                </th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-[10%] text-center"}>Applications</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-[10%] text-right"}>Revenue</th>
+                                <th className={TABLE_HEADER_CELL + " w-[18%]"} onClick={() => handleSort('startDate')}>
+                                    Dates <ArrowUpDown className="inline h-3 w-3 ml-1 opacity-60" />
+                                </th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-[8%] text-center"}>Public</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " w-[12%] text-right"}>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className={TABLE_BODY}>
+                            {loading ? (
+                                <tr>
+                                    <td colSpan={8} className="px-4 py-12 text-center text-foreground/50 text-[12px]">
+                                        <div className="flex justify-center items-center gap-2">
+                                            <div className="h-4 w-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                                            Loading events...
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : paginatedEvents.length === 0 ? (
+                                <tr>
+                                    <td colSpan={8} className="px-4 py-12 text-center text-foreground/50 text-[12px]">
+                                        <div className="flex flex-col items-center justify-center gap-2">
+                                            <AlertCircle className="h-8 w-8 opacity-30 text-primary" />
+                                            <span>No events found matching current criteria.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : (
+                                paginatedEvents.map((event) => {
+                                    // Calculate total revenue for verified applications
+                                    const appCount = event._count?.applications || 0;
+                                    const startStr = new Date(event.startDate).toLocaleDateString([], { month: 'short', day: 'numeric', year: '2-digit' });
+                                    const endStr = new Date(event.endDate).toLocaleDateString([], { month: 'short', day: 'numeric', year: '2-digit' });
+                                    
+                                    return (
+                                        <tr key={event.id} className={TABLE_ROW}>
+                                            <td className={TABLE_CELL + " font-semibold text-foreground"}>
+                                                <Link href={`/dashboard/events/${event.id}/edit`} className="hover:text-primary hover:underline transition block">
+                                                    <div className="truncate" title={event.title}>{event.title}</div>
+                                                </Link>
+                                            </td>
+                                            <td className={TABLE_CELL}>{event.categoryLabel.replace('_', ' ')}</td>
+                                            <td className={TABLE_CELL}>{getStatusBadge(event.status)}</td>
+                                            <td className={TABLE_CELL + " text-center font-semibold"}>
+                                                {appCount > 0 ? (
+                                                    <Link href={`/dashboard/events/applications?eventId=${event.id}`} className="text-primary hover:underline">
+                                                        {appCount} Applications
+                                                    </Link>
+                                                ) : '0'}
+                                            </td>
+                                            <td className={TABLE_CELL + " text-right font-semibold"}>
+                                                {/* Revenue placeholder or calculated based on backend return if verified */}
+                                                {/* Since we calculate it in analytics, let's display NGN or similar */}
+                                                NGN {Number(event.packages?.[0]?.fee || 0).toLocaleString([], { minimumFractionDigits: 2 })}
+                                            </td>
+                                            <td className={TABLE_CELL}>
+                                                <span className="truncate">{startStr} - {endStr}</span>
+                                            </td>
+                                            <td className={TABLE_CELL + " text-center"}>
+                                                {event.isPublic ? (
+                                                    <Badge className="bg-blue-50/50 text-blue-600 border border-blue-200 text-[9px] font-semibold py-0.5 rounded">Yes</Badge>
+                                                ) : (
+                                                    <Badge className="bg-muted text-muted-foreground text-[9px] font-semibold py-0.5 rounded">No</Badge>
+                                                )}
+                                            </td>
+                                            <td className={TABLE_CELL_ACTIONS}>
+                                                <div className="flex items-center justify-end gap-1.5">
+                                                    <Link href={`/events/${event.slug}`} target="_blank" title="View Public Page">
+                                                        <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded">
+                                                            <Eye className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                    </Link>
+                                                    <Link href={`/dashboard/events/${event.id}/edit`} title="Edit Event">
+                                                        <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded">
+                                                            <Edit className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                    </Link>
+                                                    {(user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN') && (
+                                                        <Button
+                                                            size="icon"
+                                                            variant="ghost"
+                                                            className="h-7 w-7 text-muted-foreground hover:text-red-600 hover:bg-red-50 rounded"
+                                                            onClick={() => handleDelete(event.id)}
+                                                            title="Delete Event"
+                                                        >
+                                                            <Trash2 className="h-3.5 w-3.5" />
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
                             )}
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-
-            {events.length === 0 && !loading && (
-                <div className="flex flex-col items-center justify-center py-40 text-center space-y-4 opacity-20">
-                    <CalendarIcon className="h-24 w-24" strokeWidth={0.5} />
-                    <h3 className="text-h3 font-semibold">No Events Scheduled</h3>
-                    <p className="font-bold">The campus is quiet for now. Check back later!</p>
+                        </tbody>
+                    </table>
                 </div>
-            )}
-        </div>
-    </RequireBranch>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                    <div className={PAGINATION_BAR}>
+                        <p className={PAGINATION_INFO}>
+                            Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, processedEvents.length)} of {processedEvents.length} events
+                        </p>
+                        <div className="flex items-center space-x-1">
+                            <Button
+                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                                className={PAGINATION_BUTTON + " h-8"}
+                                variant="outline"
+                            >
+                                Previous
+                            </Button>
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                                <Button
+                                    key={page}
+                                    onClick={() => setCurrentPage(page)}
+                                    className={(page === currentPage ? PAGINATION_BUTTON_ACTIVE : PAGINATION_BUTTON) + " h-8 w-8 p-0"}
+                                    variant={page === currentPage ? 'default' : 'outline'}
+                                >
+                                    {page}
+                                </Button>
+                            ))}
+                            <Button
+                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                disabled={currentPage === totalPages}
+                                className={PAGINATION_BUTTON + " h-8"}
+                                variant="outline"
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </RequireBranch>
     );
 }
