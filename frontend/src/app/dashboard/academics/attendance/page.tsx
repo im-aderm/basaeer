@@ -24,6 +24,7 @@ import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY } from '@/lib/table-styles';
 
 export default function AttendancePage() {
     const { showSuccess, showError } = useNotification();
@@ -148,33 +149,33 @@ export default function AttendancePage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <ClipboardCheck className="text-primary w-10 h-10" />
                         Daily Register
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Record and track daily pupil attendance across the branch.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px]">Record and track daily pupil attendance across the branch.</p>
                 </div>
             </div>
 
             {/* Selection Bar */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 bg-white/75 border border-border p-8 rounded-[2.5rem] shadow-sm items-end">
-                <div className="space-y-3">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                        <Calendar size={14} className="text-primary" /> Date
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-white/75 border border-primary/20 p-4 rounded-2xl shadow-sm items-end">
+                <div className="space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 flex items-center gap-1.5">
+                        <Calendar size={12} className="text-primary" /> Date
                     </label>
                     <input
                         type="date"
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none transition-all font-bold"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none transition-all font-semibold text-[12px]"
                         value={selectedDate}
                         onChange={(e) => setSelectedDate(e.target.value)}
                     />
                 </div>
-                <div className="space-y-3">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                        <Users size={14} className="text-primary" /> Class
+                <div className="space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 flex items-center gap-1.5">
+                        <Users size={12} className="text-primary" /> Class
                     </label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none appearance-none font-semibold cursor-pointer text-[12px]"
                         value={selectedClassId}
                         onChange={(e) => handleClassChange(e.target.value)}
                     >
@@ -184,12 +185,12 @@ export default function AttendancePage() {
                         ))}
                     </select>
                 </div>
-                <div className="space-y-3">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-                        <Users size={14} className="text-primary" /> Section
+                <div className="space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 flex items-center gap-1.5">
+                        <Users size={12} className="text-primary" /> Section
                     </label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none appearance-none font-bold cursor-pointer"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none appearance-none font-semibold cursor-pointer text-[12px]"
                         value={selectedSectionId}
                         disabled={!selectedClassId}
                         onChange={(e) => setSelectedSectionId(e.target.value)}
@@ -203,59 +204,59 @@ export default function AttendancePage() {
                 <button
                     onClick={handleLoadStudents}
                     disabled={!selectedSectionId || loadingStudents}
-                    className="h-[60px] flex items-center justify-center gap-2 px-8 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all disabled:opacity-50"
+                    className="h-[44px] flex items-center justify-center gap-2 px-4 bg-primary text-white rounded-xl font-semibold shadow-sm hover:scale-105 active:scale-95 transition-all disabled:opacity-50 text-[12px]"
                 >
-                    {loadingStudents ? <Loader2 size={24} className="animate-spin" /> : <Search size={22} />}
+                    {loadingStudents ? <Loader2 size={16} className="animate-spin" /> : <Search size={16} />}
                     Load Class Register
                 </button>
             </div>
 
             {/* Attendance Table */}
             {students.length > 0 && (
-                <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary animate-in zoom-in-95 duration-500">
-                    <div className="p-8 border-b border-border flex items-center justify-between bg-muted/10">
-                        <div className="flex items-center gap-6">
-                            <h2 className="text-h3 font-semibold tracking-tight">Class Register: {classes.find(c => c.id === selectedClassId)?.name} • {sections.find(s => s.id === selectedSectionId)?.name}</h2>
+                <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden border-t-4 border-t-primary animate-in zoom-in-95 duration-500">
+                    <div className="p-4 border-b border-primary/20 flex items-center justify-between bg-muted/10">
+                        <div className="flex items-center gap-4">
+                            <h2 className="text-[14px] font-semibold tracking-tight">Class Register: {classes.find(c => c.id === selectedClassId)?.name} • {sections.find(s => s.id === selectedSectionId)?.name}</h2>
                             <Button
                                 variant="outline"
                                 size="sm"
-                                className="rounded-xl font-bold h-10 px-4 flex items-center gap-2"
+                                className="rounded-lg font-semibold h-8 px-3 flex items-center gap-1.5 text-[12px]"
                                 onClick={markAllPresent}
                             >
-                                <CheckSquare size={16} /> Mark All Present
+                                <CheckSquare size={14} /> Mark All Present
                             </Button>
                         </div>
                         <button
                             onClick={handleSave}
                             disabled={submitting}
-                            className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95 disabled:opacity-50"
+                            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-semibold shadow-sm hover:bg-primary/90 transition-all active:scale-95 disabled:opacity-50 text-[12px]"
                         >
-                            {submitting ? <Loader2 size={20} className="animate-spin" /> : <Save size={20} />}
+                            {submitting ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
                             Save Attendance
                         </button>
                     </div>
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
+                        <table className={TABLE_ROOT}>
                             <thead>
-                                <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground w-[30%]">Student Name</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center w-[40%]">Status Selection</th>
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground w-[30%]">Remarks</th>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "w-[30%]")}>Student Name</th>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center w-[40%]")}>Status Selection</th>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "w-[30%]")}>Remarks</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/50">
+                            <tbody className={TABLE_BODY}>
                                 {students.map((student, idx) => (
-                                    <tr key={student.id} className="hover:bg-muted/5 transition-colors">
-                                        <td className="px-10 py-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center text-muted-foreground font-semibold text-sm">
+                                    <tr key={student.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground/60 font-semibold text-[10px]">
                                                     {String(idx + 1).padStart(2, '0')}
                                                 </div>
-                                                <p className="font-semibold text-lg tracking-tight">{student.firstName} {student.lastName}</p>
+                                                <p className="font-semibold tracking-tight">{student.firstName} {student.lastName}</p>
                                             </div>
                                         </td>
-                                        <td className="px-10 py-6">
-                                            <div className="flex items-center justify-center gap-3">
+                                        <td className={TABLE_CELL}>
+                                            <div className="flex items-center justify-center gap-2">
                                                 {[
                                                     { id: "PRESENT", icon: CheckCircle2, color: "text-green-500", bg: "bg-green-500/10", active: "bg-green-500 text-white" },
                                                     { id: "ABSENT", icon: XCircle, color: "text-red-500", bg: "bg-red-500/10", active: "bg-red-500 text-white" },
@@ -266,22 +267,22 @@ export default function AttendancePage() {
                                                         key={opt.id}
                                                         onClick={() => updateStatus(student.id, opt.id)}
                                                         className={clsx(
-                                                            "group flex flex-col items-center gap-2 p-3 rounded-2xl border-2 transition-all min-w-[80px]",
+                                                            "group flex flex-col items-center gap-1 p-2 rounded-lg border transition-all min-w-[64px]",
                                                             attendanceData[student.id]?.status === opt.id
-                                                                ? `${opt.active} border-transparent shadow-lg scale-105`
-                                                                : `bg-card border-border hover:border-primary/60 ${opt.color}`
+                                                                ? `${opt.active} border-transparent shadow-sm scale-105`
+                                                                : `bg-card border-primary/20 hover:border-primary/60 ${opt.color}`
                                                         )}
                                                     >
-                                                        <opt.icon size={20} />
-                                                        <span className="text-[9px] font-semibold uppercase tracking-widest">{opt.id}</span>
+                                                        <opt.icon size={14} />
+                                                        <span className="text-[8px] font-semibold uppercase tracking-widest">{opt.id}</span>
                                                     </button>
                                                 ))}
                                             </div>
                                         </td>
-                                        <td className="px-10 py-6">
+                                        <td className={TABLE_CELL}>
                                             <Input
                                                 placeholder="Add remarks..."
-                                                className="bg-muted/30 border-none rounded-xl font-bold text-sm"
+                                                className="bg-muted/30 border-none rounded-lg font-semibold text-[12px]"
                                                 value={attendanceData[student.id]?.remarks || ''}
                                                 onChange={(e) => updateRemarks(student.id, e.target.value)}
                                             />
@@ -295,12 +296,12 @@ export default function AttendancePage() {
             )}
 
             {students.length === 0 && !loadingStudents && (
-                <div className="py-40 text-center bg-white/75 border border-border rounded-[4rem] animate-in zoom-in-95 duration-500">
-                    <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-muted mb-6">
-                        <ClipboardCheck size={48} className="text-muted-foreground/30" />
+                <div className="py-16 text-center bg-white/75 border border-primary/20 rounded-2xl animate-in zoom-in-95 duration-500">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+                        <ClipboardCheck size={32} className="text-foreground/30" />
                     </div>
-                    <h3 className="text-h1 font-semibold tracking-tight">Load Class List</h3>
-                    <p className="text-muted-foreground font-medium mt-2">Select a class and section above to begin marking the daily register.</p>
+                    <h3 className="text-[16px] font-semibold tracking-tight">Load Class List</h3>
+                    <p className="text-foreground/60 font-medium mt-1 text-[12px]">Select a class and section above to begin marking the daily register.</p>
                 </div>
             )}
         </div>

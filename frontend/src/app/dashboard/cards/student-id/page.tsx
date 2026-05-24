@@ -25,6 +25,7 @@ import { CardService, IdCardTemplate, IdCard } from "@/services/cardService";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNotification } from '@/context/NotificationContext';
 import { QRCodeSVG } from "qrcode.react";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 import {
     Dialog,
     DialogContent,
@@ -141,23 +142,23 @@ export default function StudentIdCardsPage() {
         return cards.find(c => c.studentId === studentId);
     };
 
-    if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading) return <div className="p-4 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+        <div className="space-y-6 animate-in fade-in duration-500 pb-20">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Users className="text-primary w-10 h-10" />
                         Student ID Management
                     </h1>
-                    <p className="text-muted-foreground font-medium text-lg">Batch generate and manage student identity cards.</p>
+                    <p className="text-foreground/60 font-medium text-[12px]">Batch generate and manage student identity cards.</p>
                 </div>
                 <div className="flex flex-wrap gap-4">
                     <Button
                         disabled={selectedStudents.length === 0 || generating}
                         onClick={handleGenerate}
-                        className="gap-3 rounded-[1.5rem] h-14 px-8 font-semibold text-lg shadow-xl shadow-primary/20 hover:scale-105 transition-all bg-primary"
+                        className="gap-3 rounded-xl h-12 px-6 font-semibold text-[12px] shadow-xl shadow-primary/20 hover:scale-105 transition-all bg-primary"
                     >
                         {generating ? <Loader2 className="animate-spin" /> : <ArrowRightCircle size={20} />}
                         Generate {selectedStudents.length > 0 ? `(${selectedStudents.length})` : ''} Cards
@@ -166,12 +167,12 @@ export default function StudentIdCardsPage() {
             </div>
 
             {/* Filters */}
-            <Card className="rounded-[3rem] border-border/50 shadow-lg p-6">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <Card className="rounded-2xl border-primary/20 shadow-lg p-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Class</label>
+                        <label className="text-[12px] font-semibold uppercase text-foreground/60 ml-2">Class</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-10 rounded-xl bg-white border border-primary/90 font-semibold px-3 text-[12px] focus:ring-2 ring-primary/20"
                             value={filters.classId}
                             onChange={(e) => setFilters({ ...filters, classId: e.target.value })}
                         >
@@ -180,9 +181,9 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Session</label>
+                        <label className="text-[12px] font-semibold uppercase text-foreground/60 ml-2">Session</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-10 rounded-xl bg-white border border-primary/90 font-semibold px-3 text-[12px] focus:ring-2 ring-primary/20"
                             value={filters.sessionId}
                             onChange={(e) => setFilters({ ...filters, sessionId: e.target.value })}
                         >
@@ -190,9 +191,9 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">ID Template</label>
+                        <label className="text-[12px] font-semibold uppercase text-foreground/60 ml-2">ID Template</label>
                         <select
-                            className="w-full h-12 rounded-xl bg-white border border-primary/90 font-bold px-4 focus:ring-2 ring-primary/20"
+                            className="w-full h-10 rounded-xl bg-white border border-primary/90 font-semibold px-3 text-[12px] focus:ring-2 ring-primary/20"
                             value={filters.templateId}
                             onChange={(e) => setFilters({ ...filters, templateId: e.target.value })}
                         >
@@ -201,12 +202,12 @@ export default function StudentIdCardsPage() {
                         </select>
                     </div>
                     <div className="space-y-2">
-                        <label className="text-[10px] font-semibold uppercase text-muted-foreground ml-2">Search Students</label>
+                        <label className="text-[12px] font-semibold uppercase text-foreground/60 ml-2">Search Students</label>
                         <div className="relative">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/60" size={18} />
                             <Input
                                 placeholder="Name or registration..."
-                                className="pl-12 h-12 rounded-xl bg-muted/50 border-none font-bold"
+                                className="pl-12 h-10 rounded-xl bg-muted/50 border-none font-semibold text-[12px]"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -216,21 +217,21 @@ export default function StudentIdCardsPage() {
             </Card>
 
             {/* Student List */}
-            <Card className="rounded-[4rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-primary/10">
-                <CardHeader className="p-10 pb-0">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden border-t-8 border-t-primary/10">
+                <CardHeader className="p-4 pb-0">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-h3 font-semibold tracking-tight">Student Enrollment List</CardTitle>
-                        <div className="text-sm font-bold text-muted-foreground">
+                        <CardTitle className="text-[12px] font-semibold tracking-tight">Student Enrollment List</CardTitle>
+                        <div className="text-[12px] font-bold text-foreground/60">
                             {selectedStudents.length} selected / {filteredStudents.length} total
                         </div>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
-                        <table className="w-full">
+                        <table className={TABLE_ROOT}>
                             <thead>
-                                <tr className="bg-muted/30 text-left">
-                                    <th className="px-10 py-6 w-10">
+                                <tr className={TABLE_HEADER}>
+                                    <th className={`${TABLE_HEADER_CELL_NO_SORT} w-10`}>
                                         <Checkbox
                                             checked={selectedStudents.length === filteredStudents.length && filteredStudents.length > 0}
                                             onCheckedChange={(checked) => {
@@ -239,74 +240,74 @@ export default function StudentIdCardsPage() {
                                             }}
                                         />
                                     </th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Student Info</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">Class Info</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground">ID Status</th>
-                                    <th className="px-6 py-6 text-right text-[10px] uppercase tracking-[0.3em] font-semibold text-muted-foreground pr-10">Action</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Student Info</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Class Info</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>ID Status</th>
+                                    <th className={`${TABLE_HEADER_CELL_NO_SORT} text-right`}>Action</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/30">
+                            <tbody className={TABLE_BODY}>
                                 {filteredStudents.map((student) => {
                                     const card = getCardForStudent(student.id);
                                     return (
-                                        <tr key={student.id} className="hover:bg-primary/5 transition-all group">
-                                            <td className="px-10 py-6">
+                                        <tr key={student.id} className={TABLE_ROW}>
+                                            <td className="px-3 py-1.5">
                                                 <Checkbox
                                                     checked={selectedStudents.includes(student.id)}
                                                     onCheckedChange={() => toggleStudent(student.id)}
                                                 />
                                             </td>
-                                            <td className="px-6 py-6">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-muted bg-muted">
+                                            <td className={TABLE_CELL_PRIMARY}>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-muted bg-muted">
                                                         {student.passportPhoto ? (
                                                             <img src={student.passportPhoto} alt={`${student.firstName || ''} ${student.lastName || ''}`} className="w-full h-full object-cover" />
                                                         ) : (
-                                                            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                                                                <Users size={20} />
+                                                            <div className="w-full h-full flex items-center justify-center text-foreground/60">
+                                                                <Users size={16} />
                                                             </div>
                                                         )}
                                                     </div>
                                                     <div>
-                                                        <div className="font-semibold text-lg tracking-tight">{student.firstName} {student.lastName}</div>
-                                                        <div className="text-xs font-bold text-muted-foreground">REG: {student.id.split('-')[0].toUpperCase()}</div>
+                                                        <div className="font-semibold text-[12px] tracking-tight">{student.firstName} {student.lastName}</div>
+                                                        <div className="text-[12px] font-bold text-foreground/60">REG: {student.id.split('-')[0].toUpperCase()}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-6">
-                                                <div className="font-bold text-base">{student.class?.name || 'N/A'}</div>
-                                                <div className="text-xs font-medium text-muted-foreground">{student.section?.name || ''}</div>
+                                            <td className={TABLE_CELL}>
+                                                <div className="font-bold text-[12px]">{student.class?.name || 'N/A'}</div>
+                                                <div className="text-[12px] font-medium text-foreground/60">{student.section?.name || ''}</div>
                                             </td>
-                                            <td className="px-6 py-6">
+                                            <td className={TABLE_CELL}>
                                                 {card ? (
-                                                    <div className="flex items-center gap-2 text-primary font-semibold uppercase text-xs">
-                                                        <CheckCircle2 size={16} /> Generated
+                                                    <div className="flex items-center gap-2 text-primary font-semibold uppercase text-[12px]">
+                                                        <CheckCircle2 size={14} /> Generated
                                                     </div>
                                                 ) : (
-                                                    <div className="flex items-center gap-2 text-amber-500 font-semibold uppercase text-xs">
-                                                        <Clock size={16} /> Not Issued
+                                                    <div className="flex items-center gap-2 text-amber-500 font-semibold uppercase text-[12px]">
+                                                        <Clock size={14} /> Not Issued
                                                     </div>
                                                 )}
                                             </td>
-                                            <td className="px-6 py-6 text-right pr-10">
+                                            <td className={TABLE_CELL_ACTIONS}>
                                                 <div className="flex items-center justify-end gap-2">
                                                     {card && (
                                                         <>
                                                             <Button 
                                                                 variant="ghost" 
                                                                 size="icon" 
-                                                                className="h-10 w-10 rounded-xl hover:bg-primary/10 text-primary"
+                                                                className="h-8 w-8 rounded-lg hover:bg-primary/10 text-primary"
                                                                 onClick={() => setPreviewCard(card)}
                                                             >
-                                                                <Printer size={18} />
+                                                                <Printer size={16} />
                                                             </Button>
-                                                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-primary/10 text-primary">
-                                                                <Download size={18} />
+                                                            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-primary/10 text-primary">
+                                                                <Download size={16} />
                                                             </Button>
                                                         </>
                                                     )}
-                                                    <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl hover:bg-muted group-hover:bg-white/50">
-                                                        <ChevronRight size={18} />
+                                                    <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg hover:bg-muted group-hover:bg-white/50">
+                                                        <ChevronRight size={16} />
                                                     </Button>
                                                 </div>
                                             </td>

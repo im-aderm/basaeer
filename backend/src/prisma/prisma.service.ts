@@ -139,7 +139,7 @@ export class PrismaService
               'InventoryUnit', 'InventoryProduct', 'InventoryPurchase',
               'InventoryIssue', 'InventorySale',
               'CallLog', 'VisitorLog', 'Complaint', 'PostalRecord',
-              'CampusEvent', 'EventRSVP', 'Alumni', 'AlumniEvent', 'AlumniEventParticipant',
+              'CampusEvent', 'EventRSVP', 'EventApplication', 'EventPackage', 'EventSchedule', 'EventGallery', 'EventCategory', 'EventPayment', 'Alumni', 'AlumniEvent', 'AlumniEventParticipant',
               'LiveClassSession', 'MeetingParticipant', 'GoogleMeetConfig',
               'IdCardTemplate', 'IdCard', 'DigitalResource', 'DigitalResourceLog',
               'AttachmentCategory', 'ReportTemplate', 'AcademicExport',

@@ -9,13 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { GraduationCap, Plus, Calendar, Clock, BookOpen, Users, Activity, BarChart3, MoreVertical, Send, Eye } from 'lucide-react';
 import { OnlineExamService, OnlineExam, QuestionGroup, ExamStatus } from '@/services/onlineExamService';
 import { useNotification } from '@/context/NotificationContext';
 import api from '@/lib/api';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function OnlineExamsPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -94,7 +94,7 @@ export default function OnlineExamsPage() {
         }
     };
 
-    if (loading) return <div className="p-8">Loading examinations...</div>;
+    if (loading) return <div className="p-4">Loading examinations...</div>;
 
     return (
         <RequireBranch requireSpecificBranch>
@@ -102,8 +102,8 @@ export default function OnlineExamsPage() {
                 <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Online Examinations</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Schedule and monitor digital assessments for students.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Online Examinations</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Schedule and monitor digital assessments for students.</p>
                 </div>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -203,134 +203,132 @@ export default function OnlineExamsPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Total Exams</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{exams.length}</span>
-                        <BookOpen className="h-8 w-8 text-primary/40" />
-                    </CardContent>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Total Exams</p>
+                        <h3 className={STAT_VALUE}>{exams.length}</h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Active Now</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.LIVE).length}</span>
-                        <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
-                    </CardContent>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Active Now</p>
+                        <h3 className={STAT_VALUE}>{(exams ?? []).filter(e => e.status === ExamStatus.LIVE).length}</h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Upcoming</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</span>
-                        <Calendar className="h-8 w-8 text-primary/40" />
-                    </CardContent>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-primary/5 border-l-4 border-l-primary ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Upcoming</p>
+                        <h3 className={STAT_VALUE}>{(exams ?? []).filter(e => e.status === ExamStatus.PUBLISHED || e.status === ExamStatus.UPCOMING).length}</h3>
+                    </div>
                 </Card>
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-muted/30 border-l-4 border-l-muted-foreground">
-                    <CardHeader className="pb-2"><CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">Completed</CardTitle></CardHeader>
-                    <CardContent className="flex items-center gap-4">
-                        <span className="text-h1 font-semibold">{(exams ?? []).filter(e => e.status === ExamStatus.ENDED).length}</span>
-                        <BarChart3 className="h-8 w-8 text-muted-foreground/40" />
-                    </CardContent>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-muted/30 border-l-4 border-l-foreground/30 ${STAT_CARD}`}>
+                    <div className="p-4">
+                        <p className={STAT_LABEL}>Completed</p>
+                        <h3 className={STAT_VALUE}>{(exams ?? []).filter(e => e.status === ExamStatus.ENDED).length}</h3>
+                    </div>
                 </Card>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Users className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="p-4 pb-2 border-b border-primary/20">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Users className="h-5 w-5 text-primary" />
                         Examination Roster
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Exam Details</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Class & Subject</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Schedule</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Status</TableHead>
-                                <TableHead className="font-semibold px-8 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {(exams ?? []).map((exam) => (
-                                <TableRow key={exam.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8">
-                                        <div className="space-y-1">
-                                            <div className="font-semibold text-lg leading-tight">{exam.title}</div>
-                                            <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
-                                                <Activity className="h-3 w-3" />
-                                                {exam.group?.name} ({exam.group?._count?.questions || 0} Questions)
+                    <div className="overflow-x-auto">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Exam Details</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Class & Subject</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Schedule</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
+                                {(exams ?? []).map((exam) => (
+                                    <tr key={exam.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>
+                                            <div className="space-y-1">
+                                                <div className="font-semibold text-[12px] leading-tight">{exam.title}</div>
+                                                <div className="flex items-center gap-2 text-[10px] font-bold text-foreground/60">
+                                                    <Activity className="h-3 w-3" />
+                                                    {exam.group?.name} ({exam.group?._count?.questions || 0} Questions)
+                                                </div>
                                             </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1">
-                                            <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-semibold w-fit">{exam.class?.name}</div>
-                                            <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-semibold w-fit">{exam.subject?.name}</div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="flex flex-col gap-1 font-bold text-sm">
-                                            <div className="flex items-center gap-2 text-muted-foreground">
-                                                <Calendar className="h-4 w-4" />
-                                                {new Date(exam.scheduledDate).toLocaleDateString()}
+                                        </td>
+                                        <td className={TABLE_CELL}>
+                                            <div className="flex flex-col gap-1">
+                                                <div className="px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-semibold w-fit">{exam.class?.name}</div>
+                                                <div className="px-3 py-1 rounded-full bg-muted text-[10px] font-semibold w-fit">{exam.subject?.name}</div>
                                             </div>
-                                            <div className="flex items-center gap-2 text-muted-foreground">
-                                                <Clock className="h-4 w-4" />
-                                                {new Date(exam.scheduledDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ({exam.durationMinutes}m)
+                                        </td>
+                                        <td className={TABLE_CELL}>
+                                            <div className="flex flex-col gap-1 font-bold text-[12px]">
+                                                <div className="flex items-center gap-2 text-foreground/60">
+                                                    <Calendar className="h-4 w-4" />
+                                                    {new Date(exam.scheduledDate).toLocaleDateString()}
+                                                </div>
+                                                <div className="flex items-center gap-2 text-foreground/60">
+                                                    <Clock className="h-4 w-4" />
+                                                    {new Date(exam.scheduledDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} ({exam.durationMinutes}m)
+                                                </div>
                                             </div>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className={`px-4 py-1.5 rounded-full font-semibold text-[10px] uppercase tracking-widest w-fit shadow-sm ${getStatusColor(exam.status)}`}>
-                                            {exam.status}
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <div className="flex justify-end gap-3">
-                                            {user?.role === 'STUDENT' ? (
-                                                <Button
-                                                    className="h-12 px-6 rounded-2xl font-semibold gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all"
-                                                    disabled={exam.status !== ExamStatus.LIVE}
-                                                    onClick={() => router.push(`/dashboard/online-exams/take/${exam.id}`)}
-                                                >
-                                                    <Send className="h-5 w-5" />
-                                                    Start Exam
-                                                </Button>
-                                            ) : (
-                                                <>
+                                        </td>
+                                        <td className={TABLE_CELL}>
+                                            <div className={`px-4 py-1.5 rounded-full font-semibold text-[10px] uppercase tracking-widest w-fit shadow-sm ${getStatusColor(exam.status)}`}>
+                                                {exam.status}
+                                            </div>
+                                        </td>
+                                        <td className={TABLE_CELL_ACTIONS}>
+                                            <div className="flex justify-end gap-3">
+                                                {user?.role === 'STUDENT' ? (
                                                     <Button
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className="h-12 w-12 rounded-2xl border-border/50 text-muted-foreground hover:text-primary hover:bg-primary/5 hover:border-primary/20"
+                                                        className="h-9 px-4 rounded-xl font-semibold gap-2 shadow-lg shadow-primary/20 text-[12px]"
+                                                        disabled={exam.status !== ExamStatus.LIVE}
+                                                        onClick={() => router.push(`/dashboard/online-exams/take/${exam.id}`)}
                                                     >
-                                                        <Eye className="h-5 w-5" />
+                                                        <Send className="h-4 w-4" />
+                                                        Start Exam
                                                     </Button>
-                                                    <Button
-                                                        variant="outline"
-                                                        size="icon"
-                                                        className={`h-12 w-12 rounded-2xl border-border/50 ${exam.status === ExamStatus.LIVE ? 'text-primary hover:bg-primary/10 border-primary/20' : 'text-muted-foreground hover:text-primary hover:bg-primary/10'}`}
-                                                    >
-                                                        <Send className="h-5 w-5" />
-                                                    </Button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            {exams.length === 0 && (
-                                <TableRow>
-                                    <TableCell colSpan={5} className="h-60 text-center">
-                                        <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
-                                            <GraduationCap className="h-24 w-24 stroke-[1]" />
-                                            <p className="font-semibold text-h3 uppercase tracking-tighter">No Examinations Scheduled</p>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                                                ) : (
+                                                    <>
+                                                        <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            className="h-9 w-9 rounded-xl border-primary/20 text-foreground/60 hover:text-primary hover:bg-primary/5"
+                                                        >
+                                                            <Eye className="h-4 w-4" />
+                                                        </Button>
+                                                        <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            className={`h-9 w-9 rounded-xl border-primary/20 ${exam.status === ExamStatus.LIVE ? 'text-primary hover:bg-primary/10' : 'text-foreground/60 hover:text-primary hover:bg-primary/10'}`}
+                                                        >
+                                                            <Send className="h-4 w-4" />
+                                                        </Button>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {exams.length === 0 && (
+                                    <tr>
+                                        <td colSpan={5} className="py-12 text-center">
+                                            <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
+                                                <GraduationCap className="h-24 w-24 stroke-[1]" />
+                                                <p className="font-semibold text-[12px] uppercase tracking-tighter">No Examinations Scheduled</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </CardContent>
             </Card>
         </div>

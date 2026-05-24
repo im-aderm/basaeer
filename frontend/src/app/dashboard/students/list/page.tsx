@@ -9,21 +9,14 @@ import {
     Users,
     Search,
     Filter,
-    MoreVertical,
     Loader2,
-    User,
-    Mail,
-    Phone,
     GraduationCap,
-    MapPin,
     ExternalLink,
     Grid,
     List,
     Trash2,
-    Edit3,
     IdCard,
     Printer,
-    Download,
     X,
     Eye,
     Pencil
@@ -33,6 +26,7 @@ import { StudentIDCard } from "@/components/StudentIDCard";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from "@/lib/table-styles";
 
 export default function StudentListPage() {
     const [students, setStudents] = useState<Student[]>([]);
@@ -89,32 +83,32 @@ export default function StudentListPage() {
             <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
                 <BranchContextBanner />
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Users className="text-primary w-10 h-10" />
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-2">
+                        <Users className="text-primary w-6 h-6" />
                         Student Directory
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Browse and manage pupils across all educational levels.</p>
+                    <p className="text-foreground/60 mt-1 text-[12px] font-medium">Browse and manage pupils across all educational levels.</p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <div className="flex bg-muted p-1 rounded-xl border border-border">
+                    <div className="flex bg-muted p-1 rounded-lg border border-border">
                         <button
                             onClick={() => setViewMode("table")}
-                            className={clsx("p-2 rounded-lg transition-all", viewMode === "table" ? "bg-background shadow-sm text-primary" : "text-muted-foreground hover:text-foreground")}
+                            className={clsx("p-1.5 rounded-md transition-all", viewMode === "table" ? "bg-background shadow-sm text-primary" : "text-foreground/50 hover:text-foreground")}
                         >
-                            <List size={20} />
+                            <List size={16} />
                         </button>
                         <button
                             onClick={() => setViewMode("grid")}
-                            className={clsx("p-2 rounded-lg transition-all", viewMode === "grid" ? "bg-background shadow-sm text-primary" : "text-muted-foreground hover:text-foreground")}
+                            className={clsx("p-1.5 rounded-md transition-all", viewMode === "grid" ? "bg-background shadow-sm text-primary" : "text-foreground/50 hover:text-foreground")}
                         >
-                            <Grid size={20} />
+                            <Grid size={16} />
                         </button>
                     </div>
                     <button
                         onClick={() => window.location.href = "/dashboard/students/admission"}
-                        className="flex items-center gap-2 px-8 py-3.5 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
+                        className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-semibold text-[12px] shadow-md shadow-primary/20 hover:scale-105 active:scale-95 transition-all"
                     >
                         Admission
                     </button>
@@ -122,21 +116,21 @@ export default function StudentListPage() {
             </div>
 
             {/* Filters & Search */}
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-white/75 border border-border p-4 rounded-[2rem] shadow-sm">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 bg-white/75 border border-primary/20 p-3 rounded-2xl shadow-sm">
                 <div className="relative group lg:col-span-2">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors" size={18} />
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-primary transition-colors" size={16} />
                     <input
                         type="text"
                         placeholder="Search by name, email, or ID..."
-                        className="w-full pl-12 pr-4 py-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none transition-all font-medium"
+                        className="w-full pl-10 pr-3 py-2.5 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none transition-all text-[12px] font-medium"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
                 <div className="relative">
-                    <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                    <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40" size={16} />
                     <select
-                        className="w-full pl-12 pr-4 py-3 bg-white border border-primary/90 rounded-xl focus:border-primary outline-none appearance-none font-medium cursor-pointer"
+                        className="w-full pl-10 pr-3 py-2.5 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none appearance-none text-[12px] font-medium cursor-pointer"
                         value={selectedClassId}
                         onChange={(e) => setSelectedClassId(e.target.value)}
                     >
@@ -146,97 +140,93 @@ export default function StudentListPage() {
                         ))}
                     </select>
                 </div>
-                <div className="flex items-center px-4 text-sm text-muted-foreground font-bold">
-                    {filteredStudents.length} Students Listed
+                <div className="flex items-center px-3 text-[12px] text-foreground/60 font-semibold">
+                    {filteredStudents.length} Students
                 </div>
             </div>
 
             {/* Directory View */}
             {viewMode === "table" ? (
-                <div className="bg-white/75 border border-border rounded-[2.5rem] shadow-sm overflow-hidden">
+                <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
+                        <table className={TABLE_ROOT}>
                             <thead>
-                                <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student Name</th>
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Class & Section</th>
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Email / Login</th>
-                                    <th className="px-10 py-6 text-[10px] text-right uppercase tracking-[0.2em] font-semibold text-muted-foreground">Actions</th>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Student Name</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Class & Section</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Email / Login</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/50">
+                            <tbody className={TABLE_BODY}>
                                 {filteredStudents.map(student => (
-                                    <tr key={student.id} className="hover:bg-muted/10 transition-colors group">
-                                        <td className="px-10 py-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary font-semibold text-lg group-hover:scale-110 transition-transform">
+                                    <tr key={student.id} className={TABLE_ROW + " group"}>
+                                        <td className={TABLE_CELL_PRIMARY}>
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-semibold text-[12px] shrink-0">
                                                     {student.firstName[0]}{student.lastName[0]}
                                                 </div>
-                                                <div>
-                                                    <p className="font-semibold text-lg">{student.firstName} {student.lastName}</p>
-                                                    <p className="text-xs text-muted-foreground font-semibold uppercase tracking-widest mt-0.5">ID: {student.id.split('-')[0].toUpperCase()}</p>
+                                                <div className="min-w-0">
+                                                    <p className="font-semibold text-[12px] truncate">{student.firstName} {student.lastName}</p>
+                                                    <p className="text-[11px] text-foreground/50 font-mono truncate">ID: {student.id.split('-')[0].toUpperCase()}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-6">
-                                            <div className="flex flex-col gap-1">
-                                                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/5 border border-primary/10 rounded-lg text-xs font-semibold text-primary w-fit uppercase tracking-tighter">
-                                                    <GraduationCap size={12} />
+                                        <td className={TABLE_CELL}>
+                                            <div className="flex flex-col gap-0.5">
+                                                <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/5 border border-primary/10 rounded text-[11px] font-semibold text-primary w-fit">
+                                                    <GraduationCap size={10} />
                                                     {student.class?.name || "No Class"}
                                                 </span>
-                                                <span className="text-xs text-muted-foreground font-bold pl-1">
+                                                <span className="text-[11px] text-foreground/60">
                                                     Section: {student.section?.name || "N/A"}
                                                 </span>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-6">
-                                            <div className="space-y-1">
-                                                <div className="flex items-center gap-2 text-sm font-bold">
-                                                    <Mail size={14} className="text-primary/60" />
-                                                    {student.user?.email}
-                                                </div>
+                                        <td className={TABLE_CELL}>
+                                            <div className="space-y-0.5">
+                                                <p className="text-[12px] font-medium truncate">{student.user?.email}</p>
                                                 {student.user?.phone && (
-                                                    <div className="flex items-center gap-2 text-xs text-muted-foreground font-medium pl-1">
-                                                        <Phone size={12} />
-                                                        {student.user.phone}
-                                                    </div>
+                                                    <p className="text-[11px] text-foreground/60 truncate">{student.user.phone}</p>
                                                 )}
                                             </div>
                                         </td>
-                                        <td className="px-10 py-6 text-right relative">
-                                            <div className="flex items-center justify-end gap-2 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <td className={TABLE_CELL_ACTIONS}>
+                                            <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <Button
                                                     size="icon"
-                                                    variant="secondary"
-                                                    className="h-9 w-9 rounded-xl bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all border-none"
+                                                    variant="ghost"
+                                                    className="h-7 w-7 rounded-md text-foreground/60 hover:text-primary hover:bg-primary/10"
                                                     onClick={() => router.push(`/dashboard/students/${student.id}`)}
                                                 >
-                                                    <Eye size={18} />
+                                                    <Eye size={14} />
                                                 </Button>
                                                 <Button
                                                     size="icon"
-                                                    variant="secondary"
-                                                    className="h-9 w-9 rounded-xl bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all border-none"
+                                                    variant="ghost"
+                                                    className="h-7 w-7 rounded-md text-foreground/60 hover:text-primary hover:bg-primary/10"
                                                     onClick={() => router.push(`/dashboard/students/edit/${student.id}`)}
                                                 >
-                                                    <Pencil size={18} />
+                                                    <Pencil size={14} />
                                                 </Button>
                                                 <button
                                                     onClick={() => {
                                                         setSelectedStudentForCard(student);
                                                         setIsCardModalOpen(true);
                                                     }}
-                                                    className="p-2.5 bg-muted hover:bg-primary/10 text-muted-foreground hover:text-primary rounded-xl transition-all"
+                                                    className="p-1.5 rounded-md text-foreground/60 hover:text-primary hover:bg-primary/10 transition-all"
                                                     title="Generate ID Card"
                                                 >
-                                                    <IdCard size={18} />
+                                                    <IdCard size={14} />
                                                 </button>
-                                                <button className="p-2.5 bg-muted hover:bg-red-500/10 text-muted-foreground hover:text-red-600 rounded-xl transition-all"><Trash2 size={18} /></button>
+                                                <button className="p-1.5 rounded-md text-foreground/60 hover:text-red-600 hover:bg-red-500/10 transition-all">
+                                                    <Trash2 size={14} />
+                                                </button>
                                                 <button
                                                     onClick={() => router.push(`/dashboard/students/${student.id}`)}
-                                                    className="p-2.5 bg-primary text-white rounded-xl shadow-lg shadow-primary/20"
+                                                    className="p-1.5 rounded-md bg-primary text-white hover:bg-primary/90"
                                                 >
-                                                    <ExternalLink size={18} />
+                                                    <ExternalLink size={14} />
                                                 </button>
                                             </div>
                                         </td>

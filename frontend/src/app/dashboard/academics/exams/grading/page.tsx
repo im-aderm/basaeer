@@ -31,6 +31,7 @@ import ConfirmDialog from '@/components/ConfirmDialog';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function GradingPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -199,19 +200,19 @@ export default function GradingPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Award className="text-primary w-10 h-10" />
                         Grading Configuration
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Define how performance is calculated and translated into grades.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px]">Define how performance is calculated and translated into grades.</p>
                 </div>
 
-                <div className="flex bg-muted/30 p-1.5 rounded-3xl border border-border">
+                <div className="flex bg-muted/30 p-1 rounded-xl border border-primary/20">
                     <button 
                         onClick={() => setActiveTab("scales")}
                         className={clsx(
-                            "px-6 py-2.5 rounded-2xl text-sm font-bold transition-all",
-                            activeTab === "scales" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+                            "px-4 py-1.5 rounded-lg text-[12px] font-semibold transition-all",
+                            activeTab === "scales" ? "bg-white text-primary shadow-sm" : "text-foreground/60 hover:text-foreground"
                         )}
                     >
                         Grading Scales
@@ -219,8 +220,8 @@ export default function GradingPage() {
                     <button 
                         onClick={() => setActiveTab("components")}
                         className={clsx(
-                            "px-6 py-2.5 rounded-2xl text-sm font-bold transition-all",
-                            activeTab === "components" ? "bg-white text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"
+                            "px-4 py-1.5 rounded-lg text-[12px] font-semibold transition-all",
+                            activeTab === "components" ? "bg-white text-primary shadow-sm" : "text-foreground/60 hover:text-foreground"
                         )}
                     >
                         Assessment Components
@@ -231,46 +232,46 @@ export default function GradingPage() {
             {activeTab === "scales" ? (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     {/* Scale Form */}
-                    <div className="lg:col-span-1 space-y-6">
-                        <div className="bg-white/75 border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
-                            <h2 className="text-h3 font-semibold flex items-center gap-2">
-                                <Plus className="text-primary" size={20} /> Add New Grade
+                        <div className="lg:col-span-1 space-y-4">
+                        <div className="bg-white/75 border border-primary/20 rounded-2xl p-4 space-y-4 shadow-sm">
+                            <h2 className="text-[14px] font-semibold flex items-center gap-2">
+                                <Plus className="text-primary" size={16} /> Add New Grade
                             </h2>
 
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-2">Grade Label (e.g. A1)</label>
+                            <div className="space-y-3">
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Grade Label (e.g. A1)</label>
                                     <input
-                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                         value={newScale.grade}
                                         onChange={e => setNewScale({ ...newScale, grade: e.target.value })}
                                         placeholder="A1"
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-label text-muted-foreground ml-2">Min Score</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Min Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                             value={newScale.minScore}
                                             onChange={e => setNewScale({ ...newScale, minScore: Number(e.target.value) })}
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-label text-muted-foreground ml-2">Max Score</label>
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Max Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                             value={newScale.maxScore}
                                             onChange={e => setNewScale({ ...newScale, maxScore: Number(e.target.value) })}
                                         />
                                     </div>
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-2">Remark</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Remark</label>
                                     <input
-                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                         value={newScale.remark}
                                         onChange={e => setNewScale({ ...newScale, remark: e.target.value })}
                                         placeholder="Excellent"
@@ -280,9 +281,9 @@ export default function GradingPage() {
                                 <button
                                     onClick={handleAddScale}
                                     disabled={saving || !newScale.grade}
-                                    className="w-full py-4 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                                    className="w-full py-2 bg-primary text-white rounded-lg font-semibold shadow-sm hover:scale-[1.01] active:scale-95 transition-all disabled:opacity-50 text-[12px]"
                                 >
-                                    {saving ? <Loader2 size={24} className="animate-spin mx-auto" /> : "Save Grading Rule"}
+                                    {saving ? <Loader2 size={16} className="animate-spin mx-auto" /> : "Save Grading Rule"}
                                 </button>
                             </div>
                         </div>
@@ -290,44 +291,40 @@ export default function GradingPage() {
 
                     {/* Scale List */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
-                            <div className="p-8 border-b border-border bg-muted/10">
-                                <h2 className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
-                                    <Sliders className="text-primary" size={24} />
+                        <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden border-t-4 border-t-primary">
+                            <div className="p-4 border-b border-primary/20 bg-muted/10">
+                                <h2 className="text-[14px] font-semibold tracking-tight text-primary flex items-center gap-2">
+                                    <Sliders className="text-primary" size={18} />
                                     Active Grading Scale
                                 </h2>
                             </div>
                             <div className="overflow-x-auto">
-                                <table className="w-full border-collapse">
+                                <table className={TABLE_ROOT}>
                                     <thead>
-                                        <tr className="bg-muted/30 text-left border-b border-border">
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Grade</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Range</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Remark</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-right">Scope</th>
+                                        <tr className={TABLE_HEADER}>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Grade</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Range</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Remark</th>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-right")}>Scope</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-border/50">
+                                    <tbody className={TABLE_BODY}>
                                         {scales.map((scale) => (
-                                            <tr key={scale.id} className="hover:bg-muted/5 transition-colors">
-                                                <td className="px-10 py-6">
-                                                    <span className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 text-primary rounded-xl font-semibold text-lg">
+                                            <tr key={scale.id} className={TABLE_ROW}>
+                                                <td className={TABLE_CELL_PRIMARY}>
+                                                    <span className="inline-flex items-center justify-center w-8 h-8 bg-primary/10 text-primary rounded-lg font-semibold text-[12px]">
                                                         {scale.grade}
                                                     </span>
                                                 </td>
-                                                <td className="px-10 py-6">
-                                                    <p className="font-semibold text-lg tracking-tight">
-                                                        {scale.minScore} - {scale.maxScore}
-                                                    </p>
+                                                <td className={TABLE_CELL_PRIMARY}>
+                                                    {scale.minScore} - {scale.maxScore}
                                                 </td>
-                                                <td className="px-10 py-6">
-                                                    <p className="font-medium text-muted-foreground">
-                                                        {scale.remark || "No remark"}
-                                                    </p>
+                                                <td className={TABLE_CELL}>
+                                                    {scale.remark || "No remark"}
                                                 </td>
-                                                <td className="px-10 py-6 text-right">
+                                                <td className={clsx(TABLE_CELL, "text-right")}>
                                                     <span className={clsx(
-                                                        "px-4 py-1.5 rounded-full text-label",
+                                                        "px-2 py-1 rounded-full text-[10px] font-semibold",
                                                         scale.branchId ? "bg-blue-500/10 text-blue-600 border border-blue-500/20" : "bg-primary/10 text-primary border border-primary/20"
                                                     )}>
                                                         {scale.branchId ? "Branch Spec" : "Global System"}
@@ -344,77 +341,77 @@ export default function GradingPage() {
             ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                     {/* Component Form */}
-                    <div className="lg:col-span-1 space-y-6">
-                        <div className="bg-white/75 border border-border rounded-[2.5rem] p-8 space-y-8 shadow-sm">
-                            <h2 className="text-h3 font-semibold flex items-center gap-2">
-                                <Layers className="text-primary" size={20} /> Define Component
+                        <div className="lg:col-span-1 space-y-4">
+                        <div className="bg-white/75 border border-primary/20 rounded-2xl p-4 space-y-4 shadow-sm">
+                            <h2 className="text-[14px] font-semibold flex items-center gap-2">
+                                <Layers className="text-primary" size={16} /> Define Component
                             </h2>
 
-                            <div className="space-y-6">
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-2">Display Name (e.g. Test 1)</label>
+                            <div className="space-y-3">
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Display Name (e.g. Test 1)</label>
                                     <input
-                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                         value={newComponent.name}
                                         onChange={e => setNewComponent({ ...newComponent, name: e.target.value })}
                                         placeholder="First Continuous Assessment"
                                     />
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-label text-muted-foreground ml-2">Short Code (e.g. CA1)</label>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Short Code (e.g. CA1)</label>
                                     <input
-                                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                         value={newComponent.component}
                                         onChange={e => setNewComponent({ ...newComponent, component: e.target.value })}
                                         placeholder="CA1"
                                     />
                                 </div>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-label text-muted-foreground ml-2">Weight (%)</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Weight (%)</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                             value={newComponent.weight}
                                             onChange={e => setNewComponent({ ...newComponent, weight: Number(e.target.value) })}
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-label text-muted-foreground ml-2">Max Score</label>
+                                    <div className="space-y-1.5">
+                                        <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Max Score</label>
                                         <input
                                             type="number"
-                                            className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                                            className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                                             value={newComponent.maxScore}
                                             onChange={e => setNewComponent({ ...newComponent, maxScore: Number(e.target.value) })}
                                         />
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3 p-4 bg-muted/20 rounded-2xl">
+                                <div className="flex items-center gap-2 p-3 bg-muted/20 rounded-lg">
                                     <input 
                                         type="checkbox" 
                                         id="isExam" 
-                                        className="w-5 h-5 rounded-lg accent-primary"
+                                        className="w-4 h-4 rounded accent-primary"
                                         checked={newComponent.isExam}
                                         onChange={e => setNewComponent({ ...newComponent, isExam: e.target.checked })}
                                     />
-                                    <label htmlFor="isExam" className="text-sm font-bold cursor-pointer">This is a Summative Exam</label>
+                                    <label htmlFor="isExam" className="text-[12px] font-semibold cursor-pointer">This is a Summative Exam</label>
                                 </div>
 
                                 <button
                                     onClick={handleAddComponent}
                                     disabled={saving || !newComponent.name}
-                                    className="w-full py-4 bg-primary text-white rounded-2xl font-semibold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                                    className="w-full py-2 bg-primary text-white rounded-lg font-semibold shadow-sm hover:scale-[1.01] active:scale-95 transition-all disabled:opacity-50 text-[12px]"
                                 >
-                                    {saving ? <Loader2 size={24} className="animate-spin mx-auto" /> : "Add Component"}
+                                    {saving ? <Loader2 size={16} className="animate-spin mx-auto" /> : "Add Component"}
                                 </button>
                             </div>
                         </div>
 
-                        <div className="p-8 bg-primary/5 border border-primary/10 rounded-[2rem] space-y-4">
-                            <div className="flex items-center gap-2 text-primary font-semibold text-sm">
-                                <Percent size={18} /> Weighting System
+                        <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl space-y-2">
+                            <div className="flex items-center gap-2 text-primary font-semibold text-[12px]">
+                                <Percent size={14} /> Weighting System
                             </div>
-                            <p className="text-xs text-primary-800/70 font-medium leading-relaxed">
+                            <p className="text-[10px] text-primary-800/70 font-medium leading-relaxed">
                                 Components with "Is Exam" checked will be hidden from **Open Day** reports. The sum of all component weights for a term should ideally equal 100%.
                             </p>
                         </div>
@@ -422,63 +419,63 @@ export default function GradingPage() {
 
                     {/* Component List */}
                     <div className="lg:col-span-2">
-                        <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
-                            <div className="p-8 border-b border-border bg-muted/10">
-                                <h2 className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
-                                    <Layout className="text-primary" size={24} />
+                        <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden border-t-4 border-t-primary">
+                            <div className="p-4 border-b border-primary/20 bg-muted/10">
+                                <h2 className="text-[14px] font-semibold tracking-tight text-primary flex items-center gap-2">
+                                    <Layout className="text-primary" size={18} />
                                     Active Components
                                 </h2>
                             </div>
                             <div className="overflow-x-auto">
-                                <table className="w-full border-collapse">
+                                <table className={TABLE_ROOT}>
                                     <thead>
-                                        <tr className="bg-muted/30 text-left border-b border-border">
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Component</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Code</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center">Weight</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-center">Max Score</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-right">Type</th>
-                                            <th className="px-10 py-6 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground text-right">Actions</th>
+                                        <tr className={TABLE_HEADER}>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Component</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Code</th>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center")}>Weight</th>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center")}>Max Score</th>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-right")}>Type</th>
+                                            <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-right")}>Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-border/50">
+                                    <tbody className={TABLE_BODY}>
                                         {components.map((comp) => (
-                                            <tr key={comp.id} className="hover:bg-muted/5 transition-colors">
-                                                <td className="px-10 py-6">
-                                                    <p className="font-bold text-lg">{comp.name}</p>
+                                            <tr key={comp.id} className={TABLE_ROW}>
+                                                <td className={TABLE_CELL_PRIMARY}>
+                                                    {comp.name}
                                                 </td>
-                                                <td className="px-10 py-6">
-                                                    <span className="px-3 py-1 bg-muted rounded-lg font-mono text-xs font-bold">{comp.component}</span>
+                                                <td className={TABLE_CELL}>
+                                                    <span className="px-2 py-0.5 bg-muted rounded-md font-mono text-[10px] font-semibold">{comp.component}</span>
                                                 </td>
-                                                <td className="px-10 py-6 text-center">
-                                                    <p className="font-black text-xl text-primary">{comp.weight}%</p>
+                                                <td className={clsx(TABLE_CELL, "text-center")}>
+                                                    <span className="font-bold text-primary">{comp.weight}%</span>
                                                 </td>
-                                                <td className="px-10 py-6 text-center">
-                                                    <p className="font-bold text-muted-foreground">{comp.maxScore}</p>
+                                                <td className={clsx(TABLE_CELL, "text-center")}>
+                                                    <span className="text-foreground/60">{comp.maxScore}</span>
                                                 </td>
-                                                <td className="px-10 py-6 text-right">
+                                                <td className={clsx(TABLE_CELL, "text-right")}>
                                                     <span className={clsx(
-                                                        "px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest",
+                                                        "px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase",
                                                         comp.isExam ? "bg-amber-500/10 text-amber-600 border border-amber-500/20" : "bg-blue-500/10 text-blue-600 border border-blue-500/20"
                                                     )}>
                                                         {comp.isExam ? "Exam" : "CA"}
                                                     </span>
                                                 </td>
-                                                <td className="px-10 py-6 text-right">
-                                                    <div className="flex justify-end gap-2">
+                                                <td className={TABLE_CELL_ACTIONS}>
+                                                    <div className="flex justify-end gap-1.5">
                                                         <button
                                                             onClick={() => { setEditingComponent(comp); setEditDialogOpen(true); }}
-                                                            className="p-2 hover:bg-primary/10 rounded-full transition-colors text-primary"
+                                                            className="p-1.5 hover:bg-primary/10 rounded-md transition-colors text-primary"
                                                             title="Edit component"
                                                         >
-                                                            <Pencil size={16} />
+                                                            <Pencil size={14} />
                                                         </button>
                                                         <button
                                                             onClick={() => handleDeleteComponent(comp.id, comp.name)}
-                                                            className="p-2 hover:bg-destructive/10 rounded-full transition-colors text-destructive"
+                                                            className="p-1.5 hover:bg-destructive/10 rounded-md transition-colors text-destructive"
                                                             title="Delete component"
                                                         >
-                                                            <Trash2 size={16} />
+                                                            <Trash2 size={14} />
                                                         </button>
                                                     </div>
                                                 </td>

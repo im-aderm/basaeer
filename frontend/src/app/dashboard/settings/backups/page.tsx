@@ -11,6 +11,7 @@ import { Database, Download, Trash2, Plus, Clock, FileType, HardDrive } from 'lu
 import { SettingsService, Backup } from '@/services/settingsService';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function BackupManagementPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -72,60 +73,60 @@ export default function BackupManagementPage() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     };
 
-    if (loading) return <div className="p-8">Loading backup history...</div>;
+    if (loading) return <div className="p-4">Loading backup history...</div>;
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-5xl mx-auto space-y-8">
+            <div className="max-w-5xl mx-auto space-y-6">
                 <BranchContextBanner />
                 <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Database Backups</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage and secure your school data with manual snapshots.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Database Backups</h1>
+                    <p className="text-foreground/60 font-medium mt-1 text-[12px]">Manage and secure your school data with manual snapshots.</p>
                 </div>
                 <Button
                     onClick={handleCreateBackup}
                     disabled={isCreating}
-                    className="h-14 px-8 rounded-2xl font-semibold text-lg gap-2 shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 hover:scale-[1.02] transition-all"
+                    className="h-12 px-6 rounded-xl font-semibold text-[12px] gap-2 shadow-xl shadow-primary/20 bg-primary hover:bg-primary/90 hover:scale-[1.02] transition-all"
                 >
                     <Plus className="h-6 w-6" />
                     {isCreating ? 'Creating Snapshot...' : 'Create New Backup'}
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Card className={STAT_CARD}>
                     <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Total Backups</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="flex items-center gap-4">
-                            <span className="text-h1 font-semibold">{backups.length}</span>
-                            <HardDrive className="h-8 w-8 text-primary/40" />
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Storage Status</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="flex items-center gap-4">
-                            <span className="text-h1 font-semibold">Healthy</span>
-                            <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card className="rounded-[2.5rem] border-border/50 shadow-xl bg-primary/5 border-l-4 border-l-primary/40">
-                    <CardHeader className="pb-2">
-                        <CardTitle className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Latest Sync</CardTitle>
+                        <CardTitle className={STAT_LABEL}>Total Backups</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center gap-3">
-                            <Clock className="h-5 w-5 text-primary" />
-                            <span className="font-bold text-primary/70">
+                            <span className={STAT_VALUE}>{backups.length}</span>
+                            <HardDrive className="h-6 w-6 text-primary/40" />
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card className={STAT_CARD}>
+                    <CardHeader className="pb-2">
+                        <CardTitle className={STAT_LABEL}>Storage Status</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex items-center gap-3">
+                            <span className={STAT_VALUE}>Healthy</span>
+                            <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card className={STAT_CARD}>
+                    <CardHeader className="pb-2">
+                        <CardTitle className={STAT_LABEL}>Latest Sync</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-primary" />
+                            <span className="font-semibold text-[12px] text-primary/70">
                                 {backups.length > 0 ? new Date(backups[0].createdAt).toLocaleDateString() : 'No backups found'}
                             </span>
                         </div>
@@ -133,57 +134,57 @@ export default function BackupManagementPage() {
                 </Card>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 pb-4">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Database className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="p-4 pb-4">
+                    <CardTitle className="text-[12px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Database className="h-6 w-6 text-primary" />
                         Backup History
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Snapshot File</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 uppercase tracking-tighter text-muted-foreground">File Size</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 uppercase tracking-tighter text-muted-foreground">Created At</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
+                        <TableHeader className="bg-primary/5 h-10">
+                            <TableRow className="border-primary/20 hover:bg-transparent">
+                                <TableHead className="font-semibold px-3 uppercase tracking-tighter text-primary/80 text-[12px]">Snapshot File</TableHead>
+                                <TableHead className="font-semibold px-3 h-10 uppercase tracking-tighter text-primary/80 text-[12px]">File Size</TableHead>
+                                <TableHead className="font-semibold px-3 h-10 uppercase tracking-tighter text-primary/80 text-[12px]">Created At</TableHead>
+                                <TableHead className="font-semibold px-3 h-10 text-right uppercase tracking-tighter text-primary/80 text-[12px]">Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className="divide-y divide-primary/20">
                             {backups.map((b) => (
-                                <TableRow key={b.filename} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8">
-                                        <div className="flex items-center gap-4">
-                                            <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
-                                                <FileType className="h-5 w-5" />
+                                <TableRow key={b.filename} className="border-primary/20 h-12 transition-all hover:bg-primary/[0.03]">
+                                    <TableCell className="px-3">
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center text-foreground/60">
+                                                <FileType className="h-4 w-4" />
                                             </div>
-                                            <span className="font-semibold text-lg leading-tight truncate max-w-[300px]">{b.filename}</span>
+                                            <span className="font-semibold text-[12px] leading-tight truncate max-w-[300px]">{b.filename}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-muted-foreground">
+                                    <TableCell className="px-3 font-semibold text-[12px] text-foreground/60">
                                         {formatSize(b.size)}
                                     </TableCell>
-                                    <TableCell className="px-8 font-medium">
+                                    <TableCell className="px-3 font-medium text-[12px]">
                                         {new Date(b.createdAt).toLocaleString()}
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <div className="flex justify-end gap-3">
+                                    <TableCell className="text-right px-3">
+                                        <div className="flex justify-end gap-2">
                                             <Button
                                                 variant="outline"
                                                 size="icon"
-                                                className="h-12 w-12 rounded-2xl border-primary/20 text-primary hover:bg-primary/10"
+                                                className="h-8 w-8 rounded-lg border-primary/20 text-primary hover:bg-primary/10"
                                                 onClick={() => { SettingsService.downloadBackup(b.filename); }}
                                             >
-                                                <Download className="h-5 w-5" />
+                                                <Download className="h-4 w-4" />
                                             </Button>
                                             <Button
                                                 variant="outline"
                                                 size="icon"
-                                                className="h-12 w-12 rounded-2xl border-destructive/20 text-destructive hover:bg-destructive/10"
+                                                className="h-8 w-8 rounded-lg border-destructive/20 text-destructive hover:bg-destructive/10"
                                                 onClick={() => handleDeleteBackup(b.filename)}
                                             >
-                                                <Trash2 className="h-5 w-5" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
                                         </div>
                                     </TableCell>
@@ -191,10 +192,10 @@ export default function BackupManagementPage() {
                             ))}
                             {backups.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="h-60 text-center">
-                                        <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
-                                            <Database className="h-20 w-20 stroke-[1]" />
-                                            <p className="font-semibold text-h3">No database snapshots found</p>
+                                    <TableCell colSpan={4} className="h-40 text-center">
+                                        <div className="flex flex-col items-center justify-center gap-3 opacity-30 grayscale saturate-0">
+                                            <Database className="h-12 w-12 stroke-[1]" />
+                                            <p className="font-semibold text-[12px]">No database snapshots found</p>
                                         </div>
                                     </TableCell>
                                 </TableRow>

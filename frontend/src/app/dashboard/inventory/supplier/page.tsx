@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -90,8 +91,8 @@ export default function InventorySupplierPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Suppliers & Vendors</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage your supply chain contacts and partners.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Suppliers & Vendors</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Manage your supply chain contacts and partners.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -101,9 +102,9 @@ export default function InventorySupplierPage() {
                                 Add Supplier
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem] max-w-xl">
+                        <DialogContent className="rounded-2xl max-w-xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">New Supplier</DialogTitle>
+                                <DialogTitle className="text-[14px] font-semibold">New Supplier</DialogTitle>
                                 <DialogDescription className="font-bold">Enter vendor information for procurement tracking.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4">
@@ -160,39 +161,39 @@ export default function InventorySupplierPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 border-b border-border/50">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Truck className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="px-4 py-3 border-b border-primary/20">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Truck className="h-5 w-5 text-primary" />
                         Procurement Partners
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Supplier Name</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Contact Person</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Communication</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Supplier Name</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Contact Person</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Communication</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {suppliers.map((s) => (
-                                <TableRow key={s.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-semibold uppercase leading-tight">
+                                <TableRow key={s.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         {s.name}
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-xs text-muted-foreground">
+                                    <TableCell className={TABLE_CELL + " text-foreground/60"}>
                                         {s.contactPerson || 'N/A'}
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col gap-1">
                                             <span className="font-bold flex items-center gap-1.5 text-[10px]"><Phone className="h-3 w-3 text-primary" /> {s.phone || 'N/A'}</span>
-                                            <span className="text-[10px] font-medium text-muted-foreground">{s.email || 'N/A'}</span>
+                                            <span className="text-[10px] font-medium text-foreground/60">{s.email || 'N/A'}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             <Button
                                                 variant="secondary"
@@ -220,9 +221,9 @@ export default function InventorySupplierPage() {
             </Card>
 
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent className="rounded-[2.5rem] max-w-xl">
+                <DialogContent className="rounded-2xl max-w-xl">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Supplier</DialogTitle>
+                        <DialogTitle className="text-[14px] font-semibold">Edit Supplier</DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4">
                         <div className="space-y-2">

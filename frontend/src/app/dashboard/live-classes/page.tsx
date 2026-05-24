@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -185,13 +186,13 @@ function LiveClassesContent() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="p-6 space-y-6 max-w-7xl mx-auto">
+            <div className="p-4 space-y-4 max-w-7xl mx-auto">
                 <BranchContextBanner />
             {/* Header */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Live Classrooms</h1>
-                    <p className="text-muted-foreground mt-1">Institutional Google Meet integration for seamless teaching.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Live Classrooms</h1>
+                    <p className="text-foreground/60 mt-1 text-[12px]">Institutional Google Meet integration for seamless teaching.</p>
                 </div>
                 {(user?.role === 'STAFF' || user?.role === 'SUPER_ADMIN') && (
                     <div className="flex gap-2">
@@ -284,28 +285,28 @@ function LiveClassesContent() {
 
             {/* Stats */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <Card className="border-l-4 border-l-blue-500 shadow-sm">
+                <Card className={`border-l-4 border-l-blue-500 shadow-sm ${STAT_CARD}`}>
                     <div className="p-4">
-                        <p className="text-sm font-medium text-blue-600">Upcoming Sessions</p>
-                        <h3 className="text-2xl font-bold mt-1">{upcomingSessions.length}</h3>
+                        <p className={STAT_LABEL}>Upcoming Sessions</p>
+                        <h3 className={STAT_VALUE}>{upcomingSessions.length}</h3>
                     </div>
                 </Card>
-                <Card className="border-l-4 border-l-emerald-500 shadow-sm">
+                <Card className={`border-l-4 border-l-emerald-500 shadow-sm ${STAT_CARD}`}>
                     <div className="p-4">
-                        <p className="text-sm font-medium text-emerald-600">Active Classes</p>
-                        <h3 className="text-2xl font-bold mt-1">{liveSessions.length}</h3>
+                        <p className={STAT_LABEL}>Active Classes</p>
+                        <h3 className={STAT_VALUE}>{liveSessions.length}</h3>
                     </div>
                 </Card>
-                <Card className="border-l-4 border-l-purple-500 shadow-sm">
+                <Card className={`border-l-4 border-l-purple-500 shadow-sm ${STAT_CARD}`}>
                     <div className="p-4">
-                        <p className="text-sm font-medium text-purple-600">Attendance Rate</p>
-                        <h3 className="text-2xl font-bold mt-1">92%</h3>
+                        <p className={STAT_LABEL}>Attendance Rate</p>
+                        <h3 className={STAT_VALUE}>92%</h3>
                     </div>
                 </Card>
-                <Card className={`border-l-4 shadow-sm ${config?.isAuthorized ? 'border-l-emerald-500' : 'border-l-amber-500'}`}>
+                <Card className={`border-l-4 shadow-sm ${config?.isAuthorized ? 'border-l-emerald-500' : 'border-l-amber-500'} ${STAT_CARD}`}>
                     <div className="p-4">
-                        <p className={`text-sm font-medium ${config?.isAuthorized ? 'text-emerald-600' : 'text-amber-600'}`}>Google Auth</p>
-                        <h3 className="text-2xl font-bold mt-1">{config?.isAuthorized ? 'Healthy' : 'Required'}</h3>
+                        <p className={`text-[12px] font-medium ${config?.isAuthorized ? 'text-emerald-600' : 'text-amber-600'}`}>Google Auth</p>
+                        <h3 className={STAT_VALUE}>{config?.isAuthorized ? 'Healthy' : 'Required'}</h3>
                     </div>
                 </Card>
             </div>
@@ -409,32 +410,32 @@ function LiveClassesContent() {
                 <TabsContent value="past" className="pt-4">
                     <Card className="rounded-2xl overflow-hidden">
                         <Table>
-                            <TableHeader className="bg-muted/50">
-                                <TableRow>
-                                    <TableHead>Session</TableHead>
-                                    <TableHead>Date</TableHead>
-                                    <TableHead>Status</TableHead>
-                                    <TableHead>Recording</TableHead>
-                                    <TableHead className="text-right">Analytics</TableHead>
+                            <TableHeader className={TABLE_HEADER}>
+                                <TableRow className="hover:bg-transparent">
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Session</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Date</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Status</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Recording</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Analytics</TableHead>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody>
+                            <TableBody className={TABLE_BODY}>
                                 {pastSessions.length > 0 ? (
                                     pastSessions.map((session) => (
-                                        <TableRow key={session.id}>
-                                            <TableCell className="font-bold">{session.title}</TableCell>
-                                            <TableCell className="text-sm">
+                                        <TableRow key={session.id} className={TABLE_ROW}>
+                                            <TableCell className={TABLE_CELL_PRIMARY}>{session.title}</TableCell>
+                                            <TableCell className={TABLE_CELL}>
                                                 {format(new Date(session.scheduledStart), 'MMM dd, yyyy')}
                                             </TableCell>
-                                            <TableCell>{getStatusBadge(session.status)}</TableCell>
-                                            <TableCell>
+                                            <TableCell className={TABLE_CELL}>{getStatusBadge(session.status)}</TableCell>
+                                            <TableCell className={TABLE_CELL}>
                                                 {session.recordingUrl ? (
-                                                    <Button variant="outline" size="sm" className="h-8 gap-2" onClick={() => window.open(session.recordingUrl, '_blank')}>
+                                                    <Button variant="outline" size="sm" className="h-7 gap-2 text-[12px]" onClick={() => window.open(session.recordingUrl, '_blank')}>
                                                         <Play className="h-3 w-3 fill-primary text-primary" /> Cloud Play
                                                     </Button>
-                                                ) : <span className="text-xs text-muted-foreground">None</span>}
+                                                ) : <span className="text-[12px] text-foreground/60">None</span>}
                                             </TableCell>
-                                            <TableCell className="text-right">
+                                            <TableCell className={TABLE_CELL_ACTIONS}>
                                                 <Button variant="ghost" size="sm" onClick={() => router.push(`/dashboard/live-classes/${session.id}`)}>
                                                     <BarChart3 className="h-4 w-4" />
                                                 </Button>
@@ -443,7 +444,7 @@ function LiveClassesContent() {
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={5} className="h-32 text-center text-muted-foreground">No past history found.</TableCell>
+                                        <TableCell colSpan={5} className="h-24 text-center text-foreground/60 text-[12px]">No past history found.</TableCell>
                                     </TableRow>
                                 )}
                             </TableBody>

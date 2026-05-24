@@ -25,6 +25,7 @@ import {
 import { clsx } from "clsx";
 import { Term } from "@/types/enums";
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function ScoreEntryPage() {
     const { showSuccess, showError } = useNotification();
@@ -189,18 +190,18 @@ export default function ScoreEntryPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Calculator className="text-primary w-10 h-10" />
                         Dynamic Marks Entry
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Record and process academic performance with dynamic grading components.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px]">Record and process academic performance with dynamic grading components.</p>
                 </div>
 
                 <div className="flex gap-4">
                     <button
                         onClick={handleSave}
                         disabled={saving || students.length === 0}
-                        className="flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-[1.5rem] font-semibold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-xl font-semibold shadow-sm hover:scale-[1.01] active:scale-95 transition-all disabled:opacity-50 text-[12px]"
                     >
                         {saving ? <Loader2 size={24} className="animate-spin" /> : <Save size={24} />}
                         Save Changes
@@ -209,11 +210,11 @@ export default function ScoreEntryPage() {
             </div>
 
             {/* Filters Bar */}
-            <div className="p-8 bg-white/75 border border-border rounded-[2.5rem] shadow-sm flex flex-wrap items-end gap-6">
-                <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-label text-muted-foreground ml-2">Class</label>
+            <div className="p-4 bg-white/75 border border-primary/20 rounded-2xl shadow-sm flex flex-wrap items-end gap-4">
+                <div className="flex-1 min-w-[160px] space-y-1.5">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Class</label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -222,10 +223,10 @@ export default function ScoreEntryPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-label text-muted-foreground ml-2">Section</label>
+                <div className="flex-1 min-w-[160px] space-y-1.5">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Section</label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                     >
@@ -234,10 +235,10 @@ export default function ScoreEntryPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[200px] space-y-2">
-                    <label className="text-label text-muted-foreground ml-2">Subject</label>
+                <div className="flex-1 min-w-[160px] space-y-1.5">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Subject</label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedSubjectId}
                         onChange={e => setSelectedSubjectId(e.target.value)}
                     >
@@ -246,10 +247,10 @@ export default function ScoreEntryPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[150px] space-y-2">
-                    <label className="text-label text-muted-foreground ml-2">Session</label>
+                <div className="flex-1 min-w-[130px] space-y-1.5">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Session</label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -257,10 +258,10 @@ export default function ScoreEntryPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[150px] space-y-2">
-                    <label className="text-label text-muted-foreground ml-2">Term</label>
+                <div className="flex-1 min-w-[130px] space-y-1.5">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Term</label>
                     <select
-                        className="w-full p-4 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold text-sm"
+                        className="w-full p-2.5 bg-white border border-primary/20 rounded-lg focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -273,62 +274,62 @@ export default function ScoreEntryPage() {
                 <button
                     onClick={handleFetchStudents}
                     disabled={!selectedSectionId || !selectedSubjectId}
-                    className="p-5 bg-background border border-border rounded-2xl hover:bg-muted transition-all active:scale-90"
+                    className="p-2.5 bg-background border border-primary/20 rounded-lg hover:bg-muted transition-all active:scale-90"
                 >
-                    <Search className="text-primary" />
+                    <Search className="text-primary" size={16} />
                 </button>
             </div>
 
             {success && (
-                <div className="p-6 bg-primary/10 border border-primary/20 rounded-[2rem] flex items-center gap-4 text-primary font-semibold animate-in zoom-in-95">
-                    <CheckCircle2 />
+                <div className="p-4 bg-primary/10 border border-primary/20 rounded-xl flex items-center gap-3 text-primary font-semibold text-[12px] animate-in zoom-in-95">
+                    <CheckCircle2 size={16} />
                     Scores saved successfully!
                 </div>
             )}
 
             {/* Score Grid */}
-            <div className="bg-white/75 border border-border rounded-[3rem] shadow-sm overflow-hidden border-t-8 border-t-primary">
+            <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden border-t-4 border-t-primary">
                 {students.length > 0 ? (
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
+                        <table className={TABLE_ROOT}>
                             <thead>
-                                <tr className="bg-muted/30 text-left border-b border-border">
-                                    <th className="px-8 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground min-w-[250px]">Pupil Name</th>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "min-w-[200px]")}>Pupil Name</th>
                                     {components.map(comp => (
-                                        <th key={comp.id} className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-primary text-center">
+                                        <th key={comp.id} className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center")}>
                                             {comp.name} ({comp.maxScore})
-                                            <div className="text-[8px] text-muted-foreground font-medium mt-1">Weight: {comp.weight}%</div>
+                                            <div className="text-[8px] text-foreground/60 font-medium mt-0.5">Weight: {comp.weight}%</div>
                                         </th>
                                     ))}
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground text-center bg-muted/20">Total (100)</th>
-                                    <th className="px-6 py-6 text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground text-center">Actions</th>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center bg-muted/20")}>Total (100)</th>
+                                    <th className={clsx(TABLE_HEADER_CELL_NO_SORT, "text-center")}>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/50">
+                            <tbody className={TABLE_BODY}>
                                 {students.map((student) => {
                                     const total = calculateStudentTotal(student.id);
 
                                     return (
-                                        <tr key={student.id} className="hover:bg-muted/5 transition-colors">
-                                            <td className="px-8 py-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs">
+                                        <tr key={student.id} className={TABLE_ROW}>
+                                            <td className={TABLE_CELL_PRIMARY}>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">
                                                         {student.user?.firstName?.[0]}{student.user?.lastName?.[0]}
                                                     </div>
                                                     <div>
-                                                        <p className="font-bold text-md tracking-tight">
+                                                        <p className="font-bold tracking-tight">
                                                             {student.user?.firstName} {student.user?.lastName}
                                                         </p>
-                                                        <p className="text-[10px] text-muted-foreground font-medium">{student.studentId || "N/A"}</p>
+                                                        <p className="text-[9px] text-foreground/60 font-medium">{student.studentId || "N/A"}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             {components.map(comp => (
-                                                <td key={comp.id} className="px-6 py-4">
+                                                <td key={comp.id} className={clsx(TABLE_CELL, "text-center")}>
                                                     <input
                                                         type="number"
                                                         className={clsx(
-                                                            "w-20 mx-auto p-3 border-none rounded-xl text-center font-bold outline-none focus:ring-2 transition-all",
+                                                            "w-16 mx-auto p-2 border-none rounded-md text-center font-semibold outline-none focus:ring-2 transition-all text-[12px]",
                                                             comp.isExam ? "bg-primary/5 text-primary ring-primary/30" : "bg-muted/20 text-foreground ring-primary/30"
                                                         )}
                                                         value={scores[student.id]?.[comp.id] ?? ""}
@@ -337,21 +338,21 @@ export default function ScoreEntryPage() {
                                                     />
                                                 </td>
                                             ))}
-                                            <td className="px-6 py-4 text-center bg-muted/20">
+                                            <td className={clsx(TABLE_CELL, "text-center bg-muted/20")}>
                                                 <span className={clsx(
-                                                    "inline-flex items-center justify-center w-12 h-12 rounded-xl font-bold text-lg",
+                                                    "inline-flex items-center justify-center w-8 h-8 rounded-lg font-bold text-[12px]",
                                                     Number(total) >= 50 ? "text-primary" : "text-destructive"
                                                 )}>
                                                     {total}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 text-center">
+                                            <td className={clsx(TABLE_CELL, "text-center")}>
                                                 <button
                                                     onClick={() => handlePrintOpenDay(student)}
-                                                    className="p-2 text-muted-foreground hover:text-primary transition-colors hover:bg-primary/10 rounded-lg group"
+                                                    className="p-1.5 text-foreground/60 hover:text-primary transition-colors hover:bg-primary/10 rounded-md group"
                                                     title="Print Open Day Report"
                                                 >
-                                                    <Printer size={20} />
+                                                    <Printer size={16} />
                                                 </button>
                                             </td>
                                         </tr>
@@ -361,36 +362,36 @@ export default function ScoreEntryPage() {
                         </table>
                     </div>
                 ) : (
-                    <div className="py-32 text-center space-y-4">
-                        <div className="w-24 h-24 bg-muted/50 rounded-[2rem] flex items-center justify-center mx-auto mb-6 shadow-inner">
-                            <Filter size={48} className="text-muted-foreground/30" />
+                    <div className="py-16 text-center space-y-3">
+                        <div className="w-16 h-16 bg-muted/50 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-inner">
+                            <Filter size={32} className="text-foreground/30" />
                         </div>
-                        <h3 className="text-h3 font-semibold">Ready to record marks</h3>
-                        <p className="text-muted-foreground font-medium max-w-xs mx-auto">Select class and subject filters to load the dynamic entry grid.</p>
+                        <h3 className="text-[14px] font-semibold">Ready to record marks</h3>
+                        <p className="text-foreground/60 font-medium max-w-xs mx-auto text-[12px]">Select class and subject filters to load the dynamic entry grid.</p>
                     </div>
                 )}
             </div>
 
             {/* Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-6 bg-primary/5 border border-primary/10 rounded-[2rem] flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                        <FileText size={24} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl flex items-start gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                        <FileText size={18} />
                     </div>
                     <div>
-                        <h4 className="font-bold text-primary">Open Day Ready</h4>
-                        <p className="text-sm text-primary/70 mt-1">
+                        <h4 className="font-bold text-primary text-[12px]">Open Day Ready</h4>
+                        <p className="text-[11px] text-primary/70 mt-0.5">
                             Use the printer icon to generate CA-only reports for Open Day. These exclude summative exams and show preliminary progress.
                         </p>
                     </div>
                 </div>
-                <div className="p-6 bg-primary/5 border border-primary/10 rounded-[2rem] flex items-start gap-4">
-                    <div className="p-3 bg-primary/10 rounded-xl text-primary">
-                        <Calculator size={24} />
+                <div className="p-4 bg-primary/5 border border-primary/10 rounded-xl flex items-start gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                        <Calculator size={18} />
                     </div>
                     <div>
-                        <h4 className="font-bold text-primary-900">Dynamic Weights</h4>
-                        <p className="text-sm text-primary-800/70 mt-1">
+                        <h4 className="font-bold text-primary-900 text-[12px]">Dynamic Weights</h4>
+                        <p className="text-[11px] text-primary-800/70 mt-0.5">
                             The grid automatically adjusts columns based on the subject's assessment settings. Totals are calculated using weighted logic.
                         </p>
                     </div>

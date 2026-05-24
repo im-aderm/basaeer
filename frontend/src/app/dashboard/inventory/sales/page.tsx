@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -71,11 +72,11 @@ export default function InventorySalesPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <Link href="/dashboard/inventory" className="flex items-center gap-2 text-muted-foreground hover:text-primary font-bold transition-colors mb-2">
+                    <Link href="/dashboard/inventory" className="flex items-center gap-2 text-foreground/60 hover:text-primary font-bold transition-colors mb-2">
                         <ArrowLeft className="h-4 w-4" /> Back to Inventory
                     </Link>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Sales & Revenue</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Record and track inventory-related sales transactions.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Sales & Revenue</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Record and track inventory-related sales transactions.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isSaleDialogOpen} onOpenChange={setIsSaleDialogOpen}>
@@ -85,9 +86,9 @@ export default function InventorySalesPage() {
                                 Record Sale
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="rounded-[2.5rem]">
+                        <DialogContent className="rounded-2xl">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">Record New Sale</DialogTitle>
+                                <DialogTitle className="text-[14px] font-semibold">Record New Sale</DialogTitle>
                                 <DialogDescription className="font-bold">Enter sale details and update product stock.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreateSale} className="space-y-4 pt-4">
@@ -122,43 +123,43 @@ export default function InventorySalesPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <ShoppingBag className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="px-4 py-3 border-b border-primary/20 flex flex-row items-center justify-between">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <ShoppingBag className="h-5 w-5 text-primary" />
                         Sales History
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Invoice / Date</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Qty</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Unit Price</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Total Price</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Invoice / Date</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Product</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Qty</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Unit Price</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Total Price</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {sales.map((s) => (
-                                <TableRow key={s.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-semibold leading-tight">
+                                <TableRow key={s.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         <div className="flex flex-col">
                                             <span>{s.invoiceNo || 'SALE-' + s.id.slice(0, 5).toUpperCase()}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground">{new Date(s.createdAt).toLocaleDateString()}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60">{new Date(s.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-semibold uppercase text-xs">
+                                    <TableCell className={TABLE_CELL + " uppercase"}>
                                         {s.product?.name}
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold">
+                                    <TableCell className={TABLE_CELL}>
                                         {s.quantity}
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold">
+                                    <TableCell className={TABLE_CELL}>
                                         ₦{Number(s.unitPrice).toFixed(2)}
                                     </TableCell>
-                                    <TableCell className="text-right px-8 font-semibold text-primary">
+                                    <TableCell className={TABLE_CELL + " text-right text-primary"}>
                                         ₦{Number(s.totalPrice).toFixed(2)}
                                     </TableCell>
                                 </TableRow>

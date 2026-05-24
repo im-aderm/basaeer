@@ -7,12 +7,12 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Trash2, Tag } from 'lucide-react';
 import { AttachmentService, AttachmentCategory } from '@/services/attachmentService';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function AttachmentTypePage() {
     const { user, resolvedBranchId } = useAuth();
@@ -96,8 +96,8 @@ export default function AttachmentTypePage() {
             <BranchContextBanner />
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Attachment Categories</h1>
-                    <p className="text-muted-foreground font-medium">Organize digital resources by category.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Attachment Categories</h1>
+                    <p className="text-foreground/60 font-medium">Organize digital resources by category.</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
@@ -137,55 +137,55 @@ export default function AttachmentTypePage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[2rem] shadow-2xl shadow-primary/5 border-border/50 overflow-hidden border-t-8 border-t-primary/20">
-                <CardHeader className="pb-4">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-2">
+            <Card className="rounded-2xl shadow-2xl shadow-primary/5 border-primary/20 overflow-hidden border-t-4 border-t-primary/20">
+                <CardHeader className="pb-2 p-4">
+                    <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-2">
                         <Tag className="h-5 w-5 text-primary" />
                         Category List
                     </CardTitle>
                 </CardHeader>
-                <CardContent>
-                    <div className="rounded-2xl border border-border/50 overflow-hidden">
-                        <Table>
-                            <TableHeader className="bg-muted/50">
-                                <TableRow className="hover:bg-transparent border-border/50">
-                                    <TableHead className="font-semibold h-14">Name</TableHead>
-                                    <TableHead className="font-semibold h-14">Description</TableHead>
-                                    <TableHead className="font-semibold h-14 text-center">Resources</TableHead>
-                                    <TableHead className="text-right font-semibold h-14 px-6">Actions</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
+                <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Name</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Description</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Resources</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
                                 {categories.map((cat) => (
-                                    <TableRow key={cat.id} className="border-border/50 hover:bg-muted/30 transition-colors">
-                                        <TableCell className="font-bold py-4">{cat.name}</TableCell>
-                                        <TableCell className="text-muted-foreground font-medium">{cat.description || '-'}</TableCell>
-                                        <TableCell className="text-center">
-                                            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                                    <tr key={cat.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>{cat.name}</td>
+                                        <td className={TABLE_CELL + " text-foreground/60"}>{cat.description || '-'}</td>
+                                        <td className={TABLE_CELL + " text-center"}>
+                                            <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-semibold">
                                                 {cat._count?.resources || 0}
                                             </span>
-                                        </TableCell>
-                                        <TableCell className="text-right px-6">
+                                        </td>
+                                        <td className={TABLE_CELL_ACTIONS}>
                                             <Button
                                                 size="icon"
                                                 variant="ghost"
-                                                className="h-10 w-10 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive transition-all"
+                                                className="h-9 w-9 rounded-xl text-destructive hover:bg-destructive/10 hover:text-destructive transition-all"
                                                 onClick={() => handleDelete(cat.id)}
                                             >
-                                                <Trash2 className="h-5 w-5" />
+                                                <Trash2 className="h-4 w-4" />
                                             </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                        </td>
+                                    </tr>
                                 ))}
                                 {categories.length === 0 && (
-                                    <TableRow>
-                                        <TableCell colSpan={4} className="text-center py-12 text-muted-foreground font-medium">
+                                    <tr>
+                                        <td colSpan={4} className="py-12 text-center text-foreground/60 font-medium text-[12px]">
                                             No categories found.
-                                        </TableCell>
-                                    </TableRow>
+                                        </td>
+                                    </tr>
                                 )}
-                            </TableBody>
-                        </Table>
+                            </tbody>
+                        </table>
                     </div>
                 </CardContent>
             </Card>

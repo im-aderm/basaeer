@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function ChildAttendancePage() {
     const { id } = useParams();
@@ -60,57 +61,57 @@ export default function ChildAttendancePage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Attendance History</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Daily presence logs and patterns.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Attendance History</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Daily presence logs and patterns.</p>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-semibold uppercase opacity-50">Attendance Rate</p>
-                    <div className="text-h1 font-semibold text-primary">{attendanceRate}%</div>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-background p-4 space-y-2 ${STAT_CARD}`}>
+                    <p className={STAT_LABEL}>Attendance Rate</p>
+                    <div className={STAT_VALUE + " text-primary"}>{attendanceRate}%</div>
                 </Card>
-                <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-semibold uppercase opacity-50">Present Days</p>
-                    <div className="text-h1 font-semibold text-emerald-500">{stats.present}</div>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-background p-4 space-y-2 ${STAT_CARD}`}>
+                    <p className={STAT_LABEL}>Present Days</p>
+                    <div className={STAT_VALUE + " text-emerald-500"}>{stats.present}</div>
                 </Card>
-                <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-semibold uppercase opacity-50">Absent Days</p>
-                    <div className="text-h1 font-semibold text-rose-500">{stats.absent}</div>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-background p-4 space-y-2 ${STAT_CARD}`}>
+                    <p className={STAT_LABEL}>Absent Days</p>
+                    <div className={STAT_VALUE + " text-rose-500"}>{stats.absent}</div>
                 </Card>
-                <Card className="rounded-[2rem] border-border/50 shadow-xl bg-background p-6 space-y-2">
-                    <p className="text-[10px] font-semibold uppercase opacity-50">Late Arrivals</p>
-                    <div className="text-h1 font-semibold text-amber-500">{stats.late}</div>
+                <Card className={`rounded-2xl border-primary/20 shadow-xl bg-background p-4 space-y-2 ${STAT_CARD}`}>
+                    <p className={STAT_LABEL}>Late Arrivals</p>
+                    <div className={STAT_VALUE + " text-amber-500"}>{stats.late}</div>
                 </Card>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden">
+                <CardHeader className="p-4 border-b border-primary/20 flex flex-row items-center justify-between">
                     <div>
-                        <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
-                            <CalendarIcon className="h-8 w-8 text-primary" />
+                        <CardTitle className="text-[14px] font-semibold uppercase flex items-center gap-3">
+                            <CalendarIcon className="h-5 w-5 text-primary" />
                             Daily Logs
                         </CardTitle>
-                        <CardDescription className="font-bold font-sm">Comprehensive list of all recorded sessions.</CardDescription>
+                        <CardDescription className="font-bold text-[12px]">Comprehensive list of all recorded sessions.</CardDescription>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="border-b border-border/50 bg-muted/30">
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Date</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Status</th>
-                                    <th className="p-6 font-semibold uppercase text-xs opacity-50">Remarks</th>
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Date</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Remarks</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className={TABLE_BODY}>
                                 {attendance.length > 0 ? attendance.map((record, idx) => (
-                                    <tr key={record.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
-                                        <td className="p-6 font-bold text-sm">
+                                    <tr key={record.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>
                                             {new Date(record.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
                                         </td>
-                                        <td className="p-6">
+                                        <td className={TABLE_CELL}>
                                             <Badge
                                                 className={`rounded-xl px-4 py-1.5 font-semibold uppercase text-[10px] ${record.status === 'PRESENT' ? 'bg-emerald-500/10 text-emerald-500' :
                                                         record.status === 'ABSENT' ? 'bg-rose-500/10 text-rose-500' :
@@ -120,13 +121,13 @@ export default function ChildAttendancePage() {
                                                 {record.status}
                                             </Badge>
                                         </td>
-                                        <td className="p-6 font-medium text-sm text-muted-foreground">
+                                        <td className={TABLE_CELL + " text-foreground/60"}>
                                             {record.remarks || 'No remarks provided'}
                                         </td>
                                     </tr>
                                 )) : (
                                     <tr>
-                                        <td colSpan={3} className="p-12 text-center font-semibold uppercase opacity-20 text-2xl">
+                                        <td colSpan={3} className="py-12 text-center font-semibold uppercase text-foreground/60 text-[12px]">
                                             No attendance records found
                                         </td>
                                     </tr>

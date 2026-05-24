@@ -78,6 +78,7 @@ export function Footer() {
                 { name: "Alumni Association", href: "/alumni" },
                 { name: "Media Gallery", href: "/gallery" },
                 { name: "News & Events", href: "/news" },
+                { name: "Events Catalog", href: "/events" },
                 { name: "Tahfeez Academy", href: "/academics/tahfeez" },
                 { name: "Islamic Studies", href: "/academics/islamic-studies" },
               ].map(({ name, href }) => (

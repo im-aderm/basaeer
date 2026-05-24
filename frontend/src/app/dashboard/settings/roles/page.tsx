@@ -26,6 +26,7 @@ import {
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 const FALLBACK_MODULES = [
     "Dashboard", "Core Administration", "Branches", "Academic Sessions",
@@ -187,8 +188,8 @@ export default function RolesPage() {
         <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Roles</h1>
-                    <p className="text-muted-foreground mt-1">Create and manage custom roles with granular permissions.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Roles</h1>
+                    <p className="text-foreground/60 mt-1 text-[12px]">Create and manage custom roles with granular permissions.</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
@@ -265,8 +266,8 @@ export default function RolesPage() {
         <div className="max-w-6xl mx-auto space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name}</h2>
-                    <p className="text-muted-foreground text-sm">Configure module permissions for this role.</p>
+                    <h2 className="text-[20px] font-bold tracking-tight text-primary">{selectedRole.name}</h2>
+                    <p className="text-foreground/60 text-[12px]">Configure module permissions for this role.</p>
                     {selectedRole.isSystem && !isSuperAdmin && (
                         <p className="text-xs text-primary mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
                     )}
@@ -304,25 +305,25 @@ export default function RolesPage() {
             {permissionsLoading ? (
                 <div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin text-primary" /></div>
             ) : (
-                <div className="bg-white/75 border border-border rounded-2xl overflow-hidden">
+                <div className="bg-white/75 border border-primary/20 rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse">
+                        <table className={TABLE_ROOT}>
                             <thead>
-                                <tr className="bg-muted/50 border-b border-border">
-                                    <th className="px-6 py-4 text-left text-sm font-bold">Module</th>
+                                <tr className={TABLE_HEADER}>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Module</th>
                                     {ACTIONS.map(a => (
-                                        <th key={a} className="px-4 py-4 text-center text-xs font-bold text-muted-foreground uppercase">{a}</th>
+                                        <th key={a} className={`${TABLE_HEADER_CELL_NO_SORT} text-center`}>{a}</th>
                                     ))}
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border">
+                            <tbody className={TABLE_BODY}>
                                 {modules.map(module => (
-                                    <tr key={module} className="hover:bg-muted/30 transition-colors">
-                                        <td className="px-6 py-4 font-semibold text-sm">{module}</td>
+                                    <tr key={module} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>{module}</td>
                                         {ACTIONS.map(action => {
                                             const allowed = getPermissionStatus(module, action);
                                             return (
-                                                        <td key={action} className="px-4 py-4 text-center">
+                                                        <td key={action} className="px-3 py-1.5 text-center">
                                                             {isSuperAdmin || !selectedRole?.isSystem ? (
                                                                 <button
                                                                     onClick={() => handleTogglePermission(module, action, allowed)}
@@ -363,8 +364,8 @@ export default function RolesPage() {
         <div className="max-w-4xl mx-auto space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="text-h2 font-bold tracking-tight text-primary">{selectedRole.name} — Users</h2>
-                    <p className="text-muted-foreground text-sm">{roleUsers.length} user(s) assigned this role.</p>
+                    <h2 className="text-[20px] font-bold tracking-tight text-primary">{selectedRole.name} — Users</h2>
+                    <p className="text-foreground/60 text-[12px]">{roleUsers.length} user(s) assigned this role.</p>
                     {selectedRole.isSystem && !isSuperAdmin && (
                         <p className="text-xs text-primary mt-1 flex items-center gap-1"><ShieldCheck size={12} /> System role — read-only</p>
                     )}
@@ -395,25 +396,25 @@ export default function RolesPage() {
                 </div>
             </div>
 
-            <div className="bg-white/75 border border-border rounded-2xl overflow-hidden">
-                <table className="w-full">
+            <div className="bg-white/75 border border-primary/20 rounded-2xl overflow-hidden">
+                <table className={TABLE_ROOT}>
                     <thead>
-                        <tr className="bg-muted/50 border-b border-border">
-                            <th className="px-6 py-4 text-left text-sm font-bold">Name</th>
-                            <th className="px-6 py-4 text-left text-sm font-bold">Email</th>
-                            <th className="px-6 py-4 text-left text-sm font-bold">System Role</th>
-                            <th className="px-6 py-4 text-right text-sm font-bold">Action</th>
+                        <tr className={TABLE_HEADER}>
+                            <th className={TABLE_HEADER_CELL_NO_SORT}>Name</th>
+                            <th className={TABLE_HEADER_CELL_NO_SORT}>Email</th>
+                            <th className={TABLE_HEADER_CELL_NO_SORT}>System Role</th>
+                            <th className={`${TABLE_HEADER_CELL_NO_SORT} text-right`}>Action</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-border">
+                    <tbody className={TABLE_BODY}>
                         {roleUsers.map(u => (
-                            <tr key={u.id} className="hover:bg-muted/30">
-                                <td className="px-6 py-4 font-semibold">{u.firstName} {u.lastName}</td>
-                                <td className="px-6 py-4 text-muted-foreground">{u.email}</td>
-                                <td className="px-6 py-4">
-                                    <span className="text-xs font-mono bg-muted px-2 py-1 rounded-lg">{u.role}</span>
+                            <tr key={u.id} className={TABLE_ROW}>
+                                <td className={TABLE_CELL_PRIMARY}>{u.firstName} {u.lastName}</td>
+                                <td className={TABLE_CELL}>{u.email}</td>
+                                <td className={TABLE_CELL}>
+                                    <span className="text-[12px] font-mono bg-muted px-2 py-1 rounded-lg">{u.role}</span>
                                 </td>
-                                <td className="px-6 py-4 text-right">
+                                <td className={TABLE_CELL_ACTIONS}>
                                     {(isSuperAdmin || !selectedRole?.isSystem) && (
                                         <button
                                             onClick={async () => {
@@ -430,7 +431,7 @@ export default function RolesPage() {
                             </tr>
                         ))}
                         {roleUsers.length === 0 && (
-                            <tr><td colSpan={4} className="px-6 py-12 text-center text-muted-foreground">No users assigned this role.</td></tr>
+                            <tr><td colSpan={4} className="px-3 py-8 text-center text-foreground/60 text-[12px]">No users assigned this role.</td></tr>
                         )}
                     </tbody>
                 </table>

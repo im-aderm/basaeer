@@ -1647,17 +1647,114 @@ exports.Prisma.MessageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.EventCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.CampusEventScalarFieldEnum = {
   id: 'id',
   title: 'title',
-  description: 'description',
+  slug: 'slug',
+  shortDescription: 'shortDescription',
+  fullDescription: 'fullDescription',
+  objectives: 'objectives',
+  rulesAndDiscipline: 'rulesAndDiscipline',
+  requirements: 'requirements',
+  mealsAndHospitality: 'mealsAndHospitality',
+  whyChooseThisEvent: 'whyChooseThisEvent',
   startDate: 'startDate',
   endDate: 'endDate',
+  applicationDeadline: 'applicationDeadline',
   location: 'location',
-  category: 'category',
+  categoryId: 'categoryId',
+  categoryLabel: 'categoryLabel',
   isPublic: 'isPublic',
   allowRSVP: 'allowRSVP',
   branchId: 'branchId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  status: 'status',
+  active: 'active',
+  featuredImage: 'featuredImage',
+  brochurePdf: 'brochurePdf',
+  capacity: 'capacity',
+  registrationOpen: 'registrationOpen',
+  applicationFormEnabled: 'applicationFormEnabled',
+  paymentRequired: 'paymentRequired',
+  seoMetadata: 'seoMetadata'
+};
+
+exports.Prisma.EventPackageScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  title: 'title',
+  ageRange: 'ageRange',
+  timing: 'timing',
+  fee: 'fee',
+  boardingType: 'boardingType',
+  availableSlots: 'availableSlots',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventScheduleScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  day: 'day',
+  period: 'period',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  activity: 'activity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventGalleryScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  imageUrl: 'imageUrl',
+  isCover: 'isCover',
+  order: 'order',
+  caption: 'caption',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventApplicationScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  packageId: 'packageId',
+  branchId: 'branchId',
+  fullName: 'fullName',
+  gender: 'gender',
+  dateOfBirth: 'dateOfBirth',
+  age: 'age',
+  parentName: 'parentName',
+  parentPhone: 'parentPhone',
+  parentEmail: 'parentEmail',
+  address: 'address',
+  state: 'state',
+  localGovernment: 'localGovernment',
+  memorizationLevel: 'memorizationLevel',
+  school: 'school',
+  islamicBackground: 'islamicBackground',
+  previousParticipation: 'previousParticipation',
+  medicalConditions: 'medicalConditions',
+  allergies: 'allergies',
+  emergencyContact: 'emergencyContact',
+  accommodationPreference: 'accommodationPreference',
+  passportPhotoUrl: 'passportPhotoUrl',
+  birthCertificateUrl: 'birthCertificateUrl',
+  ninUrl: 'ninUrl',
+  schoolIdUrl: 'schoolIdUrl',
+  medicalReportUrl: 'medicalReportUrl',
+  proofOfPaymentUrl: 'proofOfPaymentUrl',
+  status: 'status',
+  paymentStatus: 'paymentStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1667,6 +1764,20 @@ exports.Prisma.EventRSVPScalarFieldEnum = {
   eventId: 'eventId',
   userId: 'userId',
   status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.EventPaymentScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  amount: 'amount',
+  paymentMethod: 'paymentMethod',
+  proofOfPaymentUrl: 'proofOfPaymentUrl',
+  status: 'status',
+  verifiedBy: 'verifiedBy',
+  verifiedAt: 'verifiedAt',
+  rejectionReason: 'rejectionReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -2730,8 +2841,14 @@ exports.Prisma.ModelName = {
   Conversation: 'Conversation',
   ConversationParticipant: 'ConversationParticipant',
   Message: 'Message',
+  EventCategory: 'EventCategory',
   CampusEvent: 'CampusEvent',
+  EventPackage: 'EventPackage',
+  EventSchedule: 'EventSchedule',
+  EventGallery: 'EventGallery',
+  EventApplication: 'EventApplication',
   EventRSVP: 'EventRSVP',
+  EventPayment: 'EventPayment',
   CampusAccessLog: 'CampusAccessLog',
   AutomationConfig: 'AutomationConfig',
   IdCardTemplate: 'IdCardTemplate',

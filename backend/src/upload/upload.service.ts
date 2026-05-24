@@ -7,6 +7,7 @@ import {
 } from '@aws-sdk/client-s3';
 import * as crypto from 'crypto';
 import * as path from 'path';
+import { fileTypeFromBuffer } from 'file-type';
 
 @Injectable()
 export class UploadService {
@@ -27,7 +28,6 @@ export class UploadService {
     this.publicDomain =
       this.configService.get<string>('R2_PUBLIC_DOMAIN') || '';
 
-    // Initialize the S3 client configured for Cloudflare R2
     if (accountId && accessKeyId && secretAccessKey) {
       this.s3Client = new S3Client({
         region: 'auto',
@@ -45,11 +45,18 @@ export class UploadService {
     }
   }
 
+  private readonly allowedMimeTypes = [
+    'image/jpeg',
+    'image/png',
+    'image/webp',
+    'image/gif',
+    'application/pdf',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/msword',
+  ] as const;
+
   /**
    * Uploads a file to Cloudflare R2.
-   * @param file The file from multer
-   * @param subFolder Optional folder inside the bucket
-   * @returns Public URL or Signed URL of the uploaded file
    */
   async saveFile(
     file: Express.Multer.File,
@@ -63,24 +70,27 @@ export class UploadService {
       throw new BadRequestException('No file provided');
     }
 
-    // Strict MIME type check
-    const allowedMimeTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/webp',
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/msword',
-    ];
-    if (!allowedMimeTypes.includes(file.mimetype)) {
-      throw new BadRequestException('Invalid file type');
-    }
-
-    // Validate file size
+    // Validate file size BEFORE any processing
     const maxMb = this.configService.get<number>('MAX_FILE_SIZE_MB') || 5;
     const maxSize = maxMb * 1024 * 1024;
     if (file.size > maxSize) {
       throw new BadRequestException(`File size exceeds ${maxMb}MB limit`);
+    }
+
+    // Verify MIME type via magic bytes (not trusting file.mimetype header)
+    const detectedType = await fileTypeFromBuffer(file.buffer);
+    if (!detectedType) {
+      throw new BadRequestException('Unable to determine file type from content');
+    }
+    if (!this.allowedMimeTypes.includes(detectedType.mime as any)) {
+      throw new BadRequestException(`File type ${detectedType.mime} is not allowed`);
+    }
+
+    // Cross-check: declared MIME must match detected MIME category
+    const declaredCategory = file.mimetype.split('/')[0];
+    const detectedCategory = detectedType.mime.split('/')[0];
+    if (declaredCategory !== detectedCategory) {
+      throw new BadRequestException('File content does not match declared type (possible MIME spoofing)');
     }
 
     // Sanitize subFolder to prevent directory traversal
@@ -88,12 +98,11 @@ export class UploadService {
       ? subFolder.replace(/[^a-zA-Z0-9_-]/g, '')
       : '';
 
-    // Generate secure unique filename
-    const ext = this.getFileExtension(file.mimetype, file.originalname);
+    // Generate secure unique filename — extension from DETECTED MIME, not originalname
+    const ext = this.getFileExtension(detectedType.mime);
     const randomStr = crypto.randomBytes(8).toString('hex');
     const filename = `${Date.now()}_${randomStr}${ext}`;
 
-    // Construct the Key for R2
     const key = safeSubFolder ? `${safeSubFolder}/${filename}` : filename;
 
     try {
@@ -101,18 +110,15 @@ export class UploadService {
         Bucket: this.bucketName,
         Key: key,
         Body: file.buffer,
-        ContentType: file.mimetype,
+        ContentType: detectedType.mime,
       });
 
       await this.s3Client.send(command);
 
-      // Return the public URL if configured, otherwise we fallback to returning just the key
-      // If a public domain is configured in Cloudflare (e.g. cdn.domain.com)
       if (this.publicDomain) {
         return `${this.publicDomain.replace(/\/$/, '')}/${key}`;
       }
 
-      // If no public domain, return the key. The client can request a signed URL later.
       return key;
     } catch (error) {
       this.logger.error(
@@ -125,7 +131,6 @@ export class UploadService {
 
   /**
    * Uploads a file buffer directly to Cloudflare R2.
-   * Used by background processors that don't have multer file objects.
    */
   async uploadFile(
     buffer: Buffer,
@@ -141,30 +146,46 @@ export class UploadService {
       throw new BadRequestException('No file provided');
     }
 
-    const allowedMimeTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/webp',
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/msword',
-    ];
-    if (!allowedMimeTypes.includes(mimeType)) {
-      throw new BadRequestException('Invalid file type');
+    // Validate buffer size
+    const maxMb = this.configService.get<number>('MAX_FILE_SIZE_MB') || 5;
+    const maxSize = maxMb * 1024 * 1024;
+    if (buffer.length > maxSize) {
+      throw new BadRequestException(`File size exceeds ${maxMb}MB limit`);
+    }
+
+    // Verify MIME type via magic bytes
+    const detectedType = await fileTypeFromBuffer(buffer);
+    if (!detectedType) {
+      throw new BadRequestException('Unable to determine file type from content');
+    }
+    if (!this.allowedMimeTypes.includes(detectedType.mime as any)) {
+      throw new BadRequestException(`File type ${detectedType.mime} is not allowed`);
+    }
+
+    // Cross-check declared vs detected
+    const declaredCategory = mimeType.split('/')[0];
+    const detectedCategory = detectedType.mime.split('/')[0];
+    if (declaredCategory !== detectedCategory) {
+      throw new BadRequestException('File content does not match declared type');
     }
 
     const safeSubFolder = subFolder
       ? subFolder.replace(/[^a-zA-Z0-9_-]/g, '')
       : '';
 
-    const key = safeSubFolder ? `${safeSubFolder}/${filename}` : filename;
+    // Use detected extension, not the provided filename
+    const ext = this.getFileExtension(detectedType.mime);
+    const baseName = filename.replace(/\.[^.]+$/, '');
+    const secureFilename = `${baseName}${ext}`;
+
+    const key = safeSubFolder ? `${safeSubFolder}/${secureFilename}` : secureFilename;
 
     try {
       const command = new PutObjectCommand({
         Bucket: this.bucketName,
         Key: key,
         Body: buffer,
-        ContentType: mimeType,
+        ContentType: detectedType.mime,
       });
 
       await this.s3Client.send(command);
@@ -203,10 +224,7 @@ export class UploadService {
     }
   }
 
-  private getFileExtension(mimeType: string, originalName: string): string {
-    const ext = path.extname(originalName);
-    if (ext) return ext.toLowerCase();
-
+  private getFileExtension(mimeType: string): string {
     switch (mimeType) {
       case 'image/jpeg':
         return '.jpg';
@@ -214,6 +232,8 @@ export class UploadService {
         return '.png';
       case 'image/webp':
         return '.webp';
+      case 'image/gif':
+        return '.gif';
       case 'application/pdf':
         return '.pdf';
       case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':

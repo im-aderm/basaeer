@@ -17,6 +17,7 @@ import { ReceptionService, VisitorLog } from '@/services/receptionService';
 import { SettingsService } from '@/services/settingsService';
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 
 export default function VisitorLogPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -182,8 +183,8 @@ export default function VisitorLogPage() {
             <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Visitor Log</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage and monitor school campus visitors.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Visitor Log</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Manage and monitor school campus visitors.</p>
                 </div>
 
                 <div className="flex gap-4 w-full md:w-auto">
@@ -203,9 +204,9 @@ export default function VisitorLogPage() {
                                 Add Entry
                             </Button>
                         </DialogTrigger>
-        <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                             <DialogHeader>
-                                <DialogTitle className="text-h3 font-semibold">Visitor Entry</DialogTitle>
+                                <DialogTitle className="text-[12px] font-semibold">Visitor Entry</DialogTitle>
                                 <DialogDescription className="font-bold">Record new visitor credentials.</DialogDescription>
                             </DialogHeader>
                             <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
@@ -219,51 +220,51 @@ export default function VisitorLogPage() {
                 </div>
             </div>
 
-            <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
-                <CardHeader className="p-8 border-b border-border bg-muted/20">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <ShieldCheck className="h-8 w-8 text-primary" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden">
+                <CardHeader className="px-3 py-2 border-b border-primary/20 bg-muted/20">
+                    <CardTitle className="text-[12px] font-semibold tracking-tight text-primary flex items-center gap-3">
+                        <ShieldCheck className="h-5 w-5 text-primary" />
                         Campus Access Log
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Visitor</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Purpose</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">ID/Badge</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Timeline</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                    <Table className={TABLE_ROOT}>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Visitor</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Purpose</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>ID/Badge</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Timeline</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {filtered.map((l) => (
-                                <TableRow key={l.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                    <TableCell className="px-8 font-semibold uppercase leading-tight text-sm">
+                                <TableRow key={l.id} className={TABLE_ROW}>
+                                    <TableCell className={TABLE_CELL_PRIMARY}>
                                         <div className="flex flex-col">
                                             <span>{l.name}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50">{l.phone} ({l.numPerson} People)</span>
+                                            <span className="text-[10px] font-bold text-foreground/60">{l.phone} ({l.numPerson} People)</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-semibold text-[10px] uppercase text-primary/70">
+                                    <TableCell className={TABLE_CELL}>
                                         {l.purpose}
                                     </TableCell>
-                                    <TableCell className="px-8">
-                                        <div className="inline-flex items-center gap-1.5 font-bold text-xs uppercase opacity-60">
+                                    <TableCell className={TABLE_CELL}>
+                                        <div className="inline-flex items-center gap-1.5 font-bold text-[12px] uppercase">
                                             <ShieldCheck className="h-3 w-3" />
                                             {l.idCard || 'N/A'}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 font-bold text-xs whitespace-nowrap">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col gap-1">
                                             <span className="flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(l.date).toLocaleDateString()}</span>
-                                            <span className="text-[10px] font-semibold text-muted-foreground uppercase opacity-60">
+                                            <span className="text-[10px] font-semibold text-foreground/60 uppercase">
                                                 {l.inTime || 'N/A'} - {l.outTime || 'IN'}
                                             </span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <div className="flex justify-end gap-2">
                                             {!l.outTime && (
                                                 <Button
@@ -293,9 +294,9 @@ export default function VisitorLogPage() {
 
             {/* Edit Dialog */}
             <Dialog open={!!editingLog} onOpenChange={(open) => { if (!open) setEditingLog(null); }}>
-                <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
-                        <DialogTitle className="text-h3 font-semibold">Edit Visitor Entry</DialogTitle>
+                        <DialogTitle className="text-[12px] font-semibold">Edit Visitor Entry</DialogTitle>
                         <DialogDescription className="font-semibold opacity-60">Update details for {editingLog?.name}</DialogDescription>
                     </DialogHeader>
                     <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">

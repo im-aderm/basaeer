@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useNotification } from '@/context/NotificationContext';
 import { DataTable } from "@/components/DataTable";
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function LeaveManagementPage() {
     const { showSuccess, showError } = useNotification();
@@ -103,21 +104,21 @@ export default function LeaveManagementPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700 pb-20">
+            <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-700 pb-20">
                 <BranchContextBanner />
                 {/* Header section with glassmorphism */}
-            <div className="relative overflow-hidden rounded-[3.5rem] bg-indigo-900 p-12 text-white shadow-2xl">
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="relative overflow-hidden rounded-2xl bg-indigo-900 p-6 text-white shadow-2xl">
+                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary mb-4">Leave Management</h1>
-                        <p className="text-indigo-200 text-xl font-medium max-w-2xl leading-relaxed">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary mb-2">Leave Management</h1>
+                        <p className="text-indigo-200 text-[12px] font-medium max-w-2xl leading-relaxed">
                             Review and approve time-off requests. Maintain operational continuity while supporting staff well-being.
                         </p>
                     </div>
-                    <div className="flex gap-4">
-                        <Card className="bg-white/10 backdrop-blur-md border-none p-6 rounded-[2rem] text-center min-w-[120px]">
-                            <p className="text-indigo-200 text-label mb-1">Pending</p>
-                            <p className="text-h1 font-semibold">{(requests ?? []).filter(r => r.status === 'PENDING').length}</p>
+                    <div className="flex gap-3">
+                        <Card className="bg-white/10 backdrop-blur-md border-none p-4 rounded-2xl text-center min-w-[120px]">
+                            <p className="text-indigo-200 text-[12px] mb-1">Pending</p>
+                            <p className="text-[16px] font-semibold">{(requests ?? []).filter(r => r.status === 'PENDING').length}</p>
                         </Card>
                     </div>
                 </div>
@@ -125,16 +126,16 @@ export default function LeaveManagementPage() {
                 <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl" />
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden border-t-8 border-t-indigo-500/20">
-                <CardHeader className="p-10 border-b border-border flex flex-row items-center justify-between bg-muted/5">
-                    <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden border-t-8 border-t-indigo-500/20">
+                <CardHeader className="p-4 border-b border-primary/20 flex flex-row items-center justify-between bg-muted/5">
+                    <CardTitle className="text-[12px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Clock className="text-indigo-600" /> Pending Applications
                     </CardTitle>
                     <div className="flex gap-2">
-                        <Button variant="outline" className="rounded-xl font-semibold border-2"><Filter size={16} className="mr-2" /> Filter</Button>
+                        <Button variant="outline" className="rounded-lg font-semibold text-[12px] border-2"><Filter size={16} className="mr-2" /> Filter</Button>
                     </div>
                 </CardHeader>
-                <CardContent className="p-10">
+                <CardContent className="p-4">
                     <DataTable
                         columns={columns}
                         data={requests}
@@ -164,9 +165,9 @@ export default function LeaveManagementPage() {
                         )}
                     />
                     {requests.length === 0 && (
-                        <div className="py-20 text-center space-y-4">
-                            <Clock size={48} className="mx-auto text-muted-foreground/20" />
-                            <p className="text-muted-foreground font-bold">No leave applications currently pending.</p>
+                        <div className="py-8 text-center space-y-3">
+                            <Clock size={36} className="mx-auto text-foreground/20" />
+                            <p className="text-foreground/60 font-semibold text-[12px]">No leave applications currently pending.</p>
                         </div>
                     )}
                 </CardContent>

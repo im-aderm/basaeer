@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { useNotification } from '@/context/NotificationContext';
 import api from "@/lib/api";
 import { AttendanceService } from "@/services/attendanceService";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY } from "@/lib/table-styles";
 
 export default function StaffAttendancePage() {
     const router = useRouter();
@@ -93,32 +94,32 @@ export default function StaffAttendancePage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-7xl mx-auto space-y-6 animate-in fade-in duration-700 pb-20">
+            <div className="max-w-7xl mx-auto space-y-4 animate-in fade-in duration-700 pb-20">
                 <BranchContextBanner />
                 {/* Header */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
                 <Button variant="ghost" size="icon" onClick={() => router.back()} className="rounded-xl">
-                    <ArrowLeft size={22} />
+                    <ArrowLeft size={18} />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Staff Attendance</h1>
-                    <p className="text-muted-foreground">Track daily attendance for employees.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Staff Attendance</h1>
+                    <p className="text-foreground/60 text-[12px]">Track daily attendance for employees.</p>
                 </div>
             </div>
 
             {/* Controls */}
-            <Card className="rounded-[2rem] shadow-sm border-border/50">
-                <CardContent className="p-6">
-                    <div className="flex flex-col md:flex-row gap-6 sticky top-0">
-                        <div className="space-y-2 max-w-xs w-full">
-                            <label className="text-sm font-bold text-muted-foreground ml-1">Date</label>
+            <Card className="rounded-2xl shadow-sm border-primary/20">
+                <CardContent className="p-4">
+                    <div className="flex flex-col md:flex-row gap-4 sticky top-0">
+                        <div className="space-y-1 max-w-xs w-full">
+                            <label className="text-[12px] font-bold text-foreground/60 ml-1">Date</label>
                             <div className="relative">
-                                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-5 h-5" />
+                                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/60 w-4 h-4" />
                                 <Input
                                     type="date"
                                     value={date}
                                     onChange={e => setDate(e.target.value)}
-                                    className="h-12 rounded-xl pl-10 bg-muted/30 border-transparent hover:bg-muted/50 transition-colors"
+                                    className="h-10 rounded-xl pl-9 bg-muted/30 border-transparent hover:bg-muted/50 transition-colors text-[12px]"
                                 />
                             </div>
                         </div>
@@ -126,9 +127,9 @@ export default function StaffAttendancePage() {
                             <Button
                                 onClick={handleSubmit}
                                 disabled={loading || staff.length === 0}
-                                className="h-12 px-8 rounded-xl font-semibold bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
+                                className="h-10 px-6 rounded-xl font-semibold bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 text-[12px]"
                             >
-                                <Save className="w-5 h-5 mr-2" />
+                                <Save className="w-4 h-4 mr-2" />
                                 Save Records
                             </Button>
                         </div>
@@ -138,51 +139,51 @@ export default function StaffAttendancePage() {
 
             {/* Staff List */}
             {fetching ? (
-                <div className="flex items-center justify-center py-20 bg-white rounded-[2.5rem]">
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary"></div>
-                        <p className="text-muted-foreground font-medium animate-pulse">Loading staff records...</p>
+                <div className="flex items-center justify-center py-12 bg-white rounded-2xl">
+                    <div className="flex flex-col items-center gap-3">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+                        <p className="text-foreground/60 font-medium animate-pulse text-[12px]">Loading staff records...</p>
                     </div>
                 </div>
             ) : staff.length > 0 ? (
-                <div className="bg-white rounded-[2rem] border border-border/50 shadow-sm overflow-hidden">
+                <div className="bg-white rounded-2xl border border-primary/20 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead className="bg-primary/5 text-left">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
                                 <tr>
-                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider">Employee</th>
-                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider text-center">Status</th>
-                                    <th className="p-6 font-bold text-sm text-primary/60 uppercase tracking-wider">Remarks</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Employee</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Status</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Remarks</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border/50">
+                            <tbody className={TABLE_BODY}>
                                 {staff.map((emp) => (
-                                    <tr key={emp.id} className="hover:bg-primary/5 transition-colors group">
-                                        <td className="p-6">
-                                            <div className="flex items-center gap-4">
-                                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                    <tr key={emp.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[12px]">
                                                     {emp.user.firstName[0]}{emp.user.lastName[0]}
                                                 </div>
                                                 <div>
-                                                    <div className="font-bold text-slate-800 text-lg">{emp.user.firstName} {emp.user.lastName}</div>
-                                                    <div className="text-xs text-muted-foreground font-mono flex items-center gap-1">
+                                                    <div className="font-bold text-slate-800 text-[12px]">{emp.user.firstName} {emp.user.lastName}</div>
+                                                    <div className="text-[10px] text-foreground/60 font-mono flex items-center gap-1">
                                                         <Briefcase size={10} /> {emp.department?.name || 'No Dept'} • {emp.designationRef?.title || 'No Designation'}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-6 text-center">
-                                            <div className="inline-flex bg-muted/20 p-1 rounded-xl">
+                                        <td className={TABLE_CELL + " text-center"}>
+                                            <div className="inline-flex bg-muted/20 p-0.5 rounded-xl">
                                                 {['PRESENT', 'ABSENT', 'LATE', 'EXCUSED'].map((status) => (
                                                     <button
                                                         key={status}
                                                         onClick={() => handleStatusChange(emp.id, status)}
-                                                        className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${attendanceData[emp.id]?.status === status
+                                                        className={`px-3 py-1 rounded-lg text-[12px] font-bold transition-all ${attendanceData[emp.id]?.status === status
                                                                 ? status === 'PRESENT' ? 'bg-green-100 text-green-700 shadow-sm'
                                                                     : status === 'ABSENT' ? 'bg-red-100 text-red-700 shadow-sm'
                                                                         : status === 'LATE' ? 'bg-yellow-100 text-yellow-700 shadow-sm'
                                                                             : 'bg-blue-100 text-blue-700 shadow-sm'
-                                                                : 'text-muted-foreground hover:bg-white/50'
+                                                                : 'text-foreground/60 hover:bg-white/50'
                                                             }`}
                                                     >
                                                         {status.charAt(0) + status.slice(1).toLowerCase()}
@@ -190,10 +191,10 @@ export default function StaffAttendancePage() {
                                                 ))}
                                             </div>
                                         </td>
-                                        <td className="p-6">
+                                        <td className={TABLE_CELL}>
                                             <Input
                                                 placeholder="Remarks..."
-                                                className="rounded-xl border-dashed border-border hover:border-solid transition-all bg-transparent focus:bg-white"
+                                                className="rounded-xl border-dashed border-border hover:border-solid transition-all bg-transparent focus:bg-white text-[12px]"
                                                 value={attendanceData[emp.id]?.remarks || ''}
                                                 onChange={e => handleRemarksChange(emp.id, e.target.value)}
                                             />
@@ -205,8 +206,8 @@ export default function StaffAttendancePage() {
                     </div>
                 </div>
             ) : (
-                <div className="text-center py-20 text-muted-foreground bg-muted/20 rounded-[2.5rem] border border-dashed border-border">
-                    <p className="italic">No staff records found for this branch.</p>
+                <div className="text-center py-12 text-foreground/60 bg-muted/20 rounded-2xl border border-dashed border-border">
+                    <p className="italic text-[12px]">No staff records found for this branch.</p>
                 </div>
             )}
         </div>

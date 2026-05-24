@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function ChildAcademicsPage() {
     const { id } = useParams();
@@ -59,8 +60,8 @@ export default function ChildAcademicsPage() {
                     <ChevronLeft className="h-6 w-6" />
                 </Button>
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Academic Records</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Homework tracking and examination performance.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Academic Records</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Homework tracking and examination performance.</p>
                 </div>
             </div>
 
@@ -114,46 +115,46 @@ export default function ChildAcademicsPage() {
                 </TabsContent>
 
                 <TabsContent value="exams" className="space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden">
-                        <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-h3 font-semibold uppercase flex items-center gap-3">
-                                <TrendingUp className="h-8 w-8 text-primary" />
+                    <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden">
+                        <CardHeader className="p-4 border-b border-primary/20">
+                            <CardTitle className="text-[14px] font-semibold uppercase flex items-center gap-3">
+                                <TrendingUp className="h-5 w-5 text-primary" />
                                 Assessment Record
                             </CardTitle>
-                            <CardDescription className="font-bold">Summary of performance across all terms.</CardDescription>
+                            <CardDescription className="font-bold text-[12px]">Summary of performance across all terms.</CardDescription>
                         </CardHeader>
                         <CardContent className="p-0">
                             <div className="overflow-x-auto">
-                                <table className="w-full text-left border-collapse">
-                                    <thead>
-                                        <tr className="border-b border-border/50 bg-muted/30">
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Subject</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Term</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Test 1</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Test 2</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Exam</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Total</th>
-                                            <th className="p-6 font-semibold uppercase text-xs opacity-50">Grade</th>
+                                <table className={TABLE_ROOT}>
+                                    <thead className={TABLE_HEADER}>
+                                        <tr>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Subject</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Term</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Test 1</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Test 2</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Exam</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Total</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Grade</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody className={TABLE_BODY}>
                                         {exams.length > 0 ? exams.map((record) => (
-                                            <tr key={record.id} className="border-b border-border/50 hover:bg-primary/5 transition-colors">
-                                                <td className="p-6 font-semibold uppercase text-sm">{record.subject?.name}</td>
-                                                <td className="p-6 font-bold text-sm opacity-60">{record.term} {record.session?.name}</td>
-                                                <td className="p-6 font-bold text-sm">{(record.test1 || 0) + (record.asgn1 || 0)}</td>
-                                                <td className="p-6 font-bold text-sm">{(record.test2 || 0) + (record.asgn2 || 0)}</td>
-                                                <td className="p-6 font-bold text-sm">{record.examScore || 0}</td>
-                                                <td className="p-6 font-semibold text-primary text-sm">{record.total || 0}</td>
-                                                <td className="p-6">
-                                                    <Badge className="rounded-lg font-semibold px-3 py-1 bg-primary text-white">
+                                            <tr key={record.id} className={TABLE_ROW}>
+                                                <td className={TABLE_CELL_PRIMARY}>{record.subject?.name}</td>
+                                                <td className={TABLE_CELL + " text-foreground/60"}>{record.term} {record.session?.name}</td>
+                                                <td className={TABLE_CELL}>{(record.test1 || 0) + (record.asgn1 || 0)}</td>
+                                                <td className={TABLE_CELL}>{(record.test2 || 0) + (record.asgn2 || 0)}</td>
+                                                <td className={TABLE_CELL}>{record.examScore || 0}</td>
+                                                <td className={TABLE_CELL + " text-primary font-semibold"}>{record.total || 0}</td>
+                                                <td className={TABLE_CELL}>
+                                                    <Badge className="rounded-lg font-semibold px-3 py-1 bg-primary text-white text-[12px]">
                                                         {record.grade || 'N/A'}
                                                     </Badge>
                                                 </td>
                                             </tr>
                                         )) : (
                                             <tr>
-                                                <td colSpan={7} className="p-20 text-center font-semibold uppercase opacity-20 text-h2">
+                                                <td colSpan={7} className="py-12 text-center font-semibold uppercase text-foreground/60 text-[12px]">
                                                     No exam records available
                                                 </td>
                                             </tr>

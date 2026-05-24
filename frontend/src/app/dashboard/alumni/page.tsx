@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import {
@@ -29,6 +28,7 @@ import {
 } from 'lucide-react';
 import { StakeholderService, Alumni, AlumniEvent } from '@/services/stakeholderService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function AlumniPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -94,8 +94,8 @@ export default function AlumniPage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Alumni & Graduates</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Celebrating success and maintaining professional connections.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Alumni & Graduates</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Celebrating success and maintaining professional connections.</p>
                 </div>
                 <div className="flex gap-4">
                     <Dialog open={isAddEventOpen} onOpenChange={setIsAddEventOpen}>
@@ -136,101 +136,103 @@ export default function AlumniPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2 space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                        <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between">
-                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                                <Users className="h-8 w-8 text-primary" />
+                    <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                        <CardHeader className="p-4 border-b border-primary/20 flex flex-row items-center justify-between">
+                            <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                                <Users className="h-5 w-5 text-primary" />
                                 Alumni Directory
                             </CardTitle>
                             <div className="relative w-64">
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                                 <Input
                                     placeholder="Search graduates..."
-                                    className="pl-9 h-11 rounded-xl font-bold"
+                                    className="pl-9 h-9 rounded-xl font-bold text-[12px]"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
                         </CardHeader>
                         <CardContent className="p-0">
-                            <Table>
-                                <TableHeader className="bg-muted/30 h-16">
-                                    <TableRow className="border-border/50 hover:bg-transparent">
-                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Name & Graduation</TableHead>
-                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Current Profile</TableHead>
-                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Status</TableHead>
-                                        <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-right">Actions</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {alumni.filter(a => (a.student?.firstName + ' ' + a.student?.lastName).toLowerCase().includes(searchTerm.toLowerCase())).map((a) => (
-                                        <TableRow key={a.id} className="border-border/50 h-24 transition-all hover:bg-muted/20">
-                                            <TableCell className="px-8 flex flex-col justify-center h-24">
-                                                <span className="font-semibold">{a.student?.firstName} {a.student?.lastName}</span>
-                                                <span className="text-xs font-bold text-muted-foreground opacity-60 tracking-wider flex items-center gap-1">
-                                                    <GraduationCap className="h-3 w-3" /> Class of {new Date(a.graduationDate).getFullYear()}
-                                                </span>
-                                            </TableCell>
-                                            <TableCell className="px-8 text-[11px] font-bold uppercase leading-tight">
-                                                <div className="flex items-center gap-2 text-primary">
-                                                    <Briefcase className="h-3 w-3" /> {a.currentOccupation || 'Professional Graduate'}
-                                                </div>
-                                                <div className="text-muted-foreground opacity-60 ml-5">{a.currentCompany || 'N/A'}</div>
-                                            </TableCell>
-                                            <TableCell className="px-8">
-                                                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-none font-bold text-[10px] flex items-center gap-1 w-fit">
-                                                    <CheckCircle2 className="w-3 h-3" /> Active Network
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell className="text-right px-8">
-                                                <div className="flex justify-end gap-2">
-                                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-muted" title="Edit Profile">
-                                                        <Pencil className="h-4 w-4 text-muted-foreground" />
-                                                    </Button>
-                                                    <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-red-50 group" title="Delete record">
-                                                        <Trash2 className="h-4 w-4 text-muted-foreground group-hover:text-red-500 transition-colors" />
-                                                    </Button>
-                                                    <div className="w-[1px] h-4 bg-border mx-1 self-center" />
-                                                    {a.linkedInUrl && (
-                                                        <Button variant="secondary" size="icon" className="h-9 w-9 rounded-xl shadow-sm" asChild title="LinkedIn Profile">
-                                                            <a href={a.linkedInUrl} target="_blank" rel="noopener noreferrer"><Linkedin className="h-4 w-4" /></a>
+                            <div className="overflow-x-auto">
+                                <table className={TABLE_ROOT}>
+                                    <thead className={TABLE_HEADER}>
+                                        <tr>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Name & Graduation</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Current Profile</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                            <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className={TABLE_BODY}>
+                                        {alumni.filter(a => (a.student?.firstName + ' ' + a.student?.lastName).toLowerCase().includes(searchTerm.toLowerCase())).map((a) => (
+                                            <tr key={a.id} className={TABLE_ROW}>
+                                                <td className={TABLE_CELL_PRIMARY}>
+                                                    <span className="font-semibold text-[12px]">{a.student?.firstName} {a.student?.lastName}</span>
+                                                    <span className="text-[10px] font-bold text-foreground/60 tracking-wider flex items-center gap-1">
+                                                        <GraduationCap className="h-3 w-3" /> Class of {new Date(a.graduationDate).getFullYear()}
+                                                    </span>
+                                                </td>
+                                                <td className={TABLE_CELL}>
+                                                    <div className="flex items-center gap-2 text-primary text-[12px] font-bold uppercase leading-tight">
+                                                        <Briefcase className="h-3 w-3" /> {a.currentOccupation || 'Professional Graduate'}
+                                                    </div>
+                                                    <div className="text-foreground/60 ml-5 text-[10px]">{a.currentCompany || 'N/A'}</div>
+                                                </td>
+                                                <td className={TABLE_CELL}>
+                                                    <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-none font-bold text-[10px] flex items-center gap-1 w-fit">
+                                                        <CheckCircle2 className="w-3 h-3" /> Active Network
+                                                    </Badge>
+                                                </td>
+                                                <td className={TABLE_CELL_ACTIONS}>
+                                                    <div className="flex justify-end gap-2">
+                                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-muted" title="Edit Profile">
+                                                            <Pencil className="h-4 w-4 text-foreground/60" />
                                                         </Button>
-                                                    )}
-                                                    <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl border-primary/20 hover:bg-primary/5" title="Send Email">
-                                                        <Mail className="h-4 w-4 text-primary" />
-                                                    </Button>
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
+                                                        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-red-50 group" title="Delete record">
+                                                            <Trash2 className="h-4 w-4 text-foreground/60 group-hover:text-red-500 transition-colors" />
+                                                        </Button>
+                                                        <div className="w-[1px] h-4 bg-border mx-1 self-center" />
+                                                        {a.linkedInUrl && (
+                                                            <Button variant="secondary" size="icon" className="h-9 w-9 rounded-xl shadow-sm" asChild title="LinkedIn Profile">
+                                                                <a href={a.linkedInUrl} target="_blank" rel="noopener noreferrer"><Linkedin className="h-4 w-4" /></a>
+                                                            </Button>
+                                                        )}
+                                                        <Button variant="outline" size="icon" className="h-9 w-9 rounded-xl border-primary/20 hover:bg-primary/5" title="Send Email">
+                                                            <Mail className="h-4 w-4 text-primary" />
+                                                        </Button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
                         </CardContent>
                     </Card>
                 </div>
 
                 <div className="space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-2xl bg-background overflow-hidden border-l-4 border-l-primary">
-                        <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-h3 font-semibold">Upcoming Meetups</CardTitle>
+                    <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden border-l-4 border-l-primary">
+                        <CardHeader className="p-4 border-b border-primary/20">
+                            <CardTitle className="text-[14px] font-semibold">Upcoming Meetups</CardTitle>
                         </CardHeader>
-                        <CardContent className="p-8 space-y-4">
+                        <CardContent className="p-4 space-y-4">
                             {events.map((event) => (
-                                <div key={event.id} className="p-5 rounded-3xl bg-muted/30 border border-transparent hover:border-primary/20 transition-all space-y-4">
+                                <div key={event.id} className="p-4 rounded-2xl bg-muted/30 border border-transparent hover:border-primary/20 transition-all space-y-4">
                                     <div className="flex justify-between items-start">
-                                        <Badge className="rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border-none font-semibold">
+                                        <Badge className="rounded-lg bg-primary/10 text-primary hover:bg-primary/20 border-none font-semibold text-[12px]">
                                             {new Date(event.eventDate).toLocaleDateString()}
                                         </Badge>
                                         <Users className="h-5 w-5 opacity-20" />
                                     </div>
                                     <div>
-                                        <div className="font-semibold uppercase text-lg">{event.title}</div>
-                                        <p className="text-xs font-medium text-muted-foreground line-clamp-2">{event.description}</p>
+                                        <div className="font-semibold uppercase text-[12px]">{event.title}</div>
+                                        <p className="text-[10px] font-medium text-foreground/60 line-clamp-2">{event.description}</p>
                                     </div>
-                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase text-muted-foreground">
+                                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase text-foreground/60">
                                         <MapPin className="h-3 w-3" /> {event.location || 'Location Pending'}
                                     </div>
-                                    <Button className="w-full h-10 rounded-xl font-semibold uppercase tracking-wider text-xs bg-primary/5 text-primary hover:bg-primary/10 border-none shadow-none">
+                                    <Button className="w-full h-9 rounded-xl font-semibold uppercase tracking-wider text-[10px] bg-primary/5 text-primary hover:bg-primary/10 border-none shadow-none">
                                         Join Event <ExternalLink className="ml-2 h-3 w-3" />
                                     </Button>
                                 </div>

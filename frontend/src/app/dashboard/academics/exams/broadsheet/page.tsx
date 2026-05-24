@@ -85,20 +85,20 @@ export default function BroadsheetPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <FileSpreadsheet className="text-primary w-10 h-10" />
                         Class Broadsheet
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Generate class-wide result summaries for administrative review.</p>
+                    <p className="text-foreground/60 mt-2 text-[12px]">Generate class-wide result summaries for administrative review.</p>
                 </div>
             </div>
 
             {/* Filter Panel */}
-            <div className="bg-white/75 border border-border rounded-[3rem] p-10 shadow-sm flex flex-wrap items-end gap-8">
-                <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-label text-muted-foreground ml-3">Select Class</label>
+            <div className="bg-white/75 border border-primary/20 rounded-2xl p-4 shadow-sm flex flex-wrap items-end gap-4">
+                <div className="flex-1 min-w-[180px] space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Select Class</label>
                     <select
-                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedClassId}
                         onChange={e => setSelectedClassId(e.target.value)}
                     >
@@ -107,10 +107,10 @@ export default function BroadsheetPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[220px] space-y-3">
-                    <label className="text-label text-muted-foreground ml-3">Select Section</label>
+                <div className="flex-1 min-w-[180px] space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Select Section</label>
                     <select
-                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedSectionId}
                         onChange={e => setSelectedSectionId(e.target.value)}
                         disabled={!selectedClassId}
@@ -120,10 +120,10 @@ export default function BroadsheetPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[150px] space-y-3">
-                    <label className="text-label text-muted-foreground ml-3">Academic Session</label>
+                <div className="flex-1 min-w-[140px] space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Academic Session</label>
                     <select
-                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedSessionId}
                         onChange={e => setSelectedSessionId(e.target.value)}
                     >
@@ -131,10 +131,10 @@ export default function BroadsheetPage() {
                     </select>
                 </div>
 
-                <div className="flex-1 min-w-[150px] space-y-3">
-                    <label className="text-label text-muted-foreground ml-3">Academic Term</label>
+                <div className="flex-1 min-w-[140px] space-y-2">
+                    <label className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60 ml-1">Academic Term</label>
                     <select
-                        className="w-full p-5 bg-white border border-primary/90 rounded-2xl focus:border-primary outline-none font-bold"
+                        className="w-full p-3 bg-white border border-primary/20 rounded-xl focus:border-primary outline-none font-semibold text-[12px]"
                         value={selectedTerm}
                         onChange={e => setSelectedTerm(e.target.value as Term)}
                     >
@@ -148,38 +148,38 @@ export default function BroadsheetPage() {
                     <button
                         onClick={handleDownloadBroadsheet}
                         disabled={!selectedSectionId || exporting}
-                        className="flex items-center gap-3 px-8 py-5 bg-primary text-white rounded-[1.5rem] font-semibold shadow-xl shadow-primary/20 hover:scale-[1.05] active:scale-95 transition-all disabled:opacity-50"
+                        className="flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-xl font-semibold shadow-sm hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50 text-[12px]"
                     >
-                        {exporting ? <Loader2 size={24} className="animate-spin" /> : <Download size={24} />}
+                        {exporting ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
                         Export Excel Broadsheet
                     </button>
                 </div>
             </div>
 
             {/* Empty State / Preview Note */}
-            <div className="bg-white/75 border border-border rounded-[4rem] p-20 text-center space-y-8 border-t-8 border-t-primary shadow-sm bg-gradient-to-b from-card to-muted/10">
-                <div className="w-32 h-32 bg-primary/5 rounded-[3rem] flex items-center justify-center mx-auto border border-primary/10">
-                    <Table size={56} className="text-primary" />
+            <div className="bg-white/75 border border-primary/20 rounded-2xl p-8 text-center space-y-6 border-t-4 border-t-primary shadow-sm bg-gradient-to-b from-card to-muted/10">
+                <div className="w-20 h-20 bg-primary/5 rounded-2xl flex items-center justify-center mx-auto border border-primary/10">
+                    <Table size={36} className="text-primary" />
                 </div>
-                <div className="space-y-4 max-w-2xl mx-auto">
-                    <h2 className="text-h1 font-semibold tracking-tight">Ready for Generation</h2>
-                    <p className="text-muted-foreground text-lg font-medium leading-relaxed">
+                <div className="space-y-3 max-w-2xl mx-auto">
+                    <h2 className="text-[18px] font-semibold tracking-tight">Ready for Generation</h2>
+                    <p className="text-foreground/60 text-[12px] font-medium leading-relaxed">
                         The Broadsheet provides a comprehensive row-by-row analysis of all pupils in a section, showing scores across all subjects, totals, averages, and class positions.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                    <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
-                        <BookOpen className="mx-auto text-primary" />
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Subject Headers</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                    <div className="p-4 bg-background rounded-xl border border-primary/20 space-y-1">
+                        <BookOpen className="mx-auto text-primary" size={20} />
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Subject Headers</p>
                     </div>
-                    <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
-                        <CheckCircle2 className="mx-auto text-primary" />
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Auto-Ranking</p>
+                    <div className="p-4 bg-background rounded-xl border border-primary/20 space-y-1">
+                        <CheckCircle2 className="mx-auto text-primary" size={20} />
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Auto-Ranking</p>
                     </div>
-                    <div className="p-6 bg-background rounded-[2rem] border border-border space-y-2">
-                        <FileText className="mx-auto text-primary" />
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Detailed Scores</p>
+                    <div className="p-4 bg-background rounded-xl border border-primary/20 space-y-1">
+                        <FileText className="mx-auto text-primary" size={20} />
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-foreground/60">Detailed Scores</p>
                     </div>
                 </div>
             </div>

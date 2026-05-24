@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, STAT_CARD, STAT_LABEL, STAT_VALUE } from "@/lib/table-styles";
 import { useNotification } from '@/context/NotificationContext';
 
 export default function GenerateStudentCertificatePage() {
@@ -117,81 +118,81 @@ export default function GenerateStudentCertificatePage() {
         `${s.firstName} ${s.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (loading) return <div className="p-8 text-center"><Loader2 className="animate-spin mx-auto h-8 w-8 text-primary" /></div>;
+    if (loading) return <div className="p-4 text-center"><Loader2 className="animate-spin mx-auto h-6 w-6 text-primary" /></div>;
 
     return (
         <RequireBranch requireSpecificBranch>
-        <div className="space-y-8 pb-20">
+        <div className="space-y-6 pb-20">
             <BranchContextBanner />
-            <div className="bg-white/75 border border-border p-10 rounded-[3rem] shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="bg-white/75 border border-primary/20 p-4 rounded-2xl shadow-sm relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
-                        <Award className="w-10 h-10" />
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
+                        <Award className="w-6 h-6" />
                         Bulk Certificate Generation
                     </h1>
-                    <p className="text-muted-foreground mt-2 text-lg font-medium">Select students and a template to generate certificates in bulk.</p>
+                    <p className="text-foreground/60 mt-1 text-[12px] font-medium">Select students and a template to generate certificates in bulk.</p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                <div className="lg:col-span-3 space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-primary">
-                        <CardHeader className="p-8 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                                <Users className="h-6 w-6 text-primary" />
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <div className="lg:col-span-3 space-y-4">
+                    <Card className="rounded-2xl border-primary/20 shadow-xl overflow-hidden border-t-4 border-t-primary">
+                        <CardHeader className="p-4 border-b border-primary/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                            <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-2">
+                                <Users className="h-4 w-4 text-primary" />
                                 Select Students
-                                <Badge className="ml-2 rounded-full bg-primary/10 text-primary border-none font-bold">{selectedStudentIds.size} selected</Badge>
+                                <Badge className="ml-2 rounded-full bg-primary/10 text-primary border-none font-bold text-[12px]">{selectedStudentIds.size} selected</Badge>
                             </CardTitle>
                             <div className="relative w-full sm:w-64">
                                 <Input
                                     placeholder="Search students..."
-                                    className="pl-4 h-11 rounded-xl bg-muted/50 border-none font-bold"
+                                    className="pl-3 h-9 rounded-xl bg-muted/50 border-none font-bold text-[12px]"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
                         </CardHeader>
                         <div className="overflow-x-auto">
-                            <table className="w-full border-collapse">
-                                <thead>
-                                    <tr className="bg-muted/30 text-left border-b border-border">
-                                        <th className="px-8 py-5 w-16">
+                            <table className={TABLE_ROOT}>
+                                <thead className={TABLE_HEADER}>
+                                    <tr>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT + " w-12"}>
                                             <button onClick={toggleAll} className="flex items-center justify-center w-full">
                                                 {filteredStudents.length === selectedStudentIds.size && filteredStudents.length > 0
-                                                    ? <CheckSquare className="w-5 h-5 text-primary" />
-                                                    : <Square className="w-5 h-5 text-muted-foreground" />
+                                                    ? <CheckSquare className="w-4 h-4 text-primary" />
+                                                    : <Square className="w-4 h-4 text-foreground/60" />
                                                 }
                                             </button>
                                         </th>
-                                        <th className="px-6 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Student</th>
-                                        <th className="px-6 py-5 text-[10px] uppercase tracking-[0.2em] font-semibold text-muted-foreground">Class</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Student</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Class</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-border/50">
+                                <tbody className={TABLE_BODY}>
                                     {filteredStudents.length > 0 ? filteredStudents.map((student) => (
                                         <tr
                                             key={student.id}
-                                            className={`hover:bg-muted/5 transition-all cursor-pointer ${selectedStudentIds.has(student.id) ? 'bg-amber-500/5' : ''}`}
+                                            className={`hover:bg-primary/[0.03] transition-all cursor-pointer ${selectedStudentIds.has(student.id) ? 'bg-amber-500/5' : ''}`}
                                             onClick={() => toggleStudent(student.id)}
                                         >
-                                            <td className="px-8 py-5">
+                                            <td className={TABLE_CELL}>
                                                 {selectedStudentIds.has(student.id)
-                                                    ? <CheckSquare className="w-5 h-5 text-primary" />
-                                                    : <Square className="w-5 h-5 text-muted-foreground" />
+                                                    ? <CheckSquare className="w-4 h-4 text-primary" />
+                                                    : <Square className="w-4 h-4 text-foreground/60" />
                                                 }
                                             </td>
-                                            <td className="px-6 py-5">
-                                                <span className="font-semibold">{student.firstName} {student.lastName}</span>
+                                            <td className={TABLE_CELL_PRIMARY}>
+                                                {student.firstName} {student.lastName}
                                             </td>
-                                            <td className="px-6 py-5">
-                                                <span className="text-sm font-medium text-muted-foreground">{student.class?.name || 'N/A'}</span>
+                                            <td className={TABLE_CELL}>
+                                                {student.class?.name || 'N/A'}
                                             </td>
                                         </tr>
                                     )) : (
                                         <tr>
-                                            <td colSpan={3} className="py-16 text-center">
-                                                <Users className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-                                                <p className="font-semibold text-muted-foreground">No students found</p>
+                                            <td colSpan={3} className="py-8 text-center">
+                                                <Users className="w-8 h-8 text-foreground/30 mx-auto mb-2" />
+                                                <p className="font-semibold text-foreground/60 text-[12px]">No students found</p>
                                             </td>
                                         </tr>
                                     )}
@@ -201,19 +202,19 @@ export default function GenerateStudentCertificatePage() {
                     </Card>
                 </div>
 
-                <div className="space-y-6">
-                    <Card className="rounded-[3rem] border-border/50 shadow-xl overflow-hidden border-t-8 border-t-primary">
-                        <CardHeader className="p-8 border-b border-border/50">
-                            <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                                <FileCheck className="h-6 w-6 text-primary" />
+                <div className="space-y-4">
+                    <Card className="rounded-2xl border-primary/20 shadow-xl overflow-hidden border-t-4 border-t-primary">
+                        <CardHeader className="p-4 border-b border-primary/20">
+                            <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-2">
+                                <FileCheck className="h-4 w-4 text-primary" />
                                 Template & Generate
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="p-8 space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground ml-1">Certificate Template</label>
+                        <CardContent className="p-4 space-y-4">
+                            <div className="space-y-1">
+                                <label className="text-[12px] font-semibold text-foreground/60 ml-1">Certificate Template</label>
                                 <select
-                                    className="w-full h-12 rounded-2xl bg-white border border-primary/90 font-bold text-base px-4 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
+                                    className="w-full h-10 rounded-2xl bg-white border border-primary/90 font-bold text-[12px] px-3 appearance-none focus:ring-2 ring-primary/20 cursor-pointer"
                                     value={selectedTemplate}
                                     onChange={(e) => setSelectedTemplate(e.target.value)}
                                 >
@@ -223,47 +224,47 @@ export default function GenerateStudentCertificatePage() {
                                     ))}
                                 </select>
                                 {templates.length === 0 && (
-                                    <p className="text-xs font-medium text-muted-foreground mt-1">No templates found. Create one first.</p>
+                                    <p className="text-[12px] font-medium text-foreground/60 mt-1">No templates found. Create one first.</p>
                                 )}
                             </div>
 
-                            <div className="bg-muted/30 rounded-2xl p-5 space-y-2">
-                                <div className="flex justify-between text-sm font-medium">
-                                    <span className="text-muted-foreground">Selected Students</span>
+                            <div className="bg-muted/30 rounded-2xl p-3 space-y-1">
+                                <div className="flex justify-between text-[12px] font-medium">
+                                    <span className="text-foreground/60">Selected Students</span>
                                     <span className="font-bold">{selectedStudentIds.size}</span>
                                 </div>
-                                <div className="flex justify-between text-sm font-medium">
-                                    <span className="text-muted-foreground">Template</span>
+                                <div className="flex justify-between text-[12px] font-medium">
+                                    <span className="text-foreground/60">Template</span>
                                     <span className="font-bold">{selectedTemplate ? templates.find(t => t.id === selectedTemplate)?.name || 'Selected' : 'None'}</span>
                                 </div>
                             </div>
 
                             <Button
-                                className="w-full h-14 rounded-2xl font-semibold text-lg shadow-xl shadow-primary/20 gap-3"
+                                className="w-full h-10 rounded-2xl font-semibold text-[12px] shadow-xl shadow-primary/20 gap-2"
                                 disabled={generating || selectedStudentIds.size === 0 || !selectedTemplate}
                                 onClick={handleGenerate}
                             >
                                 {generating ? (
                                     <><Loader2 className="animate-spin" /> Generating...</>
                                 ) : (
-                                    <><Download className="w-5 h-5" /> Generate Certificates</>
+                                    <><Download className="w-4 h-4" /> Generate Certificates</>
                                 )}
                             </Button>
                         </CardContent>
                     </Card>
 
                     {results && (
-                        <Card className="rounded-[2rem] border-border/50 shadow-lg overflow-hidden">
-                            <CardContent className="p-6 space-y-4">
-                                <h4 className="font-semibold text-sm uppercase tracking-wider">Generation Results</h4>
-                                <div className="flex gap-4">
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <CheckCircle2 className="w-4 h-4 text-green-500" />
+                        <Card className="rounded-2xl border-primary/20 shadow-lg overflow-hidden">
+                            <CardContent className="p-4 space-y-3">
+                                <h4 className="font-semibold text-[12px] uppercase tracking-wider">Generation Results</h4>
+                                <div className="flex gap-3">
+                                    <div className="flex items-center gap-2 text-[12px]">
+                                        <CheckCircle2 className="w-3 h-3 text-green-500" />
                                         <span className="font-bold">{results.success}</span> succeeded
                                     </div>
                                     {results.failed > 0 && (
-                                        <div className="flex items-center gap-2 text-sm">
-                                            <XCircle className="w-4 h-4 text-red-500" />
+                                        <div className="flex items-center gap-2 text-[12px]">
+                                            <XCircle className="w-3 h-3 text-red-500" />
                                             <span className="font-bold">{results.failed}</span> failed
                                         </div>
                                     )}
@@ -271,7 +272,7 @@ export default function GenerateStudentCertificatePage() {
                                 {results.errors.length > 0 && (
                                     <div className="max-h-32 overflow-y-auto space-y-1 bg-red-500/5 rounded-xl p-3">
                                         {results.errors.map((err, i) => (
-                                            <p key={i} className="text-xs text-red-600 flex items-start gap-1">
+                                            <p key={i} className="text-[12px] text-red-600 flex items-start gap-1">
                                                 <AlertCircle className="w-3 h-3 mt-0.5 shrink-0" /> {err}
                                             </p>
                                         ))}

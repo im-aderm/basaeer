@@ -20,17 +20,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
 import { useNotification } from '@/context/NotificationContext';
 import { LibraryService, Book as BookType, BorrowRecord } from "@/services/libraryService";
 import { StudentService, Student } from "@/services/studentService";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from "@/lib/table-styles";
 
 type Tab = "active" | "issue";
 
@@ -132,28 +125,28 @@ export default function BookIssueReturnPage() {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                <Loader2 className="h-8 w-8 animate-spin text-foreground/60" />
             </div>
         );
     }
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+            <div className="space-y-6 animate-in fade-in duration-500 pb-20">
                 <BranchContextBanner />
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-3">
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-3">
                         <Library className="text-primary w-10 h-10" />
                         Issue & Return
                     </h1>
-                    <p className="text-muted-foreground font-medium text-lg">
+                    <p className="text-foreground/60 font-medium text-[12px]">
                         Issue books to students and manage returns.
                     </p>
                 </div>
             </div>
 
-            <div className="flex gap-2 border-b border-border/50 pb-1">
+            <div className="flex gap-2 border-b border-primary/20 pb-1">
                 {tabs.map((t) => (
                     <button
                         key={t.key}
@@ -161,7 +154,7 @@ export default function BookIssueReturnPage() {
                         className={`flex items-center gap-2 px-6 py-3 rounded-t-xl font-semibold text-sm transition-all ${
                             tab === t.key
                                 ? "bg-primary text-primary-foreground shadow-lg"
-                                : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                                : "text-foreground/60 hover:text-foreground hover:bg-muted/50"
                         }`}
                     >
                         <t.icon size={18} />
@@ -171,13 +164,13 @@ export default function BookIssueReturnPage() {
             </div>
 
             {tab === "active" && (
-                <Card className="rounded-[2rem] border-border/50 shadow-xl overflow-hidden">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 px-8 pt-8">
-                        <CardTitle className="text-h3 font-semibold tracking-tight">
+                <Card className="rounded-2xl border-primary/20 shadow-xl overflow-hidden">
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 px-3 pt-3">
+                        <CardTitle className="text-[12px] font-semibold tracking-tight">
                             Active Borrowings
                         </CardTitle>
                         <div className="relative w-72">
-                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground/60" size={18} />
                             <Input
                                 placeholder="Search by book or student..."
                                 className="pl-10 rounded-xl bg-muted/30 border-none h-11"
@@ -188,29 +181,29 @@ export default function BookIssueReturnPage() {
                     </CardHeader>
                     <CardContent className="p-0">
                         <div className="overflow-x-auto">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead className="px-8">Book Title</TableHead>
-                                        <TableHead>Student Name</TableHead>
-                                        <TableHead>Borrow Date</TableHead>
-                                        <TableHead>Due Date</TableHead>
-                                        <TableHead>Status</TableHead>
-                                        <TableHead className="text-right pr-8">Actions</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
+                            <table className={TABLE_ROOT}>
+                                <thead>
+                                    <tr className={TABLE_HEADER}>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Book Title</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Student Name</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Borrow Date</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Due Date</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                        <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className={TABLE_BODY}>
                                     {filteredActive.length === 0 ? (
-                                        <TableRow>
-                                            <TableCell colSpan={6} className="text-center py-16">
+                                        <tr>
+                                            <td colSpan={6} className="text-center py-12">
                                                 <div className="flex flex-col items-center gap-3">
-                                                    <BookOpen className="h-10 w-10 text-muted-foreground/30" />
-                                                    <p className="text-muted-foreground font-medium">
+                                                    <BookOpen className="h-10 w-10 text-foreground/30" />
+                                                    <p className="text-foreground/60 font-medium">
                                                         {search ? "No matching borrowings found." : "No active borrowings."}
                                                     </p>
                                                 </div>
-                                            </TableCell>
-                                        </TableRow>
+                                            </td>
+                                        </tr>
                                     ) : (
                                         filteredActive.map((record) => {
                                             const isOverdue =
@@ -218,37 +211,37 @@ export default function BookIssueReturnPage() {
                                                 (record.status === "BORROWED" &&
                                                     new Date(record.dueDate) < new Date());
                                             return (
-                                                <TableRow key={record.id} className="hover:bg-muted/30">
-                                                    <TableCell className="px-8 font-medium">
+                                                <tr key={record.id} className={TABLE_ROW}>
+                                                    <td className={TABLE_CELL_PRIMARY}>
                                                         <div className="flex items-center gap-3">
                                                             <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                                                                 <BookOpen size={18} />
                                                             </div>
                                                             {record.book?.title || "Unknown Book"}
                                                         </div>
-                                                    </TableCell>
-                                                    <TableCell>
+                                                    </td>
+                                                    <td className={TABLE_CELL}>
                                                         <div className="flex items-center gap-2">
-                                                            <User size={16} className="text-muted-foreground" />
+                                                            <User size={16} className="text-foreground/60" />
                                                             {record.student?.firstName || ""}{" "}
                                                             {record.student?.lastName || ""}
                                                         </div>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <div className="flex items-center gap-2 text-muted-foreground">
+                                                    </td>
+                                                    <td className={TABLE_CELL}>
+                                                        <div className="flex items-center gap-2 text-foreground/60">
                                                             <Calendar size={14} />
                                                             {new Date(record.borrowDate).toLocaleDateString()}
                                                         </div>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <div className="flex items-center gap-2 text-muted-foreground">
+                                                    </td>
+                                                    <td className={TABLE_CELL}>
+                                                        <div className="flex items-center gap-2 text-foreground/60">
                                                             <Calendar size={14} />
                                                             {new Date(record.dueDate).toLocaleDateString()}
                                                         </div>
-                                                    </TableCell>
-                                                    <TableCell>
+                                                    </td>
+                                                    <td className={TABLE_CELL}>
                                                         <span
-                                                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${
+                                                            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-semibold ${
                                                                 isOverdue
                                                                     ? "bg-red-100 text-red-700"
                                                                     : "bg-green-100 text-green-700"
@@ -264,8 +257,8 @@ export default function BookIssueReturnPage() {
                                                                 </>
                                                             )}
                                                         </span>
-                                                    </TableCell>
-                                                    <TableCell className="text-right pr-8">
+                                                    </td>
+                                                    <td className={TABLE_CELL_ACTIONS}>
                                                         <Button
                                                             size="sm"
                                                             className="rounded-xl"
@@ -273,13 +266,13 @@ export default function BookIssueReturnPage() {
                                                         >
                                                             Return
                                                         </Button>
-                                                    </TableCell>
-                                                </TableRow>
+                                                    </td>
+                                                </tr>
                                             );
                                         })
                                     )}
-                                </TableBody>
-                            </Table>
+                                </tbody>
+                            </table>
                         </div>
                     </CardContent>
                 </Card>
@@ -287,14 +280,14 @@ export default function BookIssueReturnPage() {
 
             {tab === "issue" && (
                 <div className="max-w-2xl mx-auto">
-                    <Card className="rounded-[2rem] border-border/50 shadow-xl">
-                        <CardHeader className="px-8 pt-8">
-                            <CardTitle className="text-h3 font-semibold tracking-tight text-primary flex items-center gap-3">
+                    <Card className="rounded-2xl border-primary/20 shadow-xl">
+                        <CardHeader className="px-3 pt-3">
+                            <CardTitle className="text-[12px] font-semibold tracking-tight text-primary flex items-center gap-3">
                                 <ArrowLeftRight className="text-primary" size={24} />
                                 Issue a Book
                             </CardTitle>
                         </CardHeader>
-                        <CardContent className="px-8 pb-8">
+                        <CardContent className="px-3 pb-3">
                             <form onSubmit={handleIssueBook} className="space-y-6">
                                 <div className="space-y-2">
                                     <Label htmlFor="book" className="text-sm font-semibold">
@@ -315,7 +308,7 @@ export default function BookIssueReturnPage() {
                                         ))}
                                     </select>
                                     {availableBooks.length === 0 && (
-                                        <p className="text-xs text-muted-foreground mt-1">
+                                        <p className="text-[12px] text-foreground/60 mt-1">
                                             No books available for borrowing.
                                         </p>
                                     )}

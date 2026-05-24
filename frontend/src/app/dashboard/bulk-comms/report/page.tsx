@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { commsService, Campaign } from "@/services/commsService";
 import { format } from "date-fns";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from "@/lib/table-styles";
 export default function CommsReportPage() {
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
     const [loading, setLoading] = useState(true);
@@ -59,44 +60,44 @@ export default function CommsReportPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="p-6">
+            <div className="p-4">
                 <BranchContextBanner />
-            <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-3">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary flex items-center gap-2">
-                        <FileBarChart className="w-6 h-6 text-primary" />
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary flex items-center gap-2">
+                        <FileBarChart className="w-5 h-5 text-primary" />
                         Communication Reports
                     </h1>
-                    <p className="text-gray-500">Track and monitor your SMS and Email campaigns.</p>
+                    <p className="text-foreground/60 text-[12px]">Track and monitor your SMS and Email campaigns.</p>
                 </div>
-                <button 
+                <button
                     onClick={fetchCampaigns}
-                    className="flex items-center gap-2 px-4 py-2 bg-white border border-primary/90 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 px-3 py-1.5 bg-white border border-primary/90 rounded-lg text-foreground/60 hover:bg-gray-50 transition-colors text-[12px]"
                 >
-                    <RefreshCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                    <RefreshCcw className={`w-3 h-3 ${loading ? 'animate-spin' : ''}`} />
                     Refresh
                 </button>
             </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-sm border border-primary/20 overflow-hidden">
                 {/* Filters */}
-                <div className="p-4 border-b border-gray-100 flex flex-col md:flex-row gap-4">
+                <div className="p-3 border-b border-primary/20 flex flex-col md:flex-row gap-3">
                     <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-foreground/60" />
                         <input
                             type="text"
                             placeholder="Search campaigns..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
+                            className="w-full pl-9 pr-3 py-1.5 rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary text-[12px]"
                         />
                     </div>
                     <div className="flex items-center gap-2">
-                        <Filter className="w-4 h-4 text-gray-400" />
+                        <Filter className="w-3 h-3 text-foreground/60" />
                         <select
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
-                            className="rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary"
+                            className="rounded-xl border border-primary/90 bg-white/75 focus:ring-primary focus:border-primary text-[12px]"
                         >
                             <option value="ALL">All Types</option>
                             <option value="EMAIL">Email Only</option>
@@ -107,56 +108,56 @@ export default function CommsReportPage() {
 
                 {/* Table */}
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-gray-50 border-b border-gray-100">
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Campaign Name</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Type</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Recipients</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Date</th>
-                                <th className="px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
+                    <table className={TABLE_ROOT}>
+                        <thead className={TABLE_HEADER}>
+                            <tr>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Campaign Name</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Type</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Status</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Recipients</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>Date</th>
+                                <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className={TABLE_BODY}>
                             {loading ? (
                                 Array.from({ length: 3 }).map((_, i) => (
                                     <tr key={i} className="animate-pulse">
-                                        <td className="px-6 py-4" colSpan={6}>
-                                            <div className="h-4 bg-gray-100 rounded w-full"></div>
+                                        <td className="px-3 py-1.5" colSpan={6}>
+                                            <div className="h-3 bg-gray-100 rounded w-full"></div>
                                         </td>
                                     </tr>
                                 ))
                             ) : filteredCampaigns.length > 0 ? (
                                 filteredCampaigns.map((campaign) => (
-                                    <tr key={campaign.id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="px-6 py-4">
-                                            <span className="font-medium text-gray-900">{campaign.name}</span>
+                                    <tr key={campaign.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>
+                                            {campaign.name}
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className={TABLE_CELL}>
                                             <div className="flex items-center gap-2">
                                                 {campaign.type === 'EMAIL' ? (
-                                                    <Mail className="w-4 h-4 text-blue-500" />
+                                                    <Mail className="w-3 h-3 text-blue-500" />
                                                 ) : (
-                                                    <Smartphone className="w-4 h-4 text-primary" />
+                                                    <Smartphone className="w-3 h-3 text-primary" />
                                                 )}
-                                                <span className="text-sm text-gray-600">{campaign.type}</span>
+                                                <span className="text-[12px] text-foreground/60">{campaign.type}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className={TABLE_CELL}>
                                             <div className="flex items-center gap-2">
                                                 {getStatusIcon(campaign.status)}
-                                                <span className="text-sm capitalize text-gray-600">{campaign.status.toLowerCase()}</span>
+                                                <span className="text-[12px] capitalize text-foreground/60">{campaign.status.toLowerCase()}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-600">
+                                        <td className={TABLE_CELL}>
                                             {campaign.recipientCount || 0}
                                         </td>
-                                        <td className="px-6 py-4 text-sm text-gray-500">
+                                        <td className={TABLE_CELL}>
                                             {format(new Date(campaign.createdAt), 'MMM dd, yyyy HH:mm')}
                                         </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <button className="text-primary hover:text-primary/80 text-sm font-medium">
+                                        <td className={TABLE_CELL_ACTIONS}>
+                                            <button className="text-primary hover:text-primary/80 text-[12px] font-medium">
                                                 View Details
                                             </button>
                                         </td>
@@ -164,7 +165,7 @@ export default function CommsReportPage() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                                    <td colSpan={6} className="px-3 py-8 text-center text-foreground/60 text-[12px]">
                                         No campaigns found matching your criteria.
                                     </td>
                                 </tr>
@@ -174,11 +175,11 @@ export default function CommsReportPage() {
                 </div>
 
                 {/* Pagination Placeholder */}
-                <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between text-sm text-gray-500">
+                <div className="px-3 py-3 border-t border-primary/20 flex items-center justify-between text-[12px] text-foreground/60">
                     <div>Showing {filteredCampaigns.length} campaigns</div>
                     <div className="flex gap-2">
-                        <button disabled className="px-3 py-1 border border-primary/90 rounded disabled:opacity-50">Prev</button>
-                        <button disabled className="px-3 py-1 border border-primary/90 rounded disabled:opacity-50">Next</button>
+                        <button disabled className="px-2 py-1 border border-primary/90 rounded disabled:opacity-50 text-[12px]">Prev</button>
+                        <button disabled className="px-2 py-1 border border-primary/90 rounded disabled:opacity-50 text-[12px]">Next</button>
                     </div>
                 </div>
             </div>

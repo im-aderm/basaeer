@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { AuditLogService, AuditLogEntry } from "@/services/auditLogService";
+import { STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function LoginLogPage() {
     const [logs, setLogs] = useState<AuditLogEntry[]>([]);
@@ -121,22 +122,22 @@ export default function LoginLogPage() {
     });
 
     return (
-        <div className="space-y-8 pb-20">
+        <div className="space-y-6 pb-20">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Login Activity & Audit Logs</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Monitor user access and security events across the platform.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Login Activity & Audit Logs</h1>
+                    <p className="text-foreground/60 font-medium mt-1 text-[12px]">Monitor user access and security events across the platform.</p>
                 </div>
             </div>
 
-            <Card className="rounded-[2.5rem] shadow-2xl overflow-hidden">
-                <CardHeader className="bg-muted/30 pb-6 border-b">
+            <Card className="rounded-2xl shadow-2xl overflow-hidden">
+                <CardHeader className="bg-primary/5 pb-4 border-b border-primary/20">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                                 <LogIn className="h-5 w-5" />
                             </div>
-                            <CardTitle className="text-xl font-semibold">Access Logs</CardTitle>
+                            <CardTitle className="text-[12px] font-semibold">Access Logs</CardTitle>
                         </div>
 
                         <div className="flex flex-wrap items-center gap-3">

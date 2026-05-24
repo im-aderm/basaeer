@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL_PRIMARY, TABLE_CELL, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -88,8 +89,8 @@ export default function InventoryIssuePage() {
             <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Item Issuance</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Manage items issued to staff and students. Tracking returns and assignments.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Item Issuance</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Manage items issued to staff and students. Tracking returns and assignments.</p>
                 </div>
                 <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
                     <DialogTrigger asChild>
@@ -98,9 +99,9 @@ export default function InventoryIssuePage() {
                             Issue New Items
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="rounded-[2.5rem] max-w-xl border-none shadow-2xl">
+                    <DialogContent className="rounded-2xl max-w-xl border-none shadow-2xl">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold uppercase text-primary">New Item Issuance</DialogTitle>
+                            <DialogTitle className="text-[14px] font-semibold uppercase text-primary">New Item Issuance</DialogTitle>
                             <DialogDescription className="font-bold">Record items being handed out to personnel or students.</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleCreate} className="space-y-4 pt-4">
@@ -131,14 +132,14 @@ export default function InventoryIssuePage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[3rem] border-border/50 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
-                <CardHeader className="p-8 border-b border-border/50 flex flex-row items-center justify-between bg-muted/10">
-                    <CardTitle className="text-h3 font-semibold flex items-center gap-3 text-primary">
-                        <ArrowDownRight className="h-8 w-8" />
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background/50 backdrop-blur-xl">
+                <CardHeader className="px-4 py-3 border-b border-primary/20 flex flex-row items-center justify-between bg-muted/10">
+                    <CardTitle className="text-[14px] font-semibold flex items-center gap-3 text-primary">
+                        <ArrowDownRight className="h-5 w-5" />
                         Active & Past Issuances
                     </CardTitle>
                     <div className="relative w-80">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                         <Input
                             placeholder="Filter by person or product..."
                             className="pl-11 h-12 rounded-2xl font-bold"
@@ -149,41 +150,41 @@ export default function InventoryIssuePage() {
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
-                        <TableHeader className="bg-muted/30">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 py-6 uppercase tracking-widest text-[10px] text-muted-foreground">Issuance Info</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Product</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Issued To</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
-                                <TableHead className="font-semibold px-8 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                        <TableHeader className={TABLE_HEADER}>
+                            <TableRow className="hover:bg-transparent">
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Issuance Info</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Product</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Issued To</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Status</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {issues.filter(i => i.issuedTo.toLowerCase().includes(searchTerm.toLowerCase()) || i.product?.name.toLowerCase().includes(searchTerm.toLowerCase())).map((i) => (
-                                <TableRow key={i.id} className="border-border/50 transition-all hover:bg-muted/30 group">
-                                    <TableCell className="px-8 py-6">
+                                <TableRow key={i.id} className={TABLE_ROW + " group"}>
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col">
-                                            <span className="text-[10px] font-semibold text-muted-foreground opacity-50 flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(i.createdAt).toLocaleDateString()}</span>
-                                            <span className="font-semibold uppercase text-xs text-muted-foreground group-hover:text-primary transition-colors">ID: {i.id.slice(0, 8).toUpperCase()}</span>
+                                            <span className="text-[10px] font-semibold text-foreground/60 opacity-50 flex items-center gap-1"><Calendar className="h-3 w-3" /> {new Date(i.createdAt).toLocaleDateString()}</span>
+                                            <span className="font-semibold uppercase text-[12px] text-foreground/60 group-hover:text-primary transition-colors">ID: {i.id.slice(0, 8).toUpperCase()}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="flex flex-col">
-                                            <span className="font-semibold uppercase text-xs flex items-center gap-1.5"><Package className="h-3 w-3 text-primary" /> {i.product?.name}</span>
-                                            <span className="text-[10px] font-bold text-muted-foreground opacity-50 ml-4.5">QTY: {i.quantity}</span>
+                                            <span className="font-semibold uppercase text-[12px] flex items-center gap-1.5"><Package className="h-3 w-3 text-primary" /> {i.product?.name}</span>
+                                            <span className="text-[10px] font-bold text-foreground/60 opacity-50 ml-4.5">QTY: {i.quantity}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8">
+                                    <TableCell className={TABLE_CELL}>
                                         <div className="inline-flex items-center gap-1.5 font-semibold text-[10px] uppercase text-primary bg-primary/5 px-2.5 py-1 rounded-lg w-fit">
                                             <User className="h-3 w-3" /> {i.issuedTo}
                                         </div>
                                     </TableCell>
-                                    <TableCell className="px-8 text-center">
+                                    <TableCell className={TABLE_CELL + " text-center"}>
                                         <span className={`px-4 py-1.5 rounded-full text-[10px] font-semibold uppercase ${i.status === 'RETURNED' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-amber-500/10 text-amber-600 shadow-sm shadow-amber-500/10'}`}>
                                             {i.status}
                                         </span>
                                     </TableCell>
-                                    <TableCell className="text-right px-8">
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         {i.status === 'ISSUED' && (
                                             <Button
                                                 variant="secondary"

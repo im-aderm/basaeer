@@ -7,12 +7,12 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Layers, Plus, Search, MoreVertical, Edit2, Trash2, HelpCircle } from 'lucide-react';
 import { OnlineExamService, QuestionGroup } from '@/services/onlineExamService';
 import { useNotification } from '@/context/NotificationContext';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function QuestionGroupPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -55,7 +55,7 @@ export default function QuestionGroupPage() {
         g.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    if (loading) return <div className="p-8">Loading question groups...</div>;
+    if (loading) return <div className="p-4">Loading question groups...</div>;
 
     return (
         <RequireBranch requireSpecificBranch>
@@ -63,8 +63,8 @@ export default function QuestionGroupPage() {
                 <BranchContextBanner />
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-h1 font-bold tracking-tight text-primary">Question Groups</h1>
-                    <p className="text-muted-foreground font-medium mt-1">Organize your assessment questions by topics, difficulty, or subjects.</p>
+                    <h1 className="text-[20px] font-bold tracking-tight text-primary">Question Groups</h1>
+                    <p className="text-foreground/60 font-medium mt-1">Organize your assessment questions by topics, difficulty, or subjects.</p>
                 </div>
 
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -97,18 +97,18 @@ export default function QuestionGroupPage() {
                 </Dialog>
             </div>
 
-            <Card className="rounded-[2.5rem] border-border/50 shadow-2xl overflow-hidden bg-background">
-                <CardHeader className="p-8 pb-4">
+            <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden bg-background">
+                <CardHeader className="p-4 pb-2 border-b border-primary/20">
                     <div className="flex justify-between items-center">
-                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                            <Layers className="h-8 w-8 text-primary" />
+                        <CardTitle className="text-[14px] font-bold tracking-tight text-primary flex items-center gap-3">
+                            <Layers className="h-5 w-5 text-primary" />
                             All Groups
                         </CardTitle>
                         <div className="relative w-64">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/60" />
                             <Input
                                 placeholder="Search groups..."
-                                className="pl-9 h-10 rounded-xl bg-muted/50 border-none font-medium"
+                                className="pl-9 h-9 rounded-xl bg-muted/50 border-none font-medium text-[12px]"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
@@ -116,56 +116,58 @@ export default function QuestionGroupPage() {
                     </div>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader className="bg-muted/30 h-16">
-                            <TableRow className="border-border/50 hover:bg-transparent">
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground">Group Name</TableHead>
-                                <TableHead className="font-semibold px-8 uppercase tracking-tighter text-muted-foreground text-center">Total Questions</TableHead>
-                                <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-tighter text-muted-foreground">Actions</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filteredGroups.map((group) => (
-                                <TableRow key={group.id} className="border-border/50 h-20 transition-all hover:bg-muted/20">
-                                    <TableCell className="px-8 font-semibold text-lg leading-tight">{group.name}</TableCell>
-                                    <TableCell className="px-8 text-center">
-                                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm">
-                                            <HelpCircle className="h-4 w-4" />
-                                            {group._count?.questions || 0} Questions
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="text-right px-8">
-                                        <div className="flex justify-end gap-3">
-                                            <Button
-                                                variant="outline"
-                                                size="icon"
-                                                className="h-12 w-12 rounded-2xl border-border/50 text-muted-foreground hover:text-primary hover:bg-primary/5 hover:border-primary/20"
-                                            >
-                                                <Edit2 className="h-5 w-5" />
-                                            </Button>
-                                            <Button
-                                                variant="outline"
-                                                size="icon"
-                                                className="h-12 w-12 rounded-2xl border-border/50 text-muted-foreground hover:text-destructive hover:bg-destructive/5 hover:border-destructive/20"
-                                            >
-                                                <Trash2 className="h-5 w-5" />
-                                            </Button>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            {filteredGroups.length === 0 && (
-                                <TableRow>
-                                    <TableCell colSpan={3} className="h-60 text-center">
-                                        <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
-                                            <Layers className="h-20 w-20 stroke-[1]" />
-                                            <p className="font-semibold text-h3">No question groups found</p>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                    <div className="overflow-x-auto">
+                        <table className={TABLE_ROOT}>
+                            <thead className={TABLE_HEADER}>
+                                <tr>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Group Name</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Total Questions</th>
+                                    <th className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody className={TABLE_BODY}>
+                                {filteredGroups.map((group) => (
+                                    <tr key={group.id} className={TABLE_ROW}>
+                                        <td className={TABLE_CELL_PRIMARY}>{group.name}</td>
+                                        <td className={TABLE_CELL + " text-center"}>
+                                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-[12px]">
+                                                <HelpCircle className="h-4 w-4" />
+                                                {group._count?.questions || 0} Questions
+                                            </div>
+                                        </td>
+                                        <td className={TABLE_CELL_ACTIONS}>
+                                            <div className="flex justify-end gap-3">
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    className="h-9 w-9 rounded-xl border-primary/20 text-foreground/60 hover:text-primary hover:bg-primary/5"
+                                                >
+                                                    <Edit2 className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="outline"
+                                                    size="icon"
+                                                    className="h-9 w-9 rounded-xl border-primary/20 text-foreground/60 hover:text-destructive hover:bg-destructive/5"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                                {filteredGroups.length === 0 && (
+                                    <tr>
+                                        <td colSpan={3} className="py-12 text-center">
+                                            <div className="flex flex-col items-center justify-center gap-4 opacity-30 grayscale saturate-0">
+                                                <Layers className="h-20 w-20 stroke-[1]" />
+                                                <p className="font-semibold text-[12px]">No question groups found</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 </CardContent>
             </Card>
         </div>

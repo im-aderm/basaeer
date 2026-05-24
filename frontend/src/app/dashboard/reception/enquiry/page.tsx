@@ -19,6 +19,7 @@ import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import SharableLink from '@/components/admission/SharableLink';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
 
 export default function AdmissionEnquiryPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -194,8 +195,8 @@ export default function AdmissionEnquiryPage() {
                 <BranchContextBanner />
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">Admission Enquiries</h1>
-                        <p className="text-muted-foreground font-medium mt-1">Track prospective student leads and follow-ups.</p>
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">Admission Enquiries</h1>
+                        <p className="text-foreground/60 font-medium mt-1">Track prospective student leads and follow-ups.</p>
                     </div>
 
                     <div className="flex gap-4 w-full md:w-auto">
@@ -215,9 +216,9 @@ export default function AdmissionEnquiryPage() {
                                     New Enquiry
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                            <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                                 <DialogHeader>
-                                    <DialogTitle className="text-h3 font-semibold">Record New Enquiry</DialogTitle>
+                                    <DialogTitle className="text-[12px] font-semibold">Record New Enquiry</DialogTitle>
                                     <DialogDescription className="font-bold">Enter prospective student or guardian details.</DialogDescription>
                                 </DialogHeader>
                                 <form onSubmit={handleCreate} className="space-y-6 pt-4 overflow-y-auto">
@@ -242,49 +243,49 @@ export default function AdmissionEnquiryPage() {
                     <SharableLink branchId={resolvedBranchId} />
                 )}
 
-                <Card className="rounded-[3rem] border-border shadow-2xl overflow-hidden">
-                    <CardHeader className="p-8 border-b border-border bg-muted/20">
-                        <CardTitle className="text-h3 font-bold tracking-tight text-primary flex items-center gap-3">
-                            <MessageSquare className="h-8 w-8 text-primary" />
+                <Card className="rounded-2xl border-primary/20 shadow-2xl overflow-hidden">
+                    <CardHeader className="px-3 py-2 border-b border-primary/20 bg-muted/20">
+                        <CardTitle className="text-[12px] font-semibold tracking-tight text-primary flex items-center gap-3">
+                            <MessageSquare className="h-5 w-5 text-primary" />
                             Lead Roster
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="p-0">
-                        <Table>
-                            <TableHeader className="bg-muted/30 h-16">
-                                <TableRow className="border-border/50 hover:bg-transparent">
-                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Lead Name</TableHead>
-                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Contact</TableHead>
-                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Source</TableHead>
-                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground">Last Activity</TableHead>
-                                    <TableHead className="font-semibold px-8 uppercase tracking-widest text-[10px] text-muted-foreground text-center">Status</TableHead>
-                                    <TableHead className="font-semibold px-8 h-16 text-right uppercase tracking-widest text-[10px] text-muted-foreground">Actions</TableHead>
+                        <Table className={TABLE_ROOT}>
+                            <TableHeader className={TABLE_HEADER}>
+                                <TableRow className="hover:bg-transparent">
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Lead Name</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Contact</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Source</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Last Activity</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-center"}>Status</TableHead>
+                                    <TableHead className={TABLE_HEADER_CELL_NO_SORT + " text-right"}>Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody>
+                            <TableBody className={TABLE_BODY}>
                                 {filtered.map((e) => (
-                                    <TableRow key={e.id} className="border-border/50 h-24 transition-all hover:bg-primary/5">
-                                        <TableCell className="px-8 font-semibold uppercase leading-tight">
+                                    <TableRow key={e.id} className={TABLE_ROW}>
+                                        <TableCell className={TABLE_CELL_PRIMARY}>
                                             {e.name}
                                         </TableCell>
-                                        <TableCell className="px-8">
-                                            <div className="flex flex-col gap-1 text-xs">
+                                        <TableCell className={TABLE_CELL}>
+                                            <div className="flex flex-col gap-1 text-[12px]">
                                                 <span className="font-bold flex items-center gap-1.5"><Phone className="h-3 w-3 text-primary" /> {e.phone}</span>
-                                                <span className="font-medium text-muted-foreground opacity-70">{e.email || 'No Email'}</span>
+                                                <span className="font-medium text-foreground/60">{e.email || 'No Email'}</span>
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-8 font-semibold text-[10px] uppercase opacity-50">
+                                        <TableCell className={TABLE_CELL}>
                                             {e.source || 'Direct'}
                                         </TableCell>
-                                        <TableCell className="px-8">
+                                        <TableCell className={TABLE_CELL}>
                                             <div className="flex flex-col gap-1">
-                                                <span className="font-bold text-xs flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(e.date).toLocaleDateString()}</span>
+                                                <span className="font-bold text-[12px] flex items-center gap-1.5"><Calendar className="h-3 w-3 text-primary" /> {new Date(e.date).toLocaleDateString()}</span>
                                                 {e.nextFollowUpDate && (
                                                     <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-tighter">Follow up: {new Date(e.nextFollowUpDate).toLocaleDateString()}</span>
                                                 )}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="px-8 text-center">
+                                        <TableCell className={TABLE_CELL + " text-center"}>
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <button className={`inline-flex px-3 py-1 rounded-full border border-current font-semibold text-[10px] uppercase transition-all hover:scale-105 active:scale-95 ${getStatusStyle(e.status)}`}>
@@ -299,7 +300,7 @@ export default function AdmissionEnquiryPage() {
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </TableCell>
-                                        <TableCell className="text-right px-8">
+                                        <TableCell className={TABLE_CELL_ACTIONS}>
                                             <div className="flex justify-end gap-2">
                                                 <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-blue-500/10 hover:text-blue-600" onClick={() => startEdit(e)}>
                                                     <Edit3 className="h-4 w-4" />
@@ -316,16 +317,16 @@ export default function AdmissionEnquiryPage() {
                         {filtered.length === 0 && (
                             <div className="p-20 text-center flex flex-col items-center gap-4 opacity-20">
                                 <Users className="h-20 w-20 stroke-[1]" />
-                                <p className="font-semibold text-h3 uppercase tracking-tighter">No admission enquiries found</p>
+                                <p className="font-semibold text-[12px] uppercase tracking-tighter">No admission enquiries found</p>
                             </div>
                         )}
                     </CardContent>
                 </Card>
 
                 <Dialog open={!!editingEnquiry} onOpenChange={(open) => { if (!open) setEditingEnquiry(null); }}>
-                    <DialogContent className="rounded-[3rem] border-border/50 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogContent className="rounded-2xl border-primary/20 shadow-2xl p-6 md:p-10 max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto">
                         <DialogHeader>
-                            <DialogTitle className="text-h3 font-semibold">Edit Enquiry</DialogTitle>
+                            <DialogTitle className="text-[12px] font-semibold">Edit Enquiry</DialogTitle>
                             <DialogDescription className="font-semibold opacity-60">Update details for {editingEnquiry?.name}</DialogDescription>
                         </DialogHeader>
                         <form onSubmit={handleUpdate} className="space-y-6 pt-4 overflow-y-auto">
@@ -352,21 +353,19 @@ export default function AdmissionEnquiryPage() {
 
 function StatCard({ title, value, icon: Icon, color }: { title: string, value: number, icon: any, color: string }) {
     const colors: Record<string, string> = {
-        primary: "bg-primary/5 border-l-primary text-primary",
-        amber: "bg-amber-500/5 border-l-amber-500 text-amber-500",
-        red: "bg-red-500/5 border-l-red-500 text-red-500"
+        primary: "border-l-primary text-primary",
+        amber: "border-l-amber-500 text-amber-500",
+        red: "border-l-red-500 text-red-500"
     };
 
     return (
-        <Card className={`rounded-[2.5rem] border-border/50 shadow-xl border-l-4 ${colors[color]}`}>
-            <CardHeader className="pb-2">
-                <CardTitle className="text-xs font-semibold uppercase tracking-widest opacity-50">{title}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex items-center gap-4">
-                <span className="text-h1 font-semibold">{value}</span>
-                <Icon className="h-8 w-8 opacity-40 capitalize" />
-            </CardContent>
-        </Card>
+        <div className={`${STAT_CARD} border-l-4 ${colors[color]}`}>
+            <p className={STAT_LABEL}>{title}</p>
+            <div className="flex items-center gap-4 mt-1">
+                <p className={STAT_VALUE}>{value}</p>
+                <Icon className="h-5 w-5 opacity-40" />
+            </div>
+        </div>
     );
 }
 

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Plus, Search, FileText } from 'lucide-react';
@@ -78,7 +79,7 @@ export default function InvoicesPage() {
         <div className="space-y-6">
             <BranchContextBanner />
             <div className="flex justify-between items-center">
-                <h1 className="text-h1 font-bold tracking-tight text-primary">Student Invoices</h1>
+                <h1 className="text-[20px] font-bold tracking-tight text-primary">Student Invoices</h1>
                 <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
                     <DialogTrigger asChild>
                         <Button className="gap-2">
@@ -160,7 +161,7 @@ export default function InvoicesPage() {
                 <CardHeader>
                     <div className="flex items-center gap-4">
                         <div className="relative flex-1 max-w-sm">
-                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-foreground/60" />
                             <Input
                                 placeholder="Search by Student ID..."
                                 className="pl-8"
@@ -172,40 +173,40 @@ export default function InvoicesPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <Table>
+                    <Table className={TABLE_ROOT}>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>Invoice #</TableHead>
-                                <TableHead>Due Date</TableHead>
-                                <TableHead>Total</TableHead>
-                                <TableHead>Balance</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead>Actions</TableHead>
+                            <TableRow className={TABLE_HEADER}>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Invoice #</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Due Date</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Total</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Balance</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Status</TableHead>
+                                <TableHead className={TABLE_HEADER_CELL_NO_SORT}>Actions</TableHead>
                             </TableRow>
                         </TableHeader>
-                        <TableBody>
+                        <TableBody className={TABLE_BODY}>
                             {invoices.map((inv) => (
-                                <TableRow key={inv.id}>
-                                    <TableCell className="font-mono">{inv.invoiceNumber}</TableCell>
-                                    <TableCell>{new Date(inv.dueDate).toLocaleDateString()}</TableCell>
-                                    <TableCell>₦{inv.totalAmount.toLocaleString()}</TableCell>
-                                    <TableCell className="text-red-600">₦{inv.balance.toLocaleString()}</TableCell>
-                                    <TableCell>
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${inv.status === 'PAID' ? 'bg-green-100 text-green-700' :
+                                <TableRow key={inv.id} className={TABLE_ROW}>
+                                    <TableCell className={`${TABLE_CELL_PRIMARY} font-mono`}>{inv.invoiceNumber}</TableCell>
+                                    <TableCell className={TABLE_CELL}>{new Date(inv.dueDate).toLocaleDateString()}</TableCell>
+                                    <TableCell className={TABLE_CELL}>₦{inv.totalAmount.toLocaleString()}</TableCell>
+                                    <TableCell className={`${TABLE_CELL} text-red-600`}>₦{inv.balance.toLocaleString()}</TableCell>
+                                    <TableCell className={TABLE_CELL}>
+                                        <span className={`px-2 py-1 rounded-full text-[12px] font-medium ${inv.status === 'PAID' ? 'bg-green-100 text-green-700' :
                                             inv.status === 'PARTIALLY_PAID' ? 'bg-yellow-100 text-yellow-700' :
                                                 'bg-red-100 text-red-700'
                                             }`}>
                                             {inv.status}
                                         </span>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className={TABLE_CELL_ACTIONS}>
                                         <Button size="sm" variant="outline">View</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}
                             {invoices.length === 0 && (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                                    <TableCell colSpan={6} className={`${TABLE_CELL} text-center py-8 text-foreground/60`}>
                                         Enter a student ID to view invoices.
                                     </TableCell>
                                 </TableRow>

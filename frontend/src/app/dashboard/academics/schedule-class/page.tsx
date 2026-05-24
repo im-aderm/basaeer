@@ -15,6 +15,8 @@ import { AcademicService } from "@/services/academicService";
 import { StaffService } from "@/services/staffService";
 import { SubjectService } from "@/services/subjectService";
 import { ClassService } from "@/services/classService";
+import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY } from '@/lib/table-styles';
+import { clsx } from "clsx";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const TIME_SLOTS = [
@@ -139,16 +141,16 @@ export default function ClassSchedulePage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-6">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-4">
                 <BranchContextBanner />
             {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-h1 font-bold tracking-tight text-primary">
+                        <h1 className="text-[20px] font-bold tracking-tight text-primary">
                             Class Timetable
                         </h1>
-                        <p className="text-slate-600 mt-2">
+                        <p className="text-foreground/60 mt-1 text-[12px]">
                             Create and manage class schedules and timetables
                         </p>
                     </div>
@@ -296,18 +298,18 @@ export default function ClassSchedulePage() {
             </div>
 
             {/* Class Selection */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 mb-8">
-                <h2 className="text-lg font-semibold mb-4">Select Class</h2>
-                <div className="grid grid-cols-2 gap-4">
+            <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 mb-4">
+                <h2 className="text-[14px] font-semibold mb-3">Select Class</h2>
+                <div className="grid grid-cols-2 gap-3">
                     <div>
-                        <Label>Class</Label>
+                        <Label className="text-[10px]">Class</Label>
                         <Select value={selectedClass} onValueChange={setSelectedClass}>
-                            <SelectTrigger>
+                            <SelectTrigger className="h-10 rounded-lg text-[12px]">
                                 <SelectValue placeholder="Select class" />
                             </SelectTrigger>
-                            <SelectContent>
+                            <SelectContent className="rounded-xl">
                                 {classes.map((cls) => (
-                                    <SelectItem key={cls.id} value={cls.id}>
+                                    <SelectItem key={cls.id} value={cls.id} className="text-[12px]">
                                         {cls.name}
                                     </SelectItem>
                                 ))}
@@ -316,14 +318,14 @@ export default function ClassSchedulePage() {
                     </div>
                     {selectedClassData?.sections && (
                         <div>
-                            <Label>Section</Label>
+                            <Label className="text-[10px]">Section</Label>
                             <Select value={selectedSection} onValueChange={setSelectedSection}>
-                                <SelectTrigger>
+                                <SelectTrigger className="h-10 rounded-lg text-[12px]">
                                     <SelectValue placeholder="Select section" />
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="rounded-xl">
                                     {selectedClassData.sections.map((section: any) => (
-                                        <SelectItem key={section.id} value={section.id}>
+                                        <SelectItem key={section.id} value={section.id} className="text-[12px]">
                                             {section.name}
                                         </SelectItem>
                                     ))}
@@ -336,28 +338,28 @@ export default function ClassSchedulePage() {
 
             {/* Timetable Grid */}
             {selectedClass && selectedSection && (
-                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-slate-200/50 overflow-x-auto">
-                    <h2 className="text-xl font-semibold mb-4">Weekly Timetable</h2>
-                    <table className="w-full border-collapse">
+                <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 overflow-x-auto">
+                    <h2 className="text-[14px] font-semibold mb-3">Weekly Timetable</h2>
+                    <table className={TABLE_ROOT}>
                         <thead>
-                            <tr>
-                                <th className="border border-slate-200 p-3 bg-slate-50">
+                            <tr className={TABLE_HEADER}>
+                                <th className={TABLE_HEADER_CELL_NO_SORT}>
                                     Time
                                 </th>
                                 {DAYS.map((day, index) => (
                                     <th
                                         key={index}
-                                        className="border border-slate-200 p-3 bg-slate-50"
+                                        className={TABLE_HEADER_CELL_NO_SORT}
                                     >
                                         {day}
                                     </th>
                                 ))}
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className={TABLE_BODY}>
                             {TIME_SLOTS.map((time) => (
-                                <tr key={time}>
-                                    <td className="border border-slate-200 p-3 font-medium bg-slate-50">
+                                <tr key={time} className={TABLE_ROW}>
+                                    <td className={clsx(TABLE_CELL, "font-medium bg-muted/30")}>
                                         {time}
                                     </td>
                                     {DAYS.map((_, dayIndex) => {
@@ -365,21 +367,21 @@ export default function ClassSchedulePage() {
                                         return (
                                             <td
                                                 key={dayIndex}
-                                                className="border border-slate-200 p-2"
+                                                className={TABLE_CELL}
                                             >
                                                 {schedule ? (
-                                                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-3 relative group">
+                                                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-2 relative group">
                                                         <div className="flex items-start justify-between">
                                                             <div className="flex-1">
-                                                                <p className="font-semibold text-sm mb-1">
+                                                                <p className="font-semibold text-[11px] mb-0.5">
                                                                     {schedule.subject?.name}
                                                                 </p>
-                                                                <p className="text-xs text-slate-600">
+                                                                <p className="text-[10px] text-foreground/60">
                                                                     {schedule.teacher?.user?.firstName}{" "}
                                                                     {schedule.teacher?.user?.lastName}
                                                                 </p>
                                                                 {schedule.room && (
-                                                                    <p className="text-xs text-slate-500 mt-1">
+                                                                    <p className="text-[10px] text-foreground/50 mt-0.5">
                                                                         {schedule.room}
                                                                     </p>
                                                                 )}
@@ -387,7 +389,7 @@ export default function ClassSchedulePage() {
                                                             <Button
                                                                 size="sm"
                                                                 variant="ghost"
-                                                                className="opacity-0 group-hover:opacity-100 transition-opacity h-6 w-6 p-0"
+                                                                className="opacity-0 group-hover:opacity-100 transition-opacity h-5 w-5 p-0"
                                                                 onClick={() => handleDeleteSchedule(schedule.id)}
                                                             >
                                                                 <Trash2 className="w-3 h-3 text-red-600" />
@@ -395,7 +397,7 @@ export default function ClassSchedulePage() {
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="h-20"></div>
+                                                    <div className="h-16"></div>
                                                 )}
                                             </td>
                                         );
@@ -408,12 +410,12 @@ export default function ClassSchedulePage() {
             )}
 
             {!selectedClass && (
-                <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-12 border border-slate-200/50 text-center">
-                    <Calendar className="w-16 h-16 mx-auto text-slate-300 mb-4" />
-                    <h3 className="text-lg font-semibold text-slate-600 mb-2">
+                <div className="bg-white/80 backdrop-blur-xl rounded-xl p-8 border border-primary/20 text-center">
+                    <Calendar className="w-12 h-12 mx-auto text-foreground/30 mb-3" />
+                    <h3 className="text-[14px] font-semibold text-foreground/60 mb-1">
                         Select a class to view timetable
                     </h3>
-                    <p className="text-slate-500">
+                    <p className="text-foreground/50 text-[12px]">
                         Choose a class and section from the dropdown above
                     </p>
                 </div>
