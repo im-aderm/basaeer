@@ -8,14 +8,7 @@ import {
   Delete,
   Query,
   UseGuards,
-  UploadedFile,
-  UseInterceptors,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
-  NotFoundException,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -28,8 +21,6 @@ import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { UserRole } from '../generated/client/client';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
 import {
   ApiTags,
   ApiOperation,
@@ -44,7 +35,6 @@ import {
 export class StudentsController {
   constructor(
     private readonly studentsService: StudentsService,
-    @InjectQueue('student-import') private importQueue: Queue,
   ) {}
 
   @ApiBearerAuth()
@@ -59,57 +49,6 @@ export class StudentsController {
   ) {
     const result = await this.studentsService.create(createStudentDto, context);
     return { id: result.student.id, tempPassword: result.tempPassword };
-  }
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Import' })
-  @Post('import')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  @UseInterceptors(FileInterceptor('file', { limits: { fileSize: 5 * 1024 * 1024 } }))
-  async import(
-    @GetTenantContext() context: TenantContext,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
-          new FileTypeValidator({ fileType: /(ms-excel|openxmlformats-officedocument.spreadsheetml.sheet|csv)/ }),
-        ],
-      }),
-    )
-    file: Express.Multer.File,
-  ) {
-    return this.studentsService.importStudents(file.buffer, context);
-  }
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Get Import Status' })
-  @Get('import/status/:jobId')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  async getImportStatus(@Param('jobId') jobId: string) {
-    const job = await this.importQueue.getJob(jobId);
-    if (!job) throw new NotFoundException('Import job not found');
-
-    const state = await job.getState();
-    const result = job.returnvalue as { success: number; failed: number; details: string[] } | null;
-
-    return {
-      jobId: job.id,
-      status: state,
-      progress: job.progress,
-      summary: result
-        ? {
-            total: (result.success || 0) + (result.failed || 0),
-            succeeded: result.success || 0,
-            failed: result.failed || 0,
-            failureRate: (result.success || 0) + (result.failed || 0) > 0 ? Math.round(((result.failed || 0) / ((result.success || 0) + (result.failed || 0))) * 100) : 0,
-          }
-        : null,
-      errors: result?.details?.filter((d) => d.includes('failed') || d.includes('Missing') || d.includes('already exists')) || [],
-      timestamp: job.timestamp,
-      finishedAt: job.finishedOn,
-    };
   }
 
   @ApiBearerAuth()

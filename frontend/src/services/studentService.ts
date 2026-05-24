@@ -126,16 +126,6 @@ export const StudentService = {
         await api.delete(`/student-categories/${id}`);
     },
 
-    importStudents: async (file: File, branchId: string): Promise<{ success: number; failed: number; message: string; details: string[]; parsingErrors: string[] }> => {
-        const formData = new FormData();
-        formData.append("file", file);
-        const response = await api.post("/students/import", formData, {
-            params: { branchId },
-            headers: { "Content-Type": "multipart/form-data" }
-        });
-        return response.data;
-    },
-
     getStats: async (branchId?: string): Promise<StudentStats> => {
         const response = await api.get("/students/stats", { params: { branchId } });
         return response.data;

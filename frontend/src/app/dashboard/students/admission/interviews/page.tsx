@@ -17,6 +17,9 @@ import {
     XCircle,
     AlertCircle,
     Eye,
+    Users,
+    X,
+    UserPlus,
 } from "lucide-react";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -42,6 +45,18 @@ export default function AdmissionInterviewsPage() {
         interviewerName: "",
         notes: "",
     });
+
+    // Bulk scheduling state
+    const [showBulkSchedule, setShowBulkSchedule] = useState(false);
+    const [bulkSelectedIds, setBulkSelectedIds] = useState<Set<string>>(new Set());
+    const [bulkApplicants, setBulkApplicants] = useState<OnlineAdmission[]>([]);
+    const [loadingBulkApplicants, setLoadingBulkApplicants] = useState(false);
+    const [bulkFormData, setBulkFormData] = useState({
+        interviewDate: "",
+        venue: "",
+        interviewerName: "",
+    });
+    const [bulkScheduling, setBulkScheduling] = useState(false);
 
     useEffect(() => {
         if (resolvedBranchId) {
@@ -135,6 +150,82 @@ export default function AdmissionInterviewsPage() {
         }
     };
 
+    // Bulk scheduling handlers
+    const handleOpenBulkSchedule = async () => {
+        setShowBulkSchedule(true);
+        setBulkSelectedIds(new Set());
+        setBulkFormData({ interviewDate: "", venue: "", interviewerName: "" });
+        await loadBulkApplicants();
+    };
+
+    const loadBulkApplicants = async () => {
+        if (!resolvedBranchId) return;
+        setLoadingBulkApplicants(true);
+        try {
+            const eligibleStatuses = ["APPLICATION_RECEIVED", "DOCUMENT_REVIEW"];
+            const allApplicants = await OnlineAdmissionService.getAll(resolvedBranchId);
+            // Filter out applicants who already have an interview
+            const existingInterviewAdmissionIds = new Set(interviews.map(i => i.admissionId));
+            setBulkApplicants(allApplicants.filter(a => eligibleStatuses.includes(a.status) && !existingInterviewAdmissionIds.has(a.id)));
+        } catch (error) {
+            showError("Failed to load applicants");
+        } finally {
+            setLoadingBulkApplicants(false);
+        }
+    };
+
+    const handleBulkSchedule = async () => {
+        if (bulkSelectedIds.size === 0) {
+            showError("Please select at least one applicant");
+            return;
+        }
+        if (!bulkFormData.interviewDate) {
+            showError("Please select a date and time");
+            return;
+        }
+        const interviewDate = new Date(bulkFormData.interviewDate);
+        if (interviewDate <= new Date()) {
+            showError("Interview date must be in the future");
+            return;
+        }
+        setBulkScheduling(true);
+        try {
+            const result = await AdmissionInterviewService.bulkSchedule({
+                admissionIds: Array.from(bulkSelectedIds),
+                interviewDate: bulkFormData.interviewDate,
+                venue: bulkFormData.venue || undefined,
+                interviewerName: bulkFormData.interviewerName || undefined,
+            });
+            showSuccess(`${result.success} interview(s) scheduled successfully`);
+            if (result.failed > 0) {
+                showError(`${result.failed} failed. Check details for more info.`);
+            }
+            setShowBulkSchedule(false);
+            fetchInterviews();
+        } catch (error: any) {
+            showError(error.response?.data?.message || "Failed to schedule interviews");
+        } finally {
+            setBulkScheduling(false);
+        }
+    };
+
+    const toggleBulkSelect = (id: string) => {
+        setBulkSelectedIds(prev => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id);
+            else next.add(id);
+            return next;
+        });
+    };
+
+    const toggleBulkSelectAll = () => {
+        if (bulkSelectedIds.size === bulkApplicants.length) {
+            setBulkSelectedIds(new Set());
+        } else {
+            setBulkSelectedIds(new Set(bulkApplicants.map(a => a.id)));
+        }
+    };
+
     const filteredInterviews = filterStatus === "ALL"
         ? interviews
         : interviews.filter(i => i.status === filterStatus);
@@ -197,12 +288,20 @@ export default function AdmissionInterviewsPage() {
                     <h1 className="text-h1 font-bold tracking-tight text-primary">Interviews</h1>
                     <p className="text-muted-foreground font-medium mt-1">Schedule and manage admission interviews.</p>
                 </div>
-                <button
-                    onClick={() => setShowScheduleForm(true)}
-                    className="px-6 py-3 bg-primary text-white rounded-xl font-bold flex items-center gap-2 hover:opacity-90"
-                >
-                    <Plus size={18} /> Schedule Interview
-                </button>
+                <div className="flex gap-3">
+                    <button
+                        onClick={handleOpenBulkSchedule}
+                        className="px-5 py-3 bg-primary/10 text-primary rounded-xl font-bold flex items-center gap-2 hover:bg-primary/20"
+                    >
+                        <Users size={18} /> Bulk Schedule
+                    </button>
+                    <button
+                        onClick={() => setShowScheduleForm(true)}
+                        className="px-6 py-3 bg-primary text-white rounded-xl font-bold flex items-center gap-2 hover:opacity-90"
+                    >
+                        <Plus size={18} /> Schedule Interview
+                    </button>
+                </div>
             </div>
 
             {showScheduleForm && (
@@ -357,6 +456,107 @@ export default function AdmissionInterviewsPage() {
                     ))
                 )}
             </div>
+
+            {/* Bulk Schedule Modal */}
+            {showBulkSchedule && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-primary/20 w-full max-w-3xl max-h-[85vh] overflow-y-auto shadow-2xl">
+                        <div className="p-6 border-b border-primary/10 bg-primary/5 flex items-center justify-between">
+                            <div>
+                                <h3 className="font-bold text-lg text-primary">Bulk Schedule Interviews</h3>
+                                <p className="text-sm text-muted-foreground mt-1">Select applicants and assign them to the same interview slot.</p>
+                            </div>
+                            <button onClick={() => setShowBulkSchedule(false)} className="p-2 hover:bg-white/50 rounded-lg transition-colors">
+                                <X size={18} />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-6 bg-white/80">
+                            {/* Applicant selection */}
+                            {loadingBulkApplicants ? (
+                                <div className="flex items-center justify-center py-8">
+                                    <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                                </div>
+                            ) : bulkApplicants.length === 0 ? (
+                                <p className="text-center text-muted-foreground py-8">No eligible applicants available for interview scheduling.</p>
+                            ) : (
+                                <>
+                                    <div className="flex items-center justify-between">
+                                        <p className="text-sm font-semibold">{bulkSelectedIds.size} of {bulkApplicants.length} selected</p>
+                                        <button onClick={toggleBulkSelectAll} className="text-sm text-primary font-bold hover:underline">
+                                            {bulkSelectedIds.size === bulkApplicants.length ? 'Deselect All' : 'Select All'}
+                                        </button>
+                                    </div>
+                                    <div className="space-y-2 max-h-[300px] overflow-y-auto">
+                                        {bulkApplicants.map(a => (
+                                            <label
+                                                key={a.id}
+                                                className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border ${bulkSelectedIds.has(a.id) ? 'bg-primary/15 border-primary/40 shadow-sm' : 'bg-white/80 border-primary/10 hover:bg-primary/5'}`}
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    checked={bulkSelectedIds.has(a.id)}
+                                                    onChange={() => toggleBulkSelect(a.id)}
+                                                    className="w-4 h-4 rounded border-border text-primary focus:ring-primary"
+                                                />
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="font-semibold text-sm truncate">{a.firstName} {a.lastName}</p>
+                                                    <p className="text-xs text-muted-foreground">{a.desiredClass?.name || 'N/A'} · {a.guardianEmail || 'No email'} · {a.guardianPhone || 'No phone'}</p>
+                                                </div>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Bulk form fields */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-primary/10 bg-white/60 p-4 rounded-xl">
+                                <div>
+                                    <label className="text-xs font-semibold uppercase text-muted-foreground">Interview Date & Time *</label>
+                                    <input
+                                        required
+                                        type="datetime-local"
+                                        className="w-full p-3 border border-border rounded-xl outline-none focus:border-primary"
+                                        value={bulkFormData.interviewDate}
+                                        onChange={e => setBulkFormData({ ...bulkFormData, interviewDate: e.target.value })}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-xs font-semibold uppercase text-muted-foreground">Venue</label>
+                                    <input
+                                        className="w-full p-3 border border-border rounded-xl outline-none focus:border-primary"
+                                        value={bulkFormData.venue}
+                                        onChange={e => setBulkFormData({ ...bulkFormData, venue: e.target.value })}
+                                        placeholder="e.g., Admin Office"
+                                    />
+                                </div>
+                                <div className="md:col-span-2">
+                                    <label className="text-xs font-semibold uppercase text-muted-foreground">Interviewer</label>
+                                    <input
+                                        className="w-full p-3 border border-border rounded-xl outline-none focus:border-primary"
+                                        value={bulkFormData.interviewerName}
+                                        onChange={e => setBulkFormData({ ...bulkFormData, interviewerName: e.target.value })}
+                                        placeholder="Interviewer name"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-6 border-t border-primary/10 bg-primary/5 flex gap-3 justify-end">
+                            <button onClick={() => setShowBulkSchedule(false)} className="px-6 py-2.5 bg-white/80 border border-primary/20 rounded-xl font-bold hover:bg-white transition-colors">
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleBulkSchedule}
+                                disabled={bulkScheduling || bulkSelectedIds.size === 0}
+                                className="px-6 py-2.5 bg-primary text-white rounded-xl font-bold hover:opacity-90 disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-primary/20"
+                            >
+                                {bulkScheduling ? <Loader2 size={16} className="animate-spin" /> : <UserPlus size={16} />}
+                                Schedule {bulkSelectedIds.size} Interview(s)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <ConfirmDialog
                 isOpen={!!confirmDeleteId}
                 onConfirm={handleConfirmDelete}

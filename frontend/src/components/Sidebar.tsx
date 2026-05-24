@@ -119,7 +119,6 @@ const navigation: NavItem[] = [
             { title: "Online Admission", href: "/dashboard/students/online" },
             { title: "Entrance Exams", href: "/dashboard/students/admission/exams" },
             { title: "Interviews", href: "/dashboard/students/admission/interviews" },
-            { title: "Admission ZIP Import", href: "/dashboard/students/admission-import" },
             { title: "Student Import", href: "/dashboard/students/import" },
             { title: "Category", href: "/dashboard/students/category" },
         ],

@@ -17,6 +17,7 @@ export interface AdmissionExam {
     branch?: { id: string; name: string };
     academicSession?: { id: string; name: string };
     _count?: { scores: number };
+    scores?: AdmissionExamScore[];
 }
 
 export interface AdmissionExamScore {

@@ -379,15 +379,6 @@ export class StudentsService {
     return student;
   }
 
-  async importStudents(fileBuffer: Buffer, context: TenantContext) {
-    const job = await this.importQueue.add('process', {
-      fileBuffer,
-      context: { userId: context.userId, branchId: context.branchId!, role: context.role },
-    });
-
-    return { jobId: job.id, message: 'Import started. Track progress via the status endpoint.' };
-  }
-
   async update(
     id: string,
     updateStudentDto: UpdateStudentDto,

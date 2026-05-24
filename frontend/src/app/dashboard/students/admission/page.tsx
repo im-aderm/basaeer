@@ -31,7 +31,7 @@ export default function AdmissionPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Bulk Import Card */}
                 {isAdmin && (
-                    <NextLink href="/dashboard/students/admission-import" className="group">
+                    <NextLink href="/dashboard/students/import" className="group">
                         <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm hover:border-primary/60 hover:shadow-xl transition-all space-y-6">
                             <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <FileSpreadsheet size={32} />
