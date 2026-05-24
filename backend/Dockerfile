@@ -20,7 +20,7 @@ COPY backend ./backend
 
 WORKDIR /app/backend
 RUN npx prisma generate
-RUN NODE_OPTIONS="--max-old-space-size=4096" npm run build
+RUN NODE_OPTIONS="--max-old-space-size=4096" npx nest build
 
 # Stage 2
 FROM node:20-slim AS runner
