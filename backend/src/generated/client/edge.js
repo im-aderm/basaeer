@@ -2889,7 +2889,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/im-adam/Desktop/basaeer/backend/src/generated/client",
+      "value": "/home/schooladmin/basaeer/backend/src/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -2915,12 +2915,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/im-adam/Desktop/basaeer/backend/prisma/schema.prisma",
+    "sourceFilePath": "/home/schooladmin/basaeer/backend/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.19.3",
@@ -2929,6 +2928,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

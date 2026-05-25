@@ -1,10 +1,4 @@
 -- Clean up legacy AdmissionStatus enum values
--- Migrate any PENDING -> APPLICATION_RECEIVED
-UPDATE "OnlineAdmission" SET status = 'APPLICATION_RECEIVED' WHERE status = 'PENDING';
-
--- Migrate any APPROVED -> ENROLLED
-UPDATE "OnlineAdmission" SET status = 'ENROLLED' WHERE status = 'APPROVED';
-
 -- Drop the default before type conversion
 ALTER TABLE "OnlineAdmission" ALTER COLUMN status DROP DEFAULT;
 
@@ -27,6 +21,12 @@ CREATE TYPE "AdmissionStatus" AS ENUM (
 );
 
 ALTER TABLE "OnlineAdmission" ALTER COLUMN status TYPE "AdmissionStatus" USING status::text::"AdmissionStatus";
+
+-- Migrate any PENDING -> APPLICATION_RECEIVED
+UPDATE "OnlineAdmission" SET status = 'APPLICATION_RECEIVED' WHERE status::text = 'PENDING';
+
+-- Migrate any APPROVED -> ENROLLED
+UPDATE "OnlineAdmission" SET status = 'ENROLLED' WHERE status::text = 'APPROVED';
 
 -- Restore the default
 ALTER TABLE "OnlineAdmission" ALTER COLUMN status SET DEFAULT 'APPLICATION_RECEIVED';

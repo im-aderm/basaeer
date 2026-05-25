@@ -41,6 +41,7 @@ echo ""
 
 # 5. Push schema + seed
 echo "[5/7] Pushing schema and seeding..."
+ln -sf ../.env backend/.env
 cd backend
 npx prisma db push
 npx prisma db seed

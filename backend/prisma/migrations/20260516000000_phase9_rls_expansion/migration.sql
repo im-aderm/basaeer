@@ -34,7 +34,9 @@ CREATE POLICY branch_isolation_exam_base ON "Exam" USING ("branchId" = current_s
 
 -- Core academic
 ALTER TABLE "Section" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_section ON "Section" USING ("branchId" = current_setting('app.current_branch_id', true));
+CREATE POLICY tenant_isolation_section ON "Section" USING (
+  "classId" IN (SELECT id FROM "Class" WHERE "branchId" = current_setting('app.current_branch_id', true))
+);
 
 ALTER TABLE "Department" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_department ON "Department" USING ("branchId" = current_setting('app.current_branch_id', true));
@@ -45,7 +47,6 @@ CREATE POLICY tenant_isolation_designation ON "Designation" USING ("branchId" = 
 ALTER TABLE "Staff" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_staff ON "Staff" USING (
   "departmentId" IN (SELECT id FROM "Department" WHERE "branchId" = current_setting('app.current_branch_id', true))
-  OR "branchId" IN (SELECT id FROM "Branch" WHERE id = current_setting('app.current_branch_id', true)::uuid)
 );
 
 -- Hostel
@@ -59,17 +60,14 @@ ALTER TABLE "Bed" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_bed ON "Bed" USING ("roomId" IN (SELECT id FROM "Room" WHERE "hostelId" IN (SELECT id FROM "Hostel" WHERE "branchId" = current_setting('app.current_branch_id', true))));
 
 ALTER TABLE "HostelAllocation" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_hostel_allocation ON "HostelAllocation" USING ("hostelId" IN (SELECT id FROM "Hostel" WHERE "branchId" = current_setting('app.current_branch_id', true)));
+CREATE POLICY tenant_isolation_hostel_allocation ON "HostelAllocation" USING ("branchId" = current_setting('app.current_branch_id', true));
 
 ALTER TABLE "HostelLeave" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_hostel_leave ON "HostelLeave" USING ("allocationId" IN (SELECT id FROM "HostelAllocation" WHERE "hostelId" IN (SELECT id FROM "Hostel" WHERE "branchId" = current_setting('app.current_branch_id', true))));
+CREATE POLICY tenant_isolation_hostel_leave ON "HostelLeave" USING ("branchId" = current_setting('app.current_branch_id', true));
 
 -- Library
 ALTER TABLE "Book" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_book ON "Book" USING ("branchId" = current_setting('app.current_branch_id', true));
-
-ALTER TABLE "BookCopy" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_book_copy ON "BookCopy" USING ("bookId" IN (SELECT id FROM "Book" WHERE "branchId" = current_setting('app.current_branch_id', true)));
 
 ALTER TABLE "BorrowRecord" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_borrow_record ON "BorrowRecord" USING ("bookId" IN (SELECT id FROM "Book" WHERE "branchId" = current_setting('app.current_branch_id', true)));
@@ -118,6 +116,8 @@ CREATE POLICY tenant_isolation_vehicle ON "Vehicle" USING ("branchId" = current_
 ALTER TABLE "TransportRoute" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_transport_route ON "TransportRoute" USING ("branchId" = current_setting('app.current_branch_id', true));
 
+ALTER TABLE "TransportAssignment" ADD COLUMN IF NOT EXISTS "branchId" TEXT;
+CREATE INDEX IF NOT EXISTS "TransportAssignment_branchId_idx" ON "TransportAssignment"("branchId");
 ALTER TABLE "TransportAssignment" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_transport_assignment ON "TransportAssignment" USING (
   COALESCE("branchId", (SELECT "branchId" FROM "TransportRoute" WHERE id = "TransportAssignment"."routeId")) = current_setting('app.current_branch_id', true)
@@ -188,9 +188,6 @@ CREATE POLICY tenant_isolation_inventory_issue ON "InventoryIssue" USING ("branc
 ALTER TABLE "ExpenseCategory" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_expense_category ON "ExpenseCategory" USING ("branchId" = current_setting('app.current_branch_id', true));
 
-ALTER TABLE "Expense" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_expense ON "Expense" USING ("branchId" = current_setting('app.current_branch_id', true));
-
 ALTER TABLE "Payroll" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_payroll ON "Payroll" USING ("branchId" = current_setting('app.current_branch_id', true));
 
@@ -230,10 +227,6 @@ CREATE POLICY tenant_isolation_attendance_session ON "AttendanceSession" USING (
 ALTER TABLE "AttendanceScan" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_attendance_scan ON "AttendanceScan" USING ("branchId" = current_setting('app.current_branch_id', true));
 
-ALTER TABLE "TransportAttendance" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_transport_attendance ON "TransportAttendance" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Behavioural
 ALTER TABLE "BehaviouralRating" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_behavioural_rating ON "BehaviouralRating" USING ("branchId" = current_setting('app.current_branch_id', true));
 
@@ -246,15 +239,6 @@ CREATE POLICY tenant_isolation_previous_school ON "PreviousSchool" USING ("admis
 
 ALTER TABLE "StudentCategory" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_student_category ON "StudentCategory" USING ("branchId" = current_setting('app.current_branch_id', true));
-
-ALTER TABLE "AdmissionInterview" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_admission_interview ON "AdmissionInterview" USING ("branchId" = current_setting('app.current_branch_id', true));
-
-ALTER TABLE "AdmissionExam" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_admission_exam ON "AdmissionExam" USING ("branchId" = current_setting('app.current_branch_id', true));
-
-ALTER TABLE "AdmissionExamScore" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_admission_exam_score ON "AdmissionExamScore" USING ("examId" IN (SELECT id FROM "AdmissionExam" WHERE "branchId" = current_setting('app.current_branch_id', true)));
 
 -- Alumni
 ALTER TABLE "Alumni" ENABLE ROW LEVEL SECURITY;
@@ -273,10 +257,6 @@ CREATE POLICY tenant_isolation_deactivation_reason ON "DeactivationReason" USING
 
 ALTER TABLE "LoginDeactivation" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_login_deactivation ON "LoginDeactivation" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Counter
-ALTER TABLE "Counter" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_counter ON "Counter" USING ("branchId" = current_setting('app.current_branch_id', true));
 
 -- Class schedules
 ALTER TABLE "ClassSchedule" ENABLE ROW LEVEL SECURITY;
@@ -334,33 +314,9 @@ CREATE POLICY tenant_isolation_tahfeez_assessment ON "TahfeezAssessment" USING (
 ALTER TABLE "TahfeezMemorizationProgress" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_tahfeez_memorization_progress ON "TahfeezMemorizationProgress" USING ("branchId" = current_setting('app.current_branch_id', true));
 
--- Book reservations
-ALTER TABLE "BookReservation" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_book_reservation ON "BookReservation" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Hostel maintenance
-ALTER TABLE "HostelMaintenanceTicket" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_hostel_maintenance ON "HostelMaintenanceTicket" USING ("branchId" = current_setting('app.current_branch_id', true));
-
 -- Library fines
 ALTER TABLE "LibraryFine" ENABLE ROW LEVEL SECURITY;
 CREATE POLICY tenant_isolation_library_fine ON "LibraryFine" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Academic exports
-ALTER TABLE "AcademicExport" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_academic_export ON "AcademicExport" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Report templates
-ALTER TABLE "ReportTemplate" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_report_template ON "ReportTemplate" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Computation jobs
-ALTER TABLE "ComputationJob" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_computation_job ON "ComputationJob" USING ("branchId" = current_setting('app.current_branch_id', true));
-
--- Attachment categories
-ALTER TABLE "AttachmentCategory" ENABLE ROW LEVEL SECURITY;
-CREATE POLICY tenant_isolation_attachment_category ON "AttachmentCategory" USING ("branchId" = current_setting('app.current_branch_id', true));
 
 -- Maintenance requests
 ALTER TABLE "MaintenanceRequest" ENABLE ROW LEVEL SECURITY;

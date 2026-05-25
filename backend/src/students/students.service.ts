@@ -16,8 +16,6 @@ import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { AuditService } from '../audit/audit.service';
 import { CommsService } from '../comms/comms.service';
-import { InjectQueue } from '@nestjs/bullmq';
-import { Queue } from 'bullmq';
 
 @Injectable()
 export class StudentsService {
@@ -25,7 +23,6 @@ export class StudentsService {
     private prisma: PrismaService,
     private audit: AuditService,
     private comms: CommsService,
-    @InjectQueue('student-import') private importQueue: Queue,
   ) {}
 
   async create(createStudentDto: CreateStudentDto, context: TenantContext) {
