@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { PrismaClient, UserRole } from '../src/generated/client';
 import * as bcrypt from 'bcrypt';
 
@@ -5,6 +6,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log('Starting minimal seed process...');
+
+  const adminEmail = process.env.SUPER_ADMIN_EMAIL || 'admin@basaeer.com';
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD || 'Password123!';
 
   // 1. Reset Database
   console.log('Resetting database...');
@@ -25,13 +29,13 @@ async function main() {
     console.log('Error during truncate, falling back to manual deletion...');
   }
 
-  const passwordHash = await bcrypt.hash('Password123!', 8);
+  const passwordHash = await bcrypt.hash(adminPassword, 8);
 
   // 2. Seed Super Admin user
   console.log('Seeding Super Admin...');
   const superAdmin = await prisma.user.create({
     data: {
-      email: 'admin@basaeer.com',
+      email: adminEmail,
       password: passwordHash,
       firstName: 'Super',
       lastName: 'Admin',
@@ -223,7 +227,7 @@ async function main() {
 
   console.log('\nSeed process completed successfully!');
   console.log('--- Login Credentials ---');
-  console.log(`Super Admin: admin@basaeer.com / Password123!`);
+  console.log(`Super Admin: ${adminEmail} / (Password from .env)`);
   console.log(`Default Branch: ${branch.name} (${branch.code})`);
 }
 
