@@ -170,7 +170,16 @@ export default function EventApplicationForm() {
 
         setSaving(true);
         try {
-            await EventsService.submitApplication(slug, form);
+            const payload = {
+                ...form,
+                passportPhotoUrl: form.passportPhotoUrl || undefined,
+                birthCertificateUrl: form.birthCertificateUrl || undefined,
+                ninUrl: form.ninUrl || undefined,
+                schoolIdUrl: form.schoolIdUrl || undefined,
+                medicalReportUrl: form.medicalReportUrl || undefined,
+                proofOfPaymentUrl: form.proofOfPaymentUrl || undefined,
+            };
+            await EventsService.submitApplication(slug, payload);
             
             // Clean localStorage draft on success
             localStorage.removeItem(`${LOCAL_STORAGE_KEY}_${slug}`);
