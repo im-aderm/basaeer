@@ -74,7 +74,7 @@ export class CreateEventScheduleDto {
 export class CreateEventGalleryDto {
   @IsString()
   @IsNotEmpty()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   imageUrl: string;
 
   @IsOptional()
@@ -174,13 +174,13 @@ export class CreateCampusEventDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   featuredImage?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   brochurePdf?: string;
 
   @IsOptional()
@@ -298,13 +298,13 @@ export class UpdateCampusEventDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   featuredImage?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   brochurePdf?: string;
 
   @IsOptional()
@@ -427,32 +427,32 @@ export class CreateEventApplicationDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   passportPhotoUrl?: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   birthCertificateUrl?: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   ninUrl?: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   schoolIdUrl?: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   medicalReportUrl?: string;
 
   @IsOptional()
   @IsString()
-  @IsUrl()
+  @IsUrl({ require_protocol: false })
   proofOfPaymentUrl?: string;
 
   // Honeypot field for spam protection (should be empty)
