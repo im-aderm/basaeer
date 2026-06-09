@@ -138,7 +138,7 @@ export class EventsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create event' })
   @Post()
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN)
   create(
     @Body() dto: CreateCampusEventDto,
     @GetTenantContext() ctx: TenantContext,
@@ -243,7 +243,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update event' })
   @Put(':id')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
     @Body() dto: UpdateCampusEventDto,
@@ -269,7 +269,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete event' })
   @Delete(':id')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  @Roles(UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.eventsService.deleteEvent(id, ctx);
   }

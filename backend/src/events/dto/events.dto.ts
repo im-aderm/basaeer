@@ -98,7 +98,7 @@ export const EVENT_CATEGORIES = [
 
 export const EVENT_STATUSES = ['DRAFT', 'ACTIVE', 'COMPLETED', 'CANCELLED'] as const;
 export const BOARDING_TYPES = ['DAY', 'BOARDING', 'FULL_BOARDING'] as const;
-export const GENDER_VALUES = ['MALE', 'FEMALE'] as const;
+export const GENDER_VALUES = ['Male', 'Female'] as const;
 
 export class CreateCampusEventDto {
   @IsString()
@@ -425,31 +425,37 @@ export class CreateEventApplicationDto {
   @IsNotEmpty()
   packageId: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })
   passportPhotoUrl?: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })
   birthCertificateUrl?: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })
   ninUrl?: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })
   schoolIdUrl?: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })
   medicalReportUrl?: string;
 
+  @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
   @IsUrl({ require_protocol: false })

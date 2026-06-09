@@ -298,6 +298,7 @@ const navigation: NavItem[] = [
     {
         title: "Events",
         icon: Calendar,
+        roles: ["SUPER_ADMIN"],
         children: [
             { title: "Overview", href: "/dashboard/events/overview" },
             { title: "All Events", href: "/dashboard/events" },
