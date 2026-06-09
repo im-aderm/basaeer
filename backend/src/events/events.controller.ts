@@ -221,6 +221,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve events list' })
   @Get()
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   find(
     @GetTenantContext() ctx: TenantContext,
     @Query('isPublic') isPublic?: string,
@@ -234,6 +235,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve single event details' })
   @Get(':id')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.eventsService.getEventDetails(id, ctx);
   }
