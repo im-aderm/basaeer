@@ -54,6 +54,7 @@ export default function ApplicationsPage() {
     const [loading, setLoading] = useState(true);
     const [selectedApp, setSelectedApp] = useState<EventApplication | null>(null);
     const [detailOpen, setDetailOpen] = useState(false);
+    const [viewingDoc, setViewingDoc] = useState<{ url: string; label: string } | null>(null);
 
     // Filter and sorting states
     const [searchTerm, setSearchTerm] = useState('');
@@ -507,40 +508,40 @@ export default function ApplicationsPage() {
                                     <h3 className="font-bold text-sm text-primary border-b border-primary/10 pb-1.5 uppercase">Audit Verification Documents</h3>
                                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                         {selectedApp.passportPhotoUrl && (
-                                            <a href={selectedApp.passportPhotoUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.passportPhotoUrl!, label: 'Passport Photo' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Passport Photo</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Passport Photo</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                         {selectedApp.birthCertificateUrl && (
-                                            <a href={selectedApp.birthCertificateUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.birthCertificateUrl!, label: 'Birth Certificate' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Birth Certificate</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Birth Certificate</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                         {selectedApp.ninUrl && (
-                                            <a href={selectedApp.ninUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.ninUrl!, label: 'NIN Document' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">NIN Document</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">NIN Document</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                         {selectedApp.schoolIdUrl && (
-                                            <a href={selectedApp.schoolIdUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.schoolIdUrl!, label: 'School ID Card' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">School ID Card</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">School ID Card</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                         {selectedApp.medicalReportUrl && (
-                                            <a href={selectedApp.medicalReportUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.medicalReportUrl!, label: 'Medical Report' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Medical Report</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Medical Report</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                         {selectedApp.proofOfPaymentUrl && (
-                                            <a href={selectedApp.proofOfPaymentUrl} target="_blank" className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition">
+                                            <button onClick={() => setViewingDoc({ url: selectedApp.proofOfPaymentUrl!, label: 'Proof of Payment' })} className="flex items-center gap-2 p-2 border border-primary/10 rounded-xl bg-card hover:bg-primary/5 transition w-full text-left">
                                                 <FileText className="h-5 w-5 text-primary shrink-0" />
-                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Proof of Payment</span><span className="text-[10px] font-bold">Open File</span></div>
-                                            </a>
+                                                <div className="truncate"><span className="text-[9px] text-muted-foreground block">Proof of Payment</span><span className="text-[10px] font-bold">View</span></div>
+                                            </button>
                                         )}
                                     </div>
                                 </div>
@@ -571,6 +572,40 @@ export default function ApplicationsPage() {
                                     </select>
                                     <Button variant="outline" className="h-9 rounded-xl font-bold border-primary/10 text-muted-foreground shrink-0" onClick={() => setDetailOpen(false)}>Close</Button>
                                 </div>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+                )}
+
+                {/* Document Viewer Modal */}
+                {viewingDoc && (
+                    <Dialog open={!!viewingDoc} onOpenChange={() => setViewingDoc(null)}>
+                        <DialogContent className="rounded-[2rem] max-w-2xl border-primary/25">
+                            <DialogHeader>
+                                <DialogTitle className="text-base font-bold text-primary">{viewingDoc.label}</DialogTitle>
+                            </DialogHeader>
+                            <div className="p-2 border border-primary/10 rounded-2xl bg-muted/5 flex items-center justify-center min-h-[400px]">
+                                {viewingDoc.url.endsWith('.pdf') ? (
+                                    <div className="text-center space-y-4 p-8">
+                                        <FileText className="h-20 w-20 text-primary mx-auto opacity-75" />
+                                        <p className="text-sm font-semibold text-muted-foreground">PDF document cannot be previewed inline.</p>
+                                        <a href={viewingDoc.url} target="_blank" rel="noreferrer">
+                                            <Button className="font-bold gap-2 rounded-xl">
+                                                <Download size={15} /> Open PDF in New Tab
+                                            </Button>
+                                        </a>
+                                    </div>
+                                ) : (
+                                    <img src={viewingDoc.url} className="max-h-[65vh] w-auto rounded-xl object-contain shadow border" alt={viewingDoc.label} />
+                                )}
+                            </div>
+                            <div className="flex justify-end gap-2 mt-2">
+                                <a href={viewingDoc.url} download target="_blank" rel="noreferrer">
+                                    <Button variant="outline" className="h-10 rounded-xl font-bold border-primary/10 gap-1 text-primary">
+                                        <Download size={15} /> Download
+                                    </Button>
+                                </a>
+                                <Button variant="default" className="h-10 rounded-xl font-bold px-6" onClick={() => setViewingDoc(null)}>Close</Button>
                             </div>
                         </DialogContent>
                     </Dialog>
