@@ -6,7 +6,9 @@ import {
   BadRequestException,
   Query,
   UseGuards,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -58,12 +60,19 @@ export class UploadController {
   async uploadAdmissionDocument(
     @UploadedFile() file: Express.Multer.File,
     @Query('category') category?: string,
+    @Req() req?: Request,
   ) {
     if (!file) {
       throw new BadRequestException('No file uploaded');
     }
 
-    const url = await this.uploadService.saveFile(file, category);
+    let url = await this.uploadService.saveFile(file, category);
+
+    // If the URL is relative, construct the full URL from the request
+    if (url && !url.startsWith('http')) {
+      const baseUrl = `${req!.protocol}://${req!.get('host')}`;
+      url = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+    }
 
     return {
       success: true,
@@ -96,12 +105,21 @@ export class UploadController {
       },
     }),
   )
-  async uploadPaymentProof(@UploadedFile() file: Express.Multer.File) {
+  async uploadPaymentProof(
+    @UploadedFile() file: Express.Multer.File,
+    @Req() req?: Request,
+  ) {
     if (!file) {
       throw new BadRequestException('No file uploaded');
     }
 
-    const url = await this.uploadService.saveFile(file, 'payments');
+    let url = await this.uploadService.saveFile(file, 'payments');
+
+    // If the URL is relative, construct the full URL from the request
+    if (url && !url.startsWith('http')) {
+      const baseUrl = `${req!.protocol}://${req!.get('host')}`;
+      url = `${baseUrl}${url.startsWith('/') ? '' : '/'}${url}`;
+    }
 
     return {
       success: true,
