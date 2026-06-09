@@ -19,7 +19,7 @@ export default function DashboardLayout({
             <QueryProvider>
                 <BranchGuardProvider>
                     <SessionGuardProvider>
-                        <RequireBranch>
+                        <RequireBranch requireForWrite={false}>
                             <RequireSession>
                                 <ContextRefreshWrapper>
                                     <div className="flex h-screen bg-background text-foreground overflow-hidden">
