@@ -9,6 +9,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
+import * as path from 'path';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor';
 import { TenantContextInterceptor } from './common/interceptors/tenant-context.interceptor';
@@ -68,6 +69,12 @@ async function bootstrap() {
 
   // ── Global Route Prefix ─────────────────────────────────────────────────────
   app.setGlobalPrefix('api/v1', { exclude: ['health'] });
+
+  // ── Serve static files for local fallback uploads ──────────────────────────
+  app.useStaticAssets(path.join(__dirname, '..', 'public'), {
+    prefix: '/uploads/',
+    index: false,
+  });
 
   // ── Security Headers ────────────────────────────────────────────────────────
   app.use(

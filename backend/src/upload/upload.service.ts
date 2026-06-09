@@ -7,6 +7,7 @@ import {
 } from '@aws-sdk/client-s3';
 import * as crypto from 'crypto';
 import * as path from 'path';
+import * as fsp from 'fs/promises';
 import { fileTypeFromBuffer } from 'file-type';
 
 @Injectable()
@@ -15,8 +16,10 @@ export class UploadService {
   private s3Client: S3Client;
   private readonly bucketName: string;
   private readonly publicDomain: string;
+  private readonly fallbackDir: string;
 
   constructor(private configService: ConfigService) {
+    this.fallbackDir = path.resolve(__dirname, '../../public/uploads/fallback');
     const accountId = this.configService.get<string>('R2_ACCOUNT_ID');
     const accessKeyId = this.configService.get<string>('R2_ACCESS_KEY_ID');
     const secretAccessKey = this.configService.get<string>(
@@ -62,10 +65,6 @@ export class UploadService {
     file: Express.Multer.File,
     subFolder?: string,
   ): Promise<string> {
-    if (!this.s3Client) {
-      throw new BadRequestException('Storage service is not configured');
-    }
-
     if (!file) {
       throw new BadRequestException('No file provided');
     }
@@ -105,28 +104,33 @@ export class UploadService {
 
     const key = safeSubFolder ? `${safeSubFolder}/${filename}` : filename;
 
-    try {
-      const command = new PutObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-        Body: file.buffer,
-        ContentType: detectedType.mime,
-      });
+    // Try R2 first, fall back to local filesystem
+    if (this.s3Client) {
+      try {
+        const command = new PutObjectCommand({
+          Bucket: this.bucketName,
+          Key: key,
+          Body: file.buffer,
+          ContentType: detectedType.mime,
+        });
 
-      await this.s3Client.send(command);
+        await this.s3Client.send(command);
 
-      if (this.publicDomain) {
-        return `${this.publicDomain.replace(/\/$/, '')}/${key}`;
+        if (this.publicDomain) {
+          return `${this.publicDomain.replace(/\/$/, '')}/${key}`;
+        }
+
+        return key;
+      } catch (error) {
+        this.logger.warn(
+          `R2 upload failed, falling back to local filesystem: ${error.message}`,
+        );
       }
-
-      return key;
-    } catch (error) {
-      this.logger.error(
-        `Failed to upload file to R2: ${error.message}`,
-        error.stack,
-      );
-      throw new BadRequestException('File upload failed');
+    } else {
+      this.logger.warn('R2 not configured, using local filesystem fallback');
     }
+
+    return this.saveFileLocally(file.buffer, key, detectedType.mime);
   }
 
   /**
@@ -138,10 +142,6 @@ export class UploadService {
     mimeType: string,
     subFolder?: string,
   ): Promise<{ url: string; key: string }> {
-    if (!this.s3Client) {
-      throw new BadRequestException('Storage service is not configured');
-    }
-
     if (!buffer || buffer.length === 0) {
       throw new BadRequestException('No file provided');
     }
@@ -180,28 +180,53 @@ export class UploadService {
 
     const key = safeSubFolder ? `${safeSubFolder}/${secureFilename}` : secureFilename;
 
-    try {
-      const command = new PutObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-        Body: buffer,
-        ContentType: detectedType.mime,
-      });
+    // Try R2 first, fall back to local filesystem
+    if (this.s3Client) {
+      try {
+        const command = new PutObjectCommand({
+          Bucket: this.bucketName,
+          Key: key,
+          Body: buffer,
+          ContentType: detectedType.mime,
+        });
 
-      await this.s3Client.send(command);
+        await this.s3Client.send(command);
 
-      if (this.publicDomain) {
-        return { url: `${this.publicDomain.replace(/\/$/, '')}/${key}`, key };
+        if (this.publicDomain) {
+          return { url: `${this.publicDomain.replace(/\/$/, '')}/${key}`, key };
+        }
+
+        return { url: key, key };
+      } catch (error) {
+        this.logger.warn(
+          `R2 upload failed, falling back to local filesystem: ${error.message}`,
+        );
       }
-
-      return { url: key, key };
-    } catch (error) {
-      this.logger.error(
-        `Failed to upload file to R2: ${error.message}`,
-        error.stack,
-      );
-      throw new BadRequestException('File upload failed');
+    } else {
+      this.logger.warn('R2 not configured, using local filesystem fallback');
     }
+
+    const localUrl = await this.saveFileLocally(buffer, key, detectedType.mime);
+    return { url: localUrl, key };
+  }
+
+  /**
+   * Fallback: saves file to local filesystem when R2 is unavailable.
+   * Files are stored under public/uploads/fallback/ and served by nginx.
+   */
+  private async saveFileLocally(
+    buffer: Buffer,
+    key: string,
+    mimeType: string,
+  ): Promise<string> {
+    const filePath = path.join(this.fallbackDir, key);
+    const dir = path.dirname(filePath);
+
+    await fsp.mkdir(dir, { recursive: true });
+    await fsp.writeFile(filePath, buffer);
+
+    this.logger.log(`File saved locally: ${filePath}`);
+    return `/uploads/fallback/${key}`;
   }
 
   /**

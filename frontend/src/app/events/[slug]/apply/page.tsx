@@ -389,9 +389,9 @@ export default function EventApplicationForm() {
                                     </h4>
                                     <p className="leading-relaxed">To complete registration, please transfer the exact package fee (₦{fee.toLocaleString()}) to the Waqf account below, and save the receipt to upload in Step 5.</p>
                                     <div className="p-3 bg-background/50 border rounded-xl space-y-1 border-primary/10">
-                                        <div><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Bank Name</span><span className="font-bold text-text-primary">Jaiz Bank PLC</span></div>
-                                        <div className="pt-1.5 border-t border-border/30"><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Account Number</span><span className="font-extrabold text-sm text-primary font-mono select-all">0004928573</span></div>
-                                        <div className="pt-1.5 border-t border-border/30"><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Account Name</span><span className="font-bold text-text-primary">Basaeer Qur'anic Waqf Foundation</span></div>
+                                        <div><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Bank Name</span><span className="font-bold text-text-primary">First Bank</span></div>
+                                        <div className="pt-1.5 border-t border-border/30"><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Account Number</span><span className="font-extrabold text-sm text-primary font-mono select-all">2046905491</span></div>
+                                        <div className="pt-1.5 border-t border-border/30"><span className="text-[9px] uppercase font-bold text-muted-foreground block leading-none">Account Name</span><span className="font-bold text-text-primary">Basa'er Qur'anic Memorization School - Kaduna Boarding</span></div>
                                     </div>
                                 </div>
                             )}
