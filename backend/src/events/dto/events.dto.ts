@@ -74,7 +74,7 @@ export class CreateEventScheduleDto {
 export class CreateEventGalleryDto {
   @IsString()
   @IsNotEmpty()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   imageUrl: string;
 
   @IsOptional()
@@ -174,13 +174,13 @@ export class CreateCampusEventDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   featuredImage?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   brochurePdf?: string;
 
   @IsOptional()
@@ -298,13 +298,13 @@ export class UpdateCampusEventDto {
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   featuredImage?: string;
 
   @IsOptional()
   @IsString()
   @Transform(({ value }) => value === '' ? undefined : value)
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   brochurePdf?: string;
 
   @IsOptional()
@@ -428,37 +428,37 @@ export class CreateEventApplicationDto {
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   passportPhotoUrl?: string;
 
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   birthCertificateUrl?: string;
 
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   ninUrl?: string;
 
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   schoolIdUrl?: string;
 
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   medicalReportUrl?: string;
 
   @Transform(({ value }) => value === '' ? undefined : value)
   @IsOptional()
   @IsString()
-  @IsUrl({ require_protocol: false })
+  @IsUrl({ require_tld: false, require_protocol: false, require_host: false })
   proofOfPaymentUrl?: string;
 
   // Honeypot field for spam protection (should be empty)

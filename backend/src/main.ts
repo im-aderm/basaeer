@@ -70,6 +70,10 @@ async function bootstrap() {
   // ── Global Route Prefix ─────────────────────────────────────────────────────
   app.setGlobalPrefix('api/v1', { exclude: ['health'] });
 
+  // Trust proxy to correctly read X-Forwarded-Proto and X-Forwarded-For headers
+  // This ensures req.protocol returns 'https' when behind Nginx
+  app.set('trust proxy', 1);
+
   // ── Serve static files for local fallback uploads ──────────────────────────
   app.useStaticAssets(path.join(__dirname, '..', 'public'), {
     prefix: '/uploads/',
