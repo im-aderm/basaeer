@@ -39,6 +39,7 @@ export default function EventApplicationForm() {
     const [saving, setSaving] = useState(false);
     const [step, setStep] = useState(1);
     const [uploading, setUploading] = useState<string | null>(null);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     // Form inputs
     const [form, setForm] = useState({
@@ -184,8 +185,7 @@ export default function EventApplicationForm() {
             // Clean localStorage draft on success
             localStorage.removeItem(`${LOCAL_STORAGE_KEY}_${slug}`);
             
-            alert('Application submitted successfully! Our Registrar will audit your documents and verify payment shortly.');
-            router.push(`/events/${slug}`);
+            setShowSuccessModal(true);
         } catch (error: any) {
             alert(error.response?.data?.message || 'Failed to submit application. Please check your inputs.');
         } finally {
@@ -583,6 +583,29 @@ export default function EventApplicationForm() {
             </main>
 
             <Footer />
+
+            {/* Success Modal */}
+            {showSuccessModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <Card className="max-w-md w-full rounded-[2.5rem] border-border bg-surface-container shadow-2xl p-8 text-center space-y-6">
+                        <div className="w-20 h-20 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
+                            <Check className="w-10 h-10 text-primary" />
+                        </div>
+                        <div className="space-y-2">
+                            <h2 className="text-xl font-bold text-foreground">Application Submitted!</h2>
+                            <p className="text-sm text-text-secondary leading-relaxed">
+                                Our Registrar will audit your documents and verify payment shortly. You will be notified of your application status.
+                            </p>
+                        </div>
+                        <Button
+                            className="w-full h-12 rounded-full font-bold"
+                            onClick={() => router.push(`/events/${slug}`)}
+                        >
+                            Go to Event Page
+                        </Button>
+                    </Card>
+                </div>
+            )}
         </div>
     );
 }
