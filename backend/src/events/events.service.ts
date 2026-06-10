@@ -553,6 +553,25 @@ export class EventsService {
     return updated;
   }
 
+  async deleteApplication(id: string, context: TenantContext) {
+    const app = await this.prisma.eventApplication.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+    });
+    if (!app) throw new NotFoundException('Application not found');
+
+    await this.prisma.eventApplication.delete({ where: { id } });
+
+    await this.audit.log({
+      action: 'DELETE_APPLICATION',
+      module: 'Events',
+      context,
+      targetId: id,
+      targetType: 'EventApplication',
+    });
+
+    return { success: true };
+  }
+
   // --- Analytics (DB-level aggregation, no OOM risk) ---
 
   async getAnalytics(context: TenantContext) {

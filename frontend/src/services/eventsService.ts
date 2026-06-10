@@ -202,6 +202,11 @@ export const EventsService = {
     return response.data;
   },
 
+  deleteApplication: async (id: string): Promise<{ success: boolean }> => {
+    const response = await api.delete(`/events/applications/${id}`);
+    return response.data;
+  },
+
   // Analytics
   getAnalytics: async (): Promise<EventAnalytics> => {
     const response = await api.get("/events/analytics");

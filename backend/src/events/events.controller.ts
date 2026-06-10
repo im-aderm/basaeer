@@ -219,6 +219,18 @@ export class EventsController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Delete event application' })
+  @Delete('applications/:id')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  deleteApplication(
+    @Param('id') id: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.eventsService.deleteApplication(id, ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve events list' })
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)

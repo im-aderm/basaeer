@@ -156,7 +156,7 @@ export default function PaymentsPage() {
                             <div className="flex h-7 w-7 items-center justify-center rounded bg-blue-50 text-blue-600"><TrendingUp className="h-4 w-4" /></div>
                         </CardHeader>
                         <CardContent className="pb-4 px-4">
-                            <p className="text-2xl font-bold text-foreground">{applications.length}</p>
+                            <p className="text-2xl font-bold text-foreground">{applications.filter(a => a.paymentStatus === 'VERIFIED').length}</p>
                         </CardContent>
                     </Card>
                 </div>

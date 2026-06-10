@@ -22,6 +22,7 @@ import {
     Printer,
     Mail,
     AlertCircle,
+    Trash2,
     ArrowUpDown,
     CheckCircle2,
     XCircle,
@@ -55,6 +56,7 @@ export default function ApplicationsPage() {
     const [selectedApp, setSelectedApp] = useState<EventApplication | null>(null);
     const [detailOpen, setDetailOpen] = useState(false);
     const [viewingDoc, setViewingDoc] = useState<{ url: string; label: string } | null>(null);
+    const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
     // Filter and sorting states
     const [searchTerm, setSearchTerm] = useState('');
@@ -163,6 +165,20 @@ export default function ApplicationsPage() {
             }
         } catch (error) {
             showError('Failed to verify payment status');
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        try {
+            await EventsService.deleteApplication(id);
+            showSuccess('Application deleted successfully');
+            setDetailOpen(false);
+            setSelectedApp(null);
+            setConfirmDelete(null);
+            fetchApplications();
+        } catch (error) {
+            showError('Failed to delete application');
+            setConfirmDelete(null);
         }
     };
 
@@ -571,6 +587,16 @@ export default function ApplicationsPage() {
                                         <option value="WAITLISTED">Set Status: Waitlisted</option>
                                     </select>
                                     <Button variant="outline" className="h-9 rounded-xl font-bold border-primary/10 text-muted-foreground shrink-0" onClick={() => setDetailOpen(false)}>Close</Button>
+                                    {confirmDelete === selectedApp.id ? (
+                                        <div className="flex gap-1">
+                                            <Button size="sm" className="h-9 rounded-xl font-bold bg-red-600 hover:bg-red-700 text-white" onClick={() => handleDelete(selectedApp.id)}>Confirm</Button>
+                                            <Button size="sm" variant="outline" className="h-9 rounded-xl font-bold border-primary/10" onClick={() => setConfirmDelete(null)}>Cancel</Button>
+                                        </div>
+                                    ) : (
+                                        <Button size="sm" variant="outline" className="h-9 rounded-xl font-bold border-red-300 text-red-600 hover:bg-red-50 shrink-0 gap-1" onClick={() => setConfirmDelete(selectedApp.id)}>
+                                            <Trash2 size={14} /> Delete
+                                        </Button>
+                                    )}
                                 </div>
                             </div>
                         </DialogContent>
