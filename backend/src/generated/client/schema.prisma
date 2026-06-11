@@ -2365,6 +2365,7 @@ model EventPackage {
   boardingType   String
   availableSlots Int?
   description    String?
+  active         Boolean            @default(true)
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
   event          CampusEvent        @relation(fields: [eventId], references: [id], onDelete: Cascade)

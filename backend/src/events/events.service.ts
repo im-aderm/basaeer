@@ -193,7 +193,10 @@ export class EventsService {
     const event = await this.prisma.campusEvent.findUnique({
       where: { slug },
       include: {
-        packages: true,
+        packages: {
+          where: { active: true },
+          orderBy: { fee: 'asc' },
+        },
         schedules: {
           orderBy: [
             { day: 'asc' },
@@ -285,8 +288,11 @@ export class EventsService {
         },
       });
 
-      // Simple sync for relations: delete and recreate
-      await tx.eventPackage.deleteMany({ where: { eventId: id } });
+      // Packages: soft-delete old, create new (preserves historical application data)
+      await tx.eventPackage.updateMany({
+        where: { eventId: id, active: true },
+        data: { active: false },
+      });
       if (dto.packages && dto.packages.length > 0) {
         await tx.eventPackage.createMany({
           data: dto.packages.map((pkg) => ({
@@ -389,7 +395,7 @@ export class EventsService {
   async submitApplication(slug: string, dto: CreateEventApplicationDto) {
     const event = await this.prisma.campusEvent.findUnique({
       where: { slug },
-      include: { packages: true },
+      include: { packages: { where: { active: true } } },
     });
 
     if (!event || !event.active || !event.applicationFormEnabled) {

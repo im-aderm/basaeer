@@ -1697,6 +1697,7 @@ exports.Prisma.EventPackageScalarFieldEnum = {
   boardingType: 'boardingType',
   availableSlots: 'availableSlots',
   description: 'description',
+  active: 'active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

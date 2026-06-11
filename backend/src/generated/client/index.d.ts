@@ -150827,6 +150827,7 @@ export namespace Prisma {
     boardingType: string | null
     availableSlots: number | null
     description: string | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -150841,6 +150842,7 @@ export namespace Prisma {
     boardingType: string | null
     availableSlots: number | null
     description: string | null
+    active: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -150855,6 +150857,7 @@ export namespace Prisma {
     boardingType: number
     availableSlots: number
     description: number
+    active: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -150881,6 +150884,7 @@ export namespace Prisma {
     boardingType?: true
     availableSlots?: true
     description?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -150895,6 +150899,7 @@ export namespace Prisma {
     boardingType?: true
     availableSlots?: true
     description?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -150909,6 +150914,7 @@ export namespace Prisma {
     boardingType?: true
     availableSlots?: true
     description?: true
+    active?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -151010,6 +151016,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots: number | null
     description: string | null
+    active: boolean
     createdAt: Date
     updatedAt: Date
     _count: EventPackageCountAggregateOutputType | null
@@ -151043,6 +151050,7 @@ export namespace Prisma {
     boardingType?: boolean
     availableSlots?: boolean
     description?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -151060,6 +151068,7 @@ export namespace Prisma {
     boardingType?: boolean
     availableSlots?: boolean
     description?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -151075,6 +151084,7 @@ export namespace Prisma {
     boardingType?: boolean
     availableSlots?: boolean
     description?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -151090,11 +151100,12 @@ export namespace Prisma {
     boardingType?: boolean
     availableSlots?: boolean
     description?: boolean
+    active?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EventPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "title" | "ageRange" | "timing" | "fee" | "boardingType" | "availableSlots" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["eventPackage"]>
+  export type EventPackageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "title" | "ageRange" | "timing" | "fee" | "boardingType" | "availableSlots" | "description" | "active" | "createdAt" | "updatedAt", ExtArgs["result"]["eventPackage"]>
   export type EventPackageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
     applications?: boolean | EventPackage$applicationsArgs<ExtArgs>
@@ -151123,6 +151134,7 @@ export namespace Prisma {
       boardingType: string
       availableSlots: number | null
       description: string | null
+      active: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["eventPackage"]>
@@ -151559,6 +151571,7 @@ export namespace Prisma {
     readonly boardingType: FieldRef<"EventPackage", 'String'>
     readonly availableSlots: FieldRef<"EventPackage", 'Int'>
     readonly description: FieldRef<"EventPackage", 'String'>
+    readonly active: FieldRef<"EventPackage", 'Boolean'>
     readonly createdAt: FieldRef<"EventPackage", 'DateTime'>
     readonly updatedAt: FieldRef<"EventPackage", 'DateTime'>
   }
@@ -216740,6 +216753,7 @@ export namespace Prisma {
     boardingType: 'boardingType',
     availableSlots: 'availableSlots',
     description: 'description',
+    active: 'active',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -228991,6 +229005,7 @@ export namespace Prisma {
     boardingType?: StringFilter<"EventPackage"> | string
     availableSlots?: IntNullableFilter<"EventPackage"> | number | null
     description?: StringNullableFilter<"EventPackage"> | string | null
+    active?: BoolFilter<"EventPackage"> | boolean
     createdAt?: DateTimeFilter<"EventPackage"> | Date | string
     updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
     event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
@@ -229007,6 +229022,7 @@ export namespace Prisma {
     boardingType?: SortOrder
     availableSlots?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     event?: CampusEventOrderByWithRelationInput
@@ -229026,6 +229042,7 @@ export namespace Prisma {
     boardingType?: StringFilter<"EventPackage"> | string
     availableSlots?: IntNullableFilter<"EventPackage"> | number | null
     description?: StringNullableFilter<"EventPackage"> | string | null
+    active?: BoolFilter<"EventPackage"> | boolean
     createdAt?: DateTimeFilter<"EventPackage"> | Date | string
     updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
     event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
@@ -229042,6 +229059,7 @@ export namespace Prisma {
     boardingType?: SortOrder
     availableSlots?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EventPackageCountOrderByAggregateInput
@@ -229064,6 +229082,7 @@ export namespace Prisma {
     boardingType?: StringWithAggregatesFilter<"EventPackage"> | string
     availableSlots?: IntNullableWithAggregatesFilter<"EventPackage"> | number | null
     description?: StringNullableWithAggregatesFilter<"EventPackage"> | string | null
+    active?: BoolWithAggregatesFilter<"EventPackage"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"EventPackage"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EventPackage"> | Date | string
   }
@@ -245567,6 +245586,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutPackagesInput
@@ -245583,6 +245603,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     applications?: EventApplicationUncheckedCreateNestedManyWithoutPackageInput
@@ -245597,6 +245618,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutPackagesNestedInput
@@ -245613,6 +245635,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applications?: EventApplicationUncheckedUpdateManyWithoutPackageNestedInput
@@ -245628,6 +245651,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -245641,6 +245665,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -245655,6 +245680,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -258588,6 +258614,7 @@ export namespace Prisma {
     boardingType?: SortOrder
     availableSlots?: SortOrder
     description?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -258607,6 +258634,7 @@ export namespace Prisma {
     boardingType?: SortOrder
     availableSlots?: SortOrder
     description?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -258621,6 +258649,7 @@ export namespace Prisma {
     boardingType?: SortOrder
     availableSlots?: SortOrder
     description?: SortOrder
+    active?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -363581,6 +363610,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     applications?: EventApplicationCreateNestedManyWithoutPackageInput
@@ -363595,6 +363625,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     applications?: EventApplicationUncheckedCreateNestedManyWithoutPackageInput
@@ -364113,6 +364144,7 @@ export namespace Prisma {
     boardingType?: StringFilter<"EventPackage"> | string
     availableSlots?: IntNullableFilter<"EventPackage"> | number | null
     description?: StringNullableFilter<"EventPackage"> | string | null
+    active?: BoolFilter<"EventPackage"> | boolean
     createdAt?: DateTimeFilter<"EventPackage"> | Date | string
     updatedAt?: DateTimeFilter<"EventPackage"> | Date | string
   }
@@ -364870,6 +364902,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutPackagesInput
@@ -364885,6 +364918,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -365315,6 +365349,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutPackagesNestedInput
@@ -365330,6 +365365,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -421011,6 +421047,7 @@ export namespace Prisma {
     boardingType: string
     availableSlots?: number | null
     description?: string | null
+    active?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -421103,6 +421140,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applications?: EventApplicationUpdateManyWithoutPackageNestedInput
@@ -421117,6 +421155,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applications?: EventApplicationUncheckedUpdateManyWithoutPackageNestedInput
@@ -421131,6 +421170,7 @@ export namespace Prisma {
     boardingType?: StringFieldUpdateOperationsInput | string
     availableSlots?: NullableIntFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    active?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
