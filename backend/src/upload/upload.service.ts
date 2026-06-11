@@ -29,6 +29,7 @@ export class UploadService {
     this.bucketName =
       this.configService.get<string>('R2_BUCKET_NAME') || 'basaer-uploads';
     this.publicDomain =
+      this.configService.get<string>('R2_PUBLIC_URL') ||
       this.configService.get<string>('R2_PUBLIC_DOMAIN') || '';
 
     if (accountId && accessKeyId && secretAccessKey) {

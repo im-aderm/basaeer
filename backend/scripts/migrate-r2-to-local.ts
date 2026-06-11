@@ -4,7 +4,7 @@ import { PrismaClient } from '../src/generated/client';
 
 const prisma = new PrismaClient({ log: ['error', 'warn'] });
 
-const R2_DOMAIN = process.env.R2_PUBLIC_DOMAIN || '';
+const R2_DOMAIN = process.env.R2_PUBLIC_URL || process.env.R2_PUBLIC_DOMAIN || '';
 
 const urlFields: (keyof import('../src/generated/client').EventApplication)[] = [
   'passportPhotoUrl',
