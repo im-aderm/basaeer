@@ -2,6 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { EventsService } from './events.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditService } from '../audit/audit.service';
+import { MailService } from '../mail/mail.service';
+import { ProvidersService } from '../providers/providers.service';
 import { UserRole } from '../generated/client/client';
 import { TenantContext } from '../auth/branch.guard';
 
@@ -36,7 +38,23 @@ describe('EventsService', () => {
       findMany: jest.fn(),
       findFirst: jest.fn(),
       update: jest.fn(),
+      delete: jest.fn(),
       count: jest.fn(),
+      groupBy: jest.fn(),
+    },
+    eventRSVP: {
+      upsert: jest.fn(),
+    },
+    eventPackage: {
+      createMany: jest.fn(),
+      deleteMany: jest.fn(),
+      findMany: jest.fn(),
+    },
+    providerHealthLog: {
+      create: jest.fn(),
+    },
+    providerFailoverEvent: {
+      create: jest.fn(),
     },
     $transaction: jest.fn((cb) => cb(mockPrismaService)),
   };
@@ -46,12 +64,24 @@ describe('EventsService', () => {
     logAction: jest.fn(),
   };
 
+  const mockMailService = {
+    sendEventApplicationApproved: jest.fn().mockResolvedValue(undefined),
+    sendEventApplicationRejected: jest.fn().mockResolvedValue(undefined),
+    sendEventPaymentVerified: jest.fn().mockResolvedValue(undefined),
+  };
+
+  const mockProvidersService = {
+    sendWhatsAppWithFailover: jest.fn().mockResolvedValue(true),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         EventsService,
         { provide: PrismaService, useValue: mockPrismaService },
         { provide: AuditService, useValue: mockAuditService },
+        { provide: MailService, useValue: mockMailService },
+        { provide: ProvidersService, useValue: mockProvidersService },
       ],
     }).compile();
 

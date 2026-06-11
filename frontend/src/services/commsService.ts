@@ -45,6 +45,7 @@ export interface AutomationConfig {
 export interface ProviderHealth {
     email: boolean;
     sms: boolean;
+    whatsapp: boolean;
 }
 
 export interface SmsBalance {

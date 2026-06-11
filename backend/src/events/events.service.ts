@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { AuditService } from '../audit/audit.service';
+import { MailService } from '../mail/mail.service';
+import { ProvidersService } from '../providers/providers.service';
 import {
   CreateCampusEventDto,
   UpdateCampusEventDto,
@@ -15,9 +17,13 @@ import * as crypto from 'crypto';
 
 @Injectable()
 export class EventsService {
+  private readonly logger = new Logger(EventsService.name);
+
   constructor(
     private prisma: PrismaService,
     private audit: AuditService,
+    private mailService: MailService,
+    private providersService: ProvidersService,
   ) {}
 
   private async generateSlug(title: string, branchId?: string): Promise<string> {
@@ -512,13 +518,18 @@ export class EventsService {
   }
 
   async updateApplicationStatus(id: string, dto: UpdateApplicationStatusDto, context: TenantContext) {
-    // Atomic update with branchId in where clause
+    const app = await this.prisma.eventApplication.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+      include: {
+        event: { select: { title: true, slug: true, branchId: true } },
+      },
+    });
+    if (!app) throw new NotFoundException('Application not found');
+
     const updated = await this.prisma.eventApplication.update({
       where: { id, branchId: context.branchId ?? undefined },
       data: { status: dto.status },
     });
-
-    if (!updated) throw new NotFoundException('Application not found');
 
     await this.audit.log({
       action: 'UPDATE_STATUS',
@@ -529,17 +540,33 @@ export class EventsService {
       details: { to: dto.status },
     });
 
+    // Send notifications on approval / rejection
+    if (dto.status === 'APPROVED') {
+      this.sendApprovalNotifications(app).catch(err =>
+        this.logger.error(`Approval notifications failed: ${err.message}`, err.stack),
+      );
+    } else if (dto.status === 'REJECTED') {
+      this.sendRejectionNotifications(app, 'Your application did not meet the requirements.').catch(err =>
+        this.logger.error(`Rejection notifications failed: ${err.message}`, err.stack),
+      );
+    }
+
     return updated;
   }
 
   async verifyPayment(id: string, dto: VerifyPaymentDto, context: TenantContext) {
-    // Atomic update with branchId in where clause
+    const app = await this.prisma.eventApplication.findFirst({
+      where: TenantHelper.applyIsolation({ id }, context),
+      include: {
+        event: { select: { title: true, slug: true, branchId: true } },
+      },
+    });
+    if (!app) throw new NotFoundException('Application not found');
+
     const updated = await this.prisma.eventApplication.update({
       where: { id, branchId: context.branchId ?? undefined },
       data: { paymentStatus: dto.paymentStatus },
     });
-
-    if (!updated) throw new NotFoundException('Application not found');
 
     await this.audit.log({
       action: 'VERIFY_PAYMENT',
@@ -549,6 +576,13 @@ export class EventsService {
       targetType: 'EventApplication',
       details: { to: dto.paymentStatus },
     });
+
+    // Send notification on payment verification
+    if (dto.paymentStatus === 'VERIFIED') {
+      this.sendPaymentVerifiedNotifications(app).catch(err =>
+        this.logger.error(`Payment verification notifications failed: ${err.message}`, err.stack),
+      );
+    }
 
     return updated;
   }
@@ -570,6 +604,68 @@ export class EventsService {
     });
 
     return { success: true };
+  }
+
+  // ─── Notification Helpers ───────────────────────────────────────────────────
+
+  private async sendApprovalNotifications(app: any) {
+    const { parentEmail, parentPhone, fullName, event } = app;
+    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+    const emailPromise = parentEmail
+      ? this.mailService.sendEventApplicationApproved(parentEmail, fullName, event.title, event.branchId)
+      : Promise.resolve();
+
+    const whatsappMessage =
+      `Assalamu Alaikum! ✅ The application for *${fullName}* to *${event.title}* has been APPROVED. ` +
+      `Please check your email for the camp requirements and prohibited items documents. ` +
+      `Visit the event page for more details: ${baseUrl}/events/${event.slug}`;
+
+    const whatsappPromise = parentPhone
+      ? this.providersService.sendWhatsAppWithFailover(parentPhone, whatsappMessage)
+      : Promise.resolve();
+
+    await Promise.allSettled([emailPromise, whatsappPromise]);
+  }
+
+  private async sendRejectionNotifications(app: any, reason: string) {
+    const { parentEmail, parentPhone, fullName, event } = app;
+    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+    const emailPromise = parentEmail
+      ? this.mailService.sendEventApplicationRejected(parentEmail, fullName, event.title, reason, event.branchId)
+      : Promise.resolve();
+
+    const whatsappMessage =
+      `Assalamu Alaikum. Unfortunately, the application for *${fullName}* to *${event.title}* has been REJECTED. ` +
+      `Reason: ${reason}. ` +
+      `You are welcome to apply for future events. Visit: ${baseUrl}/events`;
+
+    const whatsappPromise = parentPhone
+      ? this.providersService.sendWhatsAppWithFailover(parentPhone, whatsappMessage)
+      : Promise.resolve();
+
+    await Promise.allSettled([emailPromise, whatsappPromise]);
+  }
+
+  private async sendPaymentVerifiedNotifications(app: any) {
+    const { parentEmail, parentPhone, fullName, event } = app;
+    const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+    const emailPromise = parentEmail
+      ? this.mailService.sendEventPaymentVerified(parentEmail, fullName, event.title, event.branchId)
+      : Promise.resolve();
+
+    const whatsappMessage =
+      `Assalamu Alaikum! ✅ Payment for *${fullName}* to *${event.title}* has been VERIFIED. ` +
+      `Your spot is confirmed! Please check your email for the camp requirements and prohibited items documents. ` +
+      `Event details: ${baseUrl}/events/${event.slug}`;
+
+    const whatsappPromise = parentPhone
+      ? this.providersService.sendWhatsAppWithFailover(parentPhone, whatsappMessage)
+      : Promise.resolve();
+
+    await Promise.allSettled([emailPromise, whatsappPromise]);
   }
 
   // --- Analytics (DB-level aggregation, no OOM risk) ---
@@ -654,7 +750,7 @@ export class EventsService {
     });
 
     const genderDistribution = genderGroups.map(g => ({
-      name: g.gender === 'MALE' ? 'Male' : 'Female',
+      name: g.gender?.toUpperCase() === 'MALE' ? 'Male' : 'Female',
       value: g._count.gender,
     }));
 

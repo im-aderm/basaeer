@@ -2,22 +2,27 @@ import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { EmailProviderInterface } from './email/email-provider.interface';
 import { SmsProviderInterface } from './sms/sms-provider.interface';
+import { WhatsAppProviderInterface } from './whatsapp/whatsapp-provider.interface';
 import { SmtpProvider } from './email/smtp.provider';
 import { TermiiProvider } from './sms/termii.provider';
+import { MetaWhatsAppProvider } from './whatsapp/meta-whatsapp.provider';
 
 @Injectable()
 export class ProvidersService {
   private readonly logger = new Logger(ProvidersService.name);
   private emailProviders: EmailProviderInterface[] = [];
   private smsProviders: SmsProviderInterface[] = [];
+  private whatsAppProviders: WhatsAppProviderInterface[] = [];
 
   constructor(
     private prisma: PrismaService,
     private smtpProvider: SmtpProvider,
     private termiiProvider: TermiiProvider,
+    private metaWhatsAppProvider: MetaWhatsAppProvider,
   ) {
     this.emailProviders = [this.smtpProvider];
     this.smsProviders = [this.termiiProvider];
+    this.whatsAppProviders = [this.metaWhatsAppProvider];
   }
 
   async sendEmailWithFailover(
@@ -102,12 +107,52 @@ export class ProvidersService {
     return false;
   }
 
-  async getProviderHealth(): Promise<{ email: boolean; sms: boolean }> {
-    const [emailHealth, smsHealth] = await Promise.all([
+  async sendWhatsAppWithFailover(to: string, message: string): Promise<boolean> {
+    const startTime = Date.now();
+
+    for (let i = 0; i < this.whatsAppProviders.length; i++) {
+      const provider = this.whatsAppProviders[i];
+      const success = await provider.send(to, message);
+      const latency = Date.now() - startTime;
+
+      if (success) {
+        await this.logProviderHealth(
+          'WHATSAPP',
+          provider.constructor.name,
+          'UP',
+          latency,
+        );
+        return true;
+      }
+
+      await this.logProviderHealth(
+        'WHATSAPP',
+        provider.constructor.name,
+        'DOWN',
+        latency,
+        'Send failed',
+      );
+
+      const nextProvider = this.whatsAppProviders[i + 1];
+      if (nextProvider) {
+        await this.logFailover(
+          provider.constructor.name,
+          nextProvider.constructor.name,
+          'WHATSAPP',
+          'Primary provider failed',
+        );
+      }
+    }
+    return false;
+  }
+
+  async getProviderHealth(): Promise<{ email: boolean; sms: boolean; whatsapp: boolean }> {
+    const [emailHealth, smsHealth, whatsAppHealth] = await Promise.all([
       this.checkEmailHealth(),
       this.checkSmsHealth(),
+      this.checkWhatsAppHealth(),
     ]);
-    return { email: emailHealth, sms: smsHealth };
+    return { email: emailHealth, sms: smsHealth, whatsapp: whatsAppHealth };
   }
 
   async getSmsBalance(): Promise<{ provider: string; balance: number }> {
@@ -131,6 +176,13 @@ export class ProvidersService {
 
   private async checkSmsHealth(): Promise<boolean> {
     for (const provider of this.smsProviders) {
+      if (await provider.healthCheck()) return true;
+    }
+    return false;
+  }
+
+  private async checkWhatsAppHealth(): Promise<boolean> {
+    for (const provider of this.whatsAppProviders) {
       if (await provider.healthCheck()) return true;
     }
     return false;

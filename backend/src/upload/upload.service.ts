@@ -105,7 +105,8 @@ export class UploadService {
     const key = safeSubFolder ? `${safeSubFolder}/${filename}` : filename;
 
     // Try R2 first, fall back to local filesystem
-    if (this.s3Client) {
+    const r2Disabled = process.env.DISABLE_R2 === 'true';
+    if (this.s3Client && !r2Disabled) {
       try {
         const command = new PutObjectCommand({
           Bucket: this.bucketName,
@@ -126,6 +127,8 @@ export class UploadService {
           `R2 upload failed, falling back to local filesystem: ${error.message}`,
         );
       }
+    } else if (r2Disabled) {
+      this.logger.log('R2 disabled via DISABLE_R2 env var, using local filesystem');
     } else {
       this.logger.warn('R2 not configured, using local filesystem fallback');
     }
@@ -181,7 +184,8 @@ export class UploadService {
     const key = safeSubFolder ? `${safeSubFolder}/${secureFilename}` : secureFilename;
 
     // Try R2 first, fall back to local filesystem
-    if (this.s3Client) {
+    const r2Disabled = process.env.DISABLE_R2 === 'true';
+    if (this.s3Client && !r2Disabled) {
       try {
         const command = new PutObjectCommand({
           Bucket: this.bucketName,
@@ -202,6 +206,8 @@ export class UploadService {
           `R2 upload failed, falling back to local filesystem: ${error.message}`,
         );
       }
+    } else if (r2Disabled) {
+      this.logger.log('R2 disabled via DISABLE_R2 env var, using local filesystem');
     } else {
       this.logger.warn('R2 not configured, using local filesystem fallback');
     }

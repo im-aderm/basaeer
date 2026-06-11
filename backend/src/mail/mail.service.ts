@@ -18,18 +18,21 @@ export interface EmailTemplate {
   footerText?: string;
 }
 
+interface QueueItem {
+  to: string;
+  subject: string;
+  html: string;
+  retries: number;
+  branchId?: string;
+  attachments?: { filename: string; path?: string; content?: Buffer }[];
+}
+
 @Injectable()
 export class MailService implements OnModuleInit {
   private transporter: nodemailer.Transporter;
   private readonly logger = new Logger(MailService.name);
   private isConfigured = false;
-  private emailQueue: {
-    to: string;
-    subject: string;
-    html: string;
-    retries: number;
-    branchId?: string;
-  }[] = [];
+  private emailQueue: QueueItem[] = [];
   private isProcessing = false;
 
   constructor(private readonly brandingService: BranchBrandingService) {}
@@ -60,9 +63,6 @@ export class MailService implements OnModuleInit {
     this.startQueueProcessor();
   }
 
-  /**
-   * Verify SMTP connection on startup
-   */
   private async verifyConnection() {
     try {
       await this.transporter.verify();
@@ -75,16 +75,10 @@ export class MailService implements OnModuleInit {
     }
   }
 
-  /**
-   * Check if the mail service is properly configured
-   */
   isConfiguredWithRealSmtp(): boolean {
     return this.isConfigured;
   }
 
-  /**
-   * Get SMTP configuration status
-   */
   getConfigStatus() {
     return {
       configured: this.isConfigured,
@@ -395,6 +389,111 @@ export class MailService implements OnModuleInit {
     return this.sendMail(to, 'Reset Your Password - Basaer', html, branchId);
   }
 
+  // ─── Event Application Notification Emails ──────────────────────────────────
+
+  async sendEventApplicationApproved(
+    to: string,
+    studentName: string,
+    eventTitle: string,
+    branchId?: string,
+  ) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#059669',
+      headerTitle: 'Application Approved',
+      headerSubtitle: this.escapeHtml(eventTitle),
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>We are pleased to inform you that the application for <strong>${this.escapeHtml(studentName)}</strong> to <strong>${this.escapeHtml(eventTitle)}</strong> has been <strong>APPROVED</strong>.</p>
+        <p>Please find attached the camp requirements and prohibited items documents for your reference. Review them carefully before the event date.</p>
+      `,
+      footerText:
+        'We look forward to seeing you at the event. If you have any questions, please contact the event coordinator.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Application Approved: ${studentName} - ${eventTitle}`, html, branchId, [
+      { filename: 'camp-requirements.pdf', path: this.getDocumentPath('camp-requirements.pdf') },
+      { filename: 'prohibited-items.pdf', path: this.getDocumentPath('prohibited-items.pdf') },
+    ]);
+  }
+
+  async sendEventApplicationRejected(
+    to: string,
+    studentName: string,
+    eventTitle: string,
+    reason: string,
+    branchId?: string,
+  ) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#dc2626',
+      headerTitle: 'Application Status Update',
+      headerSubtitle: this.escapeHtml(eventTitle),
+      greeting: 'Hello,',
+      bodyContent: `
+        <p>Thank you for applying to <strong>${this.escapeHtml(eventTitle)}</strong>.</p>
+        <p>After careful review, we regret to inform you that the application for <strong>${this.escapeHtml(studentName)}</strong> has been <strong>REJECTED</strong>.</p>
+      `,
+      extraBlocks: [
+        {
+          backgroundColor: '#fef2f2',
+          borderColor: '#dc2626',
+          borderSide: 'left: 4px solid',
+          padding: '20px',
+          content: `
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">Reason:</p>
+            <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
+          `,
+        },
+      ],
+      footerText:
+        'You are welcome to apply for future events. Contact support for more information.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Application Rejected: ${studentName} - ${eventTitle}`, html, branchId);
+  }
+
+  async sendEventPaymentVerified(
+    to: string,
+    studentName: string,
+    eventTitle: string,
+    branchId?: string,
+  ) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = {
+      headerColor: '#059669',
+      headerTitle: 'Payment Verified',
+      headerSubtitle: this.escapeHtml(eventTitle),
+      greeting: 'Assalamu Alaikum,',
+      bodyContent: `
+        <p>Great news! The payment for <strong>${this.escapeHtml(studentName)}</strong>'s application to <strong>${this.escapeHtml(eventTitle)}</strong> has been <strong>VERIFIED</strong>.</p>
+        <p>Your spot is now confirmed. Please find attached the camp requirements and prohibited items documents.</p>
+      `,
+      footerText:
+        'We look forward to having you at the event. Check the event page for updates and announcements.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Payment Verified: ${studentName} - ${eventTitle}`, html, branchId, [
+      { filename: 'camp-requirements.pdf', path: this.getDocumentPath('camp-requirements.pdf') },
+      { filename: 'prohibited-items.pdf', path: this.getDocumentPath('prohibited-items.pdf') },
+    ]);
+  }
+
   /**
    * Build a consistent email HTML template
    */
@@ -455,10 +554,14 @@ export class MailService implements OnModuleInit {
       .replace(/'/g, '&#039;');
   }
 
+  private getDocumentPath(filename: string): string {
+    return require('path').join(__dirname, '..', '..', 'public', 'documents', filename);
+  }
+
   private startQueueProcessor() {
     setInterval(() => {
       this.processQueue();
-    }, 5000); // Process queue every 5 seconds
+    }, 5000);
   }
 
   private async processQueue() {
@@ -468,8 +571,8 @@ export class MailService implements OnModuleInit {
     while (this.emailQueue.length > 0) {
       const email = this.emailQueue[0];
       try {
-        await this.sendMailDirect(email.to, email.subject, email.html);
-        this.emailQueue.shift(); // Remove successfully sent email
+        await this.sendMailDirect(email.to, email.subject, email.html, email.attachments);
+        this.emailQueue.shift();
       } catch (error) {
         email.retries++;
         this.logger.error(
@@ -480,11 +583,10 @@ export class MailService implements OnModuleInit {
           this.logger.error(
             `Dropping email to ${email.to} after 3 failed attempts.`,
           );
-          this.emailQueue.shift(); // Drop after 3 retries
+          this.emailQueue.shift();
         } else {
-          // Move to the back of the queue
           this.emailQueue.push(this.emailQueue.shift()!);
-          break; // Stop processing current batch to avoid rapid spamming on connection errors
+          break;
         }
       }
     }
@@ -492,7 +594,12 @@ export class MailService implements OnModuleInit {
     this.isProcessing = false;
   }
 
-  private async sendMailDirect(to: string, subject: string, html: string) {
+  private async sendMailDirect(
+    to: string,
+    subject: string,
+    html: string,
+    attachments?: { filename: string; path?: string; content?: Buffer }[],
+  ) {
     if (!this.isConfigured || !this.transporter) {
       this.logger.error(`Cannot send email to ${to}. SMTP not configured.`);
       return;
@@ -503,10 +610,11 @@ export class MailService implements OnModuleInit {
       to,
       subject,
       html,
+      attachments,
     });
 
     this.logger.log(
-      `✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}`,
+      `✅ Email sent to ${to} | Subject: "${subject}" | MessageId: ${info.messageId}${attachments?.length ? ` | Attachments: ${attachments.length}` : ''}`,
     );
 
     if (info.messageId && process.env.SMTP_HOST === 'smtp.ethereal.email') {
@@ -538,7 +646,13 @@ export class MailService implements OnModuleInit {
     return header + body + footer;
   }
 
-  private async sendMail(to: string, subject: string, html: string, branchId?: string) {
+  private async sendMail(
+    to: string,
+    subject: string,
+    html: string,
+    branchId?: string,
+    attachments?: { filename: string; path?: string; content?: Buffer }[],
+  ) {
     let brandedHtml = html;
 
     if (branchId) {
@@ -550,8 +664,8 @@ export class MailService implements OnModuleInit {
       }
     }
 
-    this.emailQueue.push({ to, subject, html: brandedHtml, retries: 0, branchId });
-    this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}"`);
+    this.emailQueue.push({ to, subject, html: brandedHtml, retries: 0, branchId, attachments });
+    this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}"${attachments?.length ? ` | Attachments: ${attachments.length}` : ''}`);
     return { queued: true, message: `Email queued for ${to}` };
   }
 }

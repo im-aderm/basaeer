@@ -80,6 +80,12 @@ async function bootstrap() {
     index: false,
   });
 
+  // ── Serve static documents (event rules PDFs etc.) ────────────────────────
+  app.useStaticAssets(path.join(__dirname, '..', 'public', 'documents'), {
+    prefix: '/documents/',
+    index: false,
+  });
+
   // ── Security Headers ────────────────────────────────────────────────────────
   app.use(
     helmet({
