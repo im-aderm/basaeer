@@ -55,7 +55,7 @@ export class OnlineAdmissionController {
     if (!createDto.branchId) {
       throw new BadRequestException('branchId is required');
     }
-    return this.onlineAdmissionService.create(createDto, undefined as any);
+    return this.onlineAdmissionService.create(createDto);
   }
 
   @Public()

@@ -30,8 +30,8 @@ export class OnlineAdmissionService {
     private auditService: AuditService,
   ) {}
 
-  async create(createDto: CreateOnlineAdmissionDto, context: TenantContext) {
-    const branchId = createDto.branchId || context.branchId;
+  async create(createDto: CreateOnlineAdmissionDto, context?: TenantContext | null) {
+    const branchId = createDto.branchId || context?.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
 
     // Duplicate check: same guardian + same student within 30 days

@@ -1,4 +1,6 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException, Inject } from '@nestjs/common';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 import { PrismaService } from '../prisma/prisma.service';
 import { Branch, UserRole } from '../generated/client/client';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -22,6 +24,7 @@ export class BranchesService {
   constructor(
     private prisma: PrismaService,
     private notificationsService: NotificationsService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async create(dto: CreateBranchDto, userId?: string): Promise<Branch> {
@@ -75,10 +78,12 @@ export class BranchesService {
 
   async update(id: string, data: UpdateBranchDto): Promise<Branch> {
     await this.findOne(id);
-    return this.prisma.branch.update({
+    const result = await this.prisma.branch.update({
       where: { id },
       data,
     });
+    await this.cacheManager.del(`branding:${id}`);
+    return result;
   }
 
   findActive(): Promise<Pick<Branch, 'id' | 'name' | 'code'>[]> {
@@ -91,10 +96,12 @@ export class BranchesService {
 
   async remove(id: string): Promise<Branch> {
     await this.findOne(id);
-    return this.prisma.branch.update({
+    const result = await this.prisma.branch.update({
       where: { id },
       data: { deletedAt: new Date(), isActive: false },
     });
+    await this.cacheManager.del(`branding:${id}`);
+    return result;
   }
 
   async reassignBranchAdmin(branchId: string, dto: ReassignBranchAdminDto) {
