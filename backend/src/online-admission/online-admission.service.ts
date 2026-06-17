@@ -180,29 +180,31 @@ export class OnlineAdmissionService {
       ...rest
     } = updateDto;
 
-    if (previousSchools) {
-      await this.prisma.previousSchool.deleteMany({
-        where: { admissionId: id },
-      });
-    }
+    return this.prisma.$transaction(async (tx) => {
+      if (previousSchools) {
+        await tx.previousSchool.deleteMany({
+          where: { admissionId: id },
+        });
+      }
 
-    return this.prisma.onlineAdmission.update({
-      where: { id },
-      data: {
-        ...(rest as any),
-        ...(dateOfBirth && { dateOfBirth: new Date(dateOfBirth) }),
-        ...(admissionDate && { admissionDate: new Date(admissionDate) }),
-        ...(approvalDate && { approvalDate: new Date(approvalDate) }),
-        ...(consentDate && { consentDate: new Date(consentDate) }),
-        ...(previousSchools && {
-          previousSchools: {
-            create: previousSchools,
-          },
-        }),
-      },
-      include: {
-        previousSchools: true,
-      },
+      return tx.onlineAdmission.update({
+        where: { id },
+        data: {
+          ...(rest as any),
+          ...(dateOfBirth && { dateOfBirth: new Date(dateOfBirth) }),
+          ...(admissionDate && { admissionDate: new Date(admissionDate) }),
+          ...(approvalDate && { approvalDate: new Date(approvalDate) }),
+          ...(consentDate && { consentDate: new Date(consentDate) }),
+          ...(previousSchools && {
+            previousSchools: {
+              create: previousSchools,
+            },
+          }),
+        },
+        include: {
+          previousSchools: true,
+        },
+      });
     });
   }
 
@@ -225,7 +227,10 @@ export class OnlineAdmissionService {
   }
 
   async verifyPayment(id: string, context: TenantContext) {
-    await this.findOne(id, context);
+    const admission = await this.findOne(id, context);
+    if (admission.paymentStatus !== 'PENDING') {
+      throw new BadRequestException('Payment has already been processed');
+    }
     const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
@@ -310,6 +315,9 @@ export class OnlineAdmissionService {
     const admission = await this.findOne(id, context);
     if (admission.status === 'ENROLLED') {
       throw new ConflictException('Application is already enrolled');
+    }
+    if (admission.status === 'REJECTED' || admission.status === 'CANCELLED') {
+      throw new BadRequestException('Cannot approve a rejected or cancelled application');
     }
 
     const branchId = admission.branchId;
@@ -584,6 +592,10 @@ export class OnlineAdmissionService {
       throw new BadRequestException('Cannot make offer on rejected/cancelled application');
     }
 
+    if (offerData.offerDeadline && new Date(offerData.offerDeadline) <= new Date()) {
+      throw new BadRequestException('Offer deadline must be in the future');
+    }
+
     const deadline = offerData.offerDeadline
       ? new Date(offerData.offerDeadline)
       : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days default
@@ -648,6 +660,10 @@ export class OnlineAdmissionService {
 
     if (admission.status !== 'ADMISSION_OFFERED') {
       throw new BadRequestException('No pending offer to accept');
+    }
+
+    if (admission.offerAcceptedAt) {
+      throw new BadRequestException('Offer has already been accepted');
     }
 
     if (admission.offerDeadline && new Date(admission.offerDeadline) < new Date()) {
@@ -749,6 +765,20 @@ export class OnlineAdmissionService {
       targetId: id,
       targetType: 'OnlineAdmission',
     });
+
+    // Decrement waitlist positions for remaining applicants behind this one
+    if (admission.waitlistPosition) {
+      await this.prisma.onlineAdmission.updateMany({
+        where: {
+          status: 'WAITLISTED',
+          waitlistPosition: { gt: admission.waitlistPosition },
+          branchId: admission.branchId,
+        },
+        data: {
+          waitlistPosition: { decrement: 1 },
+        },
+      });
+    }
 
     // Make offer to waitlisted applicant
     return this.makeOffer(id, context, {
