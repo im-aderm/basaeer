@@ -31,6 +31,27 @@ export class OnlineAdmissionService {
     const branchId = createDto.branchId || context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
 
+    // Duplicate check: same guardian + same student within 30 days
+    if (createDto.guardianEmail) {
+      const recentCutoff = new Date();
+      recentCutoff.setDate(recentCutoff.getDate() - 30);
+      const duplicate = await this.prisma.onlineAdmission.findFirst({
+        where: {
+          guardianEmail: createDto.guardianEmail,
+          firstName: createDto.firstName,
+          lastName: createDto.lastName,
+          dateOfBirth: new Date(createDto.dateOfBirth),
+          createdAt: { gte: recentCutoff },
+          branchId,
+        },
+      });
+      if (duplicate) {
+        throw new ConflictException(
+          'An application for this student was already submitted within the last 30 days. Please contact the school if you have questions.',
+        );
+      }
+    }
+
     const {
       dateOfBirth,
       admissionDate,

@@ -16,6 +16,7 @@ import {
 import { InjectQueue } from '@nestjs/bullmq';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Queue } from 'bullmq';
+import { Throttle } from '@nestjs/throttler';
 import { OnlineAdmissionService } from './online-admission.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
@@ -45,6 +46,7 @@ export class OnlineAdmissionController {
   ) {}
 
   @Public()
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @ApiBody({ type: CreateOnlineAdmissionDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
