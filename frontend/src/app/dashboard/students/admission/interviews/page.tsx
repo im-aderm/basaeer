@@ -83,8 +83,8 @@ export default function AdmissionInterviewsPage() {
         setLoadingApplicants(true);
         try {
             const eligibleStatuses = ["APPLICATION_RECEIVED", "DOCUMENT_REVIEW", "INTERVIEW_SCHEDULED"];
-            const allApplicants = await OnlineAdmissionService.getAll(resolvedBranchId);
-            setApplicants(allApplicants.filter(a => eligibleStatuses.includes(a.status)));
+            const result = await OnlineAdmissionService.getAll(resolvedBranchId);
+            setApplicants(result.data.filter(a => eligibleStatuses.includes(a.status)));
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch applicants:", error);
         } finally {
@@ -163,10 +163,10 @@ export default function AdmissionInterviewsPage() {
         setLoadingBulkApplicants(true);
         try {
             const eligibleStatuses = ["APPLICATION_RECEIVED", "DOCUMENT_REVIEW"];
-            const allApplicants = await OnlineAdmissionService.getAll(resolvedBranchId);
+            const result = await OnlineAdmissionService.getAll(resolvedBranchId);
             // Filter out applicants who already have an interview
             const existingInterviewAdmissionIds = new Set(interviews.map(i => i.admissionId));
-            setBulkApplicants(allApplicants.filter(a => eligibleStatuses.includes(a.status) && !existingInterviewAdmissionIds.has(a.id)));
+            setBulkApplicants(result.data.filter(a => eligibleStatuses.includes(a.status) && !existingInterviewAdmissionIds.has(a.id)));
         } catch (error) {
             showError("Failed to load applicants");
         } finally {

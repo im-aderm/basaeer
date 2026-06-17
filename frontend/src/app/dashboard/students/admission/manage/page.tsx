@@ -71,8 +71,8 @@ export default function AdmissionsManagementPage() {
         const idToUse = branchId || resolvedBranchId;
         if (!idToUse) return;
         try {
-            const data = await OnlineAdmissionService.getAll(idToUse);
-            setAdmissions(data);
+            const result = await OnlineAdmissionService.getAll(idToUse);
+            setAdmissions(result.data);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error("Failed to fetch admissions:", error);
         } finally {
