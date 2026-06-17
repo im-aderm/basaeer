@@ -6,11 +6,16 @@ import {
   IsDateString,
   IsUUID,
   IsNumber,
+  IsInt,
+  Min,
+  Max,
   IsBoolean,
   IsArray,
+  IsEnum,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import { Term } from '../../generated/client/client';
 
 class PreviousSchoolDto {
   @IsString()
@@ -52,7 +57,7 @@ export class CreateOnlineAdmissionDto {
   @IsOptional()
   otherNames?: string;
 
-  @IsString()
+  @IsEnum(['Male', 'Female'])
   @IsNotEmpty()
   gender: string;
 
@@ -60,7 +65,9 @@ export class CreateOnlineAdmissionDto {
   @IsNotEmpty()
   dateOfBirth: string;
 
-  @IsNumber()
+  @IsInt()
+  @Min(1)
+  @Max(120)
   @IsOptional()
   age?: number;
 
@@ -109,9 +116,9 @@ export class CreateOnlineAdmissionDto {
   @IsOptional()
   academicSessionId?: string;
 
-  @IsString()
+  @IsEnum(Term)
   @IsOptional()
-  admissionTerm?: any; // Enum Term
+  admissionTerm?: Term;
 
   @IsUUID()
   @IsNotEmpty()
