@@ -21,6 +21,7 @@ model Branch {
   emailFooter                   String?
   smsSenderId                   String?
   isActive                      Boolean                       @default(true)
+  deletedAt                     DateTime?
   createdAt                     DateTime                      @default(now())
   updatedAt                     DateTime                      @updatedAt
   enquiries                     AdmissionEnquiry[]

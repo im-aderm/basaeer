@@ -9,7 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { BranchesService } from './branches.service';
-import { Prisma } from '../generated/client/client';
+import { CreateBranchDto } from './dto/create-branch.dto';
+import { UpdateBranchDto } from './dto/update-branch.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
@@ -55,7 +56,7 @@ export class BranchesController {
   @ApiOperation({ summary: 'Create resource' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN)
-  create(@Body() createBranchDto: Prisma.BranchCreateInput, @GetTenantContext() ctx: TenantContext) {
+  create(@Body() createBranchDto: CreateBranchDto, @GetTenantContext() ctx: TenantContext) {
     return this.branchesService.create(createBranchDto, ctx.userId);
   }
 
@@ -84,7 +85,7 @@ export class BranchesController {
   @Roles(UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
-    @Body() updateBranchDto: Prisma.BranchUpdateInput,
+    @Body() updateBranchDto: UpdateBranchDto,
   ) {
     return this.branchesService.update(id, updateBranchDto);
   }

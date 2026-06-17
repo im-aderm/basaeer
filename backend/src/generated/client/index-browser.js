@@ -133,6 +133,7 @@ exports.Prisma.BranchScalarFieldEnum = {
   emailFooter: 'emailFooter',
   smsSenderId: 'smsSenderId',
   isActive: 'isActive',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

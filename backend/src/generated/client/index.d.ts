@@ -19840,6 +19840,7 @@ export namespace Prisma {
     emailFooter: string | null
     smsSenderId: string | null
     isActive: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19856,6 +19857,7 @@ export namespace Prisma {
     emailFooter: string | null
     smsSenderId: string | null
     isActive: boolean | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19872,6 +19874,7 @@ export namespace Prisma {
     emailFooter: number
     smsSenderId: number
     isActive: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -19890,6 +19893,7 @@ export namespace Prisma {
     emailFooter?: true
     smsSenderId?: true
     isActive?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19906,6 +19910,7 @@ export namespace Prisma {
     emailFooter?: true
     smsSenderId?: true
     isActive?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19922,6 +19927,7 @@ export namespace Prisma {
     emailFooter?: true
     smsSenderId?: true
     isActive?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -20011,6 +20017,7 @@ export namespace Prisma {
     emailFooter: string | null
     smsSenderId: string | null
     isActive: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: BranchCountAggregateOutputType | null
@@ -20044,6 +20051,7 @@ export namespace Prisma {
     emailFooter?: boolean
     smsSenderId?: boolean
     isActive?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     enquiries?: boolean | Branch$enquiriesArgs<ExtArgs>
@@ -20186,6 +20194,7 @@ export namespace Prisma {
     emailFooter?: boolean
     smsSenderId?: boolean
     isActive?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["branch"]>
@@ -20202,6 +20211,7 @@ export namespace Prisma {
     emailFooter?: boolean
     smsSenderId?: boolean
     isActive?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["branch"]>
@@ -20218,11 +20228,12 @@ export namespace Prisma {
     emailFooter?: boolean
     smsSenderId?: boolean
     isActive?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type BranchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "address" | "phone" | "email" | "logoUrl" | "primaryColor" | "emailFooter" | "smsSenderId" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
+  export type BranchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "code" | "address" | "phone" | "email" | "logoUrl" | "primaryColor" | "emailFooter" | "smsSenderId" | "isActive" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["branch"]>
   export type BranchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     enquiries?: boolean | Branch$enquiriesArgs<ExtArgs>
     alumni?: boolean | Branch$alumniArgs<ExtArgs>
@@ -20495,6 +20506,7 @@ export namespace Prisma {
       emailFooter: string | null
       smsSenderId: string | null
       isActive: boolean
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["branch"]>
@@ -21056,6 +21068,7 @@ export namespace Prisma {
     readonly emailFooter: FieldRef<"Branch", 'String'>
     readonly smsSenderId: FieldRef<"Branch", 'String'>
     readonly isActive: FieldRef<"Branch", 'Boolean'>
+    readonly deletedAt: FieldRef<"Branch", 'DateTime'>
     readonly createdAt: FieldRef<"Branch", 'DateTime'>
     readonly updatedAt: FieldRef<"Branch", 'DateTime'>
   }
@@ -214877,6 +214890,7 @@ export namespace Prisma {
     emailFooter: 'emailFooter',
     smsSenderId: 'smsSenderId',
     isActive: 'isActive',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -218331,6 +218345,7 @@ export namespace Prisma {
     emailFooter?: StringNullableFilter<"Branch"> | string | null
     smsSenderId?: StringNullableFilter<"Branch"> | string | null
     isActive?: BoolFilter<"Branch"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Branch"> | Date | string | null
     createdAt?: DateTimeFilter<"Branch"> | Date | string
     updatedAt?: DateTimeFilter<"Branch"> | Date | string
     enquiries?: AdmissionEnquiryListRelationFilter
@@ -218472,6 +218487,7 @@ export namespace Prisma {
     emailFooter?: SortOrderInput | SortOrder
     smsSenderId?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     enquiries?: AdmissionEnquiryOrderByRelationAggregateInput
@@ -218616,6 +218632,7 @@ export namespace Prisma {
     emailFooter?: StringNullableFilter<"Branch"> | string | null
     smsSenderId?: StringNullableFilter<"Branch"> | string | null
     isActive?: BoolFilter<"Branch"> | boolean
+    deletedAt?: DateTimeNullableFilter<"Branch"> | Date | string | null
     createdAt?: DateTimeFilter<"Branch"> | Date | string
     updatedAt?: DateTimeFilter<"Branch"> | Date | string
     enquiries?: AdmissionEnquiryListRelationFilter
@@ -218757,6 +218774,7 @@ export namespace Prisma {
     emailFooter?: SortOrderInput | SortOrder
     smsSenderId?: SortOrderInput | SortOrder
     isActive?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: BranchCountOrderByAggregateInput
@@ -218779,6 +218797,7 @@ export namespace Prisma {
     emailFooter?: StringNullableWithAggregatesFilter<"Branch"> | string | null
     smsSenderId?: StringNullableWithAggregatesFilter<"Branch"> | string | null
     isActive?: BoolWithAggregatesFilter<"Branch"> | boolean
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Branch"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Branch"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Branch"> | Date | string
   }
@@ -233655,6 +233674,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -233796,6 +233816,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -233937,6 +233958,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -234078,6 +234100,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -234219,6 +234242,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -234235,6 +234259,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -234251,6 +234276,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -250574,6 +250600,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -251847,6 +251884,7 @@ export namespace Prisma {
     emailFooter?: SortOrder
     smsSenderId?: SortOrder
     isActive?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -251863,6 +251901,7 @@ export namespace Prisma {
     emailFooter?: SortOrder
     smsSenderId?: SortOrder
     isActive?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -251879,6 +251918,7 @@ export namespace Prisma {
     emailFooter?: SortOrder
     smsSenderId?: SortOrder
     isActive?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -251927,6 +251967,20 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -251971,17 +252025,6 @@ export namespace Prisma {
     branchId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
   export type DeactivationReasonNullableScalarRelationFilter = {
@@ -252034,20 +252077,6 @@ export namespace Prisma {
     reactivatedBy?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -262917,6 +262946,10 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -266485,10 +266518,6 @@ export namespace Prisma {
     create?: XOR<StudentCreateWithoutLoginDeactivationsInput, StudentUncheckedCreateWithoutLoginDeactivationsInput>
     connectOrCreate?: StudentCreateOrConnectWithoutLoginDeactivationsInput
     connect?: StudentWhereUniqueInput
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type BranchUpdateOneRequiredWithoutLoginDeactivationsNestedInput = {
@@ -278793,6 +278822,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -278868,31 +278908,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -278905,6 +278920,20 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -289194,6 +289223,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -289334,6 +289364,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -289526,6 +289557,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -289666,6 +289698,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -289822,6 +289855,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -289962,6 +289996,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -290302,6 +290337,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -290442,6 +290478,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -290778,6 +290815,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -290918,6 +290956,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -291184,6 +291223,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -291324,6 +291364,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -292447,6 +292488,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -292587,6 +292629,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -293573,6 +293616,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -293713,6 +293757,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -294216,6 +294261,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -294356,6 +294402,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -294512,6 +294559,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -294652,6 +294700,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -294792,6 +294841,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -294932,6 +294982,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -295088,6 +295139,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -295228,6 +295280,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -297054,6 +297107,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -297194,6 +297248,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -298178,6 +298233,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -298318,6 +298374,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -298980,6 +299037,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -299120,6 +299178,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -299545,6 +299604,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -299685,6 +299745,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -300152,6 +300213,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -300292,6 +300354,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -300464,6 +300527,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -300604,6 +300668,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -300744,6 +300809,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -300884,6 +300950,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -302193,6 +302260,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -302333,6 +302401,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -304505,6 +304574,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -304645,6 +304715,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -305004,6 +305075,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -305144,6 +305216,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -305539,6 +305612,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -305679,6 +305753,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -306065,6 +306140,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -306205,6 +306281,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -306345,6 +306422,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -306485,6 +306563,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -306892,6 +306971,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -307032,6 +307112,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -307441,6 +307522,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -307581,6 +307663,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -307798,6 +307881,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -307938,6 +308022,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -308145,6 +308230,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -308285,6 +308371,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -308507,6 +308594,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -308647,6 +308735,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -309290,6 +309379,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -309430,6 +309520,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -309784,6 +309875,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -309924,6 +310016,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -310225,6 +310318,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -310365,6 +310459,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -310688,6 +310783,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -310828,6 +310924,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -310993,6 +311090,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -311133,6 +311231,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -311320,6 +311419,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -311460,6 +311560,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -311600,6 +311701,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -311740,6 +311842,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -311950,6 +312053,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -312090,6 +312194,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -312603,6 +312708,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -312743,6 +312849,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -313130,6 +313237,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -313270,6 +313378,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -313518,6 +313627,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -313658,6 +313768,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -313859,6 +313970,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -313999,6 +314111,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -314362,6 +314475,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -314502,6 +314616,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -314862,6 +314977,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -315002,6 +315118,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -316111,6 +316228,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -316251,6 +316369,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -316490,6 +316609,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -316630,6 +316750,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -316816,6 +316937,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -316956,6 +317078,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -317128,6 +317251,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -317268,6 +317392,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -317438,6 +317563,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -317578,6 +317704,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -317750,6 +317877,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -317890,6 +318018,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -318030,6 +318159,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -318170,6 +318300,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -318579,6 +318710,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -318719,6 +318851,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -319116,6 +319249,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -319256,6 +319390,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -319676,6 +319811,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -319816,6 +319952,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -320420,6 +320557,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -320560,6 +320698,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -320999,6 +321138,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -321139,6 +321279,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -321360,6 +321501,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -321500,6 +321642,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -322820,6 +322963,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -322960,6 +323104,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -323452,6 +323597,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -323592,6 +323738,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -324104,6 +324251,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -324244,6 +324392,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -324752,6 +324901,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -324892,6 +325042,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -325284,6 +325435,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -325424,6 +325576,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -325812,6 +325965,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -325952,6 +326106,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -326344,6 +326499,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -326484,6 +326640,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -326872,6 +327029,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -327012,6 +327170,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -327168,6 +327327,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -327308,6 +327468,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -327448,6 +327609,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -327588,6 +327750,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -328002,6 +328165,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -328142,6 +328306,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -328564,6 +328729,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -328704,6 +328870,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -328860,6 +329027,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -329000,6 +329168,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -329140,6 +329309,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -329280,6 +329450,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -329539,6 +329710,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -329679,6 +329851,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -330460,6 +330633,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -330600,6 +330774,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -330756,6 +330931,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -330896,6 +331072,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -331036,6 +331213,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -331176,6 +331354,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -331332,6 +331511,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -331472,6 +331652,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -331612,6 +331793,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -331752,6 +331934,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -331908,6 +332091,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -332048,6 +332232,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -332188,6 +332373,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -332328,6 +332514,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -332484,6 +332671,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -332624,6 +332812,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -332764,6 +332953,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -332904,6 +333094,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -333060,6 +333251,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -333200,6 +333392,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -333340,6 +333533,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -333480,6 +333674,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -333666,6 +333861,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -333806,6 +334002,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -334056,6 +334253,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -334196,6 +334394,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -334352,6 +334551,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -334492,6 +334692,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -334632,6 +334833,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -334772,6 +334974,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -334928,6 +335131,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -335068,6 +335272,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -335208,6 +335413,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -335348,6 +335554,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -335504,6 +335711,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -335644,6 +335852,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -335784,6 +335993,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -335924,6 +336134,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -336080,6 +336291,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -336220,6 +336432,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -336360,6 +336573,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -336500,6 +336714,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -336656,6 +336871,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -336796,6 +337012,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -337172,6 +337389,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -337312,6 +337530,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -337516,6 +337735,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -337656,6 +337876,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -337893,6 +338114,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -338033,6 +338255,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -338535,6 +338758,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -338675,6 +338899,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -339092,6 +339317,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -339232,6 +339458,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -339454,6 +339681,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -339594,6 +339822,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -339750,6 +339979,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -339890,6 +340120,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -340112,6 +340343,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -340252,6 +340484,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -340408,6 +340641,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -340548,6 +340782,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -340808,6 +341043,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -340948,6 +341184,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -341401,6 +341638,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -341541,6 +341779,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -341966,6 +342205,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -342106,6 +342346,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -342279,6 +342520,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -342419,6 +342661,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -342614,6 +342857,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -342754,6 +342998,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -342955,6 +343200,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -343095,6 +343341,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -343318,6 +343565,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -343458,6 +343706,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -343659,6 +343908,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -343799,6 +344049,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -344022,6 +344273,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -344162,6 +344414,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -344363,6 +344616,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -344503,6 +344757,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -344726,6 +344981,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -344866,6 +345122,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -345067,6 +345324,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -345207,6 +345465,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -345430,6 +345689,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -345570,6 +345830,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -345771,6 +346032,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -345911,6 +346173,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -346134,6 +346397,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -346274,6 +346538,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -346414,6 +346679,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -346554,6 +346820,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -346710,6 +346977,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -346850,6 +347118,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -346990,6 +347259,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -347130,6 +347400,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -347522,6 +347793,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -347662,6 +347934,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -348788,6 +349061,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -348928,6 +349202,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -349116,6 +349391,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -349256,6 +349532,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -350015,6 +350292,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -350155,6 +350433,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -350797,6 +351076,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -350937,6 +351217,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -351523,6 +351804,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     alumni?: AlumniCreateNestedManyWithoutBranchInput
@@ -351663,6 +351945,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     alumni?: AlumniUncheckedCreateNestedManyWithoutBranchInput
@@ -351819,6 +352102,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alumni?: AlumniUpdateManyWithoutBranchNestedInput
@@ -351959,6 +352243,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     alumni?: AlumniUncheckedUpdateManyWithoutBranchNestedInput
@@ -352099,6 +352384,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -352239,6 +352525,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -352395,6 +352682,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -352535,6 +352823,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -352675,6 +352964,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -352815,6 +353105,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -352971,6 +353262,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -353111,6 +353403,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -353251,6 +353544,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -353391,6 +353685,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -353547,6 +353842,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -353687,6 +353983,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -353827,6 +354124,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -353967,6 +354265,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -354123,6 +354422,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -354263,6 +354563,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -354403,6 +354704,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -354543,6 +354845,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -354747,6 +355050,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -354887,6 +355191,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -355091,6 +355396,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -355231,6 +355537,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -355403,6 +355710,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -355543,6 +355851,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -355719,6 +356028,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -355859,6 +356169,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -356031,6 +356342,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -356171,6 +356483,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -356359,6 +356672,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -356499,6 +356813,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -356671,6 +356986,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -356811,6 +357127,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -356989,6 +357306,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -357129,6 +357447,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -357438,6 +357757,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -357578,6 +357898,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -357833,6 +358154,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -357973,6 +358295,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -358201,6 +358524,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -358341,6 +358665,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -358565,6 +358890,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -358705,6 +359031,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -358904,6 +359231,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -359044,6 +359372,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -359233,6 +359562,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -359373,6 +359703,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -359794,6 +360125,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -359934,6 +360266,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -360357,6 +360690,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -360497,6 +360831,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -360840,6 +361175,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -360980,6 +361316,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -361315,6 +361652,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -361455,6 +361793,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -361637,6 +361976,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -361777,6 +362117,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -362073,6 +362414,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -362213,6 +362555,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -362423,6 +362766,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -362563,6 +362907,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -363302,6 +363647,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -363442,6 +363788,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -363831,6 +364178,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -363971,6 +364319,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -364940,6 +365289,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -365080,6 +365430,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -365393,6 +365744,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -365533,6 +365885,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -366198,6 +366551,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -366338,6 +366692,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -366650,6 +367005,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -366790,6 +367146,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -367098,6 +367455,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -367238,6 +367596,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -367424,6 +367783,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -367564,6 +367924,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -367754,6 +368115,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -367894,6 +368256,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -368066,6 +368429,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -368206,6 +368570,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -368670,6 +369035,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -368810,6 +369176,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -369314,6 +369681,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -369454,6 +369822,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -369594,6 +369963,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -369734,6 +370104,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -369938,6 +370309,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -370078,6 +370450,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -370259,6 +370632,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -370399,6 +370773,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -370895,6 +371270,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -371035,6 +371411,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -371762,6 +372139,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -371902,6 +372280,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -372058,6 +372437,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -372198,6 +372578,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -372338,6 +372719,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -372478,6 +372860,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -372634,6 +373017,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -372774,6 +373158,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -372914,6 +373299,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -373054,6 +373440,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -373291,6 +373678,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -373431,6 +373819,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -373658,6 +374047,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -373798,6 +374188,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -374035,6 +374426,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -374175,6 +374567,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -374402,6 +374795,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -374542,6 +374936,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -374728,6 +375123,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -374868,6 +375264,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -375132,6 +375529,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -375272,6 +375670,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -375548,6 +375947,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -375688,6 +376088,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -375828,6 +376229,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -375968,6 +376370,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -376394,6 +376797,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -376534,6 +376938,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -376936,6 +377341,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -377076,6 +377482,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -377434,6 +377841,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -377574,6 +377982,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -377928,6 +378337,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -378068,6 +378478,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -378224,6 +378635,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -378364,6 +378776,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -378533,6 +378946,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -378673,6 +379087,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -378864,6 +379279,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -379004,6 +379420,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -379144,6 +379561,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -379284,6 +379702,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -379440,6 +379859,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -379580,6 +380000,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -379720,6 +380141,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -379860,6 +380282,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -380016,6 +380439,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -380156,6 +380580,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -380296,6 +380721,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -380436,6 +380862,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -380592,6 +381019,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -380732,6 +381160,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -380872,6 +381301,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -381012,6 +381442,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -381168,6 +381599,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -381308,6 +381740,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -381448,6 +381881,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -381588,6 +382022,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -381825,6 +382260,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -381965,6 +382401,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -382192,6 +382629,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -382332,6 +382770,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -382488,6 +382927,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -382628,6 +383068,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -382768,6 +383209,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -382908,6 +383350,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -383064,6 +383507,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -383204,6 +383648,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -383344,6 +383789,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -383484,6 +383930,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -383640,6 +384087,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -383780,6 +384228,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -383920,6 +384369,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -384060,6 +384510,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -384216,6 +384667,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -384356,6 +384808,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -384496,6 +384949,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -384636,6 +385090,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -384792,6 +385247,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -384932,6 +385388,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -385072,6 +385529,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -385212,6 +385670,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -385524,6 +385983,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -385664,6 +386124,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -385972,6 +386433,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -386112,6 +386574,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -386343,6 +386806,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -386483,6 +386947,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -386704,6 +387169,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -386844,6 +387310,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -387081,6 +387548,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -387221,6 +387689,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -387531,6 +388000,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -387671,6 +388141,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -387894,6 +388365,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -388034,6 +388506,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -388380,6 +388853,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -388520,6 +388994,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -388894,6 +389369,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -389034,6 +389510,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -389201,6 +389678,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -389341,6 +389819,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -389530,6 +390009,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -389670,6 +390150,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -390194,6 +390675,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -390334,6 +390816,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -390490,6 +390973,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -390630,6 +391114,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -390770,6 +391255,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -390910,6 +391396,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -391100,6 +391587,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -391240,6 +391728,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -391472,6 +391961,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -391612,6 +392102,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -391768,6 +392259,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -391908,6 +392400,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -392209,6 +392702,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -392349,6 +392843,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -392783,6 +393278,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -392923,6 +393419,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -393187,6 +393684,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -393327,6 +393825,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -393591,6 +394090,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -393731,6 +394231,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -393952,6 +394453,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -394092,6 +394594,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -394359,6 +394862,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -394499,6 +395003,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -395629,6 +396134,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -395769,6 +396275,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -396200,6 +396707,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -396340,6 +396848,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -396559,6 +397068,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -396699,6 +397209,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -397021,6 +397532,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -397161,6 +397673,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -397398,6 +397911,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -397538,6 +398052,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -397801,6 +398316,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -397941,6 +398457,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -398246,6 +398763,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -398386,6 +398904,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -398697,6 +399216,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -398837,6 +399357,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -399058,6 +399579,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -399198,6 +399720,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -399429,6 +399952,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -399569,6 +400093,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput
@@ -399823,6 +400348,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryCreateNestedManyWithoutBranchInput
@@ -399963,6 +400489,7 @@ export namespace Prisma {
     emailFooter?: string | null
     smsSenderId?: string | null
     isActive?: boolean
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     enquiries?: AdmissionEnquiryUncheckedCreateNestedManyWithoutBranchInput
@@ -400233,6 +400760,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUpdateManyWithoutBranchNestedInput
@@ -400373,6 +400901,7 @@ export namespace Prisma {
     emailFooter?: NullableStringFieldUpdateOperationsInput | string | null
     smsSenderId?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     enquiries?: AdmissionEnquiryUncheckedUpdateManyWithoutBranchNestedInput

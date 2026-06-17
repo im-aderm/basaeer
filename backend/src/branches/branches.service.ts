@@ -1,7 +1,9 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { Prisma, Branch, UserRole } from '../generated/client/client';
+import { Branch, UserRole } from '../generated/client/client';
 import { NotificationsService } from '../notifications/notifications.service';
+import { CreateBranchDto } from './dto/create-branch.dto';
+import { UpdateBranchDto } from './dto/update-branch.dto';
 import * as bcrypt from 'bcrypt';
 
 interface ReassignBranchAdminDto {
@@ -22,49 +24,57 @@ export class BranchesService {
     private notificationsService: NotificationsService,
   ) {}
 
-  async create(data: Prisma.BranchCreateInput & {
-    adminUserId?: string;
-    createAdminUser?: { email: string; firstName: string; lastName: string; password?: string; phone?: string };
-  }, userId?: string): Promise<Branch> {
-    const { adminUserId, createAdminUser, ...branchData } = data;
+  async create(dto: CreateBranchDto, userId?: string): Promise<Branch> {
+    const { adminUserId, createAdminUser, ...branchData } = dto;
 
-    const branch = await this.prisma.branch.create({ data: branchData });
+    return this.prisma.$transaction(async (tx) => {
+      const branch = await tx.branch.create({ data: branchData });
 
-    if (adminUserId) {
-      const user = await this.prisma.user.findUnique({ where: { id: adminUserId } });
-      if (!user) throw new BadRequestException('Admin user not found');
-      await this.prisma.user.update({
-        where: { id: adminUserId },
-        data: { role: UserRole.BRANCH_ADMIN, branchId: branch.id },
-      });
-    } else if (createAdminUser) {
-      const hashedPassword = await bcrypt.hash(createAdminUser.password || 'Password123!', 8);
-      await this.prisma.user.create({
-        data: {
-          email: createAdminUser.email,
-          password: hashedPassword,
-          firstName: createAdminUser.firstName,
-          lastName: createAdminUser.lastName,
-          phone: createAdminUser.phone || null,
-          role: UserRole.BRANCH_ADMIN,
-          branchId: branch.id,
-          mustChangePassword: !createAdminUser.password,
-        },
-      });
-    }
+      if (adminUserId) {
+        const user = await tx.user.findUnique({ where: { id: adminUserId } });
+        if (!user) throw new BadRequestException('Admin user not found');
+        await tx.user.update({
+          where: { id: adminUserId },
+          data: { role: UserRole.BRANCH_ADMIN, branchId: branch.id },
+        });
+      } else if (createAdminUser) {
+        const hashedPassword = await bcrypt.hash(createAdminUser.password || 'Password123!', 8);
+        await tx.user.create({
+          data: {
+            email: createAdminUser.email,
+            password: hashedPassword,
+            firstName: createAdminUser.firstName,
+            lastName: createAdminUser.lastName,
+            phone: createAdminUser.phone || null,
+            role: UserRole.BRANCH_ADMIN,
+            branchId: branch.id,
+            mustChangePassword: !createAdminUser.password,
+          },
+        });
+      }
 
-    return branch;
+      return branch;
+    });
   }
 
   findAll(): Promise<Branch[]> {
-    return this.prisma.branch.findMany();
+    return this.prisma.branch.findMany({
+      where: { deletedAt: null },
+    });
   }
 
-  findOne(id: string): Promise<Branch | null> {
-    return this.prisma.branch.findUnique({ where: { id } });
+  async findOne(id: string): Promise<Branch> {
+    const branch = await this.prisma.branch.findFirst({
+      where: { id, deletedAt: null },
+    });
+    if (!branch) {
+      throw new NotFoundException('Branch not found');
+    }
+    return branch;
   }
 
-  update(id: string, data: Prisma.BranchUpdateInput): Promise<Branch> {
+  async update(id: string, data: UpdateBranchDto): Promise<Branch> {
+    await this.findOne(id);
     return this.prisma.branch.update({
       where: { id },
       data,
@@ -73,14 +83,18 @@ export class BranchesService {
 
   findActive(): Promise<Pick<Branch, 'id' | 'name' | 'code'>[]> {
     return this.prisma.branch.findMany({
-      where: { isActive: true },
+      where: { isActive: true, deletedAt: null },
       select: { id: true, name: true, code: true },
       orderBy: { name: 'asc' },
     });
   }
 
-  remove(id: string): Promise<Branch> {
-    return this.prisma.branch.delete({ where: { id } });
+  async remove(id: string): Promise<Branch> {
+    await this.findOne(id);
+    return this.prisma.branch.update({
+      where: { id },
+      data: { deletedAt: new Date(), isActive: false },
+    });
   }
 
   async reassignBranchAdmin(branchId: string, dto: ReassignBranchAdminDto) {
