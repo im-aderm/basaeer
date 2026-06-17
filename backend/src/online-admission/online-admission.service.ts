@@ -6,6 +6,7 @@ import {
   ForbiddenException,
   BadRequestException,
 } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
@@ -16,6 +17,7 @@ import { MailService } from '../mail/mail.service';
 import { CommsService } from '../comms/comms.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
+import { AuditService } from '../audit/audit.service';
 
 @Injectable()
 export class OnlineAdmissionService {
@@ -25,6 +27,7 @@ export class OnlineAdmissionService {
     private prisma: PrismaService,
     private mailService: MailService,
     private commsService: CommsService,
+    private auditService: AuditService,
   ) {}
 
   async create(createDto: CreateOnlineAdmissionDto, context: TenantContext) {
@@ -204,31 +207,63 @@ export class OnlineAdmissionService {
   }
 
   async remove(id: string, context: TenantContext) {
-    await this.findOne(id, context);
-    return this.prisma.onlineAdmission.delete({
+    const admission = await this.findOne(id, context);
+    await this.prisma.onlineAdmission.delete({
       where: { id },
     });
+
+    await this.auditService.log({
+      action: 'ADMISSION_DELETED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      details: { status: admission.status, studentName: `${admission.firstName} ${admission.lastName}` },
+    });
+
+    return admission;
   }
 
   async verifyPayment(id: string, context: TenantContext) {
     await this.findOne(id, context);
-    return this.prisma.onlineAdmission.update({
+    const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
         paymentStatus: 'VERIFIED' as any,
       },
     });
+
+    await this.auditService.log({
+      action: 'PAYMENT_VERIFIED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+    });
+
+    return result;
   }
 
   async rejectPayment(id: string, reason: string, context: TenantContext) {
     await this.findOne(id, context);
-    return this.prisma.onlineAdmission.update({
+    const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
         paymentStatus: 'REJECTED',
         rejectionReason: reason,
       },
     });
+
+    await this.auditService.log({
+      action: 'PAYMENT_REJECTED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      reason,
+    });
+
+    return result;
   }
 
   async reject(id: string, reason: string, context: TenantContext) {
@@ -240,6 +275,15 @@ export class OnlineAdmissionService {
         status: 'REJECTED',
         rejectionReason: reason,
       },
+    });
+
+    await this.auditService.log({
+      action: 'ADMISSION_REJECTED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      reason,
     });
 
     try {
@@ -389,6 +433,15 @@ export class OnlineAdmissionService {
           approvalDate: new Date(),
           admissionNumber: studentIdNumber,
         },
+      });
+
+      await this.auditService.log({
+        action: 'ADMISSION_APPROVED',
+        module: 'ONLINE_ADMISSION',
+        context,
+        targetId: id,
+        targetType: 'OnlineAdmission',
+        details: { studentIdNumber, classId: student.classId, sectionId: student.sectionId },
       });
 
       try {
@@ -553,6 +606,15 @@ export class OnlineAdmissionService {
       },
     });
 
+    await this.auditService.log({
+      action: 'OFFER_MADE',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      details: { offeredClassId: updated.offeredClassId, deadline: deadline.toISOString() },
+    });
+
     // Send offer email
     try {
       const offeredClassName = updated.offeredClass?.name || 'N/A';
@@ -592,13 +654,23 @@ export class OnlineAdmissionService {
       throw new BadRequestException('Offer has expired');
     }
 
-    return this.prisma.onlineAdmission.update({
+    const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
         status: 'ACCEPTED',
         offerAcceptedAt: new Date(),
       },
     });
+
+    await this.auditService.log({
+      action: 'OFFER_ACCEPTED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+    });
+
+    return result;
   }
 
   async declineOffer(id: string, reason: string, context: TenantContext) {
@@ -608,7 +680,7 @@ export class OnlineAdmissionService {
       throw new BadRequestException('No pending offer to decline');
     }
 
-    return this.prisma.onlineAdmission.update({
+    const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
         status: 'CANCELLED',
@@ -616,6 +688,17 @@ export class OnlineAdmissionService {
         offerDeclineReason: reason,
       },
     });
+
+    await this.auditService.log({
+      action: 'OFFER_DECLINED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      reason,
+    });
+
+    return result;
   }
 
   async addToWaitlist(id: string, context: TenantContext, data?: { position?: number; notes?: string }) {
@@ -631,7 +714,7 @@ export class OnlineAdmissionService {
       position = (maxWaitlist._max.waitlistPosition || 0) + 1;
     }
 
-    return this.prisma.onlineAdmission.update({
+    const result = await this.prisma.onlineAdmission.update({
       where: { id },
       data: {
         status: 'WAITLISTED',
@@ -639,6 +722,17 @@ export class OnlineAdmissionService {
         waitlistNotes: data?.notes,
       },
     });
+
+    await this.auditService.log({
+      action: 'WAITLIST_ADDED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+      details: { position, notes: data?.notes },
+    });
+
+    return result;
   }
 
   async advanceFromWaitlist(id: string, context: TenantContext) {
@@ -648,11 +742,55 @@ export class OnlineAdmissionService {
       throw new BadRequestException('Application is not on waitlist');
     }
 
+    await this.auditService.log({
+      action: 'WAITLIST_ADVANCED',
+      module: 'ONLINE_ADMISSION',
+      context,
+      targetId: id,
+      targetType: 'OnlineAdmission',
+    });
+
     // Make offer to waitlisted applicant
     return this.makeOffer(id, context, {
       offeredClassId: admission.desiredClassId,
       offeredSectionId: admission.desiredSectionId || undefined,
     });
+  }
+
+  @Cron(CronExpression.EVERY_6_HOURS)
+  async handleExpiredOffersCron() {
+    this.logger.log('Running expired offers cron job');
+    const expired = await this.prisma.onlineAdmission.findMany({
+      where: {
+        status: 'ADMISSION_OFFERED',
+        offerDeadline: { lt: new Date() },
+      },
+    });
+
+    for (const admission of expired) {
+      await this.prisma.onlineAdmission.update({
+        where: { id: admission.id },
+        data: {
+          status: 'WAITLISTED',
+          offerDeadline: null,
+          offeredClassId: null,
+          offeredSectionId: null,
+          offerLetterSentAt: null,
+        },
+      });
+
+      try {
+        await this.mailService.sendOfferExpired(
+          admission.guardianEmail || '',
+          `${admission.firstName} ${admission.lastName}`,
+          admission.branchId,
+        );
+      } catch (error) {
+        this.logger.error(`Failed to send expiry notification`, error);
+      }
+    }
+
+    this.logger.log(`Expired offers cron: ${expired.length} offers expired`);
   }
 
   async checkExpiredOffers(context: TenantContext) {
