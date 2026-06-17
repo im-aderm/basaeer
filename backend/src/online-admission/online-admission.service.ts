@@ -94,22 +94,52 @@ export class OnlineAdmissionService {
     return admission;
   }
 
-  findAll(context: TenantContext, filters?: { status?: string }) {
+  async findAll(
+    context: TenantContext,
+    filters?: {
+      status?: string;
+      page?: number;
+      limit?: number;
+      search?: string;
+    },
+  ) {
     const where: any = TenantHelper.applyIsolation({}, context);
     if (filters?.status) {
       where.status = filters.status;
     }
-    return this.prisma.onlineAdmission.findMany({
-      where,
-      include: {
-        desiredClass: true,
-        desiredSection: true,
-        studentCategory: true,
-        academicSession: true,
-        previousSchools: true,
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+    if (filters?.search) {
+      const search = filters.search;
+      where.OR = [
+        { firstName: { contains: search, mode: 'insensitive' } },
+        { lastName: { contains: search, mode: 'insensitive' } },
+        { guardianEmail: { contains: search, mode: 'insensitive' } },
+        { guardianPhone: { contains: search } },
+        { admissionNumber: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    const page = filters?.page || 1;
+    const limit = filters?.limit || 50;
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.onlineAdmission.findMany({
+        where,
+        skip,
+        take: limit,
+        include: {
+          desiredClass: true,
+          desiredSection: true,
+          studentCategory: true,
+          academicSession: true,
+          previousSchools: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.onlineAdmission.count({ where }),
+    ]);
+
+    return { data, total, page, limit };
   }
 
   async findOne(id: string, context: TenantContext) {

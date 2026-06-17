@@ -28,6 +28,8 @@ import {
 } from "../../../../components/ui/alert-dialog";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { PaginatedResponse } from '@/services/onlineAdmissionService';
 
 export default function OnlineAdmissionsDashboard() {
     const { user, resolvedBranchId } = useAuth();
@@ -40,12 +42,18 @@ export default function OnlineAdmissionsDashboard() {
     const [loading, setLoading] = useState(true);
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
     const [deleting, setDeleting] = useState(false);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const [search, setSearch] = useState("");
+    const limit = 50;
 
-    const fetchAdmissions = async (branchId: string) => {
+    const fetchAdmissions = async (branchId: string, pageNum = page, searchTerm = search) => {
         setLoading(true);
         try {
-            const data = await OnlineAdmissionService.getAll(branchId);
-            setAdmissions(data);
+            const result = await OnlineAdmissionService.getAll(branchId, undefined, pageNum, limit, searchTerm || undefined);
+            setAdmissions(result.data);
+            setTotal(result.total);
+            setPage(result.page);
         } catch (error) {
             if (process.env.NODE_ENV === 'development') console.error('Failed to fetch admissions:', error);
             showError('Failed to load admission applications');
@@ -54,17 +62,17 @@ export default function OnlineAdmissionsDashboard() {
         }
     };
 
+    const totalPages = Math.ceil(total / limit);
+
     useEffect(() => {
         if (user) {
             if (resolvedBranchId) {
-                // resolvedBranchId from useAuth()
-                fetchAdmissions(resolvedBranchId);
+                fetchAdmissions(resolvedBranchId, 1, search);
             } else {
                 BranchService.getAll().then(data => {
                     setBranches(data);
                     if (data.length > 0) {
-                        // resolvedBranchId from useAuth();
-                        fetchAdmissions(data[0].id);
+                        fetchAdmissions(data[0].id, 1, search);
                     } else {
                         setLoading(false);
                     }
@@ -186,11 +194,28 @@ export default function OnlineAdmissionsDashboard() {
                 <SharableLink branchId={resolvedBranchId} />
             )}
 
+            <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                    placeholder="Search by name, email, phone, or admission number..."
+                    value={search}
+                    onChange={(e) => {
+                        setSearch(e.target.value);
+                        const bid = resolvedBranchId || branches[0]?.id;
+                        if (bid) fetchAdmissions(bid, 1, e.target.value);
+                    }}
+                    className="h-12 pl-10 rounded-2xl border-2 font-medium italic mb-4"
+                />
+            </div>
+
             <Card className="rounded-[2.5rem] shadow-2xl border-none overflow-hidden">
                 <CardHeader className="p-8 bg-muted/30 border-b border-border">
                     <CardTitle className="text-h3 font-black italic uppercase flex items-center gap-3">
                         <UserPlus className="h-6 w-6 text-primary" />
                         Application Pipeline
+                        <span className="text-sm font-normal text-muted-foreground normal-case not-italic ml-auto">
+                            {total} total
+                        </span>
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -260,6 +285,42 @@ export default function OnlineAdmissionsDashboard() {
                             )}
                         </TableBody>
                     </Table>
+                    {totalPages > 1 && (
+                        <div className="flex items-center justify-between px-8 py-4 border-t border-border bg-muted/20">
+                            <p className="text-[12px] font-medium text-muted-foreground">
+                                Showing {((page - 1) * limit) + 1}-{Math.min(page * limit, total)} of {total}
+                            </p>
+                            <div className="flex items-center gap-2">
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={page <= 1}
+                                    onClick={() => {
+                                        const bid = resolvedBranchId || branches[0]?.id;
+                                        if (bid) fetchAdmissions(bid, page - 1);
+                                    }}
+                                    className="h-8 rounded-xl font-bold text-[12px]"
+                                >
+                                    <ChevronLeft className="h-3.5 w-3.5 mr-1" /> Previous
+                                </Button>
+                                <span className="text-[12px] font-medium text-muted-foreground px-2">
+                                    Page {page} of {totalPages}
+                                </span>
+                                <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={page >= totalPages}
+                                    onClick={() => {
+                                        const bid = resolvedBranchId || branches[0]?.id;
+                                        if (bid) fetchAdmissions(bid, page + 1);
+                                    }}
+                                    className="h-8 rounded-xl font-bold text-[12px]"
+                                >
+                                    Next <ChevronRight className="h-3.5 w-3.5 ml-1" />
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </CardContent>
             </Card>
 

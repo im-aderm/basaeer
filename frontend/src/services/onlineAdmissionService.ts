@@ -141,10 +141,20 @@ export interface OnlineAdmission {
     parentId?: string;
 }
 
+export interface PaginatedResponse<T> {
+    data: T[];
+    total: number;
+    page: number;
+    limit: number;
+}
+
 export const OnlineAdmissionService = {
-    getAll: async (branchId: string, status?: string): Promise<OnlineAdmission[]> => {
+    getAll: async (branchId: string, status?: string, page?: number, limit?: number, search?: string): Promise<PaginatedResponse<OnlineAdmission>> => {
         const params: any = { branchId };
         if (status) params.status = status;
+        if (page) params.page = page;
+        if (limit) params.limit = limit;
+        if (search) params.search = search;
         const response = await api.get("/online-admissions", { params });
         return response.data;
     },

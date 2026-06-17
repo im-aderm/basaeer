@@ -73,8 +73,11 @@ export class OnlineAdmissionController {
   findAll(
     @GetTenantContext() context: TenantContext,
     @Query('status') status?: string,
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('search') search?: string,
   ) {
-    return this.onlineAdmissionService.findAll(context, { status });
+    return this.onlineAdmissionService.findAll(context, { status, page, limit, search });
   }
 
   @ApiBearerAuth()
