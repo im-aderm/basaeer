@@ -3,7 +3,6 @@ import {
   IsOptional,
   IsEmail,
   IsBoolean,
-  IsUrl,
 } from 'class-validator';
 
 export class UpdateBranchDto {
@@ -23,7 +22,7 @@ export class UpdateBranchDto {
   @IsOptional()
   email?: string;
 
-  @IsUrl()
+  @IsString()
   @IsOptional()
   logoUrl?: string;
 

@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsEmail,
   IsBoolean,
-  IsUrl,
   IsUUID,
   ValidateNested,
   Matches,
@@ -57,7 +56,7 @@ export class CreateBranchDto {
   @IsOptional()
   email?: string;
 
-  @IsUrl()
+  @IsString()
   @IsOptional()
   logoUrl?: string;
 
