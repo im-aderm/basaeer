@@ -24,8 +24,8 @@ export default function ChangePasswordPage() {
       showError('New passwords do not match');
       return;
     }
-    if (newPassword.length < 8) {
-      showError('Password must be at least 8 characters');
+    if (newPassword.length < 6) {
+      showError('Password must be at least 6 characters');
       return;
     }
     setSubmitting(true);
@@ -74,7 +74,7 @@ export default function ChangePasswordPage() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-                minLength={8}
+                minLength={6}
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function ChangePasswordPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                minLength={8}
+                minLength={6}
               />
             </div>
 

@@ -258,7 +258,7 @@ export default function CreateBranchPage() {
                                         <input
                                             name="adminPassword" type="password" value={formData.adminPassword} onChange={handleChange}
                                             placeholder="Leave blank for auto-generated"
-                                            minLength={8}
+                                            minLength={6}
                                             className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                         />
                                         <p className="text-[11px] text-muted-foreground">Defaults to Password123! if left blank.</p>

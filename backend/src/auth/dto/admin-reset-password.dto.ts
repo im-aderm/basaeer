@@ -4,6 +4,6 @@ import { ApiProperty } from '@nestjs/swagger';
 export class AdminResetPasswordDto {
   @ApiProperty()
   @IsString()
-  @MinLength(8)
+  @MinLength(6)
   newPassword: string;
 }

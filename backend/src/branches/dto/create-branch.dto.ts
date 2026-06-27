@@ -26,7 +26,7 @@ export class CreateBranchAdminDto {
 
   @IsString()
   @IsOptional()
-  @MinLength(8, { message: 'Password must be at least 8 characters' })
+  @MinLength(6)
   password?: string;
 
   @IsString()

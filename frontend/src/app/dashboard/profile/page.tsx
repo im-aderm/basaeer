@@ -52,8 +52,8 @@ export default function ProfilePage() {
       showError("New passwords do not match");
       return;
     }
-    if (passwordData.newPw.length < 8) {
-      showError("Password must be at least 8 characters");
+    if (passwordData.newPw.length < 6) {
+      showError("Password must be at least 6 characters");
       return;
     }
     setChangingPw(true);
@@ -184,7 +184,7 @@ export default function ProfilePage() {
                   value={passwordData.newPw}
                   onChange={(e) => setPasswordData({ ...passwordData, newPw: e.target.value })}
                   required
-                  minLength={8}
+                  minLength={6}
                 />
               </div>
               <div className="space-y-2">
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                   value={passwordData.confirm}
                   onChange={(e) => setPasswordData({ ...passwordData, confirm: e.target.value })}
                   required
-                  minLength={8}
+                  minLength={6}
                 />
               </div>
             </div>

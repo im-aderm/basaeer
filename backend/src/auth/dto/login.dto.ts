@@ -7,6 +7,6 @@ export class LoginDto {
 
   @IsString({ message: 'Password must be a string' })
   @IsNotEmpty({ message: 'Password is required' })
-  @MinLength(8, { message: 'Password must be at least 8 characters' })
+  @MinLength(6)
   password: string;
 }
