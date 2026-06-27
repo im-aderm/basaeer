@@ -5,6 +5,7 @@ import {
   IsEmail,
   IsBoolean,
   IsUUID,
+  MinLength,
   ValidateNested,
   Matches,
 } from 'class-validator';
@@ -25,6 +26,7 @@ export class CreateBranchAdminDto {
 
   @IsString()
   @IsOptional()
+  @MinLength(8, { message: 'Password must be at least 8 characters' })
   password?: string;
 
   @IsString()

@@ -568,6 +568,7 @@ export default function BranchesPage() {
                                             value={newAdminForm.password}
                                             onChange={(e) => setNewAdminForm({ ...newAdminForm, password: e.target.value })}
                                             placeholder="Leave blank for auto-generated"
+                                            minLength={8}
                                             className="w-full p-3 bg-white border border-primary/90 rounded-xl focus:ring-2 focus:ring-primary/20 outline-none"
                                         />
                                         <p className="text-[11px] text-muted-foreground">Defaults to Password123! if blank.</p>
