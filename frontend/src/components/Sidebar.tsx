@@ -35,7 +35,8 @@ import {
     ChevronDown,
     ChevronRight,
     Menu,
-    X
+    X,
+    LogOut
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -509,29 +510,50 @@ interface UserFooterProps {
         firstName?: string;
         lastName?: string;
         role?: string;
+        id?: string;
     } | null;
     compact?: boolean;
+    onLinkClick?: () => void;
 }
 
-function UserFooter({ user, compact = false }: UserFooterProps) {
+function UserFooter({ user, compact = false, onLinkClick }: UserFooterProps) {
+    const { logout } = useAuth();
     return (
         <div className={cn(
             "p-4 border-t border-[#E5E7EB] shrink-0 bg-white",
             compact ? "flex justify-center" : ""
         )}>
             <div className={cn("flex items-center gap-3", compact && "justify-center")}>
-                <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] font-bold shrink-0" aria-hidden="true">
-                    {user?.firstName?.[0]}{user?.lastName?.[0]}
-                </div>
-                {!compact && (
-                    <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-[#111827] truncate">
-                            {user?.firstName} {user?.lastName}
-                        </p>
-                        <p className="text-xs text-[#6B7280] truncate">
-                            {user?.role?.replace(/_/g, ' ')}
-                        </p>
+                <Link
+                    href="/dashboard/profile"
+                    onClick={onLinkClick}
+                    className={cn(
+                        "flex items-center gap-3 flex-1 min-w-0",
+                        compact && "justify-center"
+                    )}
+                >
+                    <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 flex items-center justify-center text-[#2563EB] font-bold shrink-0">
+                        {user?.firstName?.[0]}{user?.lastName?.[0]}
                     </div>
+                    {!compact && (
+                        <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-[#111827] truncate">
+                                {user?.firstName} {user?.lastName}
+                            </p>
+                            <p className="text-xs text-[#6B7280] truncate">
+                                {user?.role?.replace(/_/g, ' ')}
+                            </p>
+                        </div>
+                    )}
+                </Link>
+                {!compact && (
+                    <button
+                        onClick={logout}
+                        className="p-2 hover:bg-red-50 rounded-lg text-red-500 transition-colors"
+                        aria-label="Sign out"
+                    >
+                        <LogOut size={18} />
+                    </button>
                 )}
             </div>
         </div>
@@ -682,7 +704,7 @@ export function Sidebar() {
                         />
 
                         {/* User Footer */}
-                        <UserFooter user={user} />
+                        <UserFooter user={user} onLinkClick={() => setIsMobileOpen(false)} />
                     </div>
                 </div>
             )}
