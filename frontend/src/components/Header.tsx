@@ -3,7 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { LogOut, Bell, Search, User } from "lucide-react";
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import GlobalSearch from "@/components/GlobalSearch";
 import BranchSelector from "@/components/BranchSelector";
 import SessionSelector from "@/components/SessionSelector";
@@ -15,6 +15,25 @@ export function Header() {
     const { showInfo } = useNotification();
     const [searchOpen, setSearchOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
+    const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+    const profileMenuRef = useRef<HTMLDivElement>(null);
+
+    // Close profile menu on outside click
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+            if (profileMenuRef.current && !profileMenuRef.current.contains(e.target as Node)) {
+                setProfileMenuOpen(false);
+            }
+        };
+        if (profileMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('touchstart', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [profileMenuOpen]);
 
     // Global keyboard shortcut: Ctrl+K / Cmd+K to open search
     useEffect(() => {
@@ -94,8 +113,11 @@ export function Header() {
                                 <p className="text-label">{user?.role?.replace(/_/g, ' ')}</p>
                             </div>
 
-                            <div className="group relative">
-                                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold border border-primary/20 group-hover:bg-primary group-hover:text-white transition-all cursor-pointer overflow-hidden">
+                            <div ref={profileMenuRef} className="relative">
+                                <div
+                                    onClick={() => setProfileMenuOpen(prev => !prev)}
+                                    className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-semibold border border-primary/20 hover:bg-primary hover:text-white transition-all cursor-pointer overflow-hidden"
+                                >
                                     {user?.firstName ? (
                                         <span className="text-sm" aria-hidden="true">{user.firstName[0]}{user.lastName?.[0]}</span>
                                     ) : (
@@ -104,9 +126,10 @@ export function Header() {
                                 </div>
 
                                 {/* Dropdown */}
-                                <div className="absolute top-12 right-0 w-52 bg-white border border-border shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 translate-y-2 group-hover:translate-y-0">
+                                <div className={`absolute top-12 right-0 w-52 bg-white border border-border shadow-[0_4px_20px_rgba(0,0,0,0.08)] rounded-xl p-2 transition-all z-50 translate-y-2 ${profileMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible'}`}>
                                     <Link
                                         href="/dashboard/profile"
+                                        onClick={() => setProfileMenuOpen(false)}
                                         className="flex items-center gap-3 p-3 text-foreground hover:bg-muted rounded-lg transition-colors font-semibold text-sm"
                                     >
                                         <User size={16} aria-hidden="true" />
@@ -114,7 +137,7 @@ export function Header() {
                                     </Link>
                                     <hr className="my-1 border-border/50" />
                                     <button
-                                        onClick={logout}
+                                        onClick={() => { logout(); setProfileMenuOpen(false); }}
                                         className="w-full flex items-center gap-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors font-bold text-sm"
                                         aria-label="Sign out"
                                     >
