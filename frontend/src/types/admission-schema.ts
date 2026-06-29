@@ -64,8 +64,8 @@ export const AdmissionSchema = z.object({
   })).optional(),
 
   // Step 6: Documents
-  passportPhoto: z.string().optional(),
-  birthCertificateUrl: z.string().optional(),
+  passportPhoto: z.string().min(1, "Passport photograph is required"),
+  birthCertificateUrl: z.string().min(1, "Birth certificate is required"),
   ninUrl: z.string().optional(),
   schoolReportUrl: z.string().optional(),
   medicalReportUrl: z.string().optional(),

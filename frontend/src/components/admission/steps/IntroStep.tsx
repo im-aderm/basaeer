@@ -47,7 +47,7 @@ export function IntroStep() {
               });
             }}
           >
-            <SelectTrigger className="h-11 rounded-lg border-input">
+            <SelectTrigger className="h-11 rounded-lg">
               <SelectValue placeholder={loading ? "Loading campuses..." : "Choose a campus"} />
             </SelectTrigger>
             <SelectContent>

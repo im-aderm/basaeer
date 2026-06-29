@@ -21,7 +21,7 @@ import { OnlineAdmissionService } from "@/services/onlineAdmissionService";
 import { BranchService } from "@/services/branchService";
 import api from "@/lib/api";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 500 * 1024;
 const ALLOWED_TYPES = [
   "image/jpeg",
   "image/png",
@@ -100,7 +100,7 @@ export function PaymentStep() {
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      showError(`File size must be under 5MB (${(file.size / 1024 / 1024).toFixed(2)}MB)`);
+      showError(`File size must be under 500KB (${(file.size / 1024).toFixed(0)}KB). Use tinypng.com or iloveimg.com to compress.`);
       return;
     }
 

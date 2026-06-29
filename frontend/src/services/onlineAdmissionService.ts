@@ -164,7 +164,7 @@ export const OnlineAdmissionService = {
             firstName: data.firstName,
             lastName: data.surname || data.lastName || "",
             otherNames: data.middleName || data.otherNames || "",
-            gender: data.gender,
+            gender: data.gender === "MALE" ? "Male" : "Female",
             dateOfBirth: data.dateOfBirth ? new Date(data.dateOfBirth).toISOString().split('T')[0] : undefined,
             age: data.age || undefined,
             ninNumber: data.ninNumber || undefined,

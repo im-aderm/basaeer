@@ -10,8 +10,8 @@ const stepFields: Record<number, FieldKey[]> = {
   3: ["guardianName", "guardianContact1"],
   4: [],
   5: [],
-  6: [],
-  7: [],
+  6: ["passportPhoto", "birthCertificateUrl"],
+  7: ["schoolRulesAgreement"],
   8: ["desiredClassId"],
 };
 

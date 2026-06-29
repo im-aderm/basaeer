@@ -8,7 +8,8 @@ import { useNotification } from '@/context/NotificationContext';
 import { useState, useRef, useCallback } from "react";
 import api from "@/lib/api";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 500 * 1024;
+const COMPRESSION_QUALITY = 0.7;
 const PASSPORT_MAX_SIZE = 200 * 1024;
 const PASSPORT_WIDTH = 300;
 const PASSPORT_HEIGHT = 300;
@@ -27,6 +28,43 @@ interface UploadFieldProps {
   value?: string;
   category?: string;
   isPassport?: boolean;
+}
+
+function compressImage(file: File, quality = COMPRESSION_QUALITY): Promise<File> {
+  return new Promise((resolve, reject) => {
+    if (!file.type.startsWith("image/")) {
+      resolve(file);
+      return;
+    }
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      let { width, height } = img;
+      if (width > 1200) {
+        height = Math.round((height * 1200) / width);
+        width = 1200;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) { resolve(file); return; }
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) { resolve(file); return; }
+          const ext = file.type.split("/")[1] || "jpeg";
+          const compressed = new File([blob], file.name.replace(/\.[^.]+$/, `.${ext}`), {
+            type: file.type,
+          });
+          resolve(compressed);
+        },
+        file.type,
+        quality,
+      );
+    };
+    img.onerror = () => resolve(file);
+    img.src = URL.createObjectURL(file);
+  });
 }
 
 function UploadField({ label, field, value, category, isPassport }: UploadFieldProps) {
@@ -126,13 +164,33 @@ function UploadField({ label, field, value, category, isPassport }: UploadFieldP
       return;
     }
 
+    let targetFile = file;
+
     if (file.size > MAX_FILE_SIZE) {
-      showError(`${label}: File size must be under 5MB`);
-      return;
+      if (file.type.startsWith("image/")) {
+        showInfo(`${label}: Compressing image to reduce file size...`);
+        const compressed = await compressImage(file);
+        if (compressed.size < file.size) {
+          targetFile = compressed;
+          showSuccess(`${label}: Compressed from ${(file.size / 1024).toFixed(0)}KB to ${(compressed.size / 1024).toFixed(0)}KB`);
+        }
+      }
+
+      if (targetFile.size > MAX_FILE_SIZE) {
+        showError(
+          `${label}: File must be under 500KB after compression. Tips to reduce size:\n` +
+          `• Use tinypng.com or iloveimg.com to compress\n` +
+          `• Crop the image to show only the document\n` +
+          `• Take a clearer photo with good lighting\n` +
+          `• Convert to JPEG instead of PNG\n` +
+          `Current: ${(targetFile.size / 1024).toFixed(0)}KB`
+        );
+        return;
+      }
     }
 
-    if (isPassport && file.type.startsWith("image/")) {
-      const isValid = await validatePassportPhoto(file);
+    if (isPassport && targetFile.type.startsWith("image/")) {
+      const isValid = await validatePassportPhoto(targetFile);
       if (!isValid) return;
     }
 
@@ -140,7 +198,7 @@ function UploadField({ label, field, value, category, isPassport }: UploadFieldP
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", targetFile);
 
       const url = category
         ? `/upload/admission-document?category=${encodeURIComponent(category)}`
@@ -263,12 +321,12 @@ export function DocumentUpload() {
     <CardContent className="p-6 md:p-8 space-y-6">
       <div className="space-y-1">
         <h3 className="text-lg font-semibold text-foreground">Document Uploads</h3>
-        <p className="text-sm text-muted-foreground">Upload clear scans or photos (PDF, JPG, or PNG, max 5MB each). All fields are optional.</p>
+        <p className="text-sm text-muted-foreground">Upload clear scans or photos (PDF, JPG, PNG, WebP, max 500KB each). Fields marked * are required.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <UploadField label="Passport Photograph" field="passportPhoto" value={formData.passportPhoto} category="passport" isPassport />
-        <UploadField label="Birth Certificate" field="birthCertificateUrl" value={formData.birthCertificateUrl} category="birth-certificate" />
+        <UploadField label="Passport Photograph *" field="passportPhoto" value={formData.passportPhoto} category="passport" isPassport />
+        <UploadField label="Birth Certificate *" field="birthCertificateUrl" value={formData.birthCertificateUrl} category="birth-certificate" />
         <UploadField label="NIN Slip" field="ninUrl" value={formData.ninUrl} category="nin" />
         <UploadField label="Last School Report" field="schoolReportUrl" value={formData.schoolReportUrl} category="school-report" />
         <UploadField label="Medical Report" field="medicalReportUrl" value={formData.medicalReportUrl} category="medical" />
