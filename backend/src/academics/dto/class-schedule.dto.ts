@@ -40,13 +40,20 @@ export class CreateClassScheduleDto {
   @IsNotEmpty()
   sectionId: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  subjectId: string;
+  subjectId?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  teacherId: string;
+  teacherId?: string;
+
+  @IsOptional()
+  @IsString()
+  branchId?: string;
+
+  @IsOptional()
+  isBreak?: boolean;
 }
 
 export class UpdateClassScheduleDto {

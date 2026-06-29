@@ -162,7 +162,11 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create Schedule' })
   @Post('schedules')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
-  createSchedule(@Body() dto: CreateClassScheduleDto) {
+  createSchedule(
+    @Body() dto: CreateClassScheduleDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    dto.branchId = ctx.branchId ?? undefined;
     return this.academicsService.createSchedule(dto);
   }
 

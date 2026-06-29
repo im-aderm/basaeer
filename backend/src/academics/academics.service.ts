@@ -186,29 +186,32 @@ export class AcademicsService {
 
   // Schedules
   async createSchedule(dto: any) {
-    // Simple conflict check (strict)
-    const conflict = await this.prisma.classSchedule.findFirst({
-      where: {
-        OR: [
-          {
-            teacherId: dto.teacherId,
-            dayOfWeek: dto.dayOfWeek,
-            startTime: dto.startTime,
-          },
-          {
-            classId: dto.classId,
-            sectionId: dto.sectionId,
-            dayOfWeek: dto.dayOfWeek,
-            startTime: dto.startTime,
-          },
-        ],
-      },
-    });
+    // Simple conflict check (strict) — skip for breaks
+    if (!dto.isBreak) {
+      const conflict = await this.prisma.classSchedule.findFirst({
+        where: {
+          branchId: dto.branchId,
+          OR: [
+            {
+              teacherId: dto.teacherId,
+              dayOfWeek: dto.dayOfWeek,
+              startTime: dto.startTime,
+            },
+            {
+              classId: dto.classId,
+              sectionId: dto.sectionId,
+              dayOfWeek: dto.dayOfWeek,
+              startTime: dto.startTime,
+            },
+          ],
+        },
+      });
 
-    if (conflict) {
-      throw new BadRequestException(
-        'Schedule conflict: Teacher or Section already busy at this time.',
-      );
+      if (conflict) {
+        throw new BadRequestException(
+          'Schedule conflict: Teacher or Section already busy at this time.',
+        );
+      }
     }
 
     return this.prisma.classSchedule.create({

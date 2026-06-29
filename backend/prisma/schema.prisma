@@ -553,21 +553,22 @@ model ClassSchedule {
   room      String?
   classId   String
   sectionId String
-  subjectId String
-  teacherId String
+  subjectId String?
+  teacherId String?
   branchId  String
+  isBreak   Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   class     Class    @relation(fields: [classId], references: [id])
   section   Section  @relation(fields: [sectionId], references: [id])
-  subject   Subject  @relation(fields: [subjectId], references: [id])
-  teacher   Staff    @relation(fields: [teacherId], references: [id])
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+  teacher   Staff?   @relation(fields: [teacherId], references: [id])
   branch    Branch   @relation(fields: [branchId], references: [id])
 
-  @@unique([teacherId, dayOfWeek, startTime])
   @@unique([classId, sectionId, dayOfWeek, startTime])
   @@index([classId, sectionId])
   @@index([branchId])
+  @@index([teacherId, dayOfWeek, startTime])
 }
 
 model Attendance {

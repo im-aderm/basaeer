@@ -2,13 +2,14 @@
 
 import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
-import { useState, useEffect } from "react";
-import { Calendar, Plus, Clock, Users, BookOpen, Trash2 } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Calendar, Plus, Clock, Users, BookOpen, Trash2, Printer, Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useNotification } from '@/context/NotificationContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import { AcademicService } from "@/services/academicService";
@@ -19,9 +20,21 @@ import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_
 import { clsx } from "clsx";
 
 const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const TIME_SLOTS = [
-    "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"
-];
+
+function generateTimeSlots(): string[] {
+  const slots: string[] = [];
+  for (let h = 8; h <= 16; h++) {
+    slots.push(`${String(h).padStart(2, "0")}:00`);
+  }
+  return slots;
+}
+
+const TIME_SLOTS = generateTimeSlots();
+
+function getSlotIndex(time: string): number {
+  const [h, m] = time.split(":").map(Number);
+  return h * 2 + (m >= 30 ? 1 : 0);
+}
 
 export default function ClassSchedulePage() {
     const { showSuccess, showError } = useNotification();
@@ -35,6 +48,7 @@ export default function ClassSchedulePage() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
     const [deleting, setDeleting] = useState(false);
+    const [isBreak, setIsBreak] = useState(false);
     const [formData, setFormData] = useState({
         dayOfWeek: 0,
         startTime: "",
@@ -43,6 +57,8 @@ export default function ClassSchedulePage() {
         teacherId: "",
         room: "",
     });
+
+    const printRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         fetchData();
@@ -85,13 +101,20 @@ export default function ClassSchedulePage() {
 
     const handleAddSchedule = async () => {
         try {
-            await AcademicService.createSchedule({
+            const payload: any = {
                 ...formData,
                 classId: selectedClass,
                 sectionId: selectedSection,
-            });
-            showSuccess("Schedule added successfully!");
+            };
+            if (isBreak) {
+                payload.isBreak = true;
+                delete payload.subjectId;
+                delete payload.teacherId;
+            }
+            await AcademicService.createSchedule(payload);
+            showSuccess(isBreak ? "Break added successfully!" : "Schedule added successfully!");
             setIsDialogOpen(false);
+            setIsBreak(false);
             setFormData({
                 dayOfWeek: 0,
                 startTime: "",
@@ -125,11 +148,23 @@ export default function ClassSchedulePage() {
         }
     };
 
-    const getScheduleForSlot = (day: number, time: string) => {
-        return schedules.find((s) => s.dayOfWeek === day && s.startTime === time);
+    const getScheduleForSlot = (day: number, slotTime: string) => {
+        const [slotH, slotM] = slotTime.split(":").map(Number);
+        const slotStart = slotH * 60 + slotM;
+        const slotEnd = slotStart + 60;
+        return schedules.find((s) => {
+            if (s.dayOfWeek !== day) return false;
+            const [sH, sM] = (s.startTime || "").split(":").map(Number);
+            const sMin = sH * 60 + sM;
+            return sMin >= slotStart && sMin < slotEnd;
+        });
     };
 
     const selectedClassData = classes.find((c) => c.id === selectedClass);
+
+    const handlePrint = () => {
+        window.print();
+    };
 
     if (loading) {
         return (
@@ -141,9 +176,8 @@ export default function ClassSchedulePage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-4">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary/5 to-primary/5 p-4 no-print">
                 <BranchContextBanner />
-            {/* Header */}
             <div className="mb-8">
                 <div className="flex items-center justify-between">
                     <div>
@@ -154,151 +188,157 @@ export default function ClassSchedulePage() {
                             Create and manage class schedules and timetables
                         </p>
                     </div>
-                    {selectedClass && selectedSection && (
-                        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                            <DialogTrigger asChild>
-                                <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
-                                    <Plus className="w-4 h-4 mr-2" />
-                                    Add Period
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Add Class Period</DialogTitle>
-                                </DialogHeader>
-                                <div className="space-y-4">
-                                    <div>
-                                        <Label>Day of Week</Label>
-                                        <Select
-                                            value={formData.dayOfWeek.toString()}
-                                            onValueChange={(value) =>
-                                                setFormData({ ...formData, dayOfWeek: parseInt(value) })
-                                            }
-                                        >
-                                            <SelectTrigger>
-                                                <SelectValue />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {DAYS.map((day, index) => (
-                                                    <SelectItem key={index} value={index.toString()}>
-                                                        {day}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-2">
+                        {selectedClass && selectedSection && (
+                            <Button variant="outline" onClick={handlePrint} className="gap-2">
+                                <Printer className="w-4 h-4" />
+                                Print
+                            </Button>
+                        )}
+                        {selectedClass && selectedSection && (
+                            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                                <DialogTrigger asChild>
+                                    <Button className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70">
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Add Period
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Add Class Period</DialogTitle>
+                                    </DialogHeader>
+                                    <div className="space-y-4">
                                         <div>
-                                            <Label>Start Time</Label>
+                                            <Label>Day of Week</Label>
                                             <Select
-                                                value={formData.startTime}
+                                                value={formData.dayOfWeek.toString()}
                                                 onValueChange={(value) =>
-                                                    setFormData({ ...formData, startTime: value })
+                                                    setFormData({ ...formData, dayOfWeek: parseInt(value) })
                                                 }
                                             >
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Select time" />
+                                                    <SelectValue />
                                                 </SelectTrigger>
                                                 <SelectContent>
-                                                    {TIME_SLOTS.map((time) => (
-                                                        <SelectItem key={time} value={time}>
-                                                            {time}
+                                                    {DAYS.map((day, index) => (
+                                                        <SelectItem key={index} value={index.toString()}>
+                                                            {day}
                                                         </SelectItem>
                                                     ))}
                                                 </SelectContent>
                                             </Select>
                                         </div>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <Label>Start Time</Label>
+                                                <Input
+                                                    type="time"
+                                                    value={formData.startTime}
+                                                    onChange={(e) =>
+                                                        setFormData({ ...formData, startTime: e.target.value })
+                                                    }
+                                                    className="h-10 rounded-lg"
+                                                />
+                                            </div>
+                                            <div>
+                                                <Label>End Time</Label>
+                                                <Input
+                                                    type="time"
+                                                    value={formData.endTime}
+                                                    onChange={(e) =>
+                                                        setFormData({ ...formData, endTime: e.target.value })
+                                                    }
+                                                    className="h-10 rounded-lg"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg">
+                                            <Checkbox
+                                                id="isBreak"
+                                                checked={isBreak}
+                                                onCheckedChange={(v) => setIsBreak(v === true)}
+                                            />
+                                            <Label htmlFor="isBreak" className="flex items-center gap-2 cursor-pointer">
+                                                <Coffee size={16} /> This is a break period
+                                            </Label>
+                                        </div>
+
+                                        {!isBreak && (
+                                            <>
+                                                <div>
+                                                    <Label>Subject</Label>
+                                                    <Select
+                                                        value={formData.subjectId}
+                                                        onValueChange={(value) =>
+                                                            setFormData({ ...formData, subjectId: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Select subject" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {subjects.map((subject) => (
+                                                                <SelectItem key={subject.id} value={subject.id}>
+                                                                    {subject.name}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+
+                                                <div>
+                                                    <Label>Teacher</Label>
+                                                    <Select
+                                                        value={formData.teacherId}
+                                                        onValueChange={(value) =>
+                                                            setFormData({ ...formData, teacherId: value })
+                                                        }
+                                                    >
+                                                        <SelectTrigger>
+                                                            <SelectValue placeholder="Select teacher" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            {teachers.map((teacher) => (
+                                                                <SelectItem key={teacher.id} value={teacher.id}>
+                                                                    {teacher.user?.firstName} {teacher.user?.lastName}
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                            </>
+                                        )}
+
                                         <div>
-                                            <Label>End Time</Label>
-                                            <Select
-                                                value={formData.endTime}
-                                                onValueChange={(value) =>
-                                                    setFormData({ ...formData, endTime: value })
+                                            <Label>Room (Optional)</Label>
+                                            <Input
+                                                value={formData.room}
+                                                onChange={(e) =>
+                                                    setFormData({ ...formData, room: e.target.value })
                                                 }
-                                            >
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Select time" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {TIME_SLOTS.map((time) => (
-                                                        <SelectItem key={time} value={time}>
-                                                            {time}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
+                                                placeholder="e.g., Room 101"
+                                            />
+                                        </div>
+
+                                        <div className="flex justify-end gap-2">
+                                            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                                                Cancel
+                                            </Button>
+                                            <Button onClick={handleAddSchedule}>
+                                                {isBreak ? "Add Break" : "Add Period"}
+                                            </Button>
                                         </div>
                                     </div>
-
-                                    <div>
-                                        <Label>Subject</Label>
-                                        <Select
-                                            value={formData.subjectId}
-                                            onValueChange={(value) =>
-                                                setFormData({ ...formData, subjectId: value })
-                                            }
-                                        >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select subject" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {subjects.map((subject) => (
-                                                    <SelectItem key={subject.id} value={subject.id}>
-                                                        {subject.name}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-
-                                    <div>
-                                        <Label>Teacher</Label>
-                                        <Select
-                                            value={formData.teacherId}
-                                            onValueChange={(value) =>
-                                                setFormData({ ...formData, teacherId: value })
-                                            }
-                                        >
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Select teacher" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {teachers.map((teacher) => (
-                                                    <SelectItem key={teacher.id} value={teacher.id}>
-                                                        {teacher.user?.firstName} {teacher.user?.lastName}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-
-                                    <div>
-                                        <Label>Room (Optional)</Label>
-                                        <Input
-                                            value={formData.room}
-                                            onChange={(e) =>
-                                                setFormData({ ...formData, room: e.target.value })
-                                            }
-                                            placeholder="e.g., Room 101"
-                                        />
-                                    </div>
-
-                                    <div className="flex justify-end gap-2">
-                                        <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                                            Cancel
-                                        </Button>
-                                        <Button onClick={handleAddSchedule}>Add Period</Button>
-                                    </div>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
-                    )}
+                                </DialogContent>
+                            </Dialog>
+                        )}
+                    </div>
                 </div>
             </div>
 
-            {/* Class Selection */}
-            <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 mb-4">
+            <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 mb-4 no-print">
                 <h2 className="text-[14px] font-semibold mb-3">Select Class</h2>
                 <div className="grid grid-cols-2 gap-3">
                     <div>
@@ -336,9 +376,8 @@ export default function ClassSchedulePage() {
                 </div>
             </div>
 
-            {/* Timetable Grid */}
             {selectedClass && selectedSection && (
-                <div className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 overflow-x-auto">
+                <div ref={printRef} className="bg-white/80 backdrop-blur-xl rounded-xl p-4 border border-primary/20 overflow-x-auto print-card">
                     <h2 className="text-[14px] font-semibold mb-3">Weekly Timetable</h2>
                     <table className={TABLE_ROOT}>
                         <thead>
@@ -370,31 +409,48 @@ export default function ClassSchedulePage() {
                                                 className={TABLE_CELL}
                                             >
                                                 {schedule ? (
-                                                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg p-2 relative group">
-                                                        <div className="flex items-start justify-between">
-                                                            <div className="flex-1">
-                                                                <p className="font-semibold text-[11px] mb-0.5">
-                                                                    {schedule.subject?.name}
-                                                                </p>
-                                                                <p className="text-[10px] text-foreground/60">
-                                                                    {schedule.teacher?.user?.firstName}{" "}
-                                                                    {schedule.teacher?.user?.lastName}
-                                                                </p>
-                                                                {schedule.room && (
-                                                                    <p className="text-[10px] text-foreground/50 mt-0.5">
-                                                                        {schedule.room}
-                                                                    </p>
-                                                                )}
+                                                    <div className={clsx(
+                                                        "rounded-lg p-2 relative group",
+                                                        schedule.isBreak
+                                                            ? "bg-amber-50 border border-amber-200"
+                                                            : "bg-gradient-to-br from-primary/10 to-primary/5"
+                                                    )}>
+                                                        {schedule.isBreak ? (
+                                                            <div className="flex items-center justify-center gap-1.5 py-2">
+                                                                <Coffee size={14} className="text-amber-600" />
+                                                                <span className="font-bold text-[11px] text-amber-700 uppercase tracking-wide">
+                                                                    Break
+                                                                </span>
                                                             </div>
-                                                            <Button
-                                                                size="sm"
-                                                                variant="ghost"
-                                                                className="opacity-0 group-hover:opacity-100 transition-opacity h-5 w-5 p-0"
-                                                                onClick={() => handleDeleteSchedule(schedule.id)}
-                                                            >
-                                                                <Trash2 className="w-3 h-3 text-red-600" />
-                                                            </Button>
-                                                        </div>
+                                                        ) : (
+                                                            <div className="flex items-start justify-between">
+                                                                <div className="flex-1">
+                                                                    <p className="font-semibold text-[11px] mb-0.5">
+                                                                        {schedule.subject?.name}
+                                                                    </p>
+                                                                    <p className="text-[10px] text-foreground/60 mb-0.5">
+                                                                        {schedule.startTime}–{schedule.endTime}
+                                                                    </p>
+                                                                    <p className="text-[10px] text-foreground/60">
+                                                                        {schedule.teacher?.user?.firstName}{" "}
+                                                                        {schedule.teacher?.user?.lastName}
+                                                                    </p>
+                                                                    {schedule.room && (
+                                                                        <p className="text-[10px] text-foreground/50 mt-0.5">
+                                                                            {schedule.room}
+                                                                        </p>
+                                                                    )}
+                                                                </div>
+                                                                <Button
+                                                                    size="sm"
+                                                                    variant="ghost"
+                                                                    className="opacity-0 group-hover:opacity-100 transition-opacity h-5 w-5 p-0 no-print"
+                                                                    onClick={() => handleDeleteSchedule(schedule.id)}
+                                                                >
+                                                                    <Trash2 className="w-3 h-3 text-red-600" />
+                                                                </Button>
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 ) : (
                                                     <div className="h-16"></div>
