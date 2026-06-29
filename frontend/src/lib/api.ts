@@ -128,6 +128,11 @@ api.interceptors.response.use(
                 method: error.config?.method,
             });
 
+            // Silently handle 401 (expected for unauthenticated users — AuthContext handles it)
+            if (status === 401) {
+                return Promise.reject(error);
+            }
+
             // Show generic toast for 500/unhandled errors
             if (status >= 500) {
                 toast.error(data?.message || 'Server error. Please try again.');

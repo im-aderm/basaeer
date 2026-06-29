@@ -26,6 +26,7 @@ import { ResetPasswordDto } from './dto/reset-password.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { AdminResetPasswordDto } from './dto/admin-reset-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { GetTenantContext } from './tenant-context.decorator';
 import { TenantContext } from './branch.guard';
 import { AuditService } from '../audit/audit.service';
@@ -232,19 +233,19 @@ export class AuthController {
     );
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Password changed successfully' })
   @ApiOperation({ summary: 'Change Password' })
   @Post('change-password')
   async changePassword(
     @GetTenantContext() tenantContext: TenantContext,
-    @Body() body: { currentPassword: string; newPassword: string },
+    @Body() changePasswordDto: ChangePasswordDto,
   ) {
     return this.authService.changePassword(
       tenantContext.userId,
-      body.currentPassword,
-      body.newPassword,
+      changePasswordDto.currentPassword,
+      changePasswordDto.newPassword,
       tenantContext,
     );
   }

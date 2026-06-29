@@ -167,32 +167,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     router.push("/dashboard/change-password");
                     return;
                 }
-                try {
-                    const branches = await api.get("/branches");
-                    const branchList = branches.data || [];
-                    setAvailableBranches(branchList);
+                if (res.data.role === "SUPER_ADMIN") {
+                    try {
+                        const branches = await api.get("/branches");
+                        const branchList = branches.data || [];
+                        setAvailableBranches(branchList);
 
-                    // Validate saved branch: clear if it no longer exists in the branch list
-                    const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-                    const savedSession = typeof window !== "undefined" ? localStorage.getItem(SESSION_KEY) : null;
-                    const branchIds = new Set(branchList.map((b: AuthBranch) => b.id));
+                        // Validate saved branch: clear if it no longer exists in the branch list
+                        const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+                        const savedSession = typeof window !== "undefined" ? localStorage.getItem(SESSION_KEY) : null;
+                        const branchIds = new Set(branchList.map((b: AuthBranch) => b.id));
 
-                    if (savedBranch && savedBranch !== ALL_CAMPUSES && !branchIds.has(savedBranch)) {
-                        localStorage.removeItem(STORAGE_KEY);
-                        localStorage.removeItem(SESSION_KEY); // Session belongs to branch, clear too
-                        setActiveBranchId(null);
-                        setActiveSessionId(null);
-                        setApiBranchContext(null);
-                    }
+                        if (savedBranch && savedBranch !== ALL_CAMPUSES && !branchIds.has(savedBranch)) {
+                            localStorage.removeItem(STORAGE_KEY);
+                            localStorage.removeItem(SESSION_KEY);
+                            setActiveBranchId(null);
+                            setActiveSessionId(null);
+                            setApiBranchContext(null);
+                        }
 
-                    // Auto-select first branch for SA if none saved (or saved was invalid)
-                    const currentSaved = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-                    if (res.data.role === "SUPER_ADMIN" && !currentSaved && branchList.length > 0) {
-                        const firstBranch = branchList[0];
-                        setActiveBranchId(firstBranch.id);
-                        setApiBranchContext(firstBranch.id);
-                    }
-                } catch {}
+                        // Auto-select first branch for SA if none saved (or saved was invalid)
+                        const currentSaved = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+                        if (!currentSaved && branchList.length > 0) {
+                            const firstBranch = branchList[0];
+                            setActiveBranchId(firstBranch.id);
+                            setApiBranchContext(firstBranch.id);
+                        }
+                    } catch {}
+                }
             } catch (error) {
                 try { await api.post("/auth/logout"); } catch {}
                 setUser(null);

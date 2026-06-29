@@ -199,7 +199,7 @@ export default function EventsOverviewPage() {
                         <CardContent className="h-80 flex flex-col justify-center">
                             {data?.packagePopularity && data.packagePopularity.length > 0 ? (
                                 <div className="h-full w-full flex flex-col justify-between">
-                                    <div className="flex-1 min-h-0">
+                                    <div className="flex-1 min-h-0" style={{ minHeight: 160 }}>
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
                                                 <Pie
@@ -245,7 +245,7 @@ export default function EventsOverviewPage() {
                         <CardContent className="h-64 flex flex-col justify-center">
                             {data?.genderDistribution && data.genderDistribution.length > 0 ? (
                                 <div className="h-full w-full flex items-center gap-4">
-                                    <div className="flex-1 h-full">
+                                    <div className="h-full flex-1" style={{ minHeight: 130 }}>
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
                                                 <Pie
@@ -287,7 +287,7 @@ export default function EventsOverviewPage() {
                         <CardContent className="h-64 flex flex-col justify-center">
                             {data?.ageDistribution && data.ageDistribution.length > 0 ? (
                                 <div className="h-full w-full flex items-center gap-4">
-                                    <div className="flex-1 h-full">
+                                    <div className="h-full flex-1" style={{ minHeight: 130 }}>
                                         <ResponsiveContainer width="100%" height="100%">
                                             <PieChart>
                                                 <Pie
