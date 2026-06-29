@@ -44857,6 +44857,7 @@ export namespace Prisma {
     subjectId: string | null
     teacherId: string | null
     branchId: string | null
+    isBreak: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -44872,6 +44873,7 @@ export namespace Prisma {
     subjectId: string | null
     teacherId: string | null
     branchId: string | null
+    isBreak: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -44887,6 +44889,7 @@ export namespace Prisma {
     subjectId: number
     teacherId: number
     branchId: number
+    isBreak: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -44912,6 +44915,7 @@ export namespace Prisma {
     subjectId?: true
     teacherId?: true
     branchId?: true
+    isBreak?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -44927,6 +44931,7 @@ export namespace Prisma {
     subjectId?: true
     teacherId?: true
     branchId?: true
+    isBreak?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -44942,6 +44947,7 @@ export namespace Prisma {
     subjectId?: true
     teacherId?: true
     branchId?: true
+    isBreak?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -45041,9 +45047,10 @@ export namespace Prisma {
     room: string | null
     classId: string
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId: string | null
+    teacherId: string | null
     branchId: string
+    isBreak: boolean
     createdAt: Date
     updatedAt: Date
     _count: ClassScheduleCountAggregateOutputType | null
@@ -45078,12 +45085,13 @@ export namespace Prisma {
     subjectId?: boolean
     teacherId?: boolean
     branchId?: boolean
+    isBreak?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["classSchedule"]>
 
@@ -45098,12 +45106,13 @@ export namespace Prisma {
     subjectId?: boolean
     teacherId?: boolean
     branchId?: boolean
+    isBreak?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["classSchedule"]>
 
@@ -45118,12 +45127,13 @@ export namespace Prisma {
     subjectId?: boolean
     teacherId?: boolean
     branchId?: boolean
+    isBreak?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["classSchedule"]>
 
@@ -45138,30 +45148,31 @@ export namespace Prisma {
     subjectId?: boolean
     teacherId?: boolean
     branchId?: boolean
+    isBreak?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ClassScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayOfWeek" | "startTime" | "endTime" | "room" | "classId" | "sectionId" | "subjectId" | "teacherId" | "branchId" | "createdAt" | "updatedAt", ExtArgs["result"]["classSchedule"]>
+  export type ClassScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayOfWeek" | "startTime" | "endTime" | "room" | "classId" | "sectionId" | "subjectId" | "teacherId" | "branchId" | "isBreak" | "createdAt" | "updatedAt", ExtArgs["result"]["classSchedule"]>
   export type ClassScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type ClassScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
   export type ClassScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     class?: boolean | ClassDefaultArgs<ExtArgs>
     section?: boolean | SectionDefaultArgs<ExtArgs>
-    subject?: boolean | SubjectDefaultArgs<ExtArgs>
-    teacher?: boolean | StaffDefaultArgs<ExtArgs>
+    subject?: boolean | ClassSchedule$subjectArgs<ExtArgs>
+    teacher?: boolean | ClassSchedule$teacherArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
   }
 
@@ -45170,8 +45181,8 @@ export namespace Prisma {
     objects: {
       class: Prisma.$ClassPayload<ExtArgs>
       section: Prisma.$SectionPayload<ExtArgs>
-      subject: Prisma.$SubjectPayload<ExtArgs>
-      teacher: Prisma.$StaffPayload<ExtArgs>
+      subject: Prisma.$SubjectPayload<ExtArgs> | null
+      teacher: Prisma.$StaffPayload<ExtArgs> | null
       branch: Prisma.$BranchPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -45182,9 +45193,10 @@ export namespace Prisma {
       room: string | null
       classId: string
       sectionId: string
-      subjectId: string
-      teacherId: string
+      subjectId: string | null
+      teacherId: string | null
       branchId: string
+      isBreak: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["classSchedule"]>
@@ -45583,8 +45595,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     class<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    subject<T extends SubjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubjectDefaultArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    teacher<T extends StaffDefaultArgs<ExtArgs> = {}>(args?: Subset<T, StaffDefaultArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    subject<T extends ClassSchedule$subjectArgs<ExtArgs> = {}>(args?: Subset<T, ClassSchedule$subjectArgs<ExtArgs>>): Prisma__SubjectClient<$Result.GetResult<Prisma.$SubjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    teacher<T extends ClassSchedule$teacherArgs<ExtArgs> = {}>(args?: Subset<T, ClassSchedule$teacherArgs<ExtArgs>>): Prisma__StaffClient<$Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -45625,6 +45637,7 @@ export namespace Prisma {
     readonly subjectId: FieldRef<"ClassSchedule", 'String'>
     readonly teacherId: FieldRef<"ClassSchedule", 'String'>
     readonly branchId: FieldRef<"ClassSchedule", 'String'>
+    readonly isBreak: FieldRef<"ClassSchedule", 'Boolean'>
     readonly createdAt: FieldRef<"ClassSchedule", 'DateTime'>
     readonly updatedAt: FieldRef<"ClassSchedule", 'DateTime'>
   }
@@ -46020,6 +46033,44 @@ export namespace Prisma {
      * Limit how many ClassSchedules to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ClassSchedule.subject
+   */
+  export type ClassSchedule$subjectArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Subject
+     */
+    select?: SubjectSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Subject
+     */
+    omit?: SubjectOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubjectInclude<ExtArgs> | null
+    where?: SubjectWhereInput
+  }
+
+  /**
+   * ClassSchedule.teacher
+   */
+  export type ClassSchedule$teacherArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Staff
+     */
+    select?: StaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Staff
+     */
+    omit?: StaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StaffInclude<ExtArgs> | null
+    where?: StaffWhereInput
   }
 
   /**
@@ -215188,6 +215239,7 @@ export namespace Prisma {
     subjectId: 'subjectId',
     teacherId: 'teacherId',
     branchId: 'branchId',
+    isBreak: 'isBreak',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -220536,15 +220588,16 @@ export namespace Prisma {
     room?: StringNullableFilter<"ClassSchedule"> | string | null
     classId?: StringFilter<"ClassSchedule"> | string
     sectionId?: StringFilter<"ClassSchedule"> | string
-    subjectId?: StringFilter<"ClassSchedule"> | string
-    teacherId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringNullableFilter<"ClassSchedule"> | string | null
+    teacherId?: StringNullableFilter<"ClassSchedule"> | string | null
     branchId?: StringFilter<"ClassSchedule"> | string
+    isBreak?: BoolFilter<"ClassSchedule"> | boolean
     createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
     class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
-    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
-    teacher?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    teacher?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
   }
 
@@ -220556,9 +220609,10 @@ export namespace Prisma {
     room?: SortOrderInput | SortOrder
     classId?: SortOrder
     sectionId?: SortOrder
-    subjectId?: SortOrder
-    teacherId?: SortOrder
+    subjectId?: SortOrderInput | SortOrder
+    teacherId?: SortOrderInput | SortOrder
     branchId?: SortOrder
+    isBreak?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     class?: ClassOrderByWithRelationInput
@@ -220570,7 +220624,6 @@ export namespace Prisma {
 
   export type ClassScheduleWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    teacherId_dayOfWeek_startTime?: ClassScheduleTeacherIdDayOfWeekStartTimeCompoundUniqueInput
     classId_sectionId_dayOfWeek_startTime?: ClassScheduleClassIdSectionIdDayOfWeekStartTimeCompoundUniqueInput
     AND?: ClassScheduleWhereInput | ClassScheduleWhereInput[]
     OR?: ClassScheduleWhereInput[]
@@ -220581,17 +220634,18 @@ export namespace Prisma {
     room?: StringNullableFilter<"ClassSchedule"> | string | null
     classId?: StringFilter<"ClassSchedule"> | string
     sectionId?: StringFilter<"ClassSchedule"> | string
-    subjectId?: StringFilter<"ClassSchedule"> | string
-    teacherId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringNullableFilter<"ClassSchedule"> | string | null
+    teacherId?: StringNullableFilter<"ClassSchedule"> | string | null
     branchId?: StringFilter<"ClassSchedule"> | string
+    isBreak?: BoolFilter<"ClassSchedule"> | boolean
     createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
     class?: XOR<ClassScalarRelationFilter, ClassWhereInput>
     section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
-    subject?: XOR<SubjectScalarRelationFilter, SubjectWhereInput>
-    teacher?: XOR<StaffScalarRelationFilter, StaffWhereInput>
+    subject?: XOR<SubjectNullableScalarRelationFilter, SubjectWhereInput> | null
+    teacher?: XOR<StaffNullableScalarRelationFilter, StaffWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
-  }, "id" | "teacherId_dayOfWeek_startTime" | "classId_sectionId_dayOfWeek_startTime">
+  }, "id" | "classId_sectionId_dayOfWeek_startTime">
 
   export type ClassScheduleOrderByWithAggregationInput = {
     id?: SortOrder
@@ -220601,9 +220655,10 @@ export namespace Prisma {
     room?: SortOrderInput | SortOrder
     classId?: SortOrder
     sectionId?: SortOrder
-    subjectId?: SortOrder
-    teacherId?: SortOrder
+    subjectId?: SortOrderInput | SortOrder
+    teacherId?: SortOrderInput | SortOrder
     branchId?: SortOrder
+    isBreak?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ClassScheduleCountOrderByAggregateInput
@@ -220624,9 +220679,10 @@ export namespace Prisma {
     room?: StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
     classId?: StringWithAggregatesFilter<"ClassSchedule"> | string
     sectionId?: StringWithAggregatesFilter<"ClassSchedule"> | string
-    subjectId?: StringWithAggregatesFilter<"ClassSchedule"> | string
-    teacherId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    subjectId?: StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
+    teacherId?: StringNullableWithAggregatesFilter<"ClassSchedule"> | string | null
     branchId?: StringWithAggregatesFilter<"ClassSchedule"> | string
+    isBreak?: BoolWithAggregatesFilter<"ClassSchedule"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ClassSchedule"> | Date | string
   }
@@ -236269,12 +236325,13 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutClassSchedulesInput
     section: SectionCreateNestedOneWithoutClassSchedulesInput
-    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
-    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+    subject?: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher?: StaffCreateNestedOneWithoutClassSchedulesInput
     branch: BranchCreateNestedOneWithoutClassSchedulesInput
   }
 
@@ -236286,9 +236343,10 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -236299,12 +236357,13 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
     section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
-    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
-    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneWithoutClassSchedulesNestedInput
     branch?: BranchUpdateOneRequiredWithoutClassSchedulesNestedInput
   }
 
@@ -236316,9 +236375,10 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -236331,9 +236391,10 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -236344,6 +236405,7 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -236356,9 +236418,10 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -253165,20 +253228,9 @@ export namespace Prisma {
     isNot?: SectionWhereInput
   }
 
-  export type SubjectScalarRelationFilter = {
-    is?: SubjectWhereInput
-    isNot?: SubjectWhereInput
-  }
-
-  export type StaffScalarRelationFilter = {
-    is?: StaffWhereInput
-    isNot?: StaffWhereInput
-  }
-
-  export type ClassScheduleTeacherIdDayOfWeekStartTimeCompoundUniqueInput = {
-    teacherId: string
-    dayOfWeek: number
-    startTime: string
+  export type SubjectNullableScalarRelationFilter = {
+    is?: SubjectWhereInput | null
+    isNot?: SubjectWhereInput | null
   }
 
   export type ClassScheduleClassIdSectionIdDayOfWeekStartTimeCompoundUniqueInput = {
@@ -253199,6 +253251,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     teacherId?: SortOrder
     branchId?: SortOrder
+    isBreak?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -253218,6 +253271,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     teacherId?: SortOrder
     branchId?: SortOrder
+    isBreak?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -253233,6 +253287,7 @@ export namespace Prisma {
     subjectId?: SortOrder
     teacherId?: SortOrder
     branchId?: SortOrder
+    isBreak?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -253306,6 +253361,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAttendanceStatusFilter<$PrismaModel>
     _max?: NestedEnumAttendanceStatusFilter<$PrismaModel>
+  }
+
+  export type StaffScalarRelationFilter = {
+    is?: StaffWhereInput
+    isNot?: StaffWhereInput
   }
 
   export type StaffAttendanceStaffIdDateCompoundUniqueInput = {
@@ -254018,6 +254078,11 @@ export namespace Prisma {
     in?: $Enums.ExamStatus[] | ListEnumExamStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ExamStatus[] | ListEnumExamStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumExamStatusFilter<$PrismaModel> | $Enums.ExamStatus
+  }
+
+  export type SubjectScalarRelationFilter = {
+    is?: SubjectWhereInput
+    isNot?: SubjectWhereInput
   }
 
   export type OnlineExamCountOrderByAggregateInput = {
@@ -256931,11 +256996,6 @@ export namespace Prisma {
 
   export type GoogleMeetConfigSumOrderByAggregateInput = {
     defaultDuration?: SortOrder
-  }
-
-  export type SubjectNullableScalarRelationFilter = {
-    is?: SubjectWhereInput | null
-    isNot?: SubjectWhereInput | null
   }
 
   export type LiveClassSessionCountOrderByAggregateInput = {
@@ -270756,18 +270816,22 @@ export namespace Prisma {
     update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutClassSchedulesInput, SectionUpdateWithoutClassSchedulesInput>, SectionUncheckedUpdateWithoutClassSchedulesInput>
   }
 
-  export type SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+  export type SubjectUpdateOneWithoutClassSchedulesNestedInput = {
     create?: XOR<SubjectCreateWithoutClassSchedulesInput, SubjectUncheckedCreateWithoutClassSchedulesInput>
     connectOrCreate?: SubjectCreateOrConnectWithoutClassSchedulesInput
     upsert?: SubjectUpsertWithoutClassSchedulesInput
+    disconnect?: SubjectWhereInput | boolean
+    delete?: SubjectWhereInput | boolean
     connect?: SubjectWhereUniqueInput
     update?: XOR<XOR<SubjectUpdateToOneWithWhereWithoutClassSchedulesInput, SubjectUpdateWithoutClassSchedulesInput>, SubjectUncheckedUpdateWithoutClassSchedulesInput>
   }
 
-  export type StaffUpdateOneRequiredWithoutClassSchedulesNestedInput = {
+  export type StaffUpdateOneWithoutClassSchedulesNestedInput = {
     create?: XOR<StaffCreateWithoutClassSchedulesInput, StaffUncheckedCreateWithoutClassSchedulesInput>
     connectOrCreate?: StaffCreateOrConnectWithoutClassSchedulesInput
     upsert?: StaffUpsertWithoutClassSchedulesInput
+    disconnect?: StaffWhereInput | boolean
+    delete?: StaffWhereInput | boolean
     connect?: StaffWhereUniqueInput
     update?: XOR<XOR<StaffUpdateToOneWithWhereWithoutClassSchedulesInput, StaffUpdateWithoutClassSchedulesInput>, StaffUncheckedUpdateWithoutClassSchedulesInput>
   }
@@ -284416,12 +284480,13 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutClassSchedulesInput
     section: SectionCreateNestedOneWithoutClassSchedulesInput
-    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
-    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+    subject?: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher?: StaffCreateNestedOneWithoutClassSchedulesInput
   }
 
   export type ClassScheduleUncheckedCreateWithoutBranchInput = {
@@ -284432,8 +284497,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -288784,9 +288850,10 @@ export namespace Prisma {
     room?: StringNullableFilter<"ClassSchedule"> | string | null
     classId?: StringFilter<"ClassSchedule"> | string
     sectionId?: StringFilter<"ClassSchedule"> | string
-    subjectId?: StringFilter<"ClassSchedule"> | string
-    teacherId?: StringFilter<"ClassSchedule"> | string
+    subjectId?: StringNullableFilter<"ClassSchedule"> | string | null
+    teacherId?: StringNullableFilter<"ClassSchedule"> | string | null
     branchId?: StringFilter<"ClassSchedule"> | string
+    isBreak?: BoolFilter<"ClassSchedule"> | boolean
     createdAt?: DateTimeFilter<"ClassSchedule"> | Date | string
     updatedAt?: DateTimeFilter<"ClassSchedule"> | Date | string
   }
@@ -295543,11 +295610,12 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutClassSchedulesInput
     section: SectionCreateNestedOneWithoutClassSchedulesInput
-    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
+    subject?: SubjectCreateNestedOneWithoutClassSchedulesInput
     branch: BranchCreateNestedOneWithoutClassSchedulesInput
   }
 
@@ -295559,8 +295627,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
+    subjectId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -301151,11 +301220,12 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     section: SectionCreateNestedOneWithoutClassSchedulesInput
-    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
-    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+    subject?: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher?: StaffCreateNestedOneWithoutClassSchedulesInput
     branch: BranchCreateNestedOneWithoutClassSchedulesInput
   }
 
@@ -301166,9 +301236,10 @@ export namespace Prisma {
     endTime: string
     room?: string | null
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -302948,11 +303019,12 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutClassSchedulesInput
-    subject: SubjectCreateNestedOneWithoutClassSchedulesInput
-    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+    subject?: SubjectCreateNestedOneWithoutClassSchedulesInput
+    teacher?: StaffCreateNestedOneWithoutClassSchedulesInput
     branch: BranchCreateNestedOneWithoutClassSchedulesInput
   }
 
@@ -302963,9 +303035,10 @@ export namespace Prisma {
     endTime: string
     room?: string | null
     classId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -304370,11 +304443,12 @@ export namespace Prisma {
     startTime: string
     endTime: string
     room?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     class: ClassCreateNestedOneWithoutClassSchedulesInput
     section: SectionCreateNestedOneWithoutClassSchedulesInput
-    teacher: StaffCreateNestedOneWithoutClassSchedulesInput
+    teacher?: StaffCreateNestedOneWithoutClassSchedulesInput
     branch: BranchCreateNestedOneWithoutClassSchedulesInput
   }
 
@@ -304386,8 +304460,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    teacherId: string
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -402711,8 +402786,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -407941,12 +408017,13 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
     section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
-    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
-    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneWithoutClassSchedulesNestedInput
   }
 
   export type ClassScheduleUncheckedUpdateWithoutBranchInput = {
@@ -407957,8 +408034,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -407971,8 +408049,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -410266,8 +410345,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    subjectId: string
+    subjectId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -410545,11 +410625,12 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
     section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
-    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneWithoutClassSchedulesNestedInput
     branch?: BranchUpdateOneRequiredWithoutClassSchedulesNestedInput
   }
 
@@ -410561,8 +410642,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -410575,8 +410657,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -412204,9 +412287,10 @@ export namespace Prisma {
     endTime: string
     room?: string | null
     sectionId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -412649,11 +412733,12 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
-    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
-    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneWithoutClassSchedulesNestedInput
     branch?: BranchUpdateOneRequiredWithoutClassSchedulesNestedInput
   }
 
@@ -412664,9 +412749,10 @@ export namespace Prisma {
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -412678,9 +412764,10 @@ export namespace Prisma {
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
     sectionId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -414132,9 +414219,10 @@ export namespace Prisma {
     endTime: string
     room?: string | null
     classId: string
-    subjectId: string
-    teacherId: string
+    subjectId?: string | null
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -414724,11 +414812,12 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
-    subject?: SubjectUpdateOneRequiredWithoutClassSchedulesNestedInput
-    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+    subject?: SubjectUpdateOneWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneWithoutClassSchedulesNestedInput
     branch?: BranchUpdateOneRequiredWithoutClassSchedulesNestedInput
   }
 
@@ -414739,9 +414828,10 @@ export namespace Prisma {
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -414753,9 +414843,10 @@ export namespace Prisma {
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
-    subjectId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    subjectId?: NullableStringFieldUpdateOperationsInput | string | null
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -416115,8 +416206,9 @@ export namespace Prisma {
     room?: string | null
     classId: string
     sectionId: string
-    teacherId: string
+    teacherId?: string | null
     branchId: string
+    isBreak?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -416335,11 +416427,12 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     room?: NullableStringFieldUpdateOperationsInput | string | null
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     class?: ClassUpdateOneRequiredWithoutClassSchedulesNestedInput
     section?: SectionUpdateOneRequiredWithoutClassSchedulesNestedInput
-    teacher?: StaffUpdateOneRequiredWithoutClassSchedulesNestedInput
+    teacher?: StaffUpdateOneWithoutClassSchedulesNestedInput
     branch?: BranchUpdateOneRequiredWithoutClassSchedulesNestedInput
   }
 
@@ -416351,8 +416444,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -416365,8 +416459,9 @@ export namespace Prisma {
     room?: NullableStringFieldUpdateOperationsInput | string | null
     classId?: StringFieldUpdateOperationsInput | string
     sectionId?: StringFieldUpdateOperationsInput | string
-    teacherId?: StringFieldUpdateOperationsInput | string
+    teacherId?: NullableStringFieldUpdateOperationsInput | string | null
     branchId?: StringFieldUpdateOperationsInput | string
+    isBreak?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

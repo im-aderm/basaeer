@@ -383,6 +383,7 @@ exports.Prisma.ClassScheduleScalarFieldEnum = {
   subjectId: 'subjectId',
   teacherId: 'teacherId',
   branchId: 'branchId',
+  isBreak: 'isBreak',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

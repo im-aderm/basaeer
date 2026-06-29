@@ -194,6 +194,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                             setApiBranchContext(firstBranch.id);
                         }
                     } catch {}
+                } else if (res.data.branchId) {
+                    setAvailableBranches([{
+                        id: res.data.branchId,
+                        name: res.data.branding?.name || 'My Branch',
+                        code: '',
+                    }]);
                 }
             } catch (error) {
                 try { await api.post("/auth/logout"); } catch {}
