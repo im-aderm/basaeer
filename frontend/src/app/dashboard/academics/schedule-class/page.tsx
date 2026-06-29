@@ -3,7 +3,7 @@
 import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect, useRef } from "react";
-import { Calendar, Plus, Clock, Users, BookOpen, Trash2, Printer, Coffee } from "lucide-react";
+import { Calendar, Plus, Clock, Users, BookOpen, Trash2, Printer, Coffee, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -123,7 +123,7 @@ export default function ClassSchedulePage() {
                 teacherId: "",
                 room: "",
             });
-            fetchSchedules();
+            await fetchSchedules();
         } catch (error: any) {
             showError(error.response?.data?.message || "Failed to add schedule");
         }
@@ -162,8 +162,59 @@ export default function ClassSchedulePage() {
 
     const selectedClassData = classes.find((c) => c.id === selectedClass);
 
+    const openTimetableWindow = () => {
+        if (!printRef.current) return null;
+        const timetableHtml = printRef.current.outerHTML;
+        const styles = Array.from(document.styleSheets)
+            .map((sheet) => {
+                try {
+                    return Array.from(sheet.cssRules || []).map((r) => r.cssText).join("");
+                } catch { return ""; }
+            })
+            .join("");
+
+        const win = window.open("", "_blank");
+        if (!win) return null;
+
+        win.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Timetable</title>
+                <style>
+                    ${styles}
+                    body { background: white; color: black; padding: 20px; font-family: system-ui, sans-serif; }
+                    .no-print { display: none !important; }
+                    @media print {
+                        body { padding: 0; }
+                    }
+                </style>
+            </head>
+            <body>${timetableHtml}</body>
+            </html>
+        `);
+        win.document.close();
+        return win;
+    };
+
     const handlePrint = () => {
-        window.print();
+        const win = openTimetableWindow();
+        if (win) {
+            win.onload = () => {
+                win.focus();
+                win.print();
+            };
+        }
+    };
+
+    const handleDownloadPdf = () => {
+        const win = openTimetableWindow();
+        if (win) {
+            win.onload = () => {
+                win.focus();
+                win.print();
+            };
+        }
     };
 
     if (loading) {
@@ -193,6 +244,12 @@ export default function ClassSchedulePage() {
                             <Button variant="outline" onClick={handlePrint} className="gap-2">
                                 <Printer className="w-4 h-4" />
                                 Print
+                            </Button>
+                        )}
+                        {selectedClass && selectedSection && (
+                            <Button variant="outline" onClick={handleDownloadPdf} className="gap-2">
+                                <Download className="w-4 h-4" />
+                                PDF
                             </Button>
                         )}
                         {selectedClass && selectedSection && (

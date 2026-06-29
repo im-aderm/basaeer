@@ -63,16 +63,30 @@ export function MultiStepAdmissionForm() {
       showSuccess("Application submitted successfully!");
     } catch (error: any) {
       if (process.env.NODE_ENV === 'development') console.error("Submission error:", error);
-      const errorMessage = error.response?.data?.message || 
-        (error.response?.data?.errors ? JSON.stringify(error.response.data.errors) : "Failed to submit application. Please try again.");
-      
-      if (Array.isArray(error.response?.data?.message)) {
-        showError(`Validation failed: ${error.response.data.message.slice(0, 3).join(", ")}`);
-      } else if (typeof error.response?.data?.message === "string") {
-        showError(errorMessage);
-      } else {
-        showError("Failed to submit application. Please check all fields and try again.");
+
+      const friendlyMessages: Record<string, string> = {
+        'firstName must be a string': 'First name is required',
+        'lastName must be a string': 'Last name is required',
+        'gender must be a string': 'Gender is required',
+        'dateOfBirth must be a DateString': 'Date of birth is required',
+        'guardianName must be a string': 'Guardian name is required',
+        'guardianPhone must be a string': 'Guardian phone is required',
+        'desiredClassId must be a UUID': 'Please select a class',
+        'branchId must be a UUID': 'Branch selection is required',
+        'expected string, received undefined': 'Please fill in all required fields',
+      };
+
+      const raw = error.response?.data?.message;
+      let displayMessage = "Failed to submit application. Please check all fields and try again.";
+
+      if (Array.isArray(raw)) {
+        const translated = raw.map((m: string) => friendlyMessages[m] || m).slice(0, 3);
+        displayMessage = `Please fix: ${translated.join("; ")}`;
+      } else if (typeof raw === "string") {
+        displayMessage = friendlyMessages[raw] || raw;
       }
+
+      showError(displayMessage);
     } finally {
       setIsSubmitting(false);
     }

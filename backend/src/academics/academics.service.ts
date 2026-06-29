@@ -216,6 +216,12 @@ export class AcademicsService {
 
     return this.prisma.classSchedule.create({
       data: dto,
+      include: {
+        subject: true,
+        teacher: { include: { user: true } },
+        class: true,
+        section: true,
+      },
     });
   }
 

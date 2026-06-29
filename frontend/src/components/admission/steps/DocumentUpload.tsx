@@ -11,8 +11,8 @@ import api from "@/lib/api";
 const MAX_FILE_SIZE = 500 * 1024;
 const COMPRESSION_QUALITY = 0.7;
 const PASSPORT_MAX_SIZE = 200 * 1024;
-const PASSPORT_WIDTH = 300;
-const PASSPORT_HEIGHT = 300;
+const PASSPORT_WIDTH = 400;
+const PASSPORT_HEIGHT = 400;
 const WHITE_THRESHOLD = 240;
 const WHITE_PIXEL_RATIO = 0.8;
 const ALLOWED_TYPES = [
@@ -291,7 +291,7 @@ function UploadField({ label, field, value, category, isPassport }: UploadFieldP
             {passportValidation.sizeOk ? '✓' : '✗'} ≤200KB
           </span>
           <span className={passportValidation.dimensionsOk ? 'text-emerald-600' : 'text-destructive'}>
-            {passportValidation.dimensionsOk ? '✓' : '✗'} ≤300×300px
+            {passportValidation.dimensionsOk ? '✓' : '✗'} ≤400×400px
           </span>
           <span className={passportValidation.backgroundOk ? 'text-emerald-600' : 'text-amber-600'}>
             {passportValidation.backgroundOk ? '✓' : '⚠'} White BG
