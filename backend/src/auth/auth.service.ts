@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import { Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -24,6 +25,15 @@ export class AuthService {
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
     if (user && (await bcrypt.compare(pass, user.password))) {
+      // Opportunistically upgrade legacy weak-cost hashes on successful login.
+      try {
+        if (bcrypt.getRounds(user.password) < BCRYPT_ROUNDS) {
+          const upgraded = await bcrypt.hash(pass, BCRYPT_ROUNDS);
+          await this.usersService.updatePassword(user.id, upgraded);
+        }
+      } catch {
+        // Never let a rehash failure block a valid login.
+      }
       const { password, ...result } = user;
       return result;
     }
@@ -82,7 +92,7 @@ export class AuthService {
   }
 
   async register(data: any) {
-    const hashedPassword = await bcrypt.hash(data.password, 8);
+    const hashedPassword = await bcrypt.hash(data.password, BCRYPT_ROUNDS);
     const { password, ...rest } = data;
     return this.usersService.createUser({
       ...rest,
@@ -153,7 +163,7 @@ export class AuthService {
     if (!admin) throw new UnauthorizedException();
     const target = await this.usersService.findById(targetUserId, context);
     if (!target) throw new NotFoundException('User not found');
-    const hashed = await bcrypt.hash(newPassword, 8);
+    const hashed = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
     await this.usersService.updatePassword(targetUserId, hashed);
     await this.usersService.setMustChangePassword(targetUserId);
     return { message: 'Password reset successfully. User must change on next login.' };
@@ -170,7 +180,7 @@ export class AuthService {
       throw new UnauthorizedException('Current password is incorrect');
     }
 
-    const hashedNewPassword = await bcrypt.hash(newPassword, 8);
+    const hashedNewPassword = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
     await this.usersService.updatePassword(userId, hashedNewPassword);
     await this.usersService.clearMustChangePassword(userId);
 
@@ -216,7 +226,7 @@ export class AuthService {
       );
     }
 
-    const newHashedPassword = await bcrypt.hash(newPasswordPlain, 8);
+    const newHashedPassword = await bcrypt.hash(newPasswordPlain, BCRYPT_ROUNDS);
     await this.usersService.updatePassword(user.id, newHashedPassword);
     await this.usersService.clearResetToken(user.id);
 

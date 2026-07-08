@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import {
   Injectable,
   ConflictException,
@@ -39,7 +40,7 @@ export class EmployeesService {
     }
 
     const tempPassword = crypto.randomBytes(8).toString('hex');
-    const hashedPassword = await bcrypt.hash(password || tempPassword, 8);
+    const hashedPassword = await bcrypt.hash(password || tempPassword, BCRYPT_ROUNDS);
 
     // Transaction: Create User + Staff
     return this.prisma.$transaction(async (tx) => {

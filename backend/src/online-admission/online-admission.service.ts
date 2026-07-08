@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import {
   Injectable,
   NotFoundException,
@@ -344,7 +345,7 @@ export class OnlineAdmissionService {
         }
 
         if (!parentId) {
-          const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
+          const parentPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), BCRYPT_ROUNDS);
           const guardianNameParts = (admission.guardianName || '').trim().split(/\s+/);
           const newParent = await tx.user.create({
             data: {
@@ -370,7 +371,7 @@ export class OnlineAdmissionService {
         const email =
           admission.studentEmail ||
           `std.${admission.firstName.toLowerCase()}.${admission.lastName.toLowerCase()}.${counter.lastValue}@basaer.com`;
-        const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), 8);
+        const hashedPassword = await bcrypt.hash(crypto.randomBytes(8).toString('hex'), BCRYPT_ROUNDS);
 
         const user = await tx.user.create({
           data: {

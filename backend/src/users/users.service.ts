@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
@@ -16,7 +17,7 @@ export class UsersService {
   }
 
   async createUser(data: Prisma.UserCreateInput): Promise<User> {
-    const hashedPassword = await bcrypt.hash(data.password, 8);
+    const hashedPassword = await bcrypt.hash(data.password, BCRYPT_ROUNDS);
     return this.prisma.user.create({
       data: {
         ...data,

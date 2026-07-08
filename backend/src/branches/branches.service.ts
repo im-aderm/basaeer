@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import { Injectable, BadRequestException, NotFoundException, Inject } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
@@ -41,7 +42,7 @@ export class BranchesService {
           data: { role: UserRole.BRANCH_ADMIN, branchId: branch.id },
         });
       } else if (createAdminUser) {
-        const hashedPassword = await bcrypt.hash(createAdminUser.password || 'Password123!', 8);
+        const hashedPassword = await bcrypt.hash(createAdminUser.password || 'Password123!', BCRYPT_ROUNDS);
         await tx.user.create({
           data: {
             email: createAdminUser.email,
@@ -169,7 +170,7 @@ export class BranchesService {
       if (existing) throw new BadRequestException('User with this email already exists');
 
       const createData = dto.createNewAdminUser!;
-      const hashedPassword = await bcrypt.hash(createData.password || 'Password123!', 8);
+      const hashedPassword = await bcrypt.hash(createData.password || 'Password123!', BCRYPT_ROUNDS);
 
       await this.prisma.$transaction(async (tx) => {
         // Demote old admin if exists

@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import {
   Injectable,
   ConflictException,
@@ -92,7 +93,7 @@ export class StudentsService {
     }
 
     const tempPassword = crypto.randomBytes(8).toString('hex');
-    const hashedPassword = await bcrypt.hash(password || tempPassword, 8);
+    const hashedPassword = await bcrypt.hash(password || tempPassword, BCRYPT_ROUNDS);
 
     const year = new Date().getFullYear();
     const count = await this.prisma.student.count({ where: { branchId } });
@@ -398,7 +399,7 @@ export class StudentsService {
     if (email || password || phone) {
       const userData: any = {};
       if (email) userData.email = email;
-      if (password) userData.password = await bcrypt.hash(password, 8);
+      if (password) userData.password = await bcrypt.hash(password, BCRYPT_ROUNDS);
       if (phone) userData.phone = phone;
 
       if (Object.keys(userData).length > 0 && student.userId) {

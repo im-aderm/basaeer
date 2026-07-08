@@ -1,3 +1,4 @@
+import { BCRYPT_ROUNDS } from '../common/constants/security.constants';
 import { Injectable, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateRoleDto } from './dto/create-role.dto';
@@ -187,7 +188,7 @@ export class RolesService {
     const role = await this.prisma.role.findUnique({ where: { id: dto.roleId } });
     if (!role) throw new NotFoundException('Role not found');
 
-    const hashedPassword = await bcrypt.hash(dto.password || 'Password123!', 8);
+    const hashedPassword = await bcrypt.hash(dto.password || 'Password123!', BCRYPT_ROUNDS);
 
     const user = await this.prisma.user.create({
       data: {

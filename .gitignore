@@ -3,6 +3,12 @@ DS_Store
 .env
 .env.local
 .env.*.local
+.env.save
+
+# Database dumps / backups — never commit real data (may contain PII + password hashes)
+backend/backups/
+*.dump
+*.backup.prisma
 .next
 dist
 build

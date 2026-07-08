@@ -57,6 +57,7 @@ import { AttachmentsModule } from './attachments/attachments.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { InstitutionalEventsService } from './common/events/institutional-events.service';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
+import { ThrottlerStorageRedisService } from '@nest-lab/throttler-storage-redis';
 import { APP_GUARD } from '@nestjs/core';
 import { SecurityMiddleware } from './common/middleware/security.middleware';
 import { DataRetentionService } from './common/services/data-retention.service';
@@ -81,7 +82,17 @@ import { AcademicSessionsModule } from './academic-sessions/academic-sessions.mo
     }),
     EventEmitterModule.forRoot(),
     ScheduleModule.forRoot(),
-    ThrottlerModule.forRoot([{ ttl: 60000, limit: 100 }]), // 100 requests per minute globally
+    // Rate limiting backed by Redis so limits are shared across all API
+    // instances (in-memory storage would let each instance grant the full
+    // quota, defeating brute-force protection once scaled horizontally).
+    ThrottlerModule.forRoot({
+      throttlers: [{ ttl: 60000, limit: 100 }], // 100 requests per minute globally
+      storage: new ThrottlerStorageRedisService({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379', 10),
+        password: process.env.REDIS_PASSWORD,
+      }),
+    }),
     CacheModule.registerAsync({
       isGlobal: true,
       useFactory: async () => ({
