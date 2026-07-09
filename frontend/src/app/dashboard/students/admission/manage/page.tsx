@@ -4,6 +4,7 @@ import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
 import { useState, useEffect } from "react";
 import { OnlineAdmissionService, OnlineAdmission } from "@/services/onlineAdmissionService";
+import { BulkExportService } from "@/services/bulkExportService";
 import { BranchService, Branch } from "@/services/branchService";
 import { useAuth } from "@/context/AuthContext";
 import {
@@ -20,6 +21,7 @@ import {
     ArrowUp,
     ArrowDown,
     FileDown,
+    Archive,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
@@ -44,6 +46,8 @@ export default function AdmissionsManagementPage() {
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
     const [downloadingId, setDownloadingId] = useState<string | null>(null);
+    const [bulkExporting, setBulkExporting] = useState(false);
+    const [bulkProgress, setBulkProgress] = useState(0);
     const [branches, setBranches] = useState<Branch[]>([]);
     const [confirmAction, setConfirmAction] = useState<{ type: 'approve' | 'reject', id: string } | null>(null);
     const [processing, setProcessing] = useState(false);
@@ -85,6 +89,21 @@ export default function AdmissionsManagementPage() {
     const handleApprove = async (id: string) => {
         setProcessingId(id);
         setConfirmAction({ type: 'approve', id });
+    };
+
+    const handleBulkDownloadSlips = async () => {
+        setBulkExporting(true);
+        setBulkProgress(0);
+        try {
+            // Exports the most recent admission slips for the active branch as a ZIP.
+            await BulkExportService.runAndDownload("ADMISSION_SLIP", {}, setBulkProgress);
+            showSuccess("Admission slips downloaded.");
+        } catch (e: any) {
+            showError(e?.message || "Bulk download failed. Please try again.");
+        } finally {
+            setBulkExporting(false);
+            setBulkProgress(0);
+        }
     };
 
     const handleDownloadSlip = async (adm: OnlineAdmission) => {
@@ -254,14 +273,33 @@ export default function AdmissionsManagementPage() {
                         <h1 className="text-[20px] font-bold tracking-tight text-primary">Admission Management</h1>
                         <p className="text-foreground/60 text-[12px] font-medium">Process, verify and enroll prospective students.</p>
                     </div>
-                    <div className="relative group">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-primary transition-colors" size={16} />
-                        <input
-                            placeholder="Search applicants..."
-                            className="pl-10 pr-4 py-2.5 bg-muted/30 border border-primary/20 focus:border-primary/40 rounded-xl outline-none text-[12px] font-medium min-w-[260px] transition-all"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
+                    <div className="flex items-center gap-2">
+                        <div className="relative group">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-primary transition-colors" size={16} />
+                            <input
+                                placeholder="Search applicants..."
+                                className="pl-10 pr-4 py-2.5 bg-muted/30 border border-primary/20 focus:border-primary/40 rounded-xl outline-none text-[12px] font-medium min-w-[260px] transition-all"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
+                        <button
+                            onClick={handleBulkDownloadSlips}
+                            disabled={bulkExporting}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-primary/10 text-primary hover:bg-primary/20 disabled:opacity-60 rounded-xl text-[12px] font-semibold transition-all whitespace-nowrap"
+                            title="Download admission slips for this branch as a ZIP"
+                        >
+                            {bulkExporting ? (
+                                <>
+                                    <Loader2 size={14} className="animate-spin" />
+                                    {bulkProgress > 0 ? `${bulkProgress}%` : "Preparing…"}
+                                </>
+                            ) : (
+                                <>
+                                    <Archive size={14} /> Download All Slips
+                                </>
+                            )}
+                        </button>
                     </div>
                 </div>
 

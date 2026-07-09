@@ -67,6 +67,7 @@ import { MustChangePasswordGuard } from './auth/must-change-password.guard';
 import { RolesModule } from './roles/roles.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AcademicSessionsModule } from './academic-sessions/academic-sessions.module';
+import { BulkExportModule } from './bulk-export/bulk-export.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -157,6 +158,7 @@ import { AcademicSessionsModule } from './academic-sessions/academic-sessions.mo
     RolesModule,
     AnalyticsModule,
     AcademicSessionsModule,
+    BulkExportModule,
   ],
   controllers: [AppController],
   providers: [
