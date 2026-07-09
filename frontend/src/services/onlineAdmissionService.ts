@@ -240,6 +240,21 @@ export const OnlineAdmissionService = {
         return response.data;
     },
 
+    // Downloads the formatted admission slip PDF (passport + attached documents).
+    downloadSlip: async (id: string, filename?: string): Promise<void> => {
+        const response = await api.get(`/online-admissions/${id}/slip`, {
+            responseType: "blob",
+        });
+        const url = window.URL.createObjectURL(new Blob([response.data], { type: "application/pdf" }));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", filename || `admission-slip-${id}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    },
+
     approve: async (id: string, approvalData?: { classId?: string, sectionId?: string }): Promise<any> => {
         const response = await api.post(`/online-admissions/${id}/approve`, approvalData);
         return response.data;

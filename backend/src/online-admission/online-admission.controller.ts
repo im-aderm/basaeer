@@ -12,12 +12,15 @@ import {
   NotFoundException,
   UseInterceptors,
   UploadedFile,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { InjectQueue } from '@nestjs/bullmq';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Queue } from 'bullmq';
 import { Throttle } from '@nestjs/throttler';
 import { OnlineAdmissionService } from './online-admission.service';
+import { AdmissionSlipService } from './admission-slip.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -42,6 +45,7 @@ import {
 export class OnlineAdmissionController {
   constructor(
     private readonly onlineAdmissionService: OnlineAdmissionService,
+    private readonly slipService: AdmissionSlipService,
     @InjectQueue('admission-import') private importQueue: Queue,
   ) {}
 
@@ -87,6 +91,27 @@ export class OnlineAdmissionController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.findOne(id, context);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Admission slip PDF' })
+  @ApiOperation({ summary: 'Download Admission Slip PDF (passport + attached documents)' })
+  @Get(':id/slip')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  async downloadSlip(
+    @Param('id') id: string,
+    @GetTenantContext() context: TenantContext,
+    @Res() res: Response,
+    @Query('inline') inline?: string,
+  ) {
+    const { buffer, filename } = await this.slipService.generateSlip(id, context);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      `${inline === 'true' ? 'inline' : 'attachment'}; filename="${filename}"`,
+    );
+    res.setHeader('Content-Length', buffer.length);
+    res.end(buffer);
   }
 
   @ApiBearerAuth()

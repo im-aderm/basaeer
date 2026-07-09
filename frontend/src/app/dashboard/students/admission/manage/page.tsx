@@ -19,6 +19,7 @@ import {
     Receipt,
     ArrowUp,
     ArrowDown,
+    FileDown,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
@@ -42,6 +43,7 @@ export default function AdmissionsManagementPage() {
     const [statusFilter, setStatusFilter] = useState("ALL");
     const [selectedAdmission, setSelectedAdmission] = useState<OnlineAdmission | null>(null);
     const [processingId, setProcessingId] = useState<string | null>(null);
+    const [downloadingId, setDownloadingId] = useState<string | null>(null);
     const [branches, setBranches] = useState<Branch[]>([]);
     const [confirmAction, setConfirmAction] = useState<{ type: 'approve' | 'reject', id: string } | null>(null);
     const [processing, setProcessing] = useState(false);
@@ -83,6 +85,18 @@ export default function AdmissionsManagementPage() {
     const handleApprove = async (id: string) => {
         setProcessingId(id);
         setConfirmAction({ type: 'approve', id });
+    };
+
+    const handleDownloadSlip = async (adm: OnlineAdmission) => {
+        setDownloadingId(adm.id);
+        try {
+            const ref = adm.admissionNumber || `${adm.firstName}-${adm.lastName}`;
+            await OnlineAdmissionService.downloadSlip(adm.id, `admission-slip-${ref}.pdf`);
+        } catch {
+            showError("Could not download the admission slip. Please try again.");
+        } finally {
+            setDownloadingId(null);
+        }
     };
 
     const handleConfirmAction = async () => {
@@ -370,6 +384,14 @@ export default function AdmissionsManagementPage() {
                                                         title="View Details"
                                                     >
                                                         <Eye size={14} />
+                                                    </button>
+                                                    <button
+                                                        disabled={downloadingId === adm.id}
+                                                        onClick={() => handleDownloadSlip(adm)}
+                                                        className="p-1.5 rounded-md text-foreground/60 hover:text-primary hover:bg-primary/10 disabled:opacity-50 transition-all"
+                                                        title="Download Admission Slip"
+                                                    >
+                                                        {downloadingId === adm.id ? <Loader2 size={14} className="animate-spin" /> : <FileDown size={14} />}
                                                     </button>
                                                     {adm.status === 'PENDING' && (
                                                         <>
