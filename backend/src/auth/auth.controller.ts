@@ -9,9 +9,10 @@ import {
   Patch,
   Param,
   ForbiddenException,
+  Req,
   Res,
 } from '@nestjs/common';
-import { Response } from 'express';
+import { Request as ExpressRequest, Response } from 'express';
 import * as crypto from 'crypto';
 import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service';
@@ -89,7 +90,17 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Logout' })
   @Post('logout')
-  async logout(@Res({ passthrough: true }) response: Response) {
+  async logout(
+    @Req() request: ExpressRequest,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    // Revoke the token server-side so it cannot be replayed after logout,
+    // then clear the cookie. Accepts the token from the cookie or a Bearer header.
+    const token =
+      (request as any).cookies?.access_token ||
+      request.headers.authorization?.replace(/^Bearer\s+/i, '');
+    await this.authService.revokeToken(token);
+
     response.clearCookie('access_token', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

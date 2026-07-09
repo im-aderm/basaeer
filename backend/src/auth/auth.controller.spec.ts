@@ -2,6 +2,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuditService } from '../audit/audit.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { RolesGuard } from './roles.guard';
+import { BranchGuard } from './branch.guard';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -12,7 +15,10 @@ describe('AuthController', () => {
     register: jest.fn(),
     changePassword: jest.fn(),
     bootstrap: jest.fn(),
+    revokeToken: jest.fn().mockResolvedValue(undefined),
   };
+
+  const allowGuard = { canActivate: () => true };
 
   const mockAuditService = {
     logAction: jest.fn().mockResolvedValue(undefined),
@@ -32,7 +38,11 @@ describe('AuthController', () => {
         { provide: AuthService, useValue: mockAuthService },
         { provide: AuditService, useValue: mockAuditService },
       ],
-    }).compile();
+    })
+      .overrideGuard(JwtAuthGuard).useValue(allowGuard)
+      .overrideGuard(RolesGuard).useValue(allowGuard)
+      .overrideGuard(BranchGuard).useValue(allowGuard)
+      .compile();
 
     controller = module.get<AuthController>(AuthController);
   });

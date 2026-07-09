@@ -5,6 +5,7 @@ import { UsersModule } from '../users/users.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { TokenBlocklistService } from './token-blocklist.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuditModule } from '../audit/audit.module';
 import { BranchesModule } from '../branches/branches.module';
@@ -27,7 +28,7 @@ import { BranchesModule } from '../branches/branches.module';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, TokenBlocklistService],
   exports: [AuthService],
 })
 export class AuthModule {}

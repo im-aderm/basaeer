@@ -4,6 +4,10 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { MailService } from '../mail/mail.service';
+import { AuditService } from '../audit/audit.service';
+import { BranchBrandingService } from '../branches/branch-branding.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { TokenBlocklistService } from './token-blocklist.service';
 
 jest.mock('bcrypt');
 
@@ -29,6 +33,11 @@ describe('AuthService', () => {
     sendPasswordReset: jest.fn(),
   };
 
+  const mockAuditService = { logAction: jest.fn().mockResolvedValue(undefined) };
+  const mockBrandingService = { getBranding: jest.fn().mockResolvedValue(null) };
+  const mockPrismaService = { user: { update: jest.fn() }, academicSession: { findUnique: jest.fn() } };
+  const mockBlocklistService = { revoke: jest.fn(), isRevoked: jest.fn() };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -36,6 +45,10 @@ describe('AuthService', () => {
         { provide: UsersService, useValue: mockUsersService },
         { provide: JwtService, useValue: mockJwtService },
         { provide: MailService, useValue: mockMailService },
+        { provide: AuditService, useValue: mockAuditService },
+        { provide: BranchBrandingService, useValue: mockBrandingService },
+        { provide: PrismaService, useValue: mockPrismaService },
+        { provide: TokenBlocklistService, useValue: mockBlocklistService },
       ],
     }).compile();
 
@@ -115,17 +128,29 @@ describe('AuthService', () => {
 
       const result = await service.login(user);
 
-      expect(jwtService.sign).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        sub: '1',
-        role: 'ADMIN',
-        branchId: 'branch-1',
-      });
+      expect(jwtService.sign).toHaveBeenCalledWith(
+        expect.objectContaining({
+          email: 'test@example.com',
+          sub: '1',
+          role: 'ADMIN',
+          branchId: 'branch-1',
+          selectedBranchId: null,
+          selectedSessionId: null,
+          jti: expect.any(String), // unique per-token id backing revocation
+        }),
+      );
 
-      expect(result).toEqual({
-        access_token: 'test-jwt-token',
-        user: { ...user, sub: undefined },
-      });
+      expect(result).toEqual(
+        expect.objectContaining({
+          access_token: 'test-jwt-token',
+          user: expect.objectContaining({
+            id: '1',
+            email: 'test@example.com',
+            role: 'ADMIN',
+            branchId: 'branch-1',
+          }),
+        }),
+      );
     });
   });
 

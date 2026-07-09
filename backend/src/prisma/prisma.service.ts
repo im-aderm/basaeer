@@ -9,6 +9,7 @@ import { PrismaClient } from '../generated/client/client';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { AsyncLocalStorage } from 'async_hooks';
+import { TENANT_EXEMPT_MODELS } from './tenant-scope.constants';
 import 'dotenv/config';
 
 class ContextRequiredError extends BadRequestException {
@@ -99,55 +100,7 @@ export class PrismaService
             // Exception: System-level models that exist independently of academic sessions
             // Exception: If args.data already has sessionId, allow it
             // Exception: If args.where already has sessionId, allow it
-            const systemModels = [
-              'AcademicSession', 'Branch', 'User', 'UserPreference',
-              'Role', 'RolePermission', 'CustomRolePermission',
-              'GlobalSetting', 'Translation', 'ScheduledJob', 'ModuleConfiguration',
-              'AuditLog', 'EmailTemplate', 'SmsTemplate',
-              'Notification', 'NotificationPreference',
-              'Campaign', 'CampaignRecipient',
-              'QueueJobLog', 'AutomationExecution', 'MessageDeliveryLog',
-              'ProviderHealthLog', 'WebhookEvent', 'DeliveryWebhookLog',
-              'RealtimeConnection', 'QueueMetric', 'ProviderFailoverEvent',
-              'MessageRetryEvent', 'ProviderBalanceSnapshot', 'NotificationDeliveryEvent',
-              'ApiKey', 'WebhookEndpoint', 'WebhookDeliveryLog',
-              'Counter', 'PaymentWebhookLog',
-              // Models without sessionId in DB (lost during schema rewrite — to be restored)
-              'Student', 'Staff', 'Invoice', 'InvoiceItem', 'Payment',
-              'Class', 'Section', 'Subject', 'Department', 'Designation',
-              'FeeCategory', 'FeeStructure', 'ExpenseCategory',
-              'Bed', 'Room', 'Hostel', 'HostelAllocation', 'HostelLeave',
-              'AttendanceSession', 'AttendanceScan',
-              'StaffAttendance', 'StaffAward',
-              'LeaveRequest', 'AdvanceSalary', 'Payroll', 'SalaryTemplate',
-              'Book', 'BookCopy', 'BookReservation', 'BorrowRecord', 'LibraryFine',
-              'Vehicle', 'TransportRoute', 'TransportAssignment', 'TransportAttendance',
-              'Certificate', 'CertificateTemplate',
-              'Assignment', 'Submission',
-              'AssessmentRecord', 'AssessmentComponent', 'AssessmentScore',
-              'ResultSummary', 'BehaviouralRating', 'GradingScale',
-              'Exam', 'ExamType', 'ResultApproval', 'ResultPublication',
-              'GPARecord', 'StudentRanking', 'Broadsheet', 'Transcript',
-              'TranscriptVerification', 'AcademicRemark', 'SubjectPosition',
-              'TahfeezAssessment', 'TahfeezMemorizationProgress',
-              'Question', 'QuestionGroup', 'QuestionOption', 'QuestionAnswer',
-              'OnlineExam', 'OnlineExamAttempt',
-              'OnlineAdmission', 'AdmissionEnquiry',
-              'AdmissionExam', 'AdmissionExamScore', 'AdmissionInterview',
-              'PreviousSchool', 'StudentCategory',
-              'InventoryCategory', 'InventoryStore', 'InventorySupplier',
-              'InventoryUnit', 'InventoryProduct', 'InventoryPurchase',
-              'InventoryIssue', 'InventorySale',
-              'CallLog', 'VisitorLog', 'Complaint', 'PostalRecord',
-              'CampusEvent', 'EventRSVP', 'EventApplication', 'EventPackage', 'EventSchedule', 'EventGallery', 'EventCategory', 'EventPayment', 'Alumni', 'AlumniEvent', 'AlumniEventParticipant',
-              'LiveClassSession', 'MeetingParticipant', 'GoogleMeetConfig',
-              'IdCardTemplate', 'IdCard', 'DigitalResource', 'DigitalResourceLog',
-              'AttachmentCategory', 'ReportTemplate', 'AcademicExport',
-              'ComputationJob', 'DeactivationReason', 'LoginDeactivation',
-              'AutomationConfig', 'Conversation', 'ConversationParticipant', 'Message',
-              'ClassSchedule', 'MaintenanceRequest', 'HostelMaintenanceTicket',
-              'CampusAccessLog',
-            ];
+            const systemModels = TENANT_EXEMPT_MODELS;
             if (!sessionId && !systemModels.includes(model)) {
               const writeOps = ['create', 'update', 'updateMany', 'delete', 'deleteMany', 'upsert'];
               if (writeOps.includes(operation)) {

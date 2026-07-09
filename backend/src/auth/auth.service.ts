@@ -6,6 +6,7 @@ import { MailService } from '../mail/mail.service';
 import { AuditService } from '../audit/audit.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { TokenBlocklistService } from './token-blocklist.service';
 import { TenantContext } from './branch.guard';
 import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
@@ -20,7 +21,27 @@ export class AuthService {
     private auditService: AuditService,
     private brandingService: BranchBrandingService,
     private prisma: PrismaService,
+    private blocklist: TokenBlocklistService,
   ) {}
+
+  /**
+   * Revoke an access token (called on logout). Decodes the token to read its
+   * jti and expiry, then records the jti in the blocklist until it would have
+   * expired anyway. Tokens without a jti (issued before revocation support)
+   * cannot be individually revoked — clearing the cookie is the fallback.
+   */
+  async revokeToken(token: string | undefined | null): Promise<void> {
+    if (!token) return;
+    try {
+      const decoded: any = this.jwtService.decode(token);
+      if (decoded?.jti && decoded?.exp) {
+        const ttlSeconds = decoded.exp - Math.floor(Date.now() / 1000);
+        await this.blocklist.revoke(decoded.jti, ttlSeconds);
+      }
+    } catch {
+      // A malformed token needs no revocation.
+    }
+  }
 
   async validateUser(email: string, pass: string): Promise<any> {
     const user = await this.usersService.findOne(email);
@@ -48,6 +69,7 @@ export class AuthService {
       branchId: user.branchId,
       selectedBranchId: user.selectedBranchId || null,
       selectedSessionId: user.selectedSessionId || null,
+      jti: crypto.randomUUID(),
     };
 
     this.auditService.logAction(
@@ -123,6 +145,7 @@ export class AuthService {
       role: user.role,
       branchId: user.branchId,
       selectedBranchId,
+      jti: crypto.randomUUID(),
     };
     const access_token = this.jwtService.sign(payload);
     return { access_token, selectedBranchId };
@@ -153,6 +176,7 @@ export class AuthService {
       branchId: user.branchId,
       selectedBranchId: context.selectedBranchId || null,
       selectedSessionId,
+      jti: crypto.randomUUID(),
     };
     const access_token = this.jwtService.sign(payload);
     return { access_token, selectedSessionId };
