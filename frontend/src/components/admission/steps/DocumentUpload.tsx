@@ -301,11 +301,13 @@ function UploadField({ label, field, value, category, isPassport }: UploadFieldP
 
       {/* Image preview */}
       {preview && (
-        <img
-          src={preview}
-          alt={`${label} preview`}
-          className="mt-3 w-full h-24 object-cover rounded-lg border border-border"
-        />
+        <div className="mt-3 flex justify-center">
+          <img
+            src={preview}
+            alt={`${label} preview`}
+            className="w-48 h-48 object-cover rounded-xl border border-border"
+          />
+        </div>
       )}
 
       {/* Hidden canvas */}

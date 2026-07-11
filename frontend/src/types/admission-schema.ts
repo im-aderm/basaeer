@@ -74,7 +74,7 @@ export const AdmissionSchema = z.object({
   transferCertificateUrl: z.string().optional(),
 
   // Step 7: Class & Section
-  desiredClassId: z.string().min(1, "Please select a class"),
+  desiredClassId: z.string().optional(),
   desiredSectionId: z.string().optional(),
 
   // Step 8: Payment

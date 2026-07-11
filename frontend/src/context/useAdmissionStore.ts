@@ -12,7 +12,7 @@ const stepFields: Record<number, FieldKey[]> = {
   5: [],
   6: ["passportPhoto", "birthCertificateUrl"],
   7: ["schoolRulesAgreement"],
-  8: ["desiredClassId"],
+  8: [],
 };
 
 interface AdmissionState {

@@ -80,8 +80,9 @@ export class OnlineAdmissionController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
     @Query('search') search?: string,
+    @Query('branchId') branchId?: string,
   ) {
-    return this.onlineAdmissionService.findAll(context, { status, page, limit, search });
+    return this.onlineAdmissionService.findAll(context, { status, page, limit, search, branchId });
   }
 
   @ApiBearerAuth()

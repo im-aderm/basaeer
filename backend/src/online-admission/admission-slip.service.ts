@@ -151,7 +151,7 @@ export class AdmissionSlipService {
 
     const pageWidth = doc.page.width;
     const contentWidth = pageWidth - PAGE_MARGIN * 2;
-    const passportBox = { w: 115, h: 145 };
+    const passportBox = { w: 120, h: 120 };
     const passportX = pageWidth - PAGE_MARGIN - passportBox.w;
 
     // ── Header ────────────────────────────────────────────────────────────

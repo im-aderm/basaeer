@@ -31,7 +31,7 @@ export interface OnlineAdmission {
 
     academicSessionId?: string;
     admissionTerm?: string;
-    desiredClassId: string;
+    desiredClassId?: string;
     desiredSectionId?: string;
     admissionType?: string;
     previousSchools?: PreviousSchool[];
@@ -149,8 +149,9 @@ export interface PaginatedResponse<T> {
 }
 
 export const OnlineAdmissionService = {
-    getAll: async (branchId: string, status?: string, page?: number, limit?: number, search?: string): Promise<PaginatedResponse<OnlineAdmission>> => {
-        const params: any = { branchId };
+    getAll: async (branchId?: string, status?: string, page?: number, limit?: number, search?: string): Promise<PaginatedResponse<OnlineAdmission>> => {
+        const params: any = {};
+        if (branchId) params.branchId = branchId;
         if (status) params.status = status;
         if (page) params.page = page;
         if (limit) params.limit = limit;
@@ -180,7 +181,7 @@ export const OnlineAdmissionService = {
             emergencySickness: data.emergencySickness || undefined,
 
             admissionType: data.admissionType || "NEW",
-            desiredClassId: data.desiredClassId,
+            desiredClassId: data.desiredClassId || undefined,
             desiredSectionId: data.desiredSectionId || undefined,
             academicSessionId: data.academicSessionId || undefined,
             previousSchools: data.previousSchools || [],

@@ -221,17 +221,22 @@ function StatusCheck({ label, checked, info }: any) {
 
 function DocumentLink({ label, url, isPayment }: any) {
   if (!url) return null;
+  const isPassport = label === "Passport Photo";
   return (
     <a 
       href={url} 
       target="_blank" 
-      className={`flex items-center justify-between p-4 rounded-2xl border transition-all hover:scale-[1.02] ${isPayment ? 'bg-primary/5 border-primary/20 text-primary' : 'bg-white border-border text-primary'}`}
+      className={`flex items-center gap-3 p-4 rounded-2xl border transition-all hover:scale-[1.02] ${isPayment ? 'bg-primary/5 border-primary/20 text-primary' : 'bg-white border-border text-primary'}`}
     >
-      <div className="flex items-center gap-2">
-        {isPayment ? <CreditCard size={18} /> : <FileText size={18} />}
-        <span className="text-xs font-black uppercase italic">{label}</span>
-      </div>
-      <ExternalLink size={14} />
+      {isPassport ? (
+        <img src={url} alt="Passport" className="w-14 h-14 object-cover rounded-lg shrink-0" />
+      ) : isPayment ? (
+        <CreditCard size={18} className="shrink-0" />
+      ) : (
+        <FileText size={18} className="shrink-0" />
+      )}
+      <span className="text-xs font-black uppercase italic flex-1">{label}</span>
+      <ExternalLink size={14} className="shrink-0" />
     </a>
   );
 }

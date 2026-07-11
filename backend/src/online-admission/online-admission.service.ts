@@ -107,9 +107,13 @@ export class OnlineAdmissionService {
       page?: number;
       limit?: number;
       search?: string;
+      branchId?: string;
     },
   ) {
     const where: any = TenantHelper.applyIsolation({}, context);
+    if (filters?.branchId) {
+      where.branchId = filters.branchId;
+    }
     if (filters?.status) {
       where.status = filters.status;
     }
@@ -856,7 +860,7 @@ export class OnlineAdmissionService {
 
     // Make offer to waitlisted applicant
     return this.makeOffer(id, context, {
-      offeredClassId: admission.desiredClassId,
+      offeredClassId: admission.desiredClassId || undefined,
       offeredSectionId: admission.desiredSectionId || undefined,
     });
   }

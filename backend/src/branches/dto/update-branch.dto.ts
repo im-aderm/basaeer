@@ -8,6 +8,10 @@ import {
 export class UpdateBranchDto {
   @IsString()
   @IsOptional()
+  code?: string;
+
+  @IsString()
+  @IsOptional()
   name?: string;
 
   @IsString()

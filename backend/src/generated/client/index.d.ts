@@ -124408,7 +124408,7 @@ export namespace Prisma {
     ninNumber: string | null
     academicSessionId: string | null
     admissionTerm: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId: string | null
     desiredSectionId: string | null
     admissionType: string | null
     transferReason: string | null
@@ -124666,7 +124666,7 @@ export namespace Prisma {
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -124808,7 +124808,7 @@ export namespace Prisma {
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -124946,7 +124946,7 @@ export namespace Prisma {
     updatedAt?: boolean
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -125088,7 +125088,7 @@ export namespace Prisma {
   export type OnlineAdmissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -125102,7 +125102,7 @@ export namespace Prisma {
   export type OnlineAdmissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -125112,7 +125112,7 @@ export namespace Prisma {
   export type OnlineAdmissionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     academicSession?: boolean | OnlineAdmission$academicSessionArgs<ExtArgs>
     branch?: boolean | BranchDefaultArgs<ExtArgs>
-    desiredClass?: boolean | ClassDefaultArgs<ExtArgs>
+    desiredClass?: boolean | OnlineAdmission$desiredClassArgs<ExtArgs>
     desiredSection?: boolean | OnlineAdmission$desiredSectionArgs<ExtArgs>
     parent?: boolean | OnlineAdmission$parentArgs<ExtArgs>
     studentCategory?: boolean | OnlineAdmission$studentCategoryArgs<ExtArgs>
@@ -125125,7 +125125,7 @@ export namespace Prisma {
     objects: {
       academicSession: Prisma.$AcademicSessionPayload<ExtArgs> | null
       branch: Prisma.$BranchPayload<ExtArgs>
-      desiredClass: Prisma.$ClassPayload<ExtArgs>
+      desiredClass: Prisma.$ClassPayload<ExtArgs> | null
       desiredSection: Prisma.$SectionPayload<ExtArgs> | null
       parent: Prisma.$UserPayload<ExtArgs> | null
       studentCategory: Prisma.$StudentCategoryPayload<ExtArgs> | null
@@ -125156,7 +125156,7 @@ export namespace Prisma {
       ninNumber: string | null
       academicSessionId: string | null
       admissionTerm: $Enums.Term | null
-      desiredClassId: string
+      desiredClassId: string | null
       desiredSectionId: string | null
       admissionType: string | null
       transferReason: string | null
@@ -125659,7 +125659,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     academicSession<T extends OnlineAdmission$academicSessionArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$academicSessionArgs<ExtArgs>>): Prisma__AcademicSessionClient<$Result.GetResult<Prisma.$AcademicSessionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     branch<T extends BranchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BranchDefaultArgs<ExtArgs>>): Prisma__BranchClient<$Result.GetResult<Prisma.$BranchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    desiredClass<T extends ClassDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClassDefaultArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    desiredClass<T extends OnlineAdmission$desiredClassArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$desiredClassArgs<ExtArgs>>): Prisma__ClassClient<$Result.GetResult<Prisma.$ClassPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     desiredSection<T extends OnlineAdmission$desiredSectionArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$desiredSectionArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     parent<T extends OnlineAdmission$parentArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$parentArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     studentCategory<T extends OnlineAdmission$studentCategoryArgs<ExtArgs> = {}>(args?: Subset<T, OnlineAdmission$studentCategoryArgs<ExtArgs>>): Prisma__StudentCategoryClient<$Result.GetResult<Prisma.$StudentCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -126236,6 +126236,25 @@ export namespace Prisma {
      */
     include?: AcademicSessionInclude<ExtArgs> | null
     where?: AcademicSessionWhereInput
+  }
+
+  /**
+   * OnlineAdmission.desiredClass
+   */
+  export type OnlineAdmission$desiredClassArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Class
+     */
+    select?: ClassSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Class
+     */
+    omit?: ClassOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClassInclude<ExtArgs> | null
+    where?: ClassWhereInput
   }
 
   /**
@@ -154429,10 +154448,14 @@ export namespace Prisma {
 
   export type EventApplicationAvgAggregateOutputType = {
     age: number | null
+    discountValue: Decimal | null
+    discountAmount: Decimal | null
   }
 
   export type EventApplicationSumAggregateOutputType = {
     age: number | null
+    discountValue: Decimal | null
+    discountAmount: Decimal | null
   }
 
   export type EventApplicationMinAggregateOutputType = {
@@ -154466,6 +154489,12 @@ export namespace Prisma {
     proofOfPaymentUrl: string | null
     status: string | null
     paymentStatus: string | null
+    discountType: $Enums.DiscountType | null
+    discountValue: Decimal | null
+    discountAmount: Decimal | null
+    discountReason: string | null
+    discountedById: string | null
+    discountedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -154501,6 +154530,12 @@ export namespace Prisma {
     proofOfPaymentUrl: string | null
     status: string | null
     paymentStatus: string | null
+    discountType: $Enums.DiscountType | null
+    discountValue: Decimal | null
+    discountAmount: Decimal | null
+    discountReason: string | null
+    discountedById: string | null
+    discountedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -154536,6 +154571,12 @@ export namespace Prisma {
     proofOfPaymentUrl: number
     status: number
     paymentStatus: number
+    discountType: number
+    discountValue: number
+    discountAmount: number
+    discountReason: number
+    discountedById: number
+    discountedAt: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -154544,10 +154585,14 @@ export namespace Prisma {
 
   export type EventApplicationAvgAggregateInputType = {
     age?: true
+    discountValue?: true
+    discountAmount?: true
   }
 
   export type EventApplicationSumAggregateInputType = {
     age?: true
+    discountValue?: true
+    discountAmount?: true
   }
 
   export type EventApplicationMinAggregateInputType = {
@@ -154581,6 +154626,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: true
     status?: true
     paymentStatus?: true
+    discountType?: true
+    discountValue?: true
+    discountAmount?: true
+    discountReason?: true
+    discountedById?: true
+    discountedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -154616,6 +154667,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: true
     status?: true
     paymentStatus?: true
+    discountType?: true
+    discountValue?: true
+    discountAmount?: true
+    discountReason?: true
+    discountedById?: true
+    discountedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -154651,6 +154708,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: true
     status?: true
     paymentStatus?: true
+    discountType?: true
+    discountValue?: true
+    discountAmount?: true
+    discountReason?: true
+    discountedById?: true
+    discountedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -154773,6 +154836,12 @@ export namespace Prisma {
     proofOfPaymentUrl: string | null
     status: string
     paymentStatus: string
+    discountType: $Enums.DiscountType | null
+    discountValue: Decimal | null
+    discountAmount: Decimal | null
+    discountReason: string | null
+    discountedById: string | null
+    discountedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: EventApplicationCountAggregateOutputType | null
@@ -154827,6 +154896,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: boolean
     status?: boolean
     paymentStatus?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    discountAmount?: boolean
+    discountReason?: boolean
+    discountedById?: boolean
+    discountedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -154866,6 +154941,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: boolean
     status?: boolean
     paymentStatus?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    discountAmount?: boolean
+    discountReason?: boolean
+    discountedById?: boolean
+    discountedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -154904,6 +154985,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: boolean
     status?: boolean
     paymentStatus?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    discountAmount?: boolean
+    discountReason?: boolean
+    discountedById?: boolean
+    discountedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
@@ -154942,11 +155029,17 @@ export namespace Prisma {
     proofOfPaymentUrl?: boolean
     status?: boolean
     paymentStatus?: boolean
+    discountType?: boolean
+    discountValue?: boolean
+    discountAmount?: boolean
+    discountReason?: boolean
+    discountedById?: boolean
+    discountedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EventApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "packageId" | "branchId" | "fullName" | "gender" | "dateOfBirth" | "age" | "parentName" | "parentPhone" | "parentEmail" | "address" | "state" | "localGovernment" | "memorizationLevel" | "school" | "islamicBackground" | "previousParticipation" | "medicalConditions" | "allergies" | "emergencyContact" | "accommodationPreference" | "passportPhotoUrl" | "birthCertificateUrl" | "ninUrl" | "schoolIdUrl" | "medicalReportUrl" | "proofOfPaymentUrl" | "status" | "paymentStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["eventApplication"]>
+  export type EventApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "eventId" | "packageId" | "branchId" | "fullName" | "gender" | "dateOfBirth" | "age" | "parentName" | "parentPhone" | "parentEmail" | "address" | "state" | "localGovernment" | "memorizationLevel" | "school" | "islamicBackground" | "previousParticipation" | "medicalConditions" | "allergies" | "emergencyContact" | "accommodationPreference" | "passportPhotoUrl" | "birthCertificateUrl" | "ninUrl" | "schoolIdUrl" | "medicalReportUrl" | "proofOfPaymentUrl" | "status" | "paymentStatus" | "discountType" | "discountValue" | "discountAmount" | "discountReason" | "discountedById" | "discountedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["eventApplication"]>
   export type EventApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     event?: boolean | CampusEventDefaultArgs<ExtArgs>
     package?: boolean | EventPackageDefaultArgs<ExtArgs>
@@ -155003,6 +155096,12 @@ export namespace Prisma {
       proofOfPaymentUrl: string | null
       status: string
       paymentStatus: string
+      discountType: $Enums.DiscountType | null
+      discountValue: Prisma.Decimal | null
+      discountAmount: Prisma.Decimal | null
+      discountReason: string | null
+      discountedById: string | null
+      discountedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["eventApplication"]>
@@ -155462,6 +155561,12 @@ export namespace Prisma {
     readonly proofOfPaymentUrl: FieldRef<"EventApplication", 'String'>
     readonly status: FieldRef<"EventApplication", 'String'>
     readonly paymentStatus: FieldRef<"EventApplication", 'String'>
+    readonly discountType: FieldRef<"EventApplication", 'DiscountType'>
+    readonly discountValue: FieldRef<"EventApplication", 'Decimal'>
+    readonly discountAmount: FieldRef<"EventApplication", 'Decimal'>
+    readonly discountReason: FieldRef<"EventApplication", 'String'>
+    readonly discountedById: FieldRef<"EventApplication", 'String'>
+    readonly discountedAt: FieldRef<"EventApplication", 'DateTime'>
     readonly createdAt: FieldRef<"EventApplication", 'DateTime'>
     readonly updatedAt: FieldRef<"EventApplication", 'DateTime'>
   }
@@ -216991,6 +217096,12 @@ export namespace Prisma {
     proofOfPaymentUrl: 'proofOfPaymentUrl',
     status: 'status',
     paymentStatus: 'paymentStatus',
+    discountType: 'discountType',
+    discountValue: 'discountValue',
+    discountAmount: 'discountAmount',
+    discountReason: 'discountReason',
+    discountedById: 'discountedById',
+    discountedAt: 'discountedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -226741,7 +226852,7 @@ export namespace Prisma {
     ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
-    desiredClassId?: StringFilter<"OnlineAdmission"> | string
+    desiredClassId?: StringNullableFilter<"OnlineAdmission"> | string | null
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
@@ -226850,7 +226961,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
-    desiredClass?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    desiredClass?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
@@ -226882,7 +226993,7 @@ export namespace Prisma {
     ninNumber?: SortOrderInput | SortOrder
     academicSessionId?: SortOrderInput | SortOrder
     admissionTerm?: SortOrderInput | SortOrder
-    desiredClassId?: SortOrder
+    desiredClassId?: SortOrderInput | SortOrder
     desiredSectionId?: SortOrderInput | SortOrder
     admissionType?: SortOrderInput | SortOrder
     transferReason?: SortOrderInput | SortOrder
@@ -227026,7 +227137,7 @@ export namespace Prisma {
     ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
-    desiredClassId?: StringFilter<"OnlineAdmission"> | string
+    desiredClassId?: StringNullableFilter<"OnlineAdmission"> | string | null
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
@@ -227135,7 +227246,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"OnlineAdmission"> | Date | string
     academicSession?: XOR<AcademicSessionNullableScalarRelationFilter, AcademicSessionWhereInput> | null
     branch?: XOR<BranchScalarRelationFilter, BranchWhereInput>
-    desiredClass?: XOR<ClassScalarRelationFilter, ClassWhereInput>
+    desiredClass?: XOR<ClassNullableScalarRelationFilter, ClassWhereInput> | null
     desiredSection?: XOR<SectionNullableScalarRelationFilter, SectionWhereInput> | null
     parent?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     studentCategory?: XOR<StudentCategoryNullableScalarRelationFilter, StudentCategoryWhereInput> | null
@@ -227167,7 +227278,7 @@ export namespace Prisma {
     ninNumber?: SortOrderInput | SortOrder
     academicSessionId?: SortOrderInput | SortOrder
     admissionTerm?: SortOrderInput | SortOrder
-    desiredClassId?: SortOrder
+    desiredClassId?: SortOrderInput | SortOrder
     desiredSectionId?: SortOrderInput | SortOrder
     admissionType?: SortOrderInput | SortOrder
     transferReason?: SortOrderInput | SortOrder
@@ -227305,7 +227416,7 @@ export namespace Prisma {
     ninNumber?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableWithAggregatesFilter<"OnlineAdmission"> | $Enums.Term | null
-    desiredClassId?: StringWithAggregatesFilter<"OnlineAdmission"> | string
+    desiredClassId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     desiredSectionId?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableWithAggregatesFilter<"OnlineAdmission"> | string | null
@@ -229491,6 +229602,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
     status?: StringFilter<"EventApplication"> | string
     paymentStatus?: StringFilter<"EventApplication"> | string
+    discountType?: EnumDiscountTypeNullableFilter<"EventApplication"> | $Enums.DiscountType | null
+    discountValue?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountReason?: StringNullableFilter<"EventApplication"> | string | null
+    discountedById?: StringNullableFilter<"EventApplication"> | string | null
+    discountedAt?: DateTimeNullableFilter<"EventApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"EventApplication"> | Date | string
     updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
     event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
@@ -229530,6 +229647,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    discountType?: SortOrderInput | SortOrder
+    discountValue?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
+    discountReason?: SortOrderInput | SortOrder
+    discountedById?: SortOrderInput | SortOrder
+    discountedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     event?: CampusEventOrderByWithRelationInput
@@ -229572,6 +229695,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
     status?: StringFilter<"EventApplication"> | string
     paymentStatus?: StringFilter<"EventApplication"> | string
+    discountType?: EnumDiscountTypeNullableFilter<"EventApplication"> | $Enums.DiscountType | null
+    discountValue?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountReason?: StringNullableFilter<"EventApplication"> | string | null
+    discountedById?: StringNullableFilter<"EventApplication"> | string | null
+    discountedAt?: DateTimeNullableFilter<"EventApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"EventApplication"> | Date | string
     updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
     event?: XOR<CampusEventScalarRelationFilter, CampusEventWhereInput>
@@ -229611,6 +229740,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: SortOrderInput | SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    discountType?: SortOrderInput | SortOrder
+    discountValue?: SortOrderInput | SortOrder
+    discountAmount?: SortOrderInput | SortOrder
+    discountReason?: SortOrderInput | SortOrder
+    discountedById?: SortOrderInput | SortOrder
+    discountedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EventApplicationCountOrderByAggregateInput
@@ -229654,6 +229789,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
     status?: StringWithAggregatesFilter<"EventApplication"> | string
     paymentStatus?: StringWithAggregatesFilter<"EventApplication"> | string
+    discountType?: EnumDiscountTypeNullableWithAggregatesFilter<"EventApplication"> | $Enums.DiscountType | null
+    discountValue?: DecimalNullableWithAggregatesFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: DecimalNullableWithAggregatesFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountReason?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    discountedById?: StringNullableWithAggregatesFilter<"EventApplication"> | string | null
+    discountedAt?: DateTimeNullableWithAggregatesFilter<"EventApplication"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"EventApplication"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"EventApplication"> | Date | string
   }
@@ -243098,7 +243239,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -243130,7 +243271,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -243364,7 +243505,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -243396,7 +243537,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -243529,7 +243670,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -243781,7 +243922,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -246151,6 +246292,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutApplicationsInput
@@ -246190,6 +246337,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
@@ -246223,6 +246376,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
@@ -246262,6 +246421,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
@@ -246298,6 +246463,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -246330,6 +246501,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -246365,6 +246542,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -259095,12 +259278,20 @@ export namespace Prisma {
     proofOfPaymentUrl?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    discountAmount?: SortOrder
+    discountReason?: SortOrder
+    discountedById?: SortOrder
+    discountedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type EventApplicationAvgOrderByAggregateInput = {
     age?: SortOrder
+    discountValue?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type EventApplicationMaxOrderByAggregateInput = {
@@ -259134,6 +259325,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    discountAmount?: SortOrder
+    discountReason?: SortOrder
+    discountedById?: SortOrder
+    discountedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -259169,12 +259366,20 @@ export namespace Prisma {
     proofOfPaymentUrl?: SortOrder
     status?: SortOrder
     paymentStatus?: SortOrder
+    discountType?: SortOrder
+    discountValue?: SortOrder
+    discountAmount?: SortOrder
+    discountReason?: SortOrder
+    discountedById?: SortOrder
+    discountedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type EventApplicationSumOrderByAggregateInput = {
     age?: SortOrder
+    discountValue?: SortOrder
+    discountAmount?: SortOrder
   }
 
   export type EventRSVPEventIdUserIdCompoundUniqueInput = {
@@ -275427,10 +275632,12 @@ export namespace Prisma {
     update?: XOR<XOR<BranchUpdateToOneWithWhereWithoutOnlineAdmissionsInput, BranchUpdateWithoutOnlineAdmissionsInput>, BranchUncheckedUpdateWithoutOnlineAdmissionsInput>
   }
 
-  export type ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput = {
+  export type ClassUpdateOneWithoutOnlineAdmissionsNestedInput = {
     create?: XOR<ClassCreateWithoutOnlineAdmissionsInput, ClassUncheckedCreateWithoutOnlineAdmissionsInput>
     connectOrCreate?: ClassCreateOrConnectWithoutOnlineAdmissionsInput
     upsert?: ClassUpsertWithoutOnlineAdmissionsInput
+    disconnect?: ClassWhereInput | boolean
+    delete?: ClassWhereInput | boolean
     connect?: ClassWhereUniqueInput
     update?: XOR<XOR<ClassUpdateToOneWithWhereWithoutOnlineAdmissionsInput, ClassUpdateWithoutOnlineAdmissionsInput>, ClassUncheckedUpdateWithoutOnlineAdmissionsInput>
   }
@@ -281537,7 +281744,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -281569,7 +281776,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -282748,6 +282955,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutApplicationsInput
@@ -282785,6 +282998,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
@@ -286412,7 +286631,7 @@ export namespace Prisma {
     ninNumber?: StringNullableFilter<"OnlineAdmission"> | string | null
     academicSessionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionTerm?: EnumTermNullableFilter<"OnlineAdmission"> | $Enums.Term | null
-    desiredClassId?: StringFilter<"OnlineAdmission"> | string
+    desiredClassId?: StringNullableFilter<"OnlineAdmission"> | string | null
     desiredSectionId?: StringNullableFilter<"OnlineAdmission"> | string | null
     admissionType?: StringNullableFilter<"OnlineAdmission"> | string | null
     transferReason?: StringNullableFilter<"OnlineAdmission"> | string | null
@@ -287302,6 +287521,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: StringNullableFilter<"EventApplication"> | string | null
     status?: StringFilter<"EventApplication"> | string
     paymentStatus?: StringFilter<"EventApplication"> | string
+    discountType?: EnumDiscountTypeNullableFilter<"EventApplication"> | $Enums.DiscountType | null
+    discountValue?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: DecimalNullableFilter<"EventApplication"> | Decimal | DecimalJsLike | number | string | null
+    discountReason?: StringNullableFilter<"EventApplication"> | string | null
+    discountedById?: StringNullableFilter<"EventApplication"> | string | null
+    discountedAt?: DateTimeNullableFilter<"EventApplication"> | Date | string | null
     createdAt?: DateTimeFilter<"EventApplication"> | Date | string
     updatedAt?: DateTimeFilter<"EventApplication"> | Date | string
   }
@@ -292271,7 +292496,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
@@ -292302,7 +292527,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -302384,7 +302609,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -302415,7 +302640,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -303571,7 +303796,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
     previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
@@ -303602,7 +303827,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     admissionType?: string | null
     transferReason?: string | null
     assessmentScore?: Decimal | DecimalJsLike | number | string | null
@@ -304154,7 +304379,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -304185,7 +304410,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -322500,7 +322725,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -322531,7 +322756,7 @@ export namespace Prisma {
     age?: number | null
     ninNumber?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -349134,7 +349359,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     previousSchools?: PreviousSchoolCreateNestedManyWithoutAdmissionInput
@@ -349165,7 +349390,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -350186,7 +350411,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -350217,7 +350442,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -350466,7 +350691,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -350497,7 +350722,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -364481,6 +364706,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     package: EventPackageCreateNestedOneWithoutApplicationsInput
@@ -364518,6 +364749,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
@@ -365085,6 +365322,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutApplicationsInput
@@ -365122,6 +365365,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     payment?: EventPaymentUncheckedCreateNestedOneWithoutApplicationInput
@@ -366814,6 +367063,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     event: CampusEventCreateNestedOneWithoutApplicationsInput
@@ -366852,6 +367107,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -366900,6 +367161,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
@@ -366938,6 +367205,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -395754,7 +396027,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -395785,7 +396058,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -396071,7 +396344,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -396102,7 +396375,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -396378,7 +396651,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     academicSession?: AcademicSessionCreateNestedOneWithoutOnlineAdmissionsInput
     branch: BranchCreateNestedOneWithoutOnlineAdmissionsInput
-    desiredClass: ClassCreateNestedOneWithoutOnlineAdmissionsInput
+    desiredClass?: ClassCreateNestedOneWithoutOnlineAdmissionsInput
     desiredSection?: SectionCreateNestedOneWithoutOnlineAdmissionsInput
     parent?: UserCreateNestedOneWithoutOnlineAdmissionsInput
     studentCategory?: StudentCategoryCreateNestedOneWithoutOnlineAdmissionsInput
@@ -396409,7 +396682,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -396945,7 +397218,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -396976,7 +397249,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -401954,7 +402227,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -402423,6 +402696,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -404755,7 +405034,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -404787,7 +405066,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -404919,7 +405198,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -406216,6 +406495,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
@@ -406253,6 +406538,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
@@ -406288,6 +406579,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -409209,7 +409506,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -409875,7 +410172,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
@@ -409906,7 +410203,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -410038,7 +410335,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -412974,7 +413271,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -414200,7 +414497,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -414231,7 +414528,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -414363,7 +414660,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -414670,7 +414967,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     admissionType?: string | null
     transferReason?: string | null
     assessmentScore?: Decimal | DecimalJsLike | number | string | null
@@ -414887,7 +415184,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -415491,7 +415788,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
     previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
@@ -415522,7 +415819,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -415654,7 +415951,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
     assessmentScore?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
@@ -416198,7 +416495,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -416229,7 +416526,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -416361,7 +416658,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -418122,7 +418419,7 @@ export namespace Prisma {
     age?: number | null
     ninNumber?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -418843,7 +419140,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     studentCategory?: StudentCategoryUpdateOneWithoutOnlineAdmissionsNestedInput
@@ -418874,7 +419171,7 @@ export namespace Prisma {
     age?: NullableIntFieldUpdateOperationsInput | number | null
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -419006,7 +419303,7 @@ export namespace Prisma {
     age?: NullableIntFieldUpdateOperationsInput | number | null
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -420485,7 +420782,7 @@ export namespace Prisma {
     ninNumber?: string | null
     academicSessionId?: string | null
     admissionTerm?: $Enums.Term | null
-    desiredClassId: string
+    desiredClassId?: string | null
     desiredSectionId?: string | null
     admissionType?: string | null
     transferReason?: string | null
@@ -420771,7 +421068,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     academicSession?: AcademicSessionUpdateOneWithoutOnlineAdmissionsNestedInput
     branch?: BranchUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
-    desiredClass?: ClassUpdateOneRequiredWithoutOnlineAdmissionsNestedInput
+    desiredClass?: ClassUpdateOneWithoutOnlineAdmissionsNestedInput
     desiredSection?: SectionUpdateOneWithoutOnlineAdmissionsNestedInput
     parent?: UserUpdateOneWithoutOnlineAdmissionsNestedInput
     previousSchools?: PreviousSchoolUpdateManyWithoutAdmissionNestedInput
@@ -420802,7 +421099,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -420934,7 +421231,7 @@ export namespace Prisma {
     ninNumber?: NullableStringFieldUpdateOperationsInput | string | null
     academicSessionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionTerm?: NullableEnumTermFieldUpdateOperationsInput | $Enums.Term | null
-    desiredClassId?: StringFieldUpdateOperationsInput | string
+    desiredClassId?: NullableStringFieldUpdateOperationsInput | string | null
     desiredSectionId?: NullableStringFieldUpdateOperationsInput | string | null
     admissionType?: NullableStringFieldUpdateOperationsInput | string | null
     transferReason?: NullableStringFieldUpdateOperationsInput | string | null
@@ -422103,6 +422400,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -422266,6 +422569,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     package?: EventPackageUpdateOneRequiredWithoutApplicationsNestedInput
@@ -422303,6 +422612,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
@@ -422338,6 +422653,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -422372,6 +422693,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: string | null
     status?: string
     paymentStatus?: string
+    discountType?: $Enums.DiscountType | null
+    discountValue?: Decimal | DecimalJsLike | number | string | null
+    discountAmount?: Decimal | DecimalJsLike | number | string | null
+    discountReason?: string | null
+    discountedById?: string | null
+    discountedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -422404,6 +422731,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     event?: CampusEventUpdateOneRequiredWithoutApplicationsNestedInput
@@ -422441,6 +422774,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     payment?: EventPaymentUncheckedUpdateOneWithoutApplicationNestedInput
@@ -422476,6 +422815,12 @@ export namespace Prisma {
     proofOfPaymentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
+    discountType?: NullableEnumDiscountTypeFieldUpdateOperationsInput | $Enums.DiscountType | null
+    discountValue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountAmount?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    discountReason?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedById?: NullableStringFieldUpdateOperationsInput | string | null
+    discountedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

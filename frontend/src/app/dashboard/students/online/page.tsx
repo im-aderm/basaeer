@@ -47,7 +47,7 @@ export default function OnlineAdmissionsDashboard() {
     const [search, setSearch] = useState("");
     const limit = 50;
 
-    const fetchAdmissions = async (branchId: string, pageNum = page, searchTerm = search) => {
+    const fetchAdmissions = async (branchId?: string, pageNum = page, searchTerm = search) => {
         setLoading(true);
         try {
             const result = await OnlineAdmissionService.getAll(branchId, undefined, pageNum, limit, searchTerm || undefined);
@@ -69,14 +69,7 @@ export default function OnlineAdmissionsDashboard() {
             if (resolvedBranchId) {
                 fetchAdmissions(resolvedBranchId, 1, search);
             } else {
-                BranchService.getAll().then(data => {
-                    setBranches(data);
-                    if (data.length > 0) {
-                        fetchAdmissions(data[0].id, 1, search);
-                    } else {
-                        setLoading(false);
-                    }
-                }).catch(() => setLoading(false));
+                fetchAdmissions(undefined, 1, search);
             }
         }
     }, [user]);
@@ -296,8 +289,7 @@ export default function OnlineAdmissionsDashboard() {
                                     size="sm"
                                     disabled={page <= 1}
                                     onClick={() => {
-                                        const bid = resolvedBranchId || branches[0]?.id;
-                                        if (bid) fetchAdmissions(bid, page - 1);
+                                        fetchAdmissions(resolvedBranchId, page - 1);
                                     }}
                                     className="h-8 rounded-xl font-bold text-[12px]"
                                 >
@@ -311,8 +303,7 @@ export default function OnlineAdmissionsDashboard() {
                                     size="sm"
                                     disabled={page >= totalPages}
                                     onClick={() => {
-                                        const bid = resolvedBranchId || branches[0]?.id;
-                                        if (bid) fetchAdmissions(bid, page + 1);
+                                        fetchAdmissions(resolvedBranchId, page + 1);
                                     }}
                                     className="h-8 rounded-xl font-bold text-[12px]"
                                 >

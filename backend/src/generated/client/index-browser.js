@@ -1764,6 +1764,12 @@ exports.Prisma.EventApplicationScalarFieldEnum = {
   proofOfPaymentUrl: 'proofOfPaymentUrl',
   status: 'status',
   paymentStatus: 'paymentStatus',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  discountAmount: 'discountAmount',
+  discountReason: 'discountReason',
+  discountedById: 'discountedById',
+  discountedAt: 'discountedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

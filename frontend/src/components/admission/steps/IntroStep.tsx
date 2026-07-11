@@ -41,8 +41,6 @@ export function IntroStep() {
               updateFormData({
                 desiredBranchId: v,
                 branchId: v,
-                desiredClassId: "",
-                desiredSectionId: "",
                 academicSessionId: "",
               });
             }}

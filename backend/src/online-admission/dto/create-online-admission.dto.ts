@@ -121,8 +121,8 @@ export class CreateOnlineAdmissionDto {
   admissionTerm?: Term;
 
   @IsUUID()
-  @IsNotEmpty()
-  desiredClassId: string;
+  @IsOptional()
+  desiredClassId?: string;
 
   @IsUUID()
   @IsOptional()

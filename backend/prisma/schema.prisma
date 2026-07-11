@@ -1868,7 +1868,7 @@ model OnlineAdmission {
   ninNumber                 String?
   academicSessionId         String?
   admissionTerm             Term?
-  desiredClassId            String
+  desiredClassId            String?
   desiredSectionId          String?
   admissionType             String?
   transferReason            String?
@@ -1980,7 +1980,7 @@ model OnlineAdmission {
   updatedAt       DateTime             @updatedAt
   academicSession AcademicSession?     @relation(fields: [academicSessionId], references: [id])
   branch          Branch               @relation(fields: [branchId], references: [id])
-  desiredClass    Class                @relation(fields: [desiredClassId], references: [id])
+  desiredClass    Class?               @relation(fields: [desiredClassId], references: [id])
   desiredSection  Section?             @relation(fields: [desiredSectionId], references: [id])
   parent          User?                @relation("ParentAdmission", fields: [parentId], references: [id])
   studentCategory StudentCategory?     @relation(fields: [studentCategoryId], references: [id])

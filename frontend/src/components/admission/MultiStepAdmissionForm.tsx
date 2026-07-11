@@ -71,7 +71,6 @@ export function MultiStepAdmissionForm() {
         'dateOfBirth must be a DateString': 'Date of birth is required',
         'guardianName must be a string': 'Guardian name is required',
         'guardianPhone must be a string': 'Guardian phone is required',
-        'desiredClassId must be a UUID': 'Please select a class',
         'branchId must be a UUID': 'Branch selection is required',
         'expected string, received undefined': 'Please fill in all required fields',
       };

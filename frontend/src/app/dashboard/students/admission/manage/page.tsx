@@ -74,8 +74,7 @@ export default function AdmissionsManagementPage() {
     }, [user]);
 
     const fetchAdmissions = async (branchId?: string) => {
-        const idToUse = branchId || resolvedBranchId;
-        if (!idToUse) return;
+        const idToUse = branchId !== undefined ? branchId : resolvedBranchId;
         try {
             const result = await OnlineAdmissionService.getAll(idToUse);
             setAdmissions(result.data);

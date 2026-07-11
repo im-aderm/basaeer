@@ -79,15 +79,9 @@ export function PaymentStep() {
     updateFormData({
       desiredBranchId: v,
       branchId: v,
-      desiredClassId: "",
-      desiredSectionId: "",
       academicSessionId: "",
     });
     setInitData(null);
-  };
-
-  const handleClassChange = (v: string) => {
-    updateFormData({ desiredClassId: v, desiredSectionId: "" });
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -140,19 +134,16 @@ export function PaymentStep() {
     showInfo("Payment proof removed");
   };
 
-  const selectedClassId = formData.desiredClassId;
-  const sections = selectedClassId && initData?.sections ? initData.sections[selectedClassId] : null;
   const hasBranch = !!formData.desiredBranchId;
   const isLoading = loading;
-  const hasClasses = initData && Array.isArray(initData.classes);
   const hasSessions = initData && Array.isArray(initData.sessions);
 
   return (
     <CardContent className="p-6 md:p-8 space-y-8">
       {/* Section header */}
       <div className="space-y-1">
-        <h3 className="text-lg font-semibold text-foreground">Payment & Class Selection</h3>
-        <p className="text-sm text-muted-foreground">Select your class and complete the admission fee payment.</p>
+        <h3 className="text-lg font-semibold text-foreground">Payment & Submission</h3>
+        <p className="text-sm text-muted-foreground">Select your campus and session, then complete the admission fee payment.</p>
       </div>
 
       {/* Admission type badge */}
@@ -164,7 +155,7 @@ export function PaymentStep() {
         </span>
       </div>
 
-      {/* Campus, Session, Class, Section */}
+      {/* Campus & Session */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Branch */}
         <div className="space-y-1">
@@ -218,63 +209,6 @@ export function PaymentStep() {
             </div>
           )}
         </div>
-
-        {/* Class */}
-        <div className="space-y-1">
-          <Label>Applying for Class</Label>
-          {isLoading ? (
-            <div className="h-10 rounded-lg bg-muted/30 border border-border flex items-center px-3">
-              <Loader2 size={14} className="animate-spin mr-2 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">Loading...</span>
-            </div>
-          ) : hasClasses && initData.classes.length > 0 ? (
-            <Select
-              value={formData.desiredClassId}
-              onValueChange={handleClassChange}
-            >
-              <SelectTrigger className="h-10 rounded-lg">
-                <SelectValue placeholder="Select class" />
-              </SelectTrigger>
-              <SelectContent>
-                {initData.classes.map((c: any) => (
-                  <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ) : hasBranch ? (
-            <div className="h-10 rounded-lg bg-muted/30 border border-border flex items-center px-3 text-sm text-muted-foreground">
-              No classes configured for this campus
-            </div>
-          ) : (
-            <div className="h-10 rounded-lg bg-muted/30 border border-border flex items-center px-3 text-sm text-muted-foreground">
-              Select campus first
-            </div>
-          )}
-        </div>
-
-        {/* Section */}
-        <div className="space-y-1">
-          <Label>Section <span className="text-muted-foreground font-normal">(optional)</span></Label>
-          {sections && sections.length > 0 ? (
-            <Select
-              value={formData.desiredSectionId}
-              onValueChange={(v) => updateFormData({ desiredSectionId: v })}
-            >
-              <SelectTrigger className="h-10 rounded-lg">
-                <SelectValue placeholder="Select section" />
-              </SelectTrigger>
-              <SelectContent>
-                {sections.map((s: any) => (
-                  <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ) : (
-            <div className="h-10 rounded-lg bg-muted/30 border border-border flex items-center px-3 text-sm text-muted-foreground">
-              {hasBranch ? "No sections for this class" : "Select campus and class first"}
-            </div>
-          )}
-        </div>
       </div>
 
       {/* Payment section */}
@@ -306,9 +240,8 @@ export function PaymentStep() {
         </div>
 
         {/* Payment proof upload */}
-        {formData.desiredClassId && (
-          <div className="space-y-3">
-            <Label className="text-sm font-medium">Payment Proof <span className="text-muted-foreground font-normal">(optional for testing)</span></Label>
+        <div className="space-y-3">
+            <Label className="text-sm font-medium">Payment Proof <span className="text-muted-foreground font-normal">(optional)</span></Label>
             <input
               ref={fileInputRef}
               type="file"
@@ -366,7 +299,6 @@ export function PaymentStep() {
               />
             )}
           </div>
-        )}
       </div>
     </CardContent>
   );
