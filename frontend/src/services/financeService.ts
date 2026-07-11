@@ -114,6 +114,14 @@ export const financeService = {
     return res.data;
   },
 
+  applyInvoiceDiscount: async (
+    invoiceId: string,
+    data: { discountType: 'PERCENTAGE' | 'FIXED'; discountValue: number; discountReason: string },
+  ): Promise<Invoice> => {
+    const res = await api.post(`/finance/invoices/${invoiceId}/discount`, data);
+    return res.data;
+  },
+
   recordPayment: async (data: { invoiceId: string; amount: number; method: string; transactionId?: string; proofUrl?: string; notes?: string; branchId: string }): Promise<Payment> => {
     const res = await api.post('/finance/payments', data);
     return res.data;

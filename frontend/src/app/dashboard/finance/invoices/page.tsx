@@ -12,7 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, Search, FileText } from 'lucide-react';
+import { Plus, Search, FileText, Percent } from 'lucide-react';
+import { toast } from 'sonner';
+import { financeService } from '@/services/financeService';
 import api from '@/lib/api';
 
 export default function InvoicesPage() {
@@ -20,6 +22,42 @@ export default function InvoicesPage() {
     const [invoices, setInvoices] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [studentId, setStudentId] = useState('');
+
+    // For applying a discount
+    const [discountInvoice, setDiscountInvoice] = useState<any | null>(null);
+    const [discountForm, setDiscountForm] = useState<{ discountType: 'PERCENTAGE' | 'FIXED'; discountValue: string; discountReason: string }>({
+        discountType: 'PERCENTAGE',
+        discountValue: '',
+        discountReason: '',
+    });
+    const [discountSubmitting, setDiscountSubmitting] = useState(false);
+
+    const openDiscount = (inv: any) => {
+        setDiscountForm({ discountType: 'PERCENTAGE', discountValue: '', discountReason: '' });
+        setDiscountInvoice(inv);
+    };
+
+    const submitDiscount = async () => {
+        if (!discountInvoice) return;
+        const value = parseFloat(discountForm.discountValue);
+        if (!value || value <= 0) { toast.error('Enter a discount value greater than zero.'); return; }
+        if (!discountForm.discountReason.trim()) { toast.error('A reason is required.'); return; }
+        setDiscountSubmitting(true);
+        try {
+            await financeService.applyInvoiceDiscount(discountInvoice.id, {
+                discountType: discountForm.discountType,
+                discountValue: value,
+                discountReason: discountForm.discountReason.trim(),
+            });
+            toast.success('Discount applied.');
+            setDiscountInvoice(null);
+            fetchInvoices();
+        } catch (e: any) {
+            toast.error(e?.response?.data?.message || 'Could not apply the discount.');
+        } finally {
+            setDiscountSubmitting(false);
+        }
+    };
 
     // For creating invoice
     const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -200,7 +238,17 @@ export default function InvoicesPage() {
                                         </span>
                                     </TableCell>
                                     <TableCell className={TABLE_CELL_ACTIONS}>
-                                        <Button size="sm" variant="outline">View</Button>
+                                        <div className="flex items-center justify-end gap-1.5">
+                                            {inv.discountAmount == null && inv.status !== 'PAID' && inv.status !== 'VOIDED' && Number(inv.balance) > 0 && (
+                                                <Button size="sm" variant="outline" onClick={() => openDiscount(inv)} title="Apply discount">
+                                                    <Percent className="h-3.5 w-3.5 mr-1" /> Discount
+                                                </Button>
+                                            )}
+                                            {inv.discountAmount != null && (
+                                                <span className="text-[11px] text-green-700 font-medium">−₦{Number(inv.discountAmount).toLocaleString()}</span>
+                                            )}
+                                            <Button size="sm" variant="outline">View</Button>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -215,6 +263,67 @@ export default function InvoicesPage() {
                     </Table>
                 </CardContent>
             </Card>
+
+            <Dialog open={!!discountInvoice} onOpenChange={(o) => !o && setDiscountInvoice(null)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Apply Discount</DialogTitle>
+                    </DialogHeader>
+                    {discountInvoice && (
+                        <div className="space-y-4">
+                            <div className="text-[13px] text-foreground/70">
+                                Invoice <span className="font-mono">{discountInvoice.invoiceNumber}</span> · Outstanding{' '}
+                                <span className="font-semibold text-red-600">₦{Number(discountInvoice.balance).toLocaleString()}</span>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[12px] font-medium">Discount type</label>
+                                <Select value={discountForm.discountType} onValueChange={(v) => setDiscountForm((f) => ({ ...f, discountType: v as 'PERCENTAGE' | 'FIXED' }))}>
+                                    <SelectTrigger><SelectValue /></SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="PERCENTAGE">Percentage (%)</SelectItem>
+                                        <SelectItem value="FIXED">Fixed amount (₦)</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[12px] font-medium">{discountForm.discountType === 'PERCENTAGE' ? 'Percentage' : 'Amount'}</label>
+                                <Input
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    value={discountForm.discountValue}
+                                    onChange={(e) => setDiscountForm((f) => ({ ...f, discountValue: e.target.value }))}
+                                    placeholder={discountForm.discountType === 'PERCENTAGE' ? 'e.g. 10' : 'e.g. 5000'}
+                                />
+                                {discountForm.discountValue && Number(discountForm.discountValue) > 0 && (
+                                    <p className="text-[11px] text-foreground/60">
+                                        Net after discount: ₦{Math.max(
+                                            0,
+                                            Number(discountInvoice.balance) - (discountForm.discountType === 'PERCENTAGE'
+                                                ? (Number(discountInvoice.balance) * Number(discountForm.discountValue)) / 100
+                                                : Number(discountForm.discountValue)),
+                                        ).toLocaleString()}
+                                    </p>
+                                )}
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[12px] font-medium">Reason</label>
+                                <Input
+                                    value={discountForm.discountReason}
+                                    onChange={(e) => setDiscountForm((f) => ({ ...f, discountReason: e.target.value }))}
+                                    placeholder="e.g. Sibling discount"
+                                />
+                            </div>
+                            <div className="flex justify-end gap-2 pt-2">
+                                <Button variant="outline" onClick={() => setDiscountInvoice(null)}>Cancel</Button>
+                                <Button onClick={submitDiscount} disabled={discountSubmitting}>
+                                    {discountSubmitting ? 'Applying…' : 'Apply Discount'}
+                                </Button>
+                            </div>
+                        </div>
+                    )}
+                </DialogContent>
+            </Dialog>
         </div>
         </RequireBranch>
     );

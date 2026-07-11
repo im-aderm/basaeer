@@ -25,6 +25,8 @@ import { TenantHelper } from '../prisma/tenant-helper';
 import { RealtimeService } from '../realtime/realtime.service';
 import { AuditService } from '../audit/audit.service';
 import { GeneralLedgerService } from './general-ledger.service';
+import { ApplyDiscountDto } from './dto/apply-discount.dto';
+import { computeDiscount, discountCapsFromEnv } from './discount.util';
 
 @Injectable()
 export class FinanceService {
@@ -202,6 +204,94 @@ export class FinanceService {
         );
         return payment;
       });
+  }
+
+  /**
+   * Applies a discount to a fee invoice (percentage or fixed), reducing the
+   * outstanding balance. Restricted to approvers, capped, reason-required, and
+   * audited. A matching credit note is posted to the general ledger so the
+   * books stay balanced, and a discount can only be applied once per invoice.
+   */
+  async applyInvoiceDiscount(
+    invoiceId: string,
+    dto: ApplyDiscountDto,
+    context: TenantContext,
+  ) {
+    return this.prisma.$transaction(async (tx) => {
+      const invoice = await tx.invoice.findFirst({
+        where: TenantHelper.applyIsolation({ id: invoiceId }, context),
+      });
+      if (!invoice) throw new NotFoundException('Invoice not found');
+      if (invoice.status === InvoiceStatus.VOIDED) {
+        throw new BadRequestException('Cannot discount a voided invoice.');
+      }
+      if (invoice.discountAmount != null) {
+        throw new BadRequestException(
+          'A discount has already been applied to this invoice.',
+        );
+      }
+
+      const balance = new Decimal(invoice.balance);
+      if (balance.lte(0)) {
+        throw new BadRequestException(
+          'This invoice has no outstanding balance to discount.',
+        );
+      }
+
+      const { discountAmount, netAmount } = computeDiscount(
+        balance,
+        { type: dto.discountType, value: dto.discountValue },
+        discountCapsFromEnv(),
+      );
+
+      const newStatus = netAmount.lte(0)
+        ? InvoiceStatus.PAID
+        : invoice.status;
+
+      const updated = await tx.invoice.update({
+        where: { id: invoice.id },
+        data: {
+          balance: netAmount,
+          status: newStatus,
+          discountType: dto.discountType,
+          discountValue: new Decimal(dto.discountValue),
+          discountAmount,
+          discountReason: dto.discountReason,
+          discountedById: context.userId,
+          discountedAt: new Date(),
+        },
+      });
+
+      // Keep the ledger balanced: a discount is a credit note against the
+      // receivable/income accounts.
+      await this.ledger
+        .postCreditNote(tx, invoice.branchId, invoice.id, discountAmount)
+        .catch((e) =>
+          this.logger.error(
+            `GL credit note failed for discount on invoice ${invoice.id}: ${e.message}`,
+          ),
+        );
+
+      await this.audit
+        .logAction(
+          context.userId,
+          'DISCOUNT_APPLIED',
+          'finance',
+          invoice.branchId,
+          {
+            invoiceId: invoice.id,
+            discountType: dto.discountType,
+            discountValue: dto.discountValue,
+            discountAmount: discountAmount.toString(),
+            before: { balance: balance.toString(), status: invoice.status },
+            after: { balance: netAmount.toString(), status: newStatus },
+          },
+          dto.discountReason,
+        )
+        .catch(() => undefined);
+
+      return updated;
+    });
   }
 
   private async updateInvoiceBalance(

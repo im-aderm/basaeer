@@ -753,6 +753,13 @@ model Invoice {
   updatedAt       DateTime      @updatedAt
   createdByUserId String?
   updatedByUserId String?
+  // Discount applied at approval time (nullable — most invoices have none)
+  discountType    DiscountType?
+  discountValue   Decimal?      @db.Decimal(12, 2)
+  discountAmount  Decimal?      @db.Decimal(12, 2)
+  discountReason  String?
+  discountedById  String?
+  discountedAt    DateTime?
   student         Student       @relation(fields: [studentId], references: [id])
   branch          Branch        @relation(fields: [branchId], references: [id])
   items           InvoiceItem[]
@@ -2730,6 +2737,11 @@ enum InvoiceStatus {
   PAID
   OVERDUE
   VOIDED
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
 }
 
 enum QuestionType {

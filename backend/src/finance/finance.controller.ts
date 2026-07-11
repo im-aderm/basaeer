@@ -14,6 +14,7 @@ import { CreateFeeCategoryDto } from './dto/create-fee-category.dto';
 import { CreateFeeStructureDto } from './dto/create-fee-structure.dto';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { RecordPaymentDto } from './dto/record-payment.dto';
+import { ApplyDiscountDto } from './dto/apply-discount.dto';
 import { CreateVoucherDto, CreateExpenseCategoryDto } from './dto/voucher.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -90,6 +91,19 @@ export class FinanceController {
     @GetTenantContext() context: TenantContext,
   ) {
     return this.financeService.createInvoice(dto, context);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Discount applied' })
+  @ApiOperation({ summary: 'Apply a discount to an invoice (percentage or fixed)' })
+  @Post('invoices/:id/discount')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  applyInvoiceDiscount(
+    @Param('id') id: string,
+    @Body() dto: ApplyDiscountDto,
+    @GetTenantContext() context: TenantContext,
+  ) {
+    return this.financeService.applyInvoiceDiscount(id, dto, context);
   }
 
   @ApiBearerAuth()

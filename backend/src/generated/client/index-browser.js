@@ -509,7 +509,13 @@ exports.Prisma.InvoiceScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   createdByUserId: 'createdByUserId',
-  updatedByUserId: 'updatedByUserId'
+  updatedByUserId: 'updatedByUserId',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  discountAmount: 'discountAmount',
+  discountReason: 'discountReason',
+  discountedById: 'discountedById',
+  discountedAt: 'discountedAt'
 };
 
 exports.Prisma.QuestionGroupScalarFieldEnum = {
@@ -2509,6 +2515,11 @@ exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
   PAID: 'PAID',
   OVERDUE: 'OVERDUE',
   VOIDED: 'VOIDED'
+};
+
+exports.DiscountType = exports.$Enums.DiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED: 'FIXED'
 };
 
 exports.QuestionType = exports.$Enums.QuestionType = {
