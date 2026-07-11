@@ -477,4 +477,18 @@ export class VerifyPaymentDto {
   @IsString()
   @IsNotEmpty()
   paymentStatus: 'PENDING' | 'VERIFIED' | 'REJECTED';
+
+  // Optional discount applied to the registration fee at verification time.
+  @IsOptional()
+  @IsEnum(['PERCENTAGE', 'FIXED'])
+  discountType?: 'PERCENTAGE' | 'FIXED';
+
+  @IsOptional()
+  @IsNumber()
+  @Min(0.01)
+  discountValue?: number;
+
+  @IsOptional()
+  @IsString()
+  discountReason?: string;
 }

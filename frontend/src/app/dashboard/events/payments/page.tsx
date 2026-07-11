@@ -22,7 +22,8 @@ import {
     TrendingUp,
     AlertCircle,
     ArrowUpDown,
-    CheckCircle2
+    CheckCircle2,
+    Percent
 } from 'lucide-react';
 import {
     TABLE_ROOT,
@@ -76,6 +77,42 @@ export default function PaymentsPage() {
             fetchApplications();
         } catch (error) {
             showError('Failed to update payment verification');
+        }
+    };
+
+    // Approve payment WITH a discount on the registration fee
+    const [discountApp, setDiscountApp] = useState<EventApplication | null>(null);
+    const [discountForm, setDiscountForm] = useState<{ discountType: 'PERCENTAGE' | 'FIXED'; discountValue: string; discountReason: string }>({
+        discountType: 'PERCENTAGE',
+        discountValue: '',
+        discountReason: '',
+    });
+    const [discountSubmitting, setDiscountSubmitting] = useState(false);
+
+    const openDiscount = (app: EventApplication) => {
+        setDiscountForm({ discountType: 'PERCENTAGE', discountValue: '', discountReason: '' });
+        setDiscountApp(app);
+    };
+
+    const submitDiscount = async () => {
+        if (!discountApp) return;
+        const value = parseFloat(discountForm.discountValue);
+        if (!value || value <= 0) { showError('Enter a discount value greater than zero.'); return; }
+        if (!discountForm.discountReason.trim()) { showError('A reason is required.'); return; }
+        setDiscountSubmitting(true);
+        try {
+            await EventsService.verifyPayment(discountApp.id, 'VERIFIED', {
+                discountType: discountForm.discountType,
+                discountValue: value,
+                discountReason: discountForm.discountReason.trim(),
+            });
+            showSuccess('Payment verified with discount applied.');
+            setDiscountApp(null);
+            fetchApplications();
+        } catch (e: any) {
+            showError(e?.response?.data?.message || 'Could not apply the discount.');
+        } finally {
+            setDiscountSubmitting(false);
         }
     };
 
@@ -248,6 +285,9 @@ export default function PaymentsPage() {
                                                         <Button size="icon" variant="ghost" className="h-7 w-7 text-emerald-600 hover:bg-emerald-50 rounded" onClick={() => handleVerify(app.id, 'VERIFIED')} title="Approve Verification">
                                                             <CheckCircle className="h-4 w-4" />
                                                         </Button>
+                                                        <Button size="icon" variant="ghost" className="h-7 w-7 text-amber-600 hover:bg-amber-50 rounded" onClick={() => openDiscount(app)} title="Approve with discount">
+                                                            <Percent className="h-4 w-4" />
+                                                        </Button>
                                                         <Button size="icon" variant="ghost" className="h-7 w-7 text-red-500 hover:bg-red-50 rounded" onClick={() => handleVerify(app.id, 'REJECTED')} title="Reject Proof">
                                                             <XCircle className="h-4 w-4" />
                                                         </Button>
@@ -279,6 +319,54 @@ export default function PaymentsPage() {
                         </div>
                     </div>
                 )}
+
+                {/* Approve-with-discount Dialog */}
+                <Dialog open={!!discountApp} onOpenChange={(o) => !o && setDiscountApp(null)}>
+                    <DialogContent className="rounded-[2rem] max-w-md border-primary/25">
+                        <DialogHeader>
+                            <DialogTitle className="text-base font-bold text-primary">Approve with Discount</DialogTitle>
+                            <DialogDescription>Applies a discount to the registration fee and marks the payment verified.</DialogDescription>
+                        </DialogHeader>
+                        {discountApp && (
+                            <div className="space-y-4">
+                                <div className="text-[13px] text-foreground/70">
+                                    {discountApp.fullName}
+                                    {discountApp.package?.fee != null && (
+                                        <> · Fee <span className="font-semibold">₦{Number(discountApp.package.fee).toLocaleString()}</span></>
+                                    )}
+                                </div>
+                                <div className="flex gap-2">
+                                    <Button type="button" variant={discountForm.discountType === 'PERCENTAGE' ? 'default' : 'outline'} className="flex-1 h-9" onClick={() => setDiscountForm(f => ({ ...f, discountType: 'PERCENTAGE' }))}>Percentage (%)</Button>
+                                    <Button type="button" variant={discountForm.discountType === 'FIXED' ? 'default' : 'outline'} className="flex-1 h-9" onClick={() => setDiscountForm(f => ({ ...f, discountType: 'FIXED' }))}>Fixed (₦)</Button>
+                                </div>
+                                <Input
+                                    type="number"
+                                    min="0"
+                                    step="0.01"
+                                    value={discountForm.discountValue}
+                                    onChange={(e) => setDiscountForm(f => ({ ...f, discountValue: e.target.value }))}
+                                    placeholder={discountForm.discountType === 'PERCENTAGE' ? 'e.g. 10' : 'e.g. 5000'}
+                                />
+                                {discountForm.discountValue && Number(discountForm.discountValue) > 0 && discountApp.package?.fee != null && (
+                                    <p className="text-[11px] text-foreground/60">
+                                        Net fee: ₦{Math.max(0, Number(discountApp.package.fee) - (discountForm.discountType === 'PERCENTAGE' ? (Number(discountApp.package.fee) * Number(discountForm.discountValue)) / 100 : Number(discountForm.discountValue))).toLocaleString()}
+                                    </p>
+                                )}
+                                <Input
+                                    value={discountForm.discountReason}
+                                    onChange={(e) => setDiscountForm(f => ({ ...f, discountReason: e.target.value }))}
+                                    placeholder="Reason (e.g. sibling discount)"
+                                />
+                                <div className="flex justify-end gap-2 pt-1">
+                                    <Button variant="outline" onClick={() => setDiscountApp(null)}>Cancel</Button>
+                                    <Button onClick={submitDiscount} disabled={discountSubmitting}>
+                                        {discountSubmitting ? 'Applying…' : 'Apply & Verify'}
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+                    </DialogContent>
+                </Dialog>
 
                 {/* Receipt Preview Dialog */}
                 {selectedReceipt && (

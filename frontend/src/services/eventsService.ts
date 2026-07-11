@@ -197,8 +197,12 @@ export const EventsService = {
     return response.data;
   },
 
-  verifyPayment: async (id: string, paymentStatus: string): Promise<EventApplication> => {
-    const response = await api.patch(`/events/applications/${id}/payment`, { paymentStatus });
+  verifyPayment: async (
+    id: string,
+    paymentStatus: string,
+    discount?: { discountType: 'PERCENTAGE' | 'FIXED'; discountValue: number; discountReason: string },
+  ): Promise<EventApplication> => {
+    const response = await api.patch(`/events/applications/${id}/payment`, { paymentStatus, ...(discount || {}) });
     return response.data;
   },
 

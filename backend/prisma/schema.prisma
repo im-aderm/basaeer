@@ -2443,6 +2443,13 @@ model EventApplication {
   proofOfPaymentUrl       String?
   status                  String       @default("PENDING") // PENDING, UNDER_REVIEW, APPROVED, REJECTED, WAITLISTED
   paymentStatus           String       @default("PENDING") // PENDING, VERIFIED, REJECTED
+  // Discount applied to the registration fee at payment-verification time (nullable)
+  discountType            DiscountType?
+  discountValue           Decimal?     @db.Decimal(12, 2)
+  discountAmount          Decimal?     @db.Decimal(12, 2)
+  discountReason          String?
+  discountedById          String?
+  discountedAt            DateTime?
   createdAt               DateTime     @default(now())
   updatedAt               DateTime     @updatedAt
   event                   CampusEvent  @relation(fields: [eventId], references: [id])

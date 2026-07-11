@@ -5,6 +5,8 @@ import { TenantHelper } from '../prisma/tenant-helper';
 import { AuditService } from '../audit/audit.service';
 import { MailService } from '../mail/mail.service';
 import { ProvidersService } from '../providers/providers.service';
+import { Decimal } from '@prisma/client/runtime/library';
+import { computeDiscount, discountCapsFromEnv } from '../finance/discount.util';
 import {
   CreateCampusEventDto,
   UpdateCampusEventDto,
@@ -561,17 +563,44 @@ export class EventsService {
   }
 
   async verifyPayment(id: string, dto: VerifyPaymentDto, context: TenantContext) {
-    const app = await this.prisma.eventApplication.findFirst({
+    const app: any = await this.prisma.eventApplication.findFirst({
       where: TenantHelper.applyIsolation({ id }, context),
       include: {
         event: { select: { title: true, slug: true, branchId: true } },
+        package: { select: { fee: true } },
       },
     });
     if (!app) throw new NotFoundException('Application not found');
 
+    // Optionally apply a discount to the registration fee at approval time.
+    // Restricted, capped, reason-required, audited, and applied at most once.
+    const discountData: any = {};
+    if (dto.discountType && dto.discountValue != null) {
+      if (app.discountAmount != null) {
+        throw new BadRequestException(
+          'A discount has already been applied to this registration.',
+        );
+      }
+      if (!dto.discountReason || !dto.discountReason.trim()) {
+        throw new BadRequestException('A reason is required when applying a discount.');
+      }
+      const fee = new Decimal(app.package?.fee ?? 0);
+      const { discountAmount } = computeDiscount(
+        fee,
+        { type: dto.discountType, value: dto.discountValue },
+        discountCapsFromEnv(),
+      );
+      discountData.discountType = dto.discountType;
+      discountData.discountValue = new Decimal(dto.discountValue);
+      discountData.discountAmount = discountAmount;
+      discountData.discountReason = dto.discountReason.trim();
+      discountData.discountedById = context.userId;
+      discountData.discountedAt = new Date();
+    }
+
     const updated = await this.prisma.eventApplication.update({
       where: { id, branchId: context.branchId ?? undefined },
-      data: { paymentStatus: dto.paymentStatus },
+      data: { paymentStatus: dto.paymentStatus, ...discountData },
     });
 
     await this.audit.log({
@@ -580,7 +609,16 @@ export class EventsService {
       context,
       targetId: id,
       targetType: 'EventApplication',
-      details: { to: dto.paymentStatus },
+      details: {
+        to: dto.paymentStatus,
+        ...(discountData.discountAmount
+          ? {
+              discountType: discountData.discountType,
+              discountAmount: discountData.discountAmount.toString(),
+              discountReason: discountData.discountReason,
+            }
+          : {}),
+      },
     });
 
     // Send notification on payment verification
