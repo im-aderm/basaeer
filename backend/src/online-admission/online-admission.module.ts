@@ -10,6 +10,7 @@ import { AdmissionImportProcessor } from './admission-import.processor';
 import { AuditModule } from '../audit/audit.module';
 import { CommsModule } from '../comms/comms.module';
 import { BranchesModule } from '../branches/branches.module';
+import { FinanceModule } from '../finance/finance.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { BranchesModule } from '../branches/branches.module';
     AuditModule,
     CommsModule,
     BranchesModule,
+    FinanceModule,
     BullModule.registerQueue({ name: 'admission-import' }),
   ],
   controllers: [OnlineAdmissionController],

@@ -15,6 +15,7 @@ import { UserRole } from '../generated/client/client';
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 import { MailService } from '../mail/mail.service';
+import { FinanceService } from '../finance/finance.service';
 import { CommsService } from '../comms/comms.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
@@ -29,6 +30,7 @@ export class OnlineAdmissionService {
     private mailService: MailService,
     private commsService: CommsService,
     private auditService: AuditService,
+    private financeService: FinanceService,
   ) {}
 
   async create(createDto: CreateOnlineAdmissionDto, context?: TenantContext | null) {
@@ -323,7 +325,7 @@ export class OnlineAdmissionService {
 
     const branchId = admission.branchId;
 
-    return this.prisma.$transaction(async (tx) => {
+    const result = await this.prisma.$transaction(async (tx) => {
       const year = new Date().getFullYear();
 
       const counter = await tx.counter.upsert({
@@ -465,6 +467,77 @@ export class OnlineAdmissionService {
 
       return student;
     });
+
+    // After the student is enrolled, optionally raise the admission/registration
+    // fee as an invoice so it can be collected — and discounted — through the
+    // normal finance flow. Runs outside the enrolment transaction and is
+    // non-fatal: a billing hiccup must never block an approval.
+    await this.createAdmissionFeeInvoice(result.id, branchId, context);
+
+    return result;
+  }
+
+  /**
+   * Raises the admission/registration fee as an invoice for a newly-enrolled
+   * student. Opt-in via the `admission_generate_fee_invoice` setting so existing
+   * schools that collect the fee another way are unaffected. The invoice is a
+   * normal fee invoice, so the existing invoice-discount flow applies to it.
+   */
+  private async createAdmissionFeeInvoice(
+    studentId: string,
+    branchId: string,
+    context: TenantContext,
+  ): Promise<void> {
+    try {
+      const settings = await this.prisma.globalSetting.findMany({
+        where: {
+          key: { in: ['admission_generate_fee_invoice', 'admission_fee'] },
+          OR: [{ branchId }, { branchId: null }],
+        },
+        select: { key: true, value: true, branchId: true },
+      });
+      const pick = (key: string) =>
+        settings.find((s) => s.key === key && s.branchId === branchId)?.value ??
+        settings.find((s) => s.key === key && s.branchId === null)?.value ??
+        '';
+
+      if (pick('admission_generate_fee_invoice') !== 'true') return;
+
+      const fee = parseFloat(pick('admission_fee') || '0');
+      if (!fee || fee <= 0) return;
+
+      // Find-or-create the "Admission Fee" category for this branch.
+      let category = await this.prisma.feeCategory.findFirst({
+        where: { branchId, name: 'Admission Fee' },
+      });
+      if (!category) {
+        category = await this.prisma.feeCategory.create({
+          data: {
+            name: 'Admission Fee',
+            description: 'One-time admission / registration fee',
+            branchId,
+          },
+        });
+      }
+
+      const dueDate = new Date(
+        Date.now() + 14 * 24 * 60 * 60 * 1000,
+      ).toISOString();
+
+      await this.financeService.createInvoice(
+        {
+          studentId,
+          dueDate,
+          branchId,
+          items: [{ categoryId: category.id, amount: fee }],
+        },
+        context,
+      );
+    } catch (err) {
+      this.logger.error(
+        `Failed to create admission fee invoice for student ${studentId}: ${(err as Error).message}`,
+      );
+    }
   }
 
   async getPublicInitData(branchId: string) {
