@@ -213,8 +213,8 @@ export default function EditEventPage() {
             await EventsService.updateEvent(id, payload);
             showSuccess('Event updated successfully');
             router.push('/dashboard/events');
-        } catch (error) {
-            showError('Failed to update event');
+        } catch (error: any) {
+            showError(error?.response?.data?.message || 'Failed to update event');
         } finally {
             setSaving(false);
         }

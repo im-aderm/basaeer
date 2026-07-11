@@ -28,7 +28,7 @@ export class EventsService {
     private providersService: ProvidersService,
   ) {}
 
-  private async generateSlug(title: string, branchId?: string): Promise<string> {
+  private async generateSlug(title: string, excludeId?: string): Promise<string> {
     const baseSlug = title
       .toLowerCase()
       .trim()
@@ -43,8 +43,12 @@ export class EventsService {
     let count = 0;
 
     while (true) {
+      // `slug` is globally @unique, so uniqueness must be checked globally
+      // (not per-branch). When updating, exclude the event itself so its own
+      // slug isn't treated as a collision.
       const existing = await this.prisma.campusEvent.findFirst({
-        where: branchId ? { slug, branchId } : { slug },
+        where: { slug, ...(excludeId ? { NOT: { id: excludeId } } : {}) },
+        select: { id: true },
       });
       if (!existing) break;
       count++;
@@ -59,7 +63,7 @@ export class EventsService {
       throw new BadRequestException('Branch ID is required');
     }
 
-    const slug = await this.generateSlug(dto.title, branchId);
+    const slug = await this.generateSlug(dto.title);
 
     const event = await this.prisma.$transaction(async (tx) => {
       const createdEvent = await tx.campusEvent.create({
@@ -256,7 +260,12 @@ export class EventsService {
     });
     if (!existing) throw new NotFoundException('Event not found');
 
-    const slug = dto.title ? await this.generateSlug(dto.title, context.branchId ?? undefined) : existing.slug;
+    // Only regenerate the slug when the title actually changes; otherwise keep
+    // the existing slug (avoids needless slug drift and self-collision).
+    const slug =
+      dto.title && dto.title !== existing.title
+        ? await this.generateSlug(dto.title, existing.id)
+        : existing.slug;
 
     const updated = await this.prisma.$transaction(async (tx) => {
       const event = await tx.campusEvent.update({
