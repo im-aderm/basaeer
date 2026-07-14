@@ -36,7 +36,7 @@ export const AdmissionSchema = z.object({
   guardianRelation: z.string().optional(),
   guardianContact1: z.string().min(1, "Primary contact is required"),
   guardianContact2: z.string().optional(),
-  guardianEmail: z.string().email().optional().or(z.literal("")),
+  guardianEmail: z.string().email("Valid email is required for admission notifications"),
 
   // Step 4: Previous School Info
   previousSchools: z.array(z.object({

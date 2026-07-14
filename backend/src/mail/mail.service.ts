@@ -1,5 +1,7 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 import { BranchBrandingService } from '../branches/branch-branding.service';
 
 export interface EmailTemplate {
@@ -18,24 +20,16 @@ export interface EmailTemplate {
   footerText?: string;
 }
 
-interface QueueItem {
-  to: string;
-  subject: string;
-  html: string;
-  retries: number;
-  branchId?: string;
-  attachments?: { filename: string; path?: string; content?: Buffer }[];
-}
-
 @Injectable()
 export class MailService implements OnModuleInit {
   private transporter: nodemailer.Transporter;
   private readonly logger = new Logger(MailService.name);
   private isConfigured = false;
-  private emailQueue: QueueItem[] = [];
-  private isProcessing = false;
 
-  constructor(private readonly brandingService: BranchBrandingService) {}
+  constructor(
+    private readonly brandingService: BranchBrandingService,
+    @InjectQueue('transactional-email') private readonly mailQueue: Queue,
+  ) {}
 
   onModuleInit() {
     const host = process.env.SMTP_HOST;
@@ -60,7 +54,6 @@ export class MailService implements OnModuleInit {
     });
 
     this.verifyConnection();
-    this.startQueueProcessor();
   }
 
   private async verifyConnection() {
@@ -94,35 +87,55 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#2563EB',
       headerTitle: 'Basaer College',
-      headerSubtitle: 'Raising Leaders through Quran & Science',
-      greeting: 'Hello,',
+      headerSubtitle: 'Raising Leaders through Quran & Science  |  تربية الأجيال على القرآن والعلوم',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We have successfully received your admission application for <strong>${this.escapeHtml(studentName)}</strong>.</p>
-        <p>Our registrar is currently reviewing your documents and payment proof. You will receive an update once the verification is complete.</p>
+        <div dir="rtl">
+          <p>نشكركم على تقديم طلب التسجيل، ويسرنا تأكيد استلام طلب تسجيل الطالب <strong>${name}</strong> في أكاديمية البصائر للعلوم القرآنية والعصرية.</p>
+          <p>سيتم مراجعة المستندات وإثبات الدفع من قبل لجنة القبول، وسنوافيكم بآخر المستجدات فور الانتهاء من عملية التحقق.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Dear Guardian,</p>
+          <p>We hereby acknowledge the receipt of your admission application for <strong>${name}</strong> at Basaer Academy for Quranic and Contemporary Sciences.</p>
+          <p>The Admissions Committee is currently reviewing the submitted documents and payment confirmation. You will be notified of the outcome upon completion of the verification process.</p>
+        </div>
       `,
       extraBlocks: [
         {
-          backgroundColor: '#f9f9f9',
+          backgroundColor: '#f0f4ff',
           padding: '20px',
           content: `
-          <p style="margin: 0; font-weight: bold; font-size: 14px; color: #666; text-transform: uppercase;">Next Steps:</p>
-          <ul style="margin: 10px 0 0; padding-left: 20px;">
-            <li>Payment Verification (1-2 business days)</li>
-            <li>Document Review</li>
-            <li>Entrance Interview/Test Invitation</li>
-          </ul>
+          <div dir="rtl">
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #1e40af;">الخطوات التالية:</p>
+            <ul style="margin: 10px 0 0; padding-right: 20px;">
+              <li>التحقق من الدفع (1-2 يوم عمل)</li>
+              <li>مراجعة المستندات</li>
+              <li>دعوة للمقابلة الشخصية / الاختبار</li>
+            </ul>
+          </div>
+          <hr style="margin: 15px 0; border: none; border-top: 1px solid #d0d0d0;" />
+          <div>
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #1e40af;">Next Steps:</p>
+            <ul style="margin: 10px 0 0; padding-left: 20px;">
+              <li>Payment Verification (1-2 business days)</li>
+              <li>Document Review</li>
+              <li>Entrance Interview / Test Invitation</li>
+            </ul>
+          </div>
         `,
         },
       ],
       footerText:
-        'If you have any questions, please reply to this email or call us at +234 800 BASAER.',
+        'للاستفسار، يُرجى الرد على هذا البريد أو الاتصال بنا على +234 800 BASAER | For inquiries, please reply to this email or contact us at +234 800 BASAER',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Application Received: ${studentName}`, html, branchId);
+    return this.sendMail(to, `تأكيد استلام طلب التسجيل | Application Received: ${name}`, html, branchId);
   }
 
   async sendApprovalEmail(to: string, studentName: string, studentId: string, branchId?: string) {
@@ -514,16 +527,16 @@ export class MailService implements OnModuleInit {
       : '';
 
     return `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05);" dir="ltr">
         <div style="background-color: ${template.headerColor}; color: white; padding: 40px; text-align: center;">
           <h1 style="margin: 0; font-style: italic; text-transform: uppercase; font-size: 28px;">${template.headerTitle}</h1>
-          ${template.headerSubtitle ? `<p style="margin: 10px 0 0; opacity: 0.9;">${template.headerSubtitle}</p>` : ''}
+          ${template.headerSubtitle ? `<p style="margin: 10px 0 0; opacity: 0.9; font-size: 14px;">${template.headerSubtitle}</p>` : ''}
         </div>
-        <div style="padding: 40px; color: #333; line-height: 1.7; font-size: 15px;">
-          <h2 style="color: ${template.headerColor}; margin-top: 0;">${template.greeting}</h2>
+        <div style="padding: 40px; color: #333; line-height: 1.8; font-size: 15px;">
+          <h2 style="color: ${template.headerColor}; margin-top: 0; margin-bottom: 20px;">${template.greeting}</h2>
           ${template.bodyContent}
           ${extraBlocksHtml}
-          ${template.footerText ? `<p style="margin-top: 20px; color: #64748b; font-size: 14px;">${template.footerText}</p>` : ''}
+          ${template.footerText ? `<div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #e0e0e0; color: #64748b; font-size: 13px; line-height: 1.6;">${template.footerText}</div>` : ''}
         </div>
         <div style="background-color: #f1f5f9; padding: 20px; text-align: center; color: #64748b; font-size: 12px;">
           &copy; ${new Date().getFullYear()} Basaer Quranic and Science College. All rights reserved.
@@ -558,43 +571,7 @@ export class MailService implements OnModuleInit {
     return require('path').join(__dirname, '..', '..', 'public', 'documents', filename);
   }
 
-  private startQueueProcessor() {
-    setInterval(() => {
-      this.processQueue();
-    }, 5000);
-  }
-
-  private async processQueue() {
-    if (this.isProcessing || this.emailQueue.length === 0) return;
-    this.isProcessing = true;
-
-    while (this.emailQueue.length > 0) {
-      const email = this.emailQueue[0];
-      try {
-        await this.sendMailDirect(email.to, email.subject, email.html, email.attachments);
-        this.emailQueue.shift();
-      } catch (error) {
-        email.retries++;
-        this.logger.error(
-          `Failed to send email to ${email.to} in background (attempt ${email.retries})`,
-          error.stack,
-        );
-        if (email.retries >= 3) {
-          this.logger.error(
-            `Dropping email to ${email.to} after 3 failed attempts.`,
-          );
-          this.emailQueue.shift();
-        } else {
-          this.emailQueue.push(this.emailQueue.shift()!);
-          break;
-        }
-      }
-    }
-
-    this.isProcessing = false;
-  }
-
-  private async sendMailDirect(
+  async sendMailDirect(
     to: string,
     subject: string,
     html: string,
@@ -602,9 +579,9 @@ export class MailService implements OnModuleInit {
   ) {
     if (!this.isConfigured || !this.transporter) {
       this.logger.error(`Cannot send email to ${to}. SMTP not configured.`);
-      return;
+      throw new Error('SMTP not configured');
     }
-    const from = `"Basaer Admissions" <${process.env.SMTP_FROM || 'admissions@basaer.edu'}>`;
+    const from = `"Basaer Admissions" <${process.env.SMTP_FROM || 'basaaerschools@gmail.com'}>`;
     const info = await this.transporter.sendMail({
       from,
       to,
@@ -664,8 +641,18 @@ export class MailService implements OnModuleInit {
       }
     }
 
-    this.emailQueue.push({ to, subject, html: brandedHtml, retries: 0, branchId, attachments });
-    this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}"${attachments?.length ? ` | Attachments: ${attachments.length}` : ''}`);
-    return { queued: true, message: `Email queued for ${to}` };
+    const job = await this.mailQueue.add(
+      'send-mail',
+      { to, subject, html: brandedHtml, branchId, attachments },
+      {
+        attempts: 3,
+        backoff: { type: 'exponential', delay: 5000 },
+        removeOnComplete: 100,
+        removeOnFail: 200,
+      },
+    );
+
+    this.logger.log(`📧 Email queued for ${to} | Subject: "${subject}" | Job: ${job.id}${attachments?.length ? ` | Attachments: ${attachments.length}` : ''}`);
+    return { queued: true, jobId: job.id, message: `Email queued for ${to}` };
   }
 }

@@ -119,8 +119,9 @@ export function ParentInfo() {
             {errors.guardianName && <p className="text-xs text-destructive">{errors.guardianName.message}</p>}
           </div>
           <div className="space-y-1">
-            <Label>Email <span className="text-muted-foreground font-normal">(optional)</span></Label>
+            <Label>Email</Label>
             <Input {...register("guardianEmail")} type="email" placeholder="example@email.com" className="h-10 rounded-lg bg-white" />
+            {errors.guardianEmail && <p className="text-xs text-destructive">{errors.guardianEmail.message}</p>}
           </div>
           <div className="space-y-1">
             <Label>Primary Phone</Label>

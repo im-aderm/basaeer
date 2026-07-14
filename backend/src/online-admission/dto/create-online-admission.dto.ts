@@ -160,8 +160,8 @@ export class CreateOnlineAdmissionDto {
   guardianPhone: string;
 
   @IsEmail()
-  @IsOptional()
-  guardianEmail?: string;
+  @IsNotEmpty()
+  guardianEmail: string;
 
   @IsString()
   @IsOptional()
