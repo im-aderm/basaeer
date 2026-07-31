@@ -24,10 +24,12 @@ import {
     Globe
 } from 'lucide-react';
 import { useNotification } from '@/context/NotificationContext';
+import api from '@/lib/api';
 
 interface Translation {
     key: string;
     value: string;
+    group: string;
 }
 
 const LOCALES = [
@@ -37,18 +39,7 @@ const LOCALES = [
     { label: 'Spanish (Español)', value: 'es' },
 ];
 
-const DEFAULT_TRANSLATIONS: Record<string, Translation[]> = {
-    'en': [
-        { key: 'common.save', value: 'Save' },
-        { key: 'common.cancel', value: 'Cancel' },
-        { key: 'dashboard.welcome', value: 'Welcome back' },
-    ],
-    'ar': [
-        { key: 'common.save', value: 'حفظ' },
-        { key: 'common.cancel', value: 'إلغاء' },
-        { key: 'dashboard.welcome', value: 'مرحباً بك مجدداً' },
-    ]
-};
+const DEFAULT_GROUP = 'general';
 
 export default function TranslationsPage() {
     const { showSuccess, showError } = useNotification();
@@ -62,17 +53,12 @@ export default function TranslationsPage() {
         const fetchTranslations = async () => {
             setLoading(true);
             try {
-                const response = await fetch(`/api/translations?locale=${locale}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setTranslations(data.translations || []);
-                } else {
-                    // Fallback to defaults
-                    setTranslations(DEFAULT_TRANSLATIONS[locale] || []);
-                }
+                const response = await api.get(`/translations/${locale}`);
+                const rows: { key: string; value: string; group: string }[] = response.data;
+                setTranslations(rows.map(r => ({ key: r.key, value: r.value, group: r.group })));
             } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch translations:', error);
-                setTranslations(DEFAULT_TRANSLATIONS[locale] || []);
+                showError('Failed to load translations');
+                setTranslations([]);
             } finally {
                 setLoading(false);
             }
@@ -89,7 +75,7 @@ export default function TranslationsPage() {
     };
 
     const handleAdd = () => {
-        setTranslations(prev => [...prev, { key: '', value: '' }]);
+        setTranslations(prev => [...prev, { key: '', value: '', group: DEFAULT_GROUP }]);
     };
 
     const handleRemove = (index: number) => {
@@ -99,17 +85,12 @@ export default function TranslationsPage() {
     const handleSave = async () => {
         setIsSaving(true);
         try {
-            const response = await fetch('/api/translations', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ locale, translations })
+            await api.post('/translations', {
+                translations: translations
+                    .filter(t => t.key.trim())
+                    .map(t => ({ locale, group: t.group || DEFAULT_GROUP, key: t.key, value: t.value })),
             });
-            
-            if (response.ok) {
-                showSuccess('Translations updated successfully');
-            } else {
-                throw new Error('Failed to save');
-            }
+            showSuccess('Translations updated successfully');
         } catch (error) {
             showError('Failed to update translations');
         } finally {

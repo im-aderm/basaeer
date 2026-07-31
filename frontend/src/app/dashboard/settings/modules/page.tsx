@@ -23,6 +23,8 @@ import {
     Loader2
 } from 'lucide-react';
 import { useNotification } from '@/context/NotificationContext';
+import { useAuth } from '@/context/AuthContext';
+import api from '@/lib/api';
 
 interface Module {
     id: string;
@@ -47,53 +49,50 @@ const DEFAULT_MODULES: Module[] = [
 
 export default function ModulesSettingsPage() {
     const { showSuccess, showError } = useNotification();
+    const { activeBranchId } = useAuth();
     const [modules, setModules] = useState<Module[]>(DEFAULT_MODULES);
     const [loading, setLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
 
     useEffect(() => {
+        if (!activeBranchId) return;
         const fetchModules = async () => {
+            setLoading(true);
             try {
-                const response = await fetch('/api/modules');
-                if (response.ok) {
-                    const data = await response.json();
-                    // Merge with DEFAULT_MODULES to keep icons and descriptions
-                    const merged = DEFAULT_MODULES.map(m => {
-                        const found = data.find((d: any) => d.id === m.id);
-                        return found ? { ...m, enabled: found.enabled } : m;
-                    });
-                    setModules(merged);
-                }
+                const response = await api.get(`/modules?branchId=${activeBranchId}`);
+                const data: { moduleKey: string; isEnabled: boolean }[] = response.data;
+                // Merge with DEFAULT_MODULES to keep icons/descriptions; a
+                // module with no row yet keeps DEFAULT_MODULES' own default.
+                const merged = DEFAULT_MODULES.map(m => {
+                    const found = data.find(d => d.moduleKey === m.id);
+                    return found ? { ...m, enabled: found.isEnabled } : m;
+                });
+                setModules(merged);
             } catch (error) {
-                if (process.env.NODE_ENV === 'development') console.error('Failed to fetch modules:', error);
-                // We keep the default modules on error
+                showError('Failed to load module configuration');
             } finally {
                 setLoading(false);
             }
         };
         fetchModules();
-    }, []);
+    }, [activeBranchId]);
 
     const handleToggle = (id: string) => {
-        setModules(prev => prev.map(m => 
+        setModules(prev => prev.map(m =>
             m.id === id ? { ...m, enabled: !m.enabled } : m
         ));
     };
 
     const handleSave = async () => {
+        if (!activeBranchId) return;
         setIsSaving(true);
         try {
-            const response = await fetch('/api/modules', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ modules: modules.map(({ id, enabled }) => ({ id, enabled })) })
-            });
-            
-            if (response.ok) {
-                showSuccess('Module configuration saved successfully');
-            } else {
-                throw new Error('Failed to save');
-            }
+            await Promise.all(
+                modules.map(({ id, enabled }) =>
+                    api.patch(`/modules/${id}/toggle`, { isEnabled: enabled, branchId: activeBranchId })
+                )
+            );
+            showSuccess('Module configuration saved successfully');
         } catch (error) {
             showError('Failed to save module configuration');
         } finally {
