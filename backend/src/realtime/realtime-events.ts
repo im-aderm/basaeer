@@ -159,6 +159,10 @@ export interface RealtimeEventMap {
   'automation.completed': AutomationCompletedPayload;
   'automation.failed': AutomationFailedPayload;
 
-  // Notifications
-  'notification.new': { notificationId: string; userId: string; title: string };
+  // Notifications — the event name here matches what
+  // NotificationsService.createNotification actually emits (a bare
+  // 'notification' carrying the full Notification row), not the
+  // 'notification.new' name this map previously declared and nothing ever
+  // sent.
+  notification: { id: string; userId: string; title: string; message: string; type: string };
 }

@@ -75,7 +75,7 @@ export class AttendanceService {
     );
 
     // Realtime update to teacher/admin
-    this.realtimeService.sendToBranch(context.branchId, 'attendance_update', {
+    this.realtimeService.sendToBranch(context.branchId, 'attendance.marked', {
       sessionId,
       studentId,
       status: 'PRESENT',
@@ -206,7 +206,7 @@ export class AttendanceService {
 
     // Emit realtime update if it's for a session
     if (sessionId) {
-      this.realtimeService.sendToBranch(branchId, 'attendance_update', {
+      this.realtimeService.sendToBranch(branchId, 'attendance.marked', {
         sessionId,
         studentId,
         status,
@@ -290,7 +290,7 @@ export class AttendanceService {
 
     // Broadcast bulk update if applicable
     if (dto.records.length > 0 && dto.records[0].sessionId) {
-      this.realtimeService.sendToBranch(branchId, 'attendance_bulk_update', {
+      this.realtimeService.sendToBranch(branchId, 'attendance.bulk_synced', {
         sessionId: dto.records[0].sessionId,
         count: results.length,
       });

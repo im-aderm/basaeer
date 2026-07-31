@@ -16,6 +16,7 @@ import { TenantContextInterceptor } from './common/interceptors/tenant-context.i
 import { PrismaService } from './prisma/prisma.service';
 import { WINSTON_MODULE_NEST_PROVIDER, WinstonModule, utilities as nestWinstonModuleUtilities } from 'nest-winston';
 import * as winston from 'winston';
+import { RedisIoAdapter } from './realtime/redis-io.adapter';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -171,6 +172,14 @@ async function bootstrap() {
   if (process.env.NODE_ENV !== 'production') {
     SwaggerModule.setup('api/docs', app, document);
   }
+
+  // Without this, Socket.IO falls back to its in-memory adapter: broadcasts
+  // (sendToUser/sendToBranch) only reach clients connected to the SAME
+  // instance that emitted them, so once the app scales beyond one process,
+  // a subset of users silently stop receiving realtime events.
+  const redisIoAdapter = new RedisIoAdapter(app);
+  await redisIoAdapter.connectToRedis();
+  app.useWebSocketAdapter(redisIoAdapter);
 
   const port = process.env.PORT || 3001;
   logger.log(`Attempting to bind to port ${port}...`);
