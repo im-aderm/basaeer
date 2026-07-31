@@ -5,6 +5,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import {
   ApiTags,
@@ -12,8 +13,9 @@ import {
   ApiBearerAuth,
   ApiResponse,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Audit')
 @Controller('audit')
 export class AuditController {
@@ -23,6 +25,7 @@ export class AuditController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Logs' })
   @Get()
+  @Permissions('audit:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getLogs(
     @GetTenantContext() ctx: TenantContext,

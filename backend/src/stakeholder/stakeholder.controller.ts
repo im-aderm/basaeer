@@ -13,6 +13,7 @@ import { StakeholderService } from './stakeholder.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -30,10 +31,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Stakeholder')
 @Controller('stakeholder')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class StakeholderController {
   constructor(private readonly stakeholderService: StakeholderService) {}
 
@@ -53,6 +55,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Children' })
   @Get('parent/children')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getChildren(@GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.getChildren(ctx.userId);
@@ -62,6 +65,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Child Attendance' })
   @Get('parent/child/:id/attendance')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getChildAttendance(
     @Param('id') studentId: string,
@@ -74,6 +78,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Child Financials' })
   @Get('parent/child/:id/financials')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getChildFinancials(
     @Param('id') studentId: string,
@@ -86,6 +91,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Child Homework' })
   @Get('parent/child/:id/homework')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getChildHomework(
     @Param('id') studentId: string,
@@ -98,6 +104,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Child Exams' })
   @Get('parent/child/:id/exams')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getChildExams(
     @Param('id') studentId: string,
@@ -110,6 +117,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Parent Events' })
   @Get('parent/events')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.PARENT)
   getParentEvents(@GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.getParentEvents(ctx.userId);
@@ -121,6 +129,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Parents' })
   @Get('admin/parents')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getAllParents(
     @Query('branchId') branchId: string,
@@ -133,6 +142,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Parent Details' })
   @Get('admin/parents/:id')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getParentDetails(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.getParentDetailsAdmin(id, ctx);
@@ -142,6 +152,7 @@ export class StakeholderController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Link Student' })
   @Post('admin/parents/:id/students/:studentId')
+  @Permissions('stakeholder:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   linkStudent(
     @Param('id') parentId: string,
@@ -155,6 +166,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Unlink Student' })
   @Delete('admin/parents/students/:studentId')
+  @Permissions('stakeholder:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   unlinkStudent(@Param('studentId') studentId: string, @GetTenantContext() ctx: TenantContext) {
     return this.stakeholderService.unlinkStudentFromParent(studentId, ctx);
@@ -205,6 +217,7 @@ export class StakeholderController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Alumni' })
   @Post('alumni')
+  @Permissions('stakeholder:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createAlumni(
     @Body() dto: CreateAlumniDto,
@@ -217,6 +230,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Alumni' })
   @Get('alumni')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getAlumni(
     @Query('branchId') branchId: string,
@@ -230,6 +244,7 @@ export class StakeholderController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Event' })
   @Post('alumni/event')
+  @Permissions('stakeholder:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createEvent(
     @Body() dto: CreateAlumniEventDto,
@@ -242,6 +257,7 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Events' })
   @Get('alumni/events')
+  @Permissions('stakeholder:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getEvents(
     @Query('branchId') branchId: string,

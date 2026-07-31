@@ -14,10 +14,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Automation Health')
 @Controller('automation/health')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
 export class AutomationHealthController {
   constructor(

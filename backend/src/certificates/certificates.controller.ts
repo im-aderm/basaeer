@@ -15,6 +15,7 @@ import { CreateCertificateTemplateDto } from './dto/create-template.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -26,10 +27,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Certificates')
 @Controller('certificates')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class CertificatesController {
   constructor(private readonly certificatesService: CertificatesService) {}
 
@@ -38,6 +40,7 @@ export class CertificatesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('certificates:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   create(
     @GetTenantContext() context: TenantContext,
@@ -116,6 +119,7 @@ export class CertificatesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Template' })
   @Delete('templates/:id')
+  @Permissions('certificates:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   removeTemplate(
     @GetTenantContext() context: TenantContext,
@@ -128,6 +132,7 @@ export class CertificatesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('certificates:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@GetTenantContext() context: TenantContext, @Param('id') id: string) {
     return this.certificatesService.remove(id, context);
@@ -138,6 +143,7 @@ export class CertificatesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Template' })
   @Post('templates')
+  @Permissions('certificates:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createTemplate(
     @GetTenantContext() context: TenantContext,

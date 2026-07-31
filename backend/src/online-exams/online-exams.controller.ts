@@ -21,6 +21,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -31,8 +32,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Online Exams')
 @Controller('online-exams')
 export class OnlineExamsController {
@@ -44,6 +46,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Group' })
   @Post('groups')
+  @Permissions('online-exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createGroup(
     @Body() dto: CreateQuestionGroupDto,
@@ -56,6 +59,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Groups' })
   @Get('groups')
+  @Permissions('online-exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getGroups(@GetTenantContext() ctx: TenantContext, @Query('branchId') branchIdQuery?: string) {
     const branchId: string =
@@ -71,6 +75,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Question' })
   @Post('questions')
+  @Permissions('online-exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createQuestion(
     @Body() dto: CreateQuestionDto,
@@ -83,6 +88,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Questions' })
   @Get('groups/:groupId/questions')
+  @Permissions('online-exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getQuestions(
     @Param('groupId') groupId: string,
@@ -96,6 +102,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Question' })
   @Patch('questions/:id')
+  @Permissions('online-exams:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   updateQuestion(@Param('id') id: string, @Body() dto: CreateQuestionDto, @GetTenantContext() ctx: TenantContext) {
     return this.examsService.updateQuestion(id, dto, ctx);
@@ -105,6 +112,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Question' })
   @Delete('questions/:id')
+  @Permissions('online-exams:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   deleteQuestion(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.examsService.deleteQuestion(id, ctx);
@@ -116,6 +124,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Exam' })
   @Post()
+  @Permissions('online-exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createExam(
     @Body() dto: CreateOnlineExamDto,
@@ -128,6 +137,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Exams' })
   @Get()
+  @Permissions('online-exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -147,6 +157,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Start Exam' })
   @Get(':id/start')
+  @Permissions('online-exams:read')
   @Roles(UserRole.STUDENT)
   async startExam(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     const student = await this.examsService.findStudentByUserId(ctx.userId);
@@ -161,6 +172,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Submit Attempt' })
   @Post('submit')
+  @Permissions('online-exams:create')
   @Roles(UserRole.STUDENT)
   async submitAttempt(
     @GetTenantContext() ctx: TenantContext,
@@ -178,6 +190,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Sync Answers' })
   @Post('sync')
+  @Permissions('online-exams:create')
   @Roles(UserRole.STUDENT)
   async syncAnswers(
     @GetTenantContext() ctx: TenantContext,
@@ -195,6 +208,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Attempts' })
   @Get(':id/attempts')
+  @Permissions('online-exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAttempts(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.examsService.getAttempts(id, ctx);
@@ -205,6 +219,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Grade Answer' })
   @Patch('attempts/:attemptId/questions/:questionId/grade')
+  @Permissions('online-exams:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   gradeAnswer(
     @Param('attemptId') attemptId: string,
@@ -222,6 +237,7 @@ export class OnlineExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Generate Positions' })
   @Post(':id/generate-positions')
+  @Permissions('online-exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   generatePositions(@Param('id') id: string) {
     return this.examsService.generatePositions(id);

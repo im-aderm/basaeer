@@ -19,6 +19,7 @@ import { CreateVoucherDto, CreateExpenseCategoryDto } from './dto/voucher.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole, VoucherStatus } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
@@ -29,8 +30,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Finance')
 @Controller('finance')
 export class FinanceController {
@@ -41,6 +43,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Category' })
   @Post('fee-categories')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createCategory(
     @Body() dto: CreateFeeCategoryDto,
@@ -53,6 +56,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Categories' })
   @Get('fee-categories')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getCategories(@GetTenantContext() context: TenantContext) {
     return this.financeService.getFeeCategories(context);
@@ -63,6 +67,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Structure' })
   @Post('fee-structures')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createStructure(
     @Body() dto: CreateFeeStructureDto,
@@ -75,6 +80,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Structures' })
   @Get('fee-structures')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getStructures(@GetTenantContext() context: TenantContext) {
     return this.financeService.getFeeStructures(context);
@@ -85,6 +91,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Invoice' })
   @Post('invoices')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createInvoice(
     @Body() dto: CreateInvoiceDto,
@@ -97,6 +104,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Discount applied' })
   @ApiOperation({ summary: 'Apply a discount to an invoice (percentage or fixed)' })
   @Post('invoices/:id/discount')
+  @Permissions('finance:apply-discount')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   applyInvoiceDiscount(
     @Param('id') id: string,
@@ -110,6 +118,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Invoice voided successfully' })
   @ApiOperation({ summary: 'Void Invoice' })
   @Delete('invoices/:id')
+  @Permissions('finance:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   voidInvoice(
     @Param('id') id: string,
@@ -123,6 +132,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Payment' })
   @Post('payments')
+  @Permissions('finance:create')
   @Roles(
     UserRole.STUDENT,
     UserRole.PARENT,
@@ -140,6 +150,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Verify Payment' })
   @Patch('payments/:id/verify')
+  @Permissions('finance:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   verifyPayment(
     @Param('id') id: string,
@@ -153,6 +164,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Student Invoices' })
   @Get('invoices/student/:studentId')
+  @Permissions('finance:read')
   @Roles(
     UserRole.STUDENT,
     UserRole.PARENT,
@@ -170,6 +182,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
     return this.financeService.getBranchFinancials(context);
@@ -181,6 +194,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Expense Category' })
   @Post('expense-categories')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createExpenseCategory(
     @Body() dto: CreateExpenseCategoryDto,
@@ -193,6 +207,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Expense Categories' })
   @Get('expense-categories')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getExpenseCategories(@GetTenantContext() context: TenantContext) {
     return this.financeService.getExpenseCategories(context);
@@ -202,6 +217,7 @@ export class FinanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Voucher' })
   @Post('vouchers')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   createVoucher(@Body() dto: CreateVoucherDto, @GetTenantContext() context: TenantContext) {
     return this.financeService.createVoucher(dto, context);
@@ -211,6 +227,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Voucher Status' })
   @Patch('vouchers/:id/status')
+  @Permissions('finance:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateVoucherStatus(
     @Param('id') id: string,
@@ -224,6 +241,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Vouchers' })
   @Get('vouchers')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getVouchers(
     @GetTenantContext() context: TenantContext,
@@ -239,6 +257,7 @@ export class FinanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Cashflow' })
   @Get('cashflow')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.ACCOUNTANT, UserRole.BRANCH_ADMIN)
   getCashflow(
     @GetTenantContext() context: TenantContext,

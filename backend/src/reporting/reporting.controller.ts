@@ -11,6 +11,7 @@ import { ReportingService } from './reporting.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -27,10 +28,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Reporting')
 @Controller('reporting')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class ReportingController {
   constructor(private readonly reportingService: ReportingService) {}
 
@@ -38,6 +40,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Dashboard' })
   @Get('dashboard')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getDashboard(@GetTenantContext() ctx: TenantContext) {
     return this.reportingService.getUnifiedDashboard(ctx.branchId);
@@ -47,6 +50,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Student Analytics' })
   @Get('students')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getStudentAnalytics(
     @GetTenantContext() ctx: TenantContext,
@@ -63,6 +67,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Finance Analytics' })
   @Get('finance')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getFinanceAnalytics(
     @GetTenantContext() ctx: TenantContext,
@@ -79,6 +84,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve H R Analytics' })
   @Get('hr')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getHRAnalytics(
     @GetTenantContext() ctx: TenantContext,
@@ -95,6 +101,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Academic Analytics' })
   @Get('academic')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAcademicAnalytics(
     @GetTenantContext() ctx: TenantContext,
@@ -111,6 +118,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Attendance Analytics' })
   @Get('attendance')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getAttendanceAnalytics(
     @GetTenantContext() ctx: TenantContext,
@@ -127,6 +135,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Export Performance' })
   @Get('export/performance')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async exportPerformance(
     @GetTenantContext() ctx: TenantContext,
@@ -147,6 +156,7 @@ export class ReportingController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Export Finance' })
   @Get('export/finance')
+  @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async exportFinance(
     @GetTenantContext() ctx: TenantContext,

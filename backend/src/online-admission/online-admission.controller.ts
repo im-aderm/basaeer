@@ -27,6 +27,7 @@ import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
@@ -39,8 +40,9 @@ import {
   ApiBody,
   ApiConsumes,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Online Admission')
 @Controller('online-admissions')
 export class OnlineAdmissionController {
@@ -76,6 +78,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('online-admission:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(
     @GetTenantContext() context: TenantContext,
@@ -92,6 +95,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('online-admission:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.findOne(id, context);
@@ -101,6 +105,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 200, description: 'Admission slip PDF' })
   @ApiOperation({ summary: 'Download Admission Slip PDF (passport + attached documents)' })
   @Get(':id/slip')
+  @Permissions('online-admission:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async downloadSlip(
     @Param('id') id: string,
@@ -123,6 +128,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('online-admission:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(
     @Param('id') id: string,
@@ -136,6 +142,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('online-admission:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.onlineAdmissionService.remove(id, context);
@@ -145,6 +152,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Approve' })
   @Post(':id/approve')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   approve(
     @Param('id') id: string,
@@ -158,6 +166,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Reject' })
   @Post(':id/reject')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   reject(
     @Param('id') id: string,
@@ -171,6 +180,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Verify Payment' })
   @Post(':id/verify-payment')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   verifyPayment(
     @Param('id') id: string,
@@ -183,6 +193,7 @@ export class OnlineAdmissionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Reject Payment' })
   @Post(':id/reject-payment')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   rejectPayment(
     @Param('id') id: string,
@@ -236,6 +247,7 @@ export class OnlineAdmissionController {
   }
 
   @Get('import/status/:jobId')
+  @Permissions('online-admission:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Import job status' })
@@ -267,6 +279,7 @@ export class OnlineAdmissionController {
   }
 
   @Get('pipeline')
+  @Permissions('online-admission:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Pipeline statistics' })
@@ -276,6 +289,7 @@ export class OnlineAdmissionController {
   }
 
   @Post(':id/make-offer')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Offer made' })
@@ -305,6 +319,7 @@ export class OnlineAdmissionController {
   }
 
   @Post(':id/accept-offer')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Offer accepted' })
@@ -314,6 +329,7 @@ export class OnlineAdmissionController {
   }
 
   @Post(':id/decline-offer')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Offer declined' })
@@ -328,6 +344,7 @@ export class OnlineAdmissionController {
   }
 
   @Post(':id/waitlist')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Added to waitlist' })
@@ -350,6 +367,7 @@ export class OnlineAdmissionController {
   }
 
   @Post(':id/advance-waitlist')
+  @Permissions('online-admission:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Advanced from waitlist' })

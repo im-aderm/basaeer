@@ -18,6 +18,7 @@ import { DeactivateLoginDto } from './dto/deactivate-login.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { UserRole } from '../generated/client/client';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
@@ -28,10 +29,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Students')
 @Controller('students')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class StudentsController {
   constructor(
     private readonly studentsService: StudentsService,
@@ -42,6 +44,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Student' })
   @Post()
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async create(
     @Body() createStudentDto: CreateStudentDto,
@@ -55,6 +58,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
     return this.studentsService.getStats(context);
@@ -64,6 +68,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async findAll(
     @GetTenantContext() context: TenantContext,
@@ -100,6 +105,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Deactivation Reasons' })
   @Get('deactivation-reasons')
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   fetchDeactivationReasons(@GetTenantContext() context: TenantContext) {
     return this.studentsService.fetchDeactivationReasons(context);
@@ -110,6 +116,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Deactivation Reason' })
   @Post('deactivation-reasons')
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createDeactivationReason(
     @GetTenantContext() context: TenantContext,
@@ -123,6 +130,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Deactivation Reason' })
   @Patch('deactivation-reasons/:id')
+  @Permissions('students:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateDeactivationReason(
     @Param('id') id: string,
@@ -136,6 +144,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Deactivation Reason' })
   @Delete('deactivation-reasons/:id')
+  @Permissions('students:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteDeactivationReason(
     @Param('id') id: string,
@@ -150,6 +159,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Deactivate Login' })
   @Post('deactivate-login')
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deactivateLogin(
     @GetTenantContext() context: TenantContext,
@@ -167,6 +177,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Login Deactivations' })
   @Get('login-deactivations')
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getLoginDeactivations(@GetTenantContext() context: TenantContext) {
     return this.studentsService.getLoginDeactivations(context);
@@ -176,6 +187,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.studentsService.findOne(id, context);
@@ -186,6 +198,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('students:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(
     @Param('id') id: string,
@@ -199,6 +212,7 @@ export class StudentsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('students:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.studentsService.remove(id, context);
@@ -208,6 +222,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Reactivate Login' })
   @Post(':id/reactivate-login')
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   reactivateLogin(
     @Param('id') id: string,
@@ -221,6 +236,7 @@ export class StudentsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Bulk Reactivate Login' })
   @Post('bulk-reactivate-login')
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   bulkReactivateLogin(
     @GetTenantContext() context: TenantContext,

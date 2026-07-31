@@ -20,6 +20,7 @@ import {
   ApiBearerAuth,
   ApiResponse,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 const ALLOWED_MIME_TYPES = [
   'image/jpeg',
@@ -84,7 +85,7 @@ export class UploadController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, PermissionsGuard)
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Upload payment proof' })
   @Post('payment-proof')

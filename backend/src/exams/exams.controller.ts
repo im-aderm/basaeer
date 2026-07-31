@@ -36,6 +36,7 @@ import { BranchGuard } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole, Term, ExamTerm } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
 import {
@@ -45,8 +46,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Exams')
 @Controller('exams')
 export class ExamsController {
@@ -65,6 +67,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get()
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -82,6 +85,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -98,6 +102,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('management/:id')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -115,6 +120,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Put('management/:id')
+  @Permissions('exams:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -135,6 +141,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch('management/:id/status')
+  @Permissions('exams:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -155,6 +162,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('management/:id/clone')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -175,6 +183,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('types-v2')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -192,6 +201,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('types-v2')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -208,6 +218,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('components')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -225,6 +236,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('components')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -241,6 +253,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('components/validate')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -261,6 +274,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('compute/section/:sectionId')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -287,6 +301,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('analytics')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -307,6 +322,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('approvals')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -324,6 +340,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('approvals')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -340,6 +357,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch('approvals/:id/review')
+  @Permissions('exams:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -360,6 +378,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Publish Approved Results' })
   @Post('publication')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -377,6 +396,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Revoke Publication' })
   @Patch('publication/:id/revoke')
+  @Permissions('exams:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -394,6 +414,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('transcripts')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -409,6 +430,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('transcripts/:studentId')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -427,6 +449,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Approve Transcript' })
   @Patch('transcripts/:id/approve')
+  @Permissions('exams:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -444,6 +467,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('transcripts/:id/pdf')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -477,6 +501,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('tahfeez/assessments')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -494,6 +519,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post('tahfeez/progress')
+  @Permissions('exams:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -514,6 +540,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('tahfeez/reports/:studentId')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -536,6 +563,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('portal/results/:studentId/:sessionId/:term')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -560,6 +588,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('portal/performance/:studentId')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -582,6 +611,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Sessions' })
   @Get('sessions')
+  @Permissions('exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getSessions(@GetTenantContext() ctx: TenantContext) {
     return this.examsService.getAllSessions(ctx);
@@ -592,6 +622,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Session' })
   @Post('sessions')
+  @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSession(
     @GetTenantContext() ctx: TenantContext,
@@ -608,6 +639,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Scores' })
   @Post('submit-scores')
+  @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   submitScores(
     @Body() dto: BulkSubmitScoresDto,
@@ -626,6 +658,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Behavioural' })
   @Post('behavioural')
+  @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   recordBehavioural(
     @GetTenantContext() ctx: TenantContext,
@@ -641,6 +674,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Summarize Term' })
   @Post('summarize/:studentId')
+  @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
   summarizeTerm(
     @Param('studentId') studentId: string,
@@ -660,6 +694,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Toggle Eligibility' })
   @Post('eligibility/:studentId')
+  @Permissions('exams:toggle-eligibility')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   toggleEligibility(
     @Param('studentId') studentId: string,
@@ -683,6 +718,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Publish Results' })
   @Post('publish')
+  @Permissions('exams:lock-results')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   publishResults(
     @Body('sectionId') sectionId: string,
@@ -704,6 +740,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('report/:studentId/:sessionId/:term')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -746,6 +783,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('report-annual/:studentId/:sessionId')
+  @Permissions('exams:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -785,6 +823,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Broadsheet' })
   @Get('broadsheet/:sectionId/:sessionId/:term')
+  @Permissions('exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getBroadsheet(
     @Param('sectionId') sectionId: string,
@@ -814,6 +853,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Download Batch Reports' })
   @Get('batch-report/:sectionId/:sessionId/:term')
+  @Permissions('exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async downloadBatchReports(
     @Param('sectionId') sectionId: string,
@@ -844,6 +884,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Lock Result' })
   @Post('lock/:studentId')
+  @Permissions('exams:lock-results')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   lockResult(
     @Param('studentId') studentId: string,
@@ -859,6 +900,7 @@ export class ExamsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Grading Scales' })
   @Get('grading-scales')
+  @Permissions('exams:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getGradingScales(
     @Request() req: any,
@@ -875,6 +917,7 @@ export class ExamsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Grading Scale' })
   @Post('grading-scales')
+  @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createGradingScale(
     @Request() req: any,

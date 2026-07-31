@@ -16,6 +16,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
 import {
@@ -25,6 +26,7 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 interface ReassignBranchAdminDto {
   newAdminUserId: string;
@@ -37,7 +39,7 @@ interface ReassignBranchAdminDto {
   };
 }
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Branches')
 @Controller('branches')
 export class BranchesController {
@@ -55,6 +57,7 @@ export class BranchesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('branches:create')
   @Roles(UserRole.SUPER_ADMIN)
   create(@Body() createBranchDto: CreateBranchDto, @GetTenantContext() ctx: TenantContext) {
     return this.branchesService.create(createBranchDto, ctx.userId);
@@ -64,6 +67,7 @@ export class BranchesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('branches:read')
   @Roles(UserRole.SUPER_ADMIN)
   findAll() {
     return this.branchesService.findAll();
@@ -73,6 +77,7 @@ export class BranchesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('branches:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string) {
     return this.branchesService.findOne(id);
@@ -82,6 +87,7 @@ export class BranchesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('branches:update')
   @Roles(UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
@@ -112,6 +118,7 @@ export class BranchesController {
     },
   })
   @Post(':id/reassign-admin')
+  @Permissions('branches:create')
   @Roles(UserRole.SUPER_ADMIN)
   reassignAdmin(
     @Param('id') id: string,
@@ -124,6 +131,7 @@ export class BranchesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('branches:delete')
   @Roles(UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string) {
     return this.branchesService.remove(id);

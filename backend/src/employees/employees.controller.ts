@@ -15,6 +15,7 @@ import { CreateAwardDto, RequestAdvanceSalaryDto } from './dto/hr-ops.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
@@ -34,10 +35,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Employees')
 @Controller('employees')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class EmployeesController {
   constructor(
     private readonly employeesService: EmployeesService,
@@ -50,6 +52,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Employee' })
   @Post()
+  @Permissions('employees:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createEmployee(
     @GetTenantContext() ctx: TenantContext,
@@ -65,6 +68,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Employees' })
   @Get()
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAllEmployees(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllEmployees(ctx.branchId);
@@ -76,6 +80,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Teachers' })
   @Get('teachers')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAllTeachers(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllTeachers(ctx.branchId);
@@ -85,6 +90,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Status' })
   @Patch(':id/status')
+  @Permissions('employees:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateStatus(@Param('id') id: string, @Body('status') status: string, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.updateStaffStatus(id, status, ctx);
@@ -96,6 +102,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Salary Template' })
   @Post('salary-template')
+  @Permissions('employees:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   upsertSalaryTemplate(
     @GetTenantContext() ctx: TenantContext,
@@ -111,6 +118,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Generate Payroll' })
   @Post('payroll/generate')
+  @Permissions('employees:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -131,6 +139,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update As Paid' })
   @Patch('payroll/:id/paid')
+  @Permissions('employees:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   markAsPaid(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.payrollService.markAsPaid(id, ctx);
@@ -154,6 +163,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Branch Leaves' })
   @Get('leave-requests/branch')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchLeaves(@GetTenantContext() ctx: TenantContext) {
     return this.leaveService.getBranchLeaveRequests(ctx.branchId!);
@@ -163,6 +173,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Leave Balances' })
   @Get('leave-balances/:staffId')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getLeaveBalances(
     @Param('staffId') staffId: string,
@@ -184,6 +195,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Leave Status' })
   @Patch('leave-requests/:id/status')
+  @Permissions('employees:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   updateLeaveStatus(
     @Param('id') id: string,
@@ -198,6 +210,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Payroll History' })
   @Get(':id/payroll-history')
+  @Permissions('employees:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -212,6 +225,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findOneStaff(id, ctx);
@@ -222,6 +236,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Award' })
   @Post('awards')
+  @Permissions('employees:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   createAward(@Body() dto: CreateAwardDto, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.createAward(dto, ctx.branchId!);
@@ -231,6 +246,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Awards' })
   @Get('awards')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getAllAwards(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllAwards(ctx.branchId ?? undefined);
@@ -263,6 +279,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Branch Advances' })
   @Get('advance-salary')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchAdvances(@GetTenantContext() ctx: TenantContext) {
     return this.employeesService.findAllAdvances(ctx.branchId ?? undefined);
@@ -281,6 +298,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Approve Advance' })
   @Patch('advance-salary/:id/approve')
+  @Permissions('employees:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   approveAdvance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.updateAdvanceStatus(id, 'APPROVED', ctx);
@@ -290,6 +308,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Reject Advance' })
   @Patch('advance-salary/:id/reject')
+  @Permissions('employees:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   rejectAdvance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.updateAdvanceStatus(id, 'REJECTED', ctx);
@@ -300,6 +319,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Attendance' })
   @Post('attendance')
+  @Permissions('employees:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   recordAttendance(
     @Body()
@@ -317,6 +337,7 @@ export class EmployeesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Bulk Attendance' })
   @Post('attendance/bulk')
+  @Permissions('employees:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   recordBulkAttendance(
     @Body()
@@ -339,6 +360,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Branch Attendance' })
   @Get('attendance/branch')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getBranchAttendance(
     @GetTenantContext() ctx: TenantContext,
@@ -352,6 +374,7 @@ export class EmployeesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Staff Attendance' })
   @Get(':id/attendance')
+  @Permissions('employees:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   getStaffAttendance(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.employeesService.getStaffAttendanceHistory(id, ctx);

@@ -52,7 +52,6 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { ProvidersModule } from './providers/providers.module';
 import { CommsModule } from './comms/comms.module';
 import { RealtimeModule } from './realtime/realtime.module';
-import { AlumniModule } from './alumni/alumni.module';
 import { AttachmentsModule } from './attachments/attachments.module';
 import { IntegrationsModule } from './integrations/integrations.module';
 import { InstitutionalEventsService } from './common/events/institutional-events.service';
@@ -151,7 +150,6 @@ import { BulkExportModule } from './bulk-export/bulk-export.module';
     ProvidersModule,
     CommsModule,
     RealtimeModule,
-    AlumniModule,
     AttachmentsModule,
     IntegrationsModule,
     HealthModule,

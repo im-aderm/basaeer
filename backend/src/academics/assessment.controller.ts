@@ -17,6 +17,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole, Term } from '../generated/client/client';
@@ -27,8 +28,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Assessments')
 @Controller('academics/assessments')
 export class AssessmentController {
@@ -39,6 +41,7 @@ export class AssessmentController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assessment Component' })
   @Post('components')
+  @Permissions('academics:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createComponent(
     @Body() dto: CreateAssessmentComponentDto,
@@ -51,6 +54,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Assessment Components' })
   @Get('components')
+  @Permissions('academics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getComponents(
     @GetTenantContext() context: TenantContext,
@@ -64,6 +68,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Assessment Component' })
   @Patch('components/:id')
+  @Permissions('academics:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateComponent(
     @Param('id') id: string,
@@ -77,6 +82,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete (deactivate) Assessment Component' })
   @Delete('components/:id')
+  @Permissions('academics:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteComponent(
     @Param('id') id: string,
@@ -90,6 +96,7 @@ export class AssessmentController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Bulk Record Marks' })
   @Post('bulk-marks')
+  @Permissions('academics:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   recordBulkMarks(
     @Body() dto: BulkRecordMarksDto,
@@ -102,6 +109,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Scores for a Record' })
   @Get('records/:recordId/scores')
+  @Permissions('academics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getRecordScores(@Param('recordId') recordId: string, @GetTenantContext() ctx: TenantContext) {
     return this.assessmentService.getScoresByRecord(recordId, ctx);
@@ -111,6 +119,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update a Single Score' })
   @Patch('scores/:scoreId')
+  @Permissions('academics:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   updateScore(
     @Param('scoreId') scoreId: string,
@@ -124,6 +133,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete a Single Score' })
   @Delete('scores/:scoreId')
+  @Permissions('academics:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   deleteScore(
     @Param('scoreId') scoreId: string,
@@ -136,6 +146,7 @@ export class AssessmentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Open Day Performance' })
   @Get('open-day/:studentId')
+  @Permissions('academics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER, UserRole.STUDENT, UserRole.PARENT)
   getOpenDayPerformance(
     @Param('studentId') studentId: string,

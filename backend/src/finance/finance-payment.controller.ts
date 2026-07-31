@@ -9,6 +9,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
@@ -22,10 +23,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Finance Payments')
 @Controller('finance/payments')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class FinancePaymentController {
   constructor(
     private readonly paystackService: PaystackService,
@@ -36,6 +38,7 @@ export class FinancePaymentController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Initialize Paystack' })
   @Post('paystack/initialize')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async initializePaystack(
     @Body() body: { invoiceId: string; email: string; amount: number },
@@ -68,6 +71,7 @@ export class FinancePaymentController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Verify Paystack Payment' })
   @Post('paystack/verify/:reference')
+  @Permissions('finance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   async verifyPaystackPayment(
     @Param('reference') reference: string,
@@ -111,6 +115,7 @@ export class FinancePaymentController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Config' })
   @Get('paystack/config')
+  @Permissions('finance:read')
   @Roles(UserRole.SUPER_ADMIN)
   async getConfig() {
     return {

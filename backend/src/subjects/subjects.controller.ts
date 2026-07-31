@@ -14,6 +14,7 @@ import { Prisma } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { UserRole } from '../generated/client/client';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
@@ -24,8 +25,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Subjects')
 @Controller('subjects')
 export class SubjectsController {
@@ -35,6 +37,7 @@ export class SubjectsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('subjects:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   create(
     @GetTenantContext() context: TenantContext,
@@ -47,6 +50,7 @@ export class SubjectsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('subjects:read')
   @Roles(
     UserRole.BRANCH_ADMIN,
     UserRole.SUPER_ADMIN,
@@ -61,6 +65,7 @@ export class SubjectsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('subjects:read')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.subjectsService.findOne(id, context);
@@ -70,6 +75,7 @@ export class SubjectsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('subjects:update')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
@@ -83,6 +89,7 @@ export class SubjectsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('subjects:delete')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.subjectsService.remove(id, context);
@@ -92,6 +99,7 @@ export class SubjectsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assign Teacher' })
   @Post(':id/assign-teacher')
+  @Permissions('subjects:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   assignTeacher(
     @Param('id') id: string,

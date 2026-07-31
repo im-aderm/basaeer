@@ -38,6 +38,7 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -130,7 +131,7 @@ export class AuthController {
     return this.authService.createSuperAdmin();
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
   @Roles(UserRole.SUPER_ADMIN)
   @ApiBearerAuth()
   @ApiResponse({ status: 201, description: 'Operation successful' })
@@ -140,7 +141,7 @@ export class AuthController {
     return this.authService.register(dto);
   }
 
-  @UseGuards(JwtAuthGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Profile' })
@@ -149,7 +150,7 @@ export class AuthController {
     return this.authService.getFullProfile(tenantContext.userId, tenantContext);
   }
 
-  @UseGuards(JwtAuthGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
   @ApiBearerAuth()
   @ApiBody({ type: UpdateProfileDto })
   @ApiResponse({ status: 200, description: 'Profile updated successfully' })
@@ -162,7 +163,7 @@ export class AuthController {
     return this.authService.updateProfile(tenantContext.userId, dto, tenantContext);
   }
 
-  @UseGuards(JwtAuthGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
   @ApiBearerAuth()
   @ApiBody({ schema: { type: 'object', properties: { branchId: { type: 'string' } } } })
   @ApiResponse({ status: 200, description: 'Branch context selected' })
@@ -184,7 +185,7 @@ export class AuthController {
     return result;
   }
 
-  @UseGuards(JwtAuthGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
   @ApiBearerAuth()
   @ApiBody({ schema: { type: 'object', properties: { sessionId: { type: 'string' } } } })
   @ApiResponse({ status: 200, description: 'Session context selected' })
@@ -206,7 +207,7 @@ export class AuthController {
     return result;
   }
 
-  @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiBearerAuth()
   @ApiBody({ type: AdminResetPasswordDto })
@@ -244,7 +245,7 @@ export class AuthController {
     );
   }
 
-  @UseGuards(JwtAuthGuard, BranchGuard)
+  @UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Password changed successfully' })
   @ApiOperation({ summary: 'Change Password' })

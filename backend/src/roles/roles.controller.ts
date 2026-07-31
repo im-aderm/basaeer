@@ -18,6 +18,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
 import {
@@ -27,8 +28,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Roles')
 @Controller('roles')
 export class RolesController {
@@ -38,6 +40,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Roles' })
   @Get()
+  @Permissions('roles:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@GetTenantContext() ctx: TenantContext) {
     const branchId = ctx.isSuperAdmin ? (undefined as any) : ctx.branchId;
@@ -50,6 +53,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Get distinct modules from DB' })
   @Get('modules')
+  @Permissions('roles:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getModules() {
     return this.rolesService.getModules();
@@ -59,6 +63,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Seed CustomRolePermission from legacy RolePermission' })
   @Post('seed')
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   seedPermissions() {
     return this.rolesService.seedPermissions();
@@ -68,6 +73,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Get Role' })
   @Get(':id')
+  @Permissions('roles:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string) {
     return this.rolesService.findOne(id);
@@ -78,6 +84,7 @@ export class RolesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Role' })
   @Post()
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   create(@Body() dto: CreateRoleDto, @GetTenantContext() ctx: TenantContext) {
     return this.rolesService.create(dto, ctx.branchId || undefined, ctx.isSuperAdmin);
@@ -88,6 +95,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Role' })
   @Patch(':id')
+  @Permissions('roles:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(@Param('id') id: string, @Body() dto: UpdateRoleDto, @GetTenantContext() ctx: TenantContext) {
     return this.rolesService.update(id, dto, ctx.branchId || undefined, ctx.isSuperAdmin);
@@ -97,6 +105,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Role' })
   @Delete(':id')
+  @Permissions('roles:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.rolesService.remove(id, ctx.branchId || undefined, ctx.isSuperAdmin);
@@ -108,6 +117,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Get Role Permissions' })
   @Get(':id/permissions')
+  @Permissions('roles:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getPermissions(@Param('id') id: string) {
     return this.rolesService.getPermissions(id);
@@ -118,6 +128,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Role Permission' })
   @Post(':id/permissions')
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updatePermission(
     @Param('id') id: string,
@@ -132,6 +143,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Bulk Update Role Permissions' })
   @Post(':id/permissions/bulk')
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   bulkUpdatePermissions(
     @Param('id') id: string,
@@ -148,6 +160,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Assign Role to User' })
   @Post(':id/assign')
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   assignRole(@Body() dto: AssignRoleDto) {
     return this.rolesService.assignRoleToUser(dto);
@@ -158,6 +171,7 @@ export class RolesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create User and Assign Role' })
   @Post(':id/create-user')
+  @Permissions('roles:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createUserAndAssign(@Body() dto: CreateUserAndAssignRoleDto) {
     return this.rolesService.createUserAndAssignRole(dto);
@@ -167,6 +181,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Get Users by Role' })
   @Get(':id/users')
+  @Permissions('roles:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   getUsers(@Param('id') id: string) {
     return this.rolesService.getUsersByRole(id);
@@ -176,6 +191,7 @@ export class RolesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Remove Role from User' })
   @Delete('users/:userId')
+  @Permissions('roles:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   removeRoleFromUser(
     @Param('userId') userId: string,

@@ -11,6 +11,7 @@ import { AccessControlService } from './access-control.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -22,10 +23,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Access Control')
 @Controller('access-control')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class AccessControlController {
   constructor(private readonly accessControlService: AccessControlService) {}
 
@@ -34,6 +36,7 @@ export class AccessControlController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Log' })
   @Post('log')
+  @Permissions('access-control:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   log(@Body() dto: CreateAccessLogDto, @GetTenantContext() ctx: TenantContext) {
     return this.accessControlService.logAccess(ctx.branchId!, dto);
@@ -43,6 +46,7 @@ export class AccessControlController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Logs' })
   @Get('logs')
+  @Permissions('access-control:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getLogs(
     @GetTenantContext() ctx: TenantContext,

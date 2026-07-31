@@ -13,13 +13,6 @@ exports[`access-control guard coverage (BranchGuard + Roles/Public presence) rou
   "access-control/access-control.controller.ts": [
     "Get('my-logs')",
   ],
-  "alumni/alumni.controller.ts": [
-    "Post('profile')",
-    "Get('profile/me')",
-    "Patch('profile/:id')",
-    "Get('events')",
-    "Post('events/:id/register')",
-  ],
   "app.controller.ts": [
     "Get('health')",
     "Get('public/uploads/admissions/:filename')",

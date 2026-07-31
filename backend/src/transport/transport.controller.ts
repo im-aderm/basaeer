@@ -18,6 +18,7 @@ import { AssignTransportDto } from './dto/assign-transport.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -28,8 +29,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Transport')
 @Controller('transport')
 export class TransportController {
@@ -39,6 +41,7 @@ export class TransportController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Vehicle' })
   @Post('vehicles')
+  @Permissions('transport:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -55,6 +58,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Vehicles' })
   @Get('vehicles')
+  @Permissions('transport:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -68,6 +72,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One Vehicle' })
   @Get('vehicles/:id')
+  @Permissions('transport:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -84,6 +89,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Vehicle' })
   @Patch('vehicles/:id')
+  @Permissions('transport:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -101,6 +107,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Vehicle' })
   @Delete('vehicles/:id')
+  @Permissions('transport:delete')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -117,6 +124,7 @@ export class TransportController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Route' })
   @Post('routes')
+  @Permissions('transport:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -133,6 +141,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Routes' })
   @Get('routes')
+  @Permissions('transport:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -146,6 +155,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One Route' })
   @Get('routes/:id')
+  @Permissions('transport:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -162,6 +172,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Route' })
   @Patch('routes/:id')
+  @Permissions('transport:update')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -179,6 +190,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Route' })
   @Delete('routes/:id')
+  @Permissions('transport:delete')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -192,6 +204,7 @@ export class TransportController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assign Student' })
   @Post('assign')
+  @Permissions('transport:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -208,6 +221,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Assignment' })
   @Delete('assign/:studentId')
+  @Permissions('transport:delete')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,
@@ -227,6 +241,7 @@ export class TransportController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Assignments Count' })
   @Get('stats/assignments')
+  @Permissions('transport:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.TRANSPORT_OFFICER,

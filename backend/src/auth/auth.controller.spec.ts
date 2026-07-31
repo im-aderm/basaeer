@@ -5,6 +5,7 @@ import { AuditService } from '../audit/audit.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RolesGuard } from './roles.guard';
 import { BranchGuard } from './branch.guard';
+import { PermissionsGuard } from './permissions.guard';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -42,6 +43,7 @@ describe('AuthController', () => {
       .overrideGuard(JwtAuthGuard).useValue(allowGuard)
       .overrideGuard(RolesGuard).useValue(allowGuard)
       .overrideGuard(BranchGuard).useValue(allowGuard)
+      .overrideGuard(PermissionsGuard).useValue(allowGuard)
       .compile();
 
     controller = module.get<AuthController>(AuthController);

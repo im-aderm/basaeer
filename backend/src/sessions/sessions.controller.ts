@@ -13,6 +13,7 @@ import { Prisma, UserRole } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import {
@@ -22,8 +23,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Sessions')
 @Controller('sessions')
 export class SessionsController {
@@ -33,6 +35,7 @@ export class SessionsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('sessions:create')
   @Roles(UserRole.SUPER_ADMIN)
   create(@Body() data: Prisma.AcademicSessionCreateInput) {
     return this.sessionsService.create(data);
@@ -42,6 +45,7 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('sessions:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@GetTenantContext() ctx: TenantContext) {
     const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
@@ -52,6 +56,7 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Active' })
   @Get('active')
+  @Permissions('sessions:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findActive(@GetTenantContext() ctx: TenantContext) {
     const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
@@ -62,6 +67,7 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('sessions:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
@@ -72,6 +78,7 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('sessions:update')
   @Roles(UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
@@ -86,6 +93,7 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('sessions:delete')
   @Roles(UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);

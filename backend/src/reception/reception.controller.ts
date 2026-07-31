@@ -26,6 +26,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client';
@@ -36,10 +37,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Reception')
 @Controller('reception')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class ReceptionController {
   constructor(private readonly receptionService: ReceptionService) {}
 
@@ -61,6 +63,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Enquiry' })
   @Post('enquiries')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createEnquiry(
     @GetTenantContext() ctx: TenantContext,
@@ -74,6 +77,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Enquiries' })
   @Get('enquiries')
+  @Permissions('reception:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getEnquiries(
     @GetTenantContext() ctx: TenantContext,
@@ -89,6 +93,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Enquiry' })
   @Post('enquiries/:id')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateEnquiry(@Param('id') id: string, @Body() dto: UpdateEnquiryDto, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.updateEnquiry(id, dto, ctx);
@@ -98,6 +103,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Enquiry' })
   @Delete('enquiries/:id')
+  @Permissions('reception:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteEnquiry(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.deleteEnquiry(id, ctx);
@@ -108,6 +114,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Call Log' })
   @Post('call-logs')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createCallLog(
     @GetTenantContext() ctx: TenantContext,
@@ -121,6 +128,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Call Logs' })
   @Get('call-logs')
+  @Permissions('reception:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getCallLogs(
     @GetTenantContext() ctx: TenantContext,
@@ -136,6 +144,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Call Log' })
   @Post('call-logs/:id')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateCallLog(@Param('id') id: string, @Body() dto: UpdateCallLogDto, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.updateCallLog(id, dto, ctx);
@@ -145,6 +154,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Call Log' })
   @Delete('call-logs/:id')
+  @Permissions('reception:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteCallLog(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.deleteCallLog(id, ctx);
@@ -155,6 +165,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Visitor Log' })
   @Post('visitor-logs')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createVisitorLog(
     @GetTenantContext() ctx: TenantContext,
@@ -168,6 +179,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Visitor Logs' })
   @Get('visitor-logs')
+  @Permissions('reception:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getVisitorLogs(
     @GetTenantContext() ctx: TenantContext,
@@ -183,6 +195,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Visitor Log' })
   @Post('visitor-logs/:id')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateVisitorLog(@Param('id') id: string, @Body() dto: UpdateVisitorLogDto, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.updateVisitorLog(id, dto, ctx);
@@ -192,6 +205,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Visitor Log' })
   @Delete('visitor-logs/:id')
+  @Permissions('reception:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteVisitorLog(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.deleteVisitorLog(id, ctx);
@@ -202,6 +216,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Complaint' })
   @Post('complaints')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createComplaint(
     @GetTenantContext() ctx: TenantContext,
@@ -215,6 +230,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Complaints' })
   @Get('complaints')
+  @Permissions('reception:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getComplaints(
     @GetTenantContext() ctx: TenantContext,
@@ -230,6 +246,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Complaint' })
   @Post('complaints/:id')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updateComplaint(@Param('id') id: string, @Body() dto: UpdateComplaintDto, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.updateComplaint(id, dto, ctx);
@@ -239,6 +256,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Complaint' })
   @Delete('complaints/:id')
+  @Permissions('reception:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deleteComplaint(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.deleteComplaint(id, ctx);
@@ -249,6 +267,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Postal Record' })
   @Post('postal-records')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   createPostalRecord(
     @GetTenantContext() ctx: TenantContext,
@@ -262,6 +281,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Postal Records' })
   @Get('postal-records')
+  @Permissions('reception:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   getPostalRecords(
     @GetTenantContext() ctx: TenantContext,
@@ -277,6 +297,7 @@ export class ReceptionController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Postal Record' })
   @Post('postal-records/:id')
+  @Permissions('reception:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   updatePostalRecord(
     @Param('id') id: string,
@@ -290,6 +311,7 @@ export class ReceptionController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Postal Record' })
   @Delete('postal-records/:id')
+  @Permissions('reception:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.RECEPTIONIST)
   deletePostalRecord(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.receptionService.deletePostalRecord(id, ctx);

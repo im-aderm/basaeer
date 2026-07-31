@@ -25,6 +25,7 @@ import { StartExportDto } from './dto/export.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole, Term } from '../generated/client/client';
@@ -35,8 +36,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Academics')
 @Controller('academics')
 export class AcademicsController {
@@ -52,6 +54,7 @@ export class AcademicsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assignment' })
   @Post('assignments')
+  @Permissions('academics:create')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createAssignment(@Body() dto: CreateAssignmentDto, @GetTenantContext() ctx: TenantContext) {
     return this.academicsService.createAssignment(dto, ctx);
@@ -62,6 +65,7 @@ export class AcademicsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assignment' })
   @Post('submissions')
+  @Permissions('academics:create')
   @Roles(UserRole.STUDENT)
   submitAssignment(@Body() dto: SubmitAssignmentDto, @GetTenantContext() ctx: TenantContext) {
     return this.academicsService.submitAssignment(dto, ctx);
@@ -71,6 +75,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Grade Submission' })
   @Patch('submissions/:id/grade')
+  @Permissions('academics:update')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   gradeSubmission(
     @Param('id') id: string,
@@ -85,6 +90,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Assignments' })
   @Get('assignments')
+  @Permissions('academics:read')
   @Roles(
     UserRole.TEACHER,
     UserRole.BRANCH_ADMIN,
@@ -110,6 +116,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Assignment Submissions' })
   @Get('assignments/:id/submissions')
+  @Permissions('academics:read')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getAssignmentSubmissions(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.academicsService.getAssignmentSubmissions(id, ctx);
@@ -119,6 +126,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Student Assignments' })
   @Get('student-assignments/:studentId')
+  @Permissions('academics:read')
   @Roles(
     UserRole.STUDENT,
     UserRole.TEACHER,
@@ -134,6 +142,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Performance' })
   @Get('performance/:studentId')
+  @Permissions('academics:read')
   @Roles(
     UserRole.STUDENT,
     UserRole.TEACHER,
@@ -150,6 +159,7 @@ export class AcademicsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Promote Students' })
   @Post('promote')
+  @Permissions('academics:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   promoteStudents(@Body() dto: PromoteStudentsDto, @GetTenantContext() ctx: TenantContext) {
     return this.academicsService.promoteStudents(dto, ctx);
@@ -161,6 +171,7 @@ export class AcademicsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Schedule' })
   @Post('schedules')
+  @Permissions('academics:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   createSchedule(
     @Body() dto: CreateClassScheduleDto,
@@ -174,6 +185,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Schedules' })
   @Get('schedules')
+  @Permissions('academics:read')
   @Roles(
     UserRole.BRANCH_ADMIN,
     UserRole.SUPER_ADMIN,
@@ -197,6 +209,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Schedule' })
   @Delete('schedules/:id')
+  @Permissions('academics:delete')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   deleteSchedule(
     @Param('id') id: string,
@@ -211,6 +224,7 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create resource' })
   @Post('exports')
   @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @Permissions('academics:create')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -228,6 +242,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Exports' })
   @Get('exports')
+  @Permissions('academics:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.BRANCH_ADMIN,
@@ -250,6 +265,7 @@ export class AcademicsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Export' })
   @Delete('exports/:id')
+  @Permissions('academics:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async deleteExport(@Param('id') id: string) {
     return this.exportQueueService.deleteExport(id);
@@ -261,6 +277,7 @@ export class AcademicsController {
   @ApiOperation({ summary: 'Create Compute Section' })
   @Post('compute-section')
   @Throttle({ default: { limit: 2, ttl: 60000 } })
+  @Permissions('academics:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.EXAM_OFFICER)
   async computeSection(
     @Body() dto: { sectionId: string; sessionId: string; term: Term },

@@ -14,12 +14,14 @@ import { CreateAdmissionExamDto, UpdateAdmissionExamDto, CreateExamScoreDto, Bul
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Admission Exams')
 @ApiBearerAuth()
 @Controller('admission-exams')
@@ -27,6 +29,7 @@ export class AdmissionExamController {
   constructor(private readonly examService: AdmissionExamService) {}
 
   @Post()
+  @Permissions('admission-exam:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Create entrance exam' })
   @ApiBody({ type: CreateAdmissionExamDto })
@@ -36,6 +39,7 @@ export class AdmissionExamController {
   }
 
   @Get()
+  @Permissions('admission-exam:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'List all entrance exams' })
   @ApiResponse({ status: 200, description: 'List of exams' })
@@ -49,6 +53,7 @@ export class AdmissionExamController {
   }
 
   @Get(':id')
+  @Permissions('admission-exam:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Get exam detail with scores' })
   @ApiResponse({ status: 200, description: 'Exam detail' })
@@ -57,6 +62,7 @@ export class AdmissionExamController {
   }
 
   @Get(':id/rankings')
+  @Permissions('admission-exam:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Get ranked applicants by score' })
   @ApiResponse({ status: 200, description: 'Ranked list' })
@@ -65,6 +71,7 @@ export class AdmissionExamController {
   }
 
   @Patch(':id')
+  @Permissions('admission-exam:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Update exam' })
   @ApiBody({ type: UpdateAdmissionExamDto })
@@ -78,6 +85,7 @@ export class AdmissionExamController {
   }
 
   @Delete(':id')
+  @Permissions('admission-exam:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Delete exam' })
   @ApiResponse({ status: 200, description: 'Exam deleted' })
@@ -86,6 +94,7 @@ export class AdmissionExamController {
   }
 
   @Post(':id/scores')
+  @Permissions('admission-exam:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Add single exam score' })
   @ApiBody({ type: CreateExamScoreDto })
@@ -99,6 +108,7 @@ export class AdmissionExamController {
   }
 
   @Post(':id/scores/bulk')
+  @Permissions('admission-exam:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Bulk upload exam scores' })
   @ApiBody({ type: BulkScoreUploadDto })
@@ -112,6 +122,7 @@ export class AdmissionExamController {
   }
 
   @Post(':id/assign')
+  @Permissions('admission-exam:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Assign applicants to exam' })
   @ApiBody({ type: ScheduleExamDto })

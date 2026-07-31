@@ -17,6 +17,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
@@ -27,8 +28,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Hostels')
 @Controller('hostels')
 export class HostelsController {
@@ -39,6 +41,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   create(@Body() dto: CreateHostelDto, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.createHostel(dto, ctx);
@@ -48,6 +51,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.findAll(ctx);
@@ -57,6 +61,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.getVacancies(ctx);
@@ -66,6 +71,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.findHostel(id, ctx);
@@ -76,6 +82,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('hostels:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   update(
     @Param('id') id: string,
@@ -89,6 +96,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('hostels:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.deleteHostel(id, ctx);
@@ -99,6 +107,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Room' })
   @Post('rooms')
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   createRoom(
     @Body() dto: CreateRoomDto,
@@ -111,6 +120,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Room' })
   @Get('rooms/:id')
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   findRoom(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.findRoom(id, ctx);
@@ -121,6 +131,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Room' })
   @Patch('rooms/:id')
+  @Permissions('hostels:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   updateRoom(
     @Param('id') id: string,
@@ -134,6 +145,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Room' })
   @Delete('rooms/:id')
+  @Permissions('hostels:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   removeRoom(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.deleteRoom(id, ctx);
@@ -144,6 +156,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Allocate Bed' })
   @Post('allocate')
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   allocateBed(
     @Body() dto: AllocateBedDto,
@@ -156,6 +169,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Release Bed' })
   @Post('release/:allocationId')
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   releaseBed(
     @Param('allocationId') allocationId: string,
@@ -168,6 +182,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Leave' })
   @Post('leave')
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   createLeave(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.createLeave(dto, ctx);
@@ -177,6 +192,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Branch Leaves' })
   @Get('leaves/branch')
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   getBranchLeaves(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.getBranchLeaves(ctx);
@@ -186,6 +202,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Leave Status' })
   @Patch('leaves/:id/status')
+  @Permissions('hostels:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   updateLeaveStatus(
     @Param('id') id: string,
@@ -199,6 +216,7 @@ export class HostelsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Maintenance' })
   @Post('maintenance')
+  @Permissions('hostels:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
   createMaintenance(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.createMaintenanceRequest(dto, ctx);
@@ -208,6 +226,7 @@ export class HostelsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Branch Maintenance' })
   @Get('maintenance/branch')
+  @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   getBranchMaintenance(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.getBranchMaintenance(ctx);

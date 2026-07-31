@@ -13,6 +13,7 @@ import { CreateAttendanceDto } from './dto/create-attendance.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { AttendanceSessionService } from './attendance-session.service';
 
@@ -25,8 +26,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Attendance')
 @Controller('attendance')
 export class AttendanceController {
@@ -40,6 +42,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Mark Attendance' })
   @Post()
+  @Permissions('attendance:create')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   markAttendance(
     @Body() dto: CreateAttendanceDto,
@@ -52,6 +55,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Mark Bulk Attendance' })
   @Post('bulk')
+  @Permissions('attendance:create')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   markBulkAttendance(
     @Body() dto: { records: CreateAttendanceDto[] },
@@ -65,6 +69,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Process Q R' })
   @Post('scan')
+  @Permissions('attendance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async processQR(
     @Body() dto: { payload: string; sessionId: string },
@@ -81,6 +86,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Bulk Sync Scans' })
   @Post('scan/bulk')
+  @Permissions('attendance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async bulkSyncScans(
     @Body()
@@ -97,6 +103,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Session' })
   @Post('sessions')
+  @Permissions('attendance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async createSession(
     @Body()
@@ -116,6 +123,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Active Sessions' })
   @Get('sessions/active')
+  @Permissions('attendance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getActiveSessions(@GetTenantContext() context: TenantContext) {
     return this.sessionService.getActiveSessions(context);
@@ -125,6 +133,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Session' })
   @Patch('sessions/:id')
+  @Permissions('attendance:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async updateSession(
     @Param('id') id: string,
@@ -138,6 +147,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Lock Session' })
   @Post('sessions/:id/lock')
+  @Permissions('attendance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async lockSession(
     @Param('id') id: string,
@@ -150,6 +160,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Close Session' })
   @Patch('sessions/:id/close')
+  @Permissions('attendance:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async closeSession(
     @Param('id') id: string,
@@ -162,6 +173,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Session' })
   @Get('sessions/:id')
+  @Permissions('attendance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   async getSession(
     @Param('id') id: string,
@@ -174,6 +186,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Student Q R' })
   @Get('qr/:studentId')
+  @Permissions('attendance:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async getStudentQR(
     @Param('studentId') studentId: string,
@@ -186,6 +199,7 @@ export class AttendanceController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Bulk Generate Q R' })
   @Post('qr/bulk')
+  @Permissions('attendance:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async bulkGenerateQR(
     @Body() dto: { studentIds: string[] },
@@ -198,6 +212,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve By Section' })
   @Get('section')
+  @Permissions('attendance:read')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   findBySection(
     @Query('sectionId') sectionId: string,
@@ -221,6 +236,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('student/:id')
+  @Permissions('attendance:read')
   @Roles(
     UserRole.TEACHER,
     UserRole.BRANCH_ADMIN,
@@ -239,6 +255,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
+  @Permissions('attendance:read')
   @Roles(UserRole.TEACHER, UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getStats(@GetTenantContext() context: TenantContext) {
     return this.attendanceService.getStats(context);
@@ -248,6 +265,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Trends' })
   @Get('analytics/trends')
+  @Permissions('attendance:read')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getTrends(
     @Query('days') days: string,
@@ -263,6 +281,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Chronic Absentees' })
   @Get('analytics/chronic')
+  @Permissions('attendance:read')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   getChronicAbsentees(
     @Query('threshold') threshold: string,
@@ -278,6 +297,7 @@ export class AttendanceController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Teacher — Get My Class Attendance' })
   @Get('my-class')
+  @Permissions('attendance:read')
   @Roles(UserRole.TEACHER)
   getMyClassAttendance(@GetTenantContext() context: TenantContext) {
     return this.attendanceService.getMyClassAttendance(context);

@@ -3,6 +3,7 @@ import { ClassesService } from './classes.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -13,8 +14,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Classes')
 @Controller('classes')
 export class ClassesController {
@@ -24,6 +26,7 @@ export class ClassesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('classes:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   async create(
     @Body() createClassDto: any,
@@ -46,6 +49,7 @@ export class ClassesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('classes:read')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   findAll(@GetTenantContext() context: TenantContext) {
     return this.classesService.findAll(context);
@@ -55,6 +59,7 @@ export class ClassesController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('classes:read')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN, UserRole.TEACHER)
   findOne(@Param('id') id: string, @GetTenantContext() context: TenantContext) {
     return this.classesService.findOne(id, context);
@@ -64,6 +69,7 @@ export class ClassesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Section' })
   @Post(':id/sections')
+  @Permissions('classes:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   addSection(
     @Param('id') id: string,
@@ -77,6 +83,7 @@ export class ClassesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Assign Teacher' })
   @Post(':id/assign-teacher')
+  @Permissions('classes:create')
   @Roles(UserRole.BRANCH_ADMIN, UserRole.SUPER_ADMIN)
   assignTeacher(
     @Param('id') id: string,

@@ -15,6 +15,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import {
   ApiTags,
@@ -23,8 +24,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Library')
 @Controller('library')
 export class LibraryController {
@@ -35,6 +37,7 @@ export class LibraryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Book' })
   @Post('books')
+  @Permissions('library:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   createBook(
     @Body() dto: CreateBookDto,
@@ -48,6 +51,7 @@ export class LibraryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('books')
+  @Permissions('library:read')
   @Roles(
     UserRole.SUPER_ADMIN,
     UserRole.LIBRARIAN,
@@ -76,6 +80,7 @@ export class LibraryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One Book' })
   @Get('books/:id')
+  @Permissions('library:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   findOneBook(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.libraryService.findOneBook(id, ctx);
@@ -86,6 +91,7 @@ export class LibraryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Borrow Book' })
   @Post('borrow')
+  @Permissions('library:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   borrowBook(@Body() dto: BorrowBookDto, @GetTenantContext() ctx: TenantContext) {
     return this.libraryService.borrowBook(dto, ctx);
@@ -95,6 +101,7 @@ export class LibraryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Return Book' })
   @Post('return/:recordId')
+  @Permissions('library:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   returnBook(@Param('recordId') recordId: string, @GetTenantContext() ctx: TenantContext) {
     return this.libraryService.returnBook(recordId, ctx);
@@ -104,6 +111,7 @@ export class LibraryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All Borrow Records' })
   @Get('borrow-records')
+  @Permissions('library:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   findAllBorrowRecords(@GetTenantContext() ctx: TenantContext) {
     return this.libraryService.findAllBorrowRecords(
@@ -115,6 +123,7 @@ export class LibraryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Stats' })
   @Get('stats')
+  @Permissions('library:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() ctx: TenantContext) {
     return this.libraryService.getLibraryStats(ctx);
@@ -124,6 +133,7 @@ export class LibraryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Overdue Books' })
   @Get('overdue')
+  @Permissions('library:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.LIBRARIAN, UserRole.BRANCH_ADMIN)
   getOverdueBooks(@GetTenantContext() ctx: TenantContext) {
     return this.libraryService.getOverdueBooks(

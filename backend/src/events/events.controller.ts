@@ -19,6 +19,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
 import { Throttle } from '@nestjs/throttler';
@@ -38,8 +39,9 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 import * as https from 'https';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Events')
 @Controller('events')
 export class EventsController {
@@ -138,6 +140,7 @@ export class EventsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create event' })
   @Post()
+  @Permissions('events:create')
   @Roles(UserRole.SUPER_ADMIN)
   create(
     @Body() dto: CreateCampusEventDto,
@@ -151,6 +154,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve analytics for events' })
   @Get('analytics')
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getAnalytics(@GetTenantContext() ctx: TenantContext) {
     return this.eventsService.getAnalytics(ctx);
@@ -160,6 +164,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve all applications' })
   @Get('applications/all')
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getAllApplications(@GetTenantContext() ctx: TenantContext) {
     return this.eventsService.getAllApplications(ctx);
@@ -169,6 +174,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve applications for specific event' })
   @Get(':id/applications')
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getEventApplications(
     @Param('id') eventId: string,
@@ -181,6 +187,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve application details' })
   @Get('applications/:id')
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   getApplicationDetails(
     @Param('id') id: string,
@@ -194,6 +201,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update event application status' })
   @Patch('applications/:id/status')
+  @Permissions('events:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateApplicationStatus(
     @Param('id') id: string,
@@ -208,6 +216,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Verify application payment receipt' })
   @Patch('applications/:id/payment')
+  @Permissions('events:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   verifyPayment(
     @Param('id') id: string,
@@ -221,6 +230,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete event application' })
   @Delete('applications/:id')
+  @Permissions('events:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteApplication(
     @Param('id') id: string,
@@ -233,6 +243,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve events list' })
   @Get()
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   find(
     @GetTenantContext() ctx: TenantContext,
@@ -247,6 +258,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve single event details' })
   @Get(':id')
+  @Permissions('events:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.eventsService.getEventDetails(id, ctx);
@@ -257,6 +269,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update event' })
   @Put(':id')
+  @Permissions('events:update')
   @Roles(UserRole.SUPER_ADMIN)
   update(
     @Param('id') id: string,
@@ -283,6 +296,7 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete event' })
   @Delete(':id')
+  @Permissions('events:delete')
   @Roles(UserRole.SUPER_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.eventsService.deleteEvent(id, ctx);

@@ -18,6 +18,7 @@ import { GenerateIdCardsDto } from './dto/generate-cards.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { UserRole } from '../generated/client/client';
@@ -28,10 +29,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('ID Cards')
 @Controller('cards')
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}
 
@@ -48,6 +50,7 @@ export class CardsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Template' })
   @Post('templates')
+  @Permissions('cards:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createTemplate(@Body() createDto: CreateIdCardTemplateDto) {
     return this.cardsService.createTemplate(createDto);
@@ -77,6 +80,7 @@ export class CardsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update Template' })
   @Patch('templates/:id')
+  @Permissions('cards:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateTemplate(
     @Param('id') id: string,
@@ -90,6 +94,7 @@ export class CardsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Template' })
   @Delete('templates/:id')
+  @Permissions('cards:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   removeTemplate(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.cardsService.deleteTemplate(id, ctx);
@@ -101,6 +106,7 @@ export class CardsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Generate' })
   @Post('generate')
+  @Permissions('cards:generate')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
   generate(
     @Body() generateDto: GenerateIdCardsDto,

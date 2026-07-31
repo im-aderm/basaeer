@@ -16,6 +16,7 @@ import {
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import {
   ApiTags,
@@ -24,8 +25,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
 @ApiTags('Modules Config')
 @Controller('modules')
 export class ModulesConfigController {
@@ -35,6 +37,7 @@ export class ModulesConfigController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('modules-config:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@Query('branchId') branchId?: string) {
     return this.modulesConfigService.findAll(branchId);
@@ -45,6 +48,7 @@ export class ModulesConfigController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('modules-config:create')
   @Roles(UserRole.SUPER_ADMIN)
   upsert(@Body() dto: UpsertModuleConfigDto) {
     return this.modulesConfigService.upsert(dto);
@@ -55,6 +59,7 @@ export class ModulesConfigController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':moduleKey/toggle')
+  @Permissions('modules-config:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   toggle(@Param('moduleKey') moduleKey: string, @Body() dto: ToggleModuleDto) {
     return this.modulesConfigService.toggle(moduleKey, dto);

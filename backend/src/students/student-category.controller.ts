@@ -15,6 +15,7 @@ import { UpdateStudentCategoryDto } from './dto/update-student-category.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
@@ -25,8 +26,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Student Categories')
 @Controller('student-categories')
 export class StudentCategoryController {
@@ -39,6 +41,7 @@ export class StudentCategoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
+  @Permissions('students:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   create(@Body() createDto: CreateStudentCategoryDto, @GetTenantContext() ctx: TenantContext) {
     if (!createDto.branchId && ctx.branchId) {
@@ -51,6 +54,7 @@ export class StudentCategoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@Query('branchId') branchId: string) {
     return this.studentCategoryService.findAll(branchId);
@@ -60,6 +64,7 @@ export class StudentCategoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('students:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.studentCategoryService.findOne(id, ctx);
@@ -70,6 +75,7 @@ export class StudentCategoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
+  @Permissions('students:update')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   update(@Param('id') id: string, @Body() updateDto: UpdateStudentCategoryDto, @GetTenantContext() ctx: TenantContext) {
     return this.studentCategoryService.update(id, updateDto, ctx);
@@ -79,6 +85,7 @@ export class StudentCategoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
+  @Permissions('students:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.studentCategoryService.remove(id, ctx);

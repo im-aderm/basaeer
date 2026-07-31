@@ -16,13 +16,15 @@ import { UploadService } from '../upload/upload.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Throttle } from '@nestjs/throttler';
 import { BadRequestException } from '@nestjs/common';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @Controller('attachments')
 export class AttachmentsController {
   constructor(
@@ -31,6 +33,7 @@ export class AttachmentsController {
   ) {}
 
   @Post('categories')
+  @Permissions('attachments:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   createCategory(
     @Body('name') name: string,
@@ -41,18 +44,21 @@ export class AttachmentsController {
   }
 
   @Get('categories')
+  @Permissions('attachments:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   getCategories(@Query('branchId') branchId: string | undefined, @GetTenantContext() ctx: TenantContext) {
     return this.attachmentsService.getCategories(branchId || ctx.branchId!);
   }
 
   @Delete('categories/:id')
+  @Permissions('attachments:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   deleteCategory(@Param('id') id: string) {
     return this.attachmentsService.deleteCategory(id);
   }
 
   @Post('upload')
+  @Permissions('attachments:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   @UseInterceptors(FileInterceptor('file'))
   @Throttle({ default: { limit: 10, ttl: 60000 } })

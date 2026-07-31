@@ -12,12 +12,14 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client';
 import { ExecutiveDashboardService } from './executive-dashboard.service';
 import { BranchDashboardService } from './branch-dashboard.service';
 import { TrendPeriod } from './dto/executive-overview.dto';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Analytics')
 @ApiBearerAuth()
 @Controller('analytics')
@@ -30,6 +32,7 @@ export class AnalyticsController {
   // ─── Executive Dashboard (Super Admin only) ───
 
   @Get('executive/overview')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Executive overview KPIs' })
   @ApiResponse({ status: 200, description: 'Executive overview data' })
@@ -38,6 +41,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/finance')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Executive finance analytics' })
   @ApiResponse({ status: 200, description: 'Finance data by branch' })
@@ -46,6 +50,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/attendance')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Executive attendance analytics' })
   @ApiResponse({ status: 200, description: 'Attendance data by branch' })
@@ -54,6 +59,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/academics')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Executive academics analytics' })
   @ApiResponse({ status: 200, description: 'Academics data by branch' })
@@ -62,6 +68,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/branches')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Branch comparison data' })
   @ApiResponse({ status: 200, description: 'Branch comparison KPIs' })
@@ -70,6 +77,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/trends')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Time series trends' })
   @ApiResponse({ status: 200, description: 'Trend data' })
@@ -81,6 +89,7 @@ export class AnalyticsController {
   }
 
   @Get('executive/insights')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN)
   @ApiOperation({ summary: 'Rule-based executive insights' })
   @ApiResponse({ status: 200, description: 'Insight cards' })
@@ -91,6 +100,7 @@ export class AnalyticsController {
   // ─── Branch Dashboard (Super Admin + Branch Admin) ───
 
   @Get('branch/:branchId/overview')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Branch overview KPIs' })
   @ApiResponse({ status: 200, description: 'Branch overview data' })
@@ -102,6 +112,7 @@ export class AnalyticsController {
   }
 
   @Get('branch/:branchId/finance')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.ACCOUNTANT)
   @ApiOperation({ summary: 'Branch finance analytics' })
   @ApiResponse({ status: 200, description: 'Branch finance data' })
@@ -113,6 +124,7 @@ export class AnalyticsController {
   }
 
   @Get('branch/:branchId/attendance')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   @ApiOperation({ summary: 'Branch attendance analytics' })
   @ApiResponse({ status: 200, description: 'Branch attendance data' })
@@ -124,6 +136,7 @@ export class AnalyticsController {
   }
 
   @Get('branch/:branchId/academics')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
   @ApiOperation({ summary: 'Branch academics analytics' })
   @ApiResponse({ status: 200, description: 'Branch academics data' })
@@ -135,6 +148,7 @@ export class AnalyticsController {
   }
 
   @Get('branch/:branchId/daily-ops')
+  @Permissions('analytics:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   @ApiOperation({ summary: 'Branch daily operations' })
   @ApiResponse({ status: 200, description: 'Daily operations data' })

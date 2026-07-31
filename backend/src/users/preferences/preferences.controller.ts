@@ -11,10 +11,11 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../../auth/permissions.guard';
 
 @ApiTags('User Preferences')
 @Controller('user-preferences')
-@UseGuards(JwtAuthGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, BranchGuard, PermissionsGuard)
 export class PreferencesController {
   constructor(private readonly preferencesService: PreferencesService) {}
 

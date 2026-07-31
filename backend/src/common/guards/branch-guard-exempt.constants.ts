@@ -41,9 +41,4 @@ export const BRANCH_GUARD_EXEMPT_CONTROLLERS: Record<string, string> = {
     'Google Meet webhook, authenticated via webhook secret, not JWT/branch context.',
   'settings/backup.controller.ts':
     'SUPER_ADMIN-only, operates across all branches by design.',
-
-  // TODO(remediation): remove as each is fixed —
-  // see /home/im-adam/.claude/plans/ethereal-dazzling-tide.md Phases 2-3.
-  'alumni/alumni.controller.ts':
-    'TODO(phase 3): orphaned/broken duplicate of the stakeholder-based alumni feature, slated for removal.',
 };

@@ -30,6 +30,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client';
 import {
   ApiTags,
@@ -38,8 +39,9 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
-@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard, PermissionsGuard)
 @ApiTags('Inventory')
 @Controller('inventory')
 export class InventoryController {
@@ -70,6 +72,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Category' })
   @Post('categories')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createCategory(
     @Body() dto: CreateInventoryCategoryDto,
@@ -98,6 +101,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Category' })
   @Post('categories/:id')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateCategory(
     @Param('id') id: string,
@@ -111,6 +115,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Category' })
   @Delete('categories/:id')
+  @Permissions('inventory:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteCategory(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.deleteCategory(id, ctx);
@@ -121,6 +126,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Store' })
   @Post('stores')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createStore(
     @Body() dto: CreateInventoryStoreDto,
@@ -147,6 +153,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Store' })
   @Post('stores/:id')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateStore(@Param('id') id: string, @Body() dto: UpdateInventoryStoreDto, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.updateStore(id, dto, ctx);
@@ -156,6 +163,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Store' })
   @Delete('stores/:id')
+  @Permissions('inventory:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteStore(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.deleteStore(id, ctx);
@@ -166,6 +174,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Supplier' })
   @Post('suppliers')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSupplier(
     @Body() dto: CreateInventorySupplierDto,
@@ -194,6 +203,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Supplier' })
   @Post('suppliers/:id')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateSupplier(
     @Param('id') id: string,
@@ -207,6 +217,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Supplier' })
   @Delete('suppliers/:id')
+  @Permissions('inventory:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteSupplier(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.deleteSupplier(id, ctx);
@@ -217,6 +228,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Unit' })
   @Post('units')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createUnit(
     @Body() dto: CreateInventoryUnitDto,
@@ -243,6 +255,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Unit' })
   @Post('units/:id')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateUnit(@Param('id') id: string, @Body() dto: UpdateInventoryUnitDto, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.updateUnit(id, dto, ctx);
@@ -252,6 +265,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Unit' })
   @Delete('units/:id')
+  @Permissions('inventory:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteUnit(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.deleteUnit(id, ctx);
@@ -262,6 +276,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Product' })
   @Post('products')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createProduct(
     @Body() dto: CreateInventoryProductDto,
@@ -288,6 +303,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Update Product' })
   @Post('products/:id')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   updateProduct(
     @Param('id') id: string,
@@ -301,6 +317,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Delete Product' })
   @Delete('products/:id')
+  @Permissions('inventory:delete')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   deleteProduct(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.deleteProduct(id, ctx);
@@ -311,6 +328,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Purchase' })
   @Post('purchases')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createPurchase(
     @Body() dto: CreateInventoryPurchaseDto,
@@ -339,6 +357,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Issue Item' })
   @Post('issues')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   issueItem(
     @Body() dto: IssueItemDto,
@@ -364,6 +383,7 @@ export class InventoryController {
   @ApiResponse({ status: 200, description: 'Issue returned successfully' })
   @ApiOperation({ summary: 'Return Issued Item' })
   @Post('issues/:id/return')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   returnItem(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.inventoryService.returnItem(id, ctx);
@@ -374,6 +394,7 @@ export class InventoryController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Sale' })
   @Post('sales')
+  @Permissions('inventory:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   createSale(
     @Body() dto: CreateInventorySaleDto,

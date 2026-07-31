@@ -12,6 +12,7 @@ import { BulkUpsertTranslationsDto } from './dto/translations.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
+import { Permissions } from '../auth/permissions.decorator';
 import { UserRole } from '../generated/client/client';
 import {
   ApiTags,
@@ -20,6 +21,7 @@ import {
   ApiResponse,
   ApiBody,
 } from '@nestjs/swagger';
+import { PermissionsGuard } from '../auth/permissions.guard';
 
 @ApiTags('Translations')
 @Controller('translations')
@@ -41,7 +43,8 @@ export class TranslationsController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Bulk Upsert' })
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard, PermissionsGuard)
+  @Permissions('translations:create')
   @Roles(UserRole.SUPER_ADMIN)
   bulkUpsert(@Body() dto: BulkUpsertTranslationsDto) {
     return this.translationsService.bulkUpsert(dto);
