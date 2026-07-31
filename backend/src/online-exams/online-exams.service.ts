@@ -26,9 +26,14 @@ export class OnlineExamsService {
   }
 
   // ==================== Question Group Management ====================
-  async createQuestionGroup(dto: CreateQuestionGroupDto) {
+  async createQuestionGroup(dto: CreateQuestionGroupDto, context: TenantContext) {
+    // Belt-and-suspenders: BranchGuard already rejects a non-super-admin
+    // sending a mismatched branchId in the body, but don't rely solely on
+    // that — always create under the caller's own branch when they're not
+    // a super admin.
+    const branchId = context.isSuperAdmin ? dto.branchId : context.branchId!;
     return this.prisma.questionGroup.create({
-      data: dto,
+      data: { ...dto, branchId },
     });
   }
 
@@ -39,8 +44,18 @@ export class OnlineExamsService {
     });
   }
 
+  /** Loads a question group scoped to the caller's branch, or throws. */
+  private async findGroupInBranch(groupId: string, context: TenantContext) {
+    const group = await this.prisma.questionGroup.findFirst({
+      where: TenantHelper.applyIsolation({ id: groupId }, context),
+    });
+    if (!group) throw new NotFoundException('Question group not found');
+    return group;
+  }
+
   // ==================== Question Management ====================
-  async createQuestion(dto: CreateQuestionDto) {
+  async createQuestion(dto: CreateQuestionDto, context: TenantContext) {
+    await this.findGroupInBranch(dto.groupId, context);
     return this.prisma.question.create({
       data: {
         type: dto.type,
@@ -59,7 +74,8 @@ export class OnlineExamsService {
     });
   }
 
-  async getQuestionsByGroup(groupId: string) {
+  async getQuestionsByGroup(groupId: string, context: TenantContext) {
+    await this.findGroupInBranch(groupId, context);
     return this.prisma.question.findMany({
       where: { groupId },
       include: { options: true },
@@ -109,10 +125,13 @@ export class OnlineExamsService {
   }
 
   // ==================== Online Exam Management ====================
-  async createExam(dto: CreateOnlineExamDto) {
+  async createExam(dto: CreateOnlineExamDto, context: TenantContext) {
+    await this.findGroupInBranch(dto.groupId, context);
+    const branchId = context.isSuperAdmin ? dto.branchId : context.branchId!;
     return this.prisma.onlineExam.create({
       data: {
         ...dto,
+        branchId,
         scheduledDate: new Date(dto.scheduledDate),
       },
     });

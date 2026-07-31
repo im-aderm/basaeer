@@ -45,8 +45,11 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Create Group' })
   @Post('groups')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  createGroup(@Body() dto: CreateQuestionGroupDto) {
-    return this.examsService.createQuestionGroup(dto);
+  createGroup(
+    @Body() dto: CreateQuestionGroupDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.examsService.createQuestionGroup(dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -69,8 +72,11 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Create Question' })
   @Post('questions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  createQuestion(@Body() dto: CreateQuestionDto) {
-    return this.examsService.createQuestion(dto);
+  createQuestion(
+    @Body() dto: CreateQuestionDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.examsService.createQuestion(dto, ctx);
   }
 
   @ApiBearerAuth()
@@ -78,8 +84,11 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Retrieve Questions' })
   @Get('groups/:groupId/questions')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getQuestions(@Param('groupId') groupId: string) {
-    return this.examsService.getQuestionsByGroup(groupId);
+  getQuestions(
+    @Param('groupId') groupId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.examsService.getQuestionsByGroup(groupId, ctx);
   }
 
   @ApiBearerAuth()
@@ -108,8 +117,11 @@ export class OnlineExamsController {
   @ApiOperation({ summary: 'Create Exam' })
   @Post()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  createExam(@Body() dto: CreateOnlineExamDto) {
-    return this.examsService.createExam(dto);
+  createExam(
+    @Body() dto: CreateOnlineExamDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.examsService.createExam(dto, ctx);
   }
 
   @ApiBearerAuth()
