@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`access-control guard coverage (BranchGuard + Roles/Public presence) routes without an explicit @Roles()/@Public() decorator are tracked (snapshot) 1`] = `
+{
+  "academic-sessions/academic-sessions.controller.ts": [
+    "Get()",
+    "Get(':id')",
+    "Post()",
+    "Put(':id')",
+    "Patch(':id')",
+    "Delete(':id')",
+    "Get('active')",
+  ],
+  "academics/academics.controller.ts": [
+    "Get('exports/:id')",
+    "Get('compute-status/:jobId')",
+  ],
+  "academics/report-templates.controller.ts": [
+    "Get()",
+    "Get(':id')",
+  ],
+  "access-control/access-control.controller.ts": [
+    "Get('my-logs')",
+  ],
+  "alumni/alumni.controller.ts": [
+    "Post('profile')",
+    "Get('profile/me')",
+    "Patch('profile/:id')",
+    "Get('events')",
+    "Post('events/:id/register')",
+  ],
+  "app.controller.ts": [
+    "Get('health')",
+    "Get('public/uploads/admissions/:filename')",
+    "Get('public/uploads/admissions/:subfolder/:filename')",
+  ],
+  "assignments/assignments.controller.ts": [
+    "Get(':id')",
+  ],
+  "auth/auth.controller.ts": [
+    "Post('login')",
+    "Post('logout')",
+    "Post('bootstrap')",
+    "Get('profile')",
+    "Patch('profile')",
+    "Post('select-branch')",
+    "Post('select-session')",
+    "Post('forgot-password')",
+    "Post('reset-password')",
+    "Post('change-password')",
+  ],
+  "cards/cards.controller.ts": [
+    "Get('templates')",
+    "Get('templates/:id')",
+    "Get()",
+    "Get(':id')",
+  ],
+  "certificates/certificates.controller.ts": [
+    "Get()",
+    "Get('templates')",
+    "Get('my-certificates')",
+    "Get('student/:studentId')",
+    "Get(':id')",
+    "Get(':id/pdf')",
+  ],
+  "employees/employees.controller.ts": [
+    "Post('leave-request')",
+    "Get('my-leave-balances')",
+    "Get('my-awards')",
+    "Post('advance-salary/request')",
+    "Get('my-advance-salary')",
+  ],
+  "events/events.controller.ts": [
+    "Post(':id/rsvp')",
+  ],
+  "finance/payments.controller.ts": [
+    "Post('webhook/paystack')",
+  ],
+  "live-classes/live-classes.controller.ts": [
+    "Post('sessions/:id/participants')",
+  ],
+  "live-classes/meet-oauth.controller.ts": [
+    "Get('google')",
+    "Get('google/callback')",
+  ],
+  "live-classes/meet-webhooks.controller.ts": [
+    "Post()",
+  ],
+  "notifications/notifications.controller.ts": [
+    "Get()",
+    "Patch(':id/read')",
+    "Get('preferences')",
+    "Patch('preferences')",
+  ],
+  "public-api/public-api.controller.ts": [
+    "Get('students')",
+    "Get('attendance/summary')",
+  ],
+  "search/search.controller.ts": [
+    "Get()",
+  ],
+  "sessions/sessions.controller.ts": [
+    "Get(':id')",
+  ],
+  "stakeholder/stakeholder.controller.ts": [
+    "Post('messaging/conversation')",
+    "Post('messaging/send')",
+    "Get('messaging/conversations')",
+    "Get('alumni')",
+    "Get('alumni/events')",
+    "Post('alumni/event/:id/rsvp')",
+  ],
+  "translations/translations.controller.ts": [
+    "Get(':locale')",
+  ],
+  "upload/upload.controller.ts": [
+    "Post('payment-proof')",
+  ],
+  "users/preferences/preferences.controller.ts": [
+    "Get()",
+    "Patch()",
+  ],
+}
+`;
