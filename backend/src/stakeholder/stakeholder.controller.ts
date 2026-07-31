@@ -37,6 +37,16 @@ import {
 export class StakeholderController {
   constructor(private readonly stakeholderService: StakeholderService) {}
 
+  /**
+   * A SUPER_ADMIN may explicitly target another branch via ?branchId=;
+   * every other role is always scoped to their own branch regardless of
+   * what they pass, so a branch admin can't read another campus's parents
+   * or alumni by supplying its id.
+   */
+  private resolveBranch(ctx: TenantContext, queryBranchId?: string): string | undefined {
+    return ctx.isSuperAdmin ? queryBranchId || undefined : ctx.branchId ?? undefined;
+  }
+
   // --- PARENT PORTAL ---
 
   @ApiBearerAuth()
@@ -112,8 +122,11 @@ export class StakeholderController {
   @ApiOperation({ summary: 'Retrieve All Parents' })
   @Get('admin/parents')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  getAllParents(@Query('branchId') branchId: string) {
-    return this.stakeholderService.getAllParentsAdmin(branchId);
+  getAllParents(
+    @Query('branchId') branchId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.stakeholderService.getAllParentsAdmin(this.resolveBranch(ctx, branchId));
   }
 
   @ApiBearerAuth()
@@ -204,8 +217,12 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Alumni' })
   @Get('alumni')
-  getAlumni(@Query('branchId') branchId: string) {
-    return this.stakeholderService.getAlumni(branchId);
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  getAlumni(
+    @Query('branchId') branchId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.stakeholderService.getAlumni(this.resolveBranch(ctx, branchId));
   }
 
   @ApiBearerAuth()
@@ -225,8 +242,12 @@ export class StakeholderController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Events' })
   @Get('alumni/events')
-  getEvents(@Query('branchId') branchId: string) {
-    return this.stakeholderService.getAlumniEvents(branchId);
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  getEvents(
+    @Query('branchId') branchId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.stakeholderService.getAlumniEvents(this.resolveBranch(ctx, branchId));
   }
 
   @ApiBearerAuth()
@@ -239,8 +260,8 @@ export class StakeholderController {
     @Body() dto: UpdateAlumniEventParticipationDto,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    // In a real scenario, we'd find the alumni record linked to this user
-    // For now, assuming user.id relates to an alumni entry
+    // rsvpEvent resolves the caller's own Alumni record (via Student.userId)
+    // internally — it takes the logged-in userId, not an alumniId.
     return this.stakeholderService.rsvpEvent(ctx.userId, eventId, dto.status);
   }
 }

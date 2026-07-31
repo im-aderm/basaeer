@@ -91,8 +91,6 @@ exports[`access-control guard coverage (BranchGuard + Roles/Public presence) rou
     "Post('messaging/conversation')",
     "Post('messaging/send')",
     "Get('messaging/conversations')",
-    "Get('alumni')",
-    "Get('alumni/events')",
     "Post('alumni/event/:id/rsvp')",
   ],
   "translations/translations.controller.ts": [

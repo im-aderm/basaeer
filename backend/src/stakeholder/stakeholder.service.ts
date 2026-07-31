@@ -267,7 +267,7 @@ export class StakeholderService {
     });
   }
 
-  async getAlumni(branchId: string) {
+  async getAlumni(branchId?: string) {
     return this.prisma.alumni.findMany({
       where: { branchId, isPublic: true },
       include: { student: true },
@@ -284,7 +284,7 @@ export class StakeholderService {
     });
   }
 
-  async getAlumniEvents(branchId: string) {
+  async getAlumniEvents(branchId?: string) {
     return this.prisma.alumniEvent.findMany({
       where: { branchId },
       include: {
@@ -294,11 +294,23 @@ export class StakeholderService {
     });
   }
 
-  async rsvpEvent(alumniId: string, eventId: string, status: string) {
+  async rsvpEvent(userId: string, eventId: string, status: string) {
+    // The caller supplies their own userId, not an alumniId — resolve the
+    // Alumni record linked to them via Student.userId (an alumnus is a
+    // former Student). Previously this passed userId straight through as
+    // if it were an alumniId, silently creating malformed participant rows.
+    const alumni = await this.prisma.alumni.findFirst({
+      where: { student: { userId } },
+      select: { id: true },
+    });
+    if (!alumni) {
+      throw new NotFoundException('No alumni record is linked to this account');
+    }
+
     return this.prisma.alumniEventParticipant.upsert({
-      where: { alumniId_eventId: { alumniId, eventId } },
+      where: { alumniId_eventId: { alumniId: alumni.id, eventId } },
       update: { status: status as any },
-      create: { alumniId, eventId, status: status as any },
+      create: { alumniId: alumni.id, eventId, status: status as any },
     });
   }
 }
