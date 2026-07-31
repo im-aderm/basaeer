@@ -114,10 +114,11 @@ export class FinanceService {
           },
         });
 
-        // Post to General Ledger: Debit Receivables, Credit Income
-        await this.ledger.postInvoice(tx, branchId, invoice.id, totalAmount).catch((e) => {
-          this.logger.error(`GL posting failed for invoice ${invoice.id}: ${e.message}`);
-        });
+        // Post to General Ledger: Debit Receivables, Credit Income. Let a
+        // posting failure roll back the whole transaction — silently
+        // swallowing it here previously let the invoice commit with no
+        // matching GL entry, drifting the ledger from the books over time.
+        await this.ledger.postInvoice(tx, branchId, invoice.id, totalAmount);
 
         return invoice;
       })
@@ -175,10 +176,10 @@ export class FinanceService {
 
         if (status === PaymentStatus.COMPLETED) {
           await this.updateInvoiceBalance(tx, invoiceId, amount);
-          // Post to General Ledger: Debit Cash, Credit Receivables
-          await this.ledger.postPayment(tx, invoice.branchId, payment.id, new Decimal(amount)).catch((e) => {
-            this.logger.error(`GL posting failed for payment ${payment.id}: ${e.message}`);
-          });
+          // Post to General Ledger: Debit Cash, Credit Receivables. As
+          // above, a posting failure now rolls back the whole transaction
+          // instead of leaving a payment recorded with no GL entry.
+          await this.ledger.postPayment(tx, invoice.branchId, payment.id, new Decimal(amount));
         }
 
         return payment;
@@ -248,8 +249,14 @@ export class FinanceService {
         ? InvoiceStatus.PAID
         : invoice.status;
 
-      const updated = await tx.invoice.update({
-        where: { id: invoice.id },
+      // Atomic compare-and-swap: the WHERE clause re-checks discountAmount
+      // is still null as part of the same UPDATE statement, so if two
+      // concurrent requests both pass the findFirst check above, Postgres
+      // serializes their UPDATEs on this row and only the first one to
+      // commit actually matches — the second affects 0 rows here instead of
+      // silently double-discounting the invoice.
+      const { count } = await tx.invoice.updateMany({
+        where: { id: invoice.id, discountAmount: null },
         data: {
           balance: netAmount,
           status: newStatus,
@@ -260,6 +267,14 @@ export class FinanceService {
           discountedById: context.userId,
           discountedAt: new Date(),
         },
+      });
+      if (count === 0) {
+        throw new BadRequestException(
+          'A discount has already been applied to this invoice.',
+        );
+      }
+      const updated = await tx.invoice.findUniqueOrThrow({
+        where: { id: invoice.id },
       });
 
       // Keep the ledger balanced: a discount is a credit note against the
@@ -682,22 +697,40 @@ export class FinanceService {
       throw new BadRequestException('Invoice is already voided');
     }
 
-    const updated = await this.prisma.invoice.update({
-      where: { id: invoiceId },
-      data: {
-        status: InvoiceStatus.VOIDED,
-        balance: new Decimal(0),
-      },
+    const outstandingBalance = new Decimal(invoice.balance);
+
+    return this.prisma.$transaction(async (tx) => {
+      const updated = await tx.invoice.update({
+        where: { id: invoiceId },
+        data: {
+          status: InvoiceStatus.VOIDED,
+          balance: new Decimal(0),
+        },
+      });
+
+      // Voiding writes off the outstanding receivable/income for whatever
+      // balance remained — payments already received were already reflected
+      // via postPayment and are untouched. Previously this posted no GL
+      // entry at all, so a voided invoice's receivable/income stayed on the
+      // books forever, diverging the ledger from the invoice records.
+      if (outstandingBalance.gt(0)) {
+        await this.ledger.postCreditNote(
+          tx,
+          invoice.branchId,
+          invoice.id,
+          outstandingBalance,
+        );
+      }
+
+      await this.audit.logAction(
+        context.userId,
+        'INVOICE_VOIDED',
+        'FINANCE',
+        invoice.branchId,
+        { invoiceId, invoiceNumber: invoice.invoiceNumber, reason },
+      );
+
+      return updated;
     });
-
-    await this.audit.logAction(
-      context.userId,
-      'INVOICE_VOIDED',
-      'FINANCE',
-      invoice.branchId,
-      { invoiceId, invoiceNumber: invoice.invoiceNumber, reason },
-    );
-
-    return updated;
   }
 }
