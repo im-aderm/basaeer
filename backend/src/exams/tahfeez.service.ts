@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class TahfeezService {
@@ -145,6 +146,13 @@ export class TahfeezService {
 
   async report(studentId: string, context: TenantContext) {
     const branchId = this.branchId(context);
+    const student = await this.prisma.student.findFirst({
+      where: { id: studentId, branchId },
+      select: { userId: true, parentId: true },
+    });
+    if (!student) throw new NotFoundException('Student not found');
+    TenantHelper.assertOwnStudentRecord(student, context);
+
     const [assessments, progress] = await Promise.all([
       this.prisma.tahfeezAssessment.findMany({
         where: { branchId, studentId },

@@ -332,6 +332,13 @@ export class AttendanceService {
   }
 
   async getStudentAttendance(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+      select: { userId: true, parentId: true },
+    });
+    if (!student) throw new NotFoundException('Student not found');
+    TenantHelper.assertOwnStudentRecord(student, context);
+
     return this.prisma.attendance.findMany({
       where: TenantHelper.applyIsolation({ studentId }, context),
       orderBy: { date: 'desc' },

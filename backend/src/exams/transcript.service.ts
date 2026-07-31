@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
 import { ReportingService } from '../reporting/reporting.service';
 
 @Injectable()
@@ -194,6 +195,14 @@ export class TranscriptService {
       where: { id, branchId: this.branchId(context) },
     });
     if (!transcript) throw new NotFoundException('Transcript not found');
+
+    const student = await this.prisma.student.findUnique({
+      where: { id: transcript.studentId },
+      select: { userId: true, parentId: true },
+    });
+    if (!student) throw new NotFoundException('Transcript not found');
+    TenantHelper.assertOwnStudentRecord(student, context);
+
     const html = `<h1>Academic Transcript</h1><pre>${JSON.stringify(transcript.data, null, 2)}</pre><p>Checksum: ${transcript.checksum}</p>`;
     return this.reportingService.generatePdf(html);
   }

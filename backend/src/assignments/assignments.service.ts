@@ -45,11 +45,12 @@ export class AssignmentsService {
   async findByStudent(studentId: string, context: TenantContext) {
     const student = await this.prisma.student.findFirst({
       where: TenantHelper.applyIsolation({ id: studentId }, context),
-      select: { sectionId: true, classId: true },
+      select: { sectionId: true, classId: true, userId: true, parentId: true },
     });
 
     if (!student)
       throw new NotFoundException('Student not found or access denied');
+    TenantHelper.assertOwnStudentRecord(student, context);
 
     return this.prisma.assignment.findMany({
       where: {
@@ -110,6 +111,7 @@ export class AssignmentsService {
       where: TenantHelper.applyIsolation({ id: studentId }, context),
     });
     if (!student) throw new NotFoundException('Student not found');
+    TenantHelper.assertOwnStudentRecord(student, context);
 
     return this.prisma.submission.upsert({
       where: {
