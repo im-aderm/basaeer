@@ -24,35 +24,40 @@ export class MailProcessor extends WorkerHost {
   }>): Promise<any> {
     const { to, subject, html, branchId, attachments } = job.data;
 
-    try {
-      await this.mailService.sendMailDirect(to, subject, html, attachments);
+    // BullMQ processors run outside NestJS's request lifecycle, so
+    // TenantContextInterceptor never runs for them — without this, every
+    // Prisma call below has no ambient tenant context at all.
+    return this.prisma.runInTenantContext(branchId || null, null, 'system', async () => {
+      try {
+        await this.mailService.sendMailDirect(to, subject, html, attachments);
 
-      await this.prisma.messageDeliveryLog.create({
-        data: {
-          type: 'EMAIL',
-          recipient: to,
-          status: 'DELIVERED',
-          branchId: branchId || null,
-          providerResponse: { success: true, jobId: job.id },
-        },
-      });
+        await this.prisma.messageDeliveryLog.create({
+          data: {
+            type: 'EMAIL',
+            recipient: to,
+            status: 'DELIVERED',
+            branchId: branchId || null,
+            providerResponse: { success: true, jobId: job.id },
+          },
+        });
 
-      this.logger.log(`Email sent to ${to} | Subject: "${subject}" | Job: ${job.id}`);
-      return { success: true };
-    } catch (error) {
-      this.logger.error(`Failed to send email to ${to} (job ${job.id})`, error.stack);
+        this.logger.log(`Email sent to ${to} | Subject: "${subject}" | Job: ${job.id}`);
+        return { success: true };
+      } catch (error) {
+        this.logger.error(`Failed to send email to ${to} (job ${job.id})`, error.stack);
 
-      await this.prisma.messageDeliveryLog.create({
-        data: {
-          type: 'EMAIL',
-          recipient: to,
-          status: 'FAILED',
-          branchId: branchId || null,
-          providerResponse: { error: error.message, jobId: job.id },
-        },
-      });
+        await this.prisma.messageDeliveryLog.create({
+          data: {
+            type: 'EMAIL',
+            recipient: to,
+            status: 'FAILED',
+            branchId: branchId || null,
+            providerResponse: { error: error.message, jobId: job.id },
+          },
+        });
 
-      throw error;
-    }
+        throw error;
+      }
+    });
   }
 }

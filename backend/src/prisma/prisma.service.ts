@@ -62,6 +62,12 @@ export class PrismaService
           : ['error', 'warn'],
     } as any);
 
+    // Captured before $extends()/the Proxy wrap below — a real, connected
+    // client instance whose $transaction() actually works, used inside
+    // $allOperations to pin the branch/session GUC and the operation itself
+    // to the same physical connection (see the comment further down).
+    const rawClient: PrismaClient = this;
+
     this.xprisma = this.$extends({
       query: {
         $allModels: {
@@ -193,29 +199,86 @@ export class PrismaService
               }
             }
 
-            if (branchId) {
-              try {
-                await (PrismaClient.prototype as any).$executeRawUnsafe?.(
-                  `SELECT set_config('app.current_branch_id', $1, true)`,
-                  [branchId],
-                );
-              } catch (_err) {
-                // ignore
-              }
-            }
-            if (sessionId) {
-              try {
-                await (PrismaClient.prototype as any).$executeRawUnsafe?.(
-                  `SELECT set_config('app.current_session_id', $1, true)`,
-                  [sessionId],
-                );
-              } catch (_err) {
-                // ignore
-              }
+            // Postgres RLS policies (phase9_rls_expansion and later) key off
+            // current_setting('app.current_branch_id'/'app.current_session_id').
+            // Those are session-local GUCs: setting them and then running the
+            // operation must happen on the SAME physical connection, which
+            // Prisma only guarantees inside an interactive transaction (the
+            // connection pool is otherwise free to hand out any connection
+            // per call). The previous version of this code called
+            // $executeRawUnsafe on the bare PrismaClient.prototype instead of
+            // a connected instance, which threw on every invocation and was
+            // silently swallowed — the GUC was never actually set. Wrapping
+            // each standalone operation in its own short transaction fixes
+            // that. Existing multi-statement `this.prisma.$transaction(async
+            // tx => {...})` call sites elsewhere in the codebase are handled
+            // separately below, by overriding $transaction itself on the
+            // client — not by editing each of those 45+ call sites.
+            if (branchId || sessionId) {
+              const modelAccessor = model.charAt(0).toLowerCase() + model.slice(1);
+              return rawClient.$transaction(async (tx: any) => {
+                if (branchId) {
+                  await tx.$executeRawUnsafe(
+                    `SELECT set_config('app.current_branch_id', $1, true)`,
+                    branchId,
+                  );
+                }
+                if (sessionId) {
+                  await tx.$executeRawUnsafe(
+                    `SELECT set_config('app.current_session_id', $1, true)`,
+                    sessionId,
+                  );
+                }
+                return tx[modelAccessor][operation](args);
+              });
             }
 
             return query(args);
           },
+        },
+      },
+      client: {
+        // Every existing `this.prisma.$transaction(async (tx) => {...})`
+        // call site in the codebase goes through xprisma (the Proxy below
+        // routes there), so overriding $transaction here — rather than
+        // editing each of those 45+ call sites — makes every one of them
+        // set the same branch/session GUC on its own `tx` before the
+        // caller's callback runs. Without this, those blocks would stay
+        // unprotected by RLS even after the fix above, since Prisma's `tx`
+        // object bypasses the $allOperations query extension entirely.
+        $transaction(this: any, ...args: any[]) {
+          const store = tenantStorage.getStore();
+          const branchId = store?.branchId ?? null;
+          const sessionId = store?.sessionId ?? null;
+
+          if (!branchId && !sessionId) {
+            return rawClient.$transaction(...(args as Parameters<typeof rawClient.$transaction>));
+          }
+
+          const isArrayForm = Array.isArray(args[0]);
+          if (isArrayForm) {
+            // Array-style `$transaction([prisma.a.create(...), ...])` batches
+            // pre-built queries that don't accept an injected setup step —
+            // uncommon in this codebase (one call site) and left as-is.
+            return rawClient.$transaction(...(args as Parameters<typeof rawClient.$transaction>));
+          }
+
+          const [fn, options] = args as [(tx: any) => Promise<any>, any];
+          return rawClient.$transaction(async (tx: any) => {
+            if (branchId) {
+              await tx.$executeRawUnsafe(
+                `SELECT set_config('app.current_branch_id', $1, true)`,
+                branchId,
+              );
+            }
+            if (sessionId) {
+              await tx.$executeRawUnsafe(
+                `SELECT set_config('app.current_session_id', $1, true)`,
+                sessionId,
+              );
+            }
+            return fn(tx);
+          }, options);
         },
       },
     });

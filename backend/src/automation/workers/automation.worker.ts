@@ -65,8 +65,14 @@ export class AutomationWorker {
       const birthdayPeople = [...students, ...staff];
       this.logger.log(`Found ${birthdayPeople.length} birthdays today.`);
 
+      // These BullMQ/@Cron handlers run outside NestJS's request lifecycle
+      // and, unlike a single request, iterate across many branches in one
+      // run — each person/config's dispatch is wrapped in its own branch
+      // context rather than the whole handler sharing one.
       for (const person of birthdayPeople) {
-        await this.dispatchBirthdayWish(person);
+        await this.prisma.runInTenantContext(person.branchId, null, 'system', () =>
+          this.dispatchBirthdayWish(person),
+        );
       }
 
       if (birthdayPeople.length > 0) {
@@ -171,38 +177,40 @@ export class AutomationWorker {
       });
 
       for (const config of configs) {
-        const dueDateLimit = new Date();
-        dueDateLimit.setDate(
-          dueDateLimit.getDate() + (config.triggerDays || 0),
-        );
+        await this.prisma.runInTenantContext(config.branchId, null, 'system', async () => {
+          const dueDateLimit = new Date();
+          dueDateLimit.setDate(
+            dueDateLimit.getDate() + (config.triggerDays || 0),
+          );
 
-        const pendingInvoices = await this.prisma.invoice.findMany({
-          where: {
-            branchId: config.branchId,
-            status: 'UNPAID',
-            dueDate: { lte: dueDateLimit },
-          },
-          include: {
-            student: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                user: {
-                  select: { id: true, email: true, phone: true },
+          const pendingInvoices = await this.prisma.invoice.findMany({
+            where: {
+              branchId: config.branchId,
+              status: 'UNPAID',
+              dueDate: { lte: dueDateLimit },
+            },
+            include: {
+              student: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  user: {
+                    select: { id: true, email: true, phone: true },
+                  },
                 },
               },
             },
-          },
+          });
+
+          this.logger.log(
+            `Found ${pendingInvoices.length} pending invoices for branch ${config.branchId}.`,
+          );
+
+          for (const invoice of pendingInvoices) {
+            await this.dispatchFeeReminder(invoice, config);
+          }
         });
-
-        this.logger.log(
-          `Found ${pendingInvoices.length} pending invoices for branch ${config.branchId}.`,
-        );
-
-        for (const invoice of pendingInvoices) {
-          await this.dispatchFeeReminder(invoice, config);
-        }
       }
     } catch (error) {
       this.logger.error(
@@ -297,38 +305,40 @@ export class AutomationWorker {
       });
 
       for (const config of configs) {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        yesterday.setHours(0, 0, 0, 0);
+        await this.prisma.runInTenantContext(config.branchId, null, 'system', async () => {
+          const yesterday = new Date();
+          yesterday.setDate(yesterday.getDate() - 1);
+          yesterday.setHours(0, 0, 0, 0);
 
-        const absentStudents = await this.prisma.attendance.findMany({
-          where: {
-            branchId: config.branchId,
-            date: yesterday,
-            status: 'ABSENT',
-          },
-          select: {
-            student: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                user: {
-                  select: { id: true, email: true, phone: true },
+          const absentStudents = await this.prisma.attendance.findMany({
+            where: {
+              branchId: config.branchId,
+              date: yesterday,
+              status: 'ABSENT',
+            },
+            select: {
+              student: {
+                select: {
+                  id: true,
+                  firstName: true,
+                  lastName: true,
+                  user: {
+                    select: { id: true, email: true, phone: true },
+                  },
                 },
               },
             },
-          },
-          distinct: ['studentId'],
+            distinct: ['studentId'],
+          });
+
+          this.logger.log(
+            `Found ${absentStudents.length} absent students for branch ${config.branchId}`,
+          );
+
+          for (const record of absentStudents) {
+            await this.dispatchAttendanceAlert(record.student, config);
+          }
         });
-
-        this.logger.log(
-          `Found ${absentStudents.length} absent students for branch ${config.branchId}`,
-        );
-
-        for (const record of absentStudents) {
-          await this.dispatchAttendanceAlert(record.student, config);
-        }
       }
     } catch (error) {
       this.logger.error(
@@ -414,25 +424,27 @@ export class AutomationWorker {
     result: string,
   ) {
     for (const branchId of branchIds) {
-      const config = await this.prisma.automationConfig.findFirst({
-        where: { branchId, type },
-      });
-      if (!config) continue;
-
-      try {
-        await this.prisma.automationExecution.create({
-          data: {
-            configId: config.id,
-            status: 'SUCCESS',
-            result,
-            branchId,
-          },
+      await this.prisma.runInTenantContext(branchId, null, 'system', async () => {
+        const config = await this.prisma.automationConfig.findFirst({
+          where: { branchId, type },
         });
-      } catch (err) {
-        this.logger.warn(
-          `Failed to log automation execution for ${type}/${branchId}: ${err.message}`,
-        );
-      }
+        if (!config) return;
+
+        try {
+          await this.prisma.automationExecution.create({
+            data: {
+              configId: config.id,
+              status: 'SUCCESS',
+              result,
+              branchId,
+            },
+          });
+        } catch (err) {
+          this.logger.warn(
+            `Failed to log automation execution for ${type}/${branchId}: ${err.message}`,
+          );
+        }
+      });
     }
   }
 }

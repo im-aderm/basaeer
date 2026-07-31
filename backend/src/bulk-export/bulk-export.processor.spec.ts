@@ -16,6 +16,7 @@ describe('BulkExportProcessor', () => {
           { id: 'a2', admissionNumber: 'ADM-2', firstName: 'C', lastName: 'D' },
         ]),
       },
+      runInTenantContext: jest.fn((_branchId: any, _sessionId: any, _userId: any, fn: () => any) => fn()),
     } as any;
 
     let savedBuffer: Buffer | null = null;

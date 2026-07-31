@@ -39,6 +39,20 @@ export class BulkExportProcessor extends WorkerHost {
     const { exportId, type, filters, userId, branchId, sessionId } = job.data;
     this.logger.log(`Bulk export ${exportId} (${type}) starting`);
 
+    // BullMQ processors run outside NestJS's request lifecycle, so
+    // TenantContextInterceptor never runs for them — without this, every
+    // Prisma call below has no ambient tenant context at all.
+    return this.prisma.runInTenantContext(
+      branchId || null,
+      sessionId || null,
+      userId || 'system',
+      () => this.processJob(job),
+    );
+  }
+
+  private async processJob(job: Job): Promise<any> {
+    const { exportId, type, filters, userId, branchId, sessionId } = job.data;
+
     try {
       await this.setStatus(exportId, 'PROCESSING', 5);
 

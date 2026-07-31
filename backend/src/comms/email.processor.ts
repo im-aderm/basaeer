@@ -45,6 +45,28 @@ export class EmailProcessor extends WorkerHost {
 
     this.logger.log(`Processing email job for ${recipientId || email}`);
 
+    // BullMQ processors run outside NestJS's request lifecycle, so
+    // TenantContextInterceptor never runs for them — without this, every
+    // Prisma call below has no ambient tenant context at all.
+    return this.prisma.runInTenantContext(
+      branchId || null,
+      null,
+      userId || 'system',
+      () => this.processJob(job, { campaignId, recipientId, email, subject, message, branchId }),
+    );
+  }
+
+  private async processJob(
+    job: Job<any, any, string>,
+    {
+      campaignId,
+      recipientId,
+      email,
+      subject,
+      message,
+      branchId,
+    }: { campaignId?: string; recipientId?: string; email: string; subject: string; message: string; branchId?: string },
+  ): Promise<any> {
     try {
       await this.recordQueueMetric('email');
 
