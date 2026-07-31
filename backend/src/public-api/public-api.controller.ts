@@ -1,5 +1,6 @@
 import { Controller, Get, UseGuards, Req, Query } from '@nestjs/common';
 import { ApiKeyGuard } from '../common/guards/api-key.guard';
+import { RequireScopes } from '../common/guards/require-scopes.decorator';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   ApiTags,
@@ -18,6 +19,7 @@ export class PublicApiController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Students' })
   @Get('students')
+  @RequireScopes('students:read')
   async getStudents(@Req() req: any, @Query('classId') classId?: string) {
     return this.prisma.student.findMany({
       where: {
@@ -36,6 +38,7 @@ export class PublicApiController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Attendance Summary' })
   @Get('attendance/summary')
+  @RequireScopes('attendance:read')
   async getAttendanceSummary(@Req() req: any, @Query('date') date?: string) {
     const targetDate = date ? new Date(date) : new Date();
     targetDate.setHours(0, 0, 0, 0);
