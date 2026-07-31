@@ -13,11 +13,15 @@ import {
 import { ApiTags, ApiBearerAuth, ApiResponse, ApiOperation } from '@nestjs/swagger';
 import { AcademicSessionsService } from './academic-sessions.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
 import { GetTenantContext } from '../auth/tenant-context.decorator';
+import { UserRole } from '../generated/client/client';
 
 @ApiTags('Academic Sessions')
-@UseGuards(JwtAuthGuard, BranchGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
+@Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
 @ApiBearerAuth()
 @Controller('academic-sessions')
 export class AcademicSessionsController {
@@ -30,7 +34,9 @@ export class AcademicSessionsController {
     @Query('branchId') branchId: string,
     @GetTenantContext() context: TenantContext,
   ) {
-    return this.sessionsService.findAll(branchId, context);
+    const effectiveBranchId =
+      context.role === UserRole.SUPER_ADMIN ? branchId : context.branchId;
+    return this.sessionsService.findAll(effectiveBranchId, context);
   }
 
   @Get(':id')
@@ -92,6 +98,8 @@ export class AcademicSessionsController {
     @Query('branchId') branchId: string,
     @GetTenantContext() context: TenantContext,
   ) {
-    return this.sessionsService.getActiveSession(branchId);
+    const effectiveBranchId =
+      context.role === UserRole.SUPER_ADMIN ? branchId : context.branchId;
+    return this.sessionsService.getActiveSession(effectiveBranchId);
   }
 }

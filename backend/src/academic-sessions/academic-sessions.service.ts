@@ -1,21 +1,35 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
+import { UserRole } from '../generated/client/client';
+
+/** Models that carry a real FK to AcademicSession and indicate the session has been used. */
+const SESSION_USAGE_MODELS = [
+  'exam',
+  'assessmentRecord',
+  'resultSummary',
+  'assignment',
+  'gPARecord',
+  'idCard',
+  'voucher',
+] as const;
 
 @Injectable()
 export class AcademicSessionsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(branchId: string, context: TenantContext) {
+  async findAll(branchId: string | null | undefined, context: TenantContext) {
     return this.prisma.academicSession.findMany({
-      where: { branchId },
+      where: { branchId: branchId ?? undefined },
       orderBy: { startDate: 'desc' },
     });
   }
 
   async findOne(id: string, context: TenantContext) {
-    const session = await this.prisma.academicSession.findUnique({
-      where: { id },
+    const branchId =
+      context.role === UserRole.SUPER_ADMIN ? undefined : context.branchId ?? undefined;
+    const session = await this.prisma.academicSession.findFirst({
+      where: { id, branchId },
     });
     if (!session) {
       throw new NotFoundException('Academic session not found');
@@ -93,8 +107,10 @@ export class AcademicSessionsService {
     },
     context: TenantContext,
   ) {
-    const existing = await this.prisma.academicSession.findUnique({
-      where: { id },
+    const scopeBranchId =
+      context.role === UserRole.SUPER_ADMIN ? undefined : context.branchId ?? undefined;
+    const existing = await this.prisma.academicSession.findFirst({
+      where: { id, branchId: scopeBranchId },
     });
     if (!existing) {
       throw new NotFoundException('Academic session not found');
@@ -136,18 +152,25 @@ export class AcademicSessionsService {
   }
 
   async remove(id: string, context: TenantContext) {
-    const existing = await this.prisma.academicSession.findUnique({
-      where: { id },
+    const scopeBranchId =
+      context.role === UserRole.SUPER_ADMIN ? undefined : context.branchId ?? undefined;
+    const existing = await this.prisma.academicSession.findFirst({
+      where: { id, branchId: scopeBranchId },
     });
     if (!existing) {
       throw new NotFoundException('Academic session not found');
     }
 
-    // Check if session has any associated data
-    const studentCount = await this.prisma.student.count({
-      where: { sessionId: id } as any,
-    });
-    if (studentCount > 0) {
+    // Check if session has any associated data. Student has no sessionId
+    // field (a prior version of this check queried one that doesn't exist,
+    // which threw on every call) — check the models that actually carry a
+    // sessionId FK and indicate real academic/financial activity instead.
+    const usageCounts = await Promise.all(
+      SESSION_USAGE_MODELS.map((model) =>
+        (this.prisma as any)[model].count({ where: { sessionId: id } }),
+      ),
+    );
+    if (usageCounts.some((count: number) => count > 0)) {
       throw new BadRequestException(
         'Cannot delete session with associated records. Please delete all records first.',
       );
@@ -158,10 +181,10 @@ export class AcademicSessionsService {
     });
   }
 
-  async getActiveSession(branchId: string) {
+  async getActiveSession(branchId: string | null | undefined) {
     return this.prisma.academicSession.findFirst({
       where: {
-        branchId,
+        branchId: branchId ?? undefined,
         status: 'CURRENT',
       },
     });

@@ -2,15 +2,6 @@
 
 exports[`access-control guard coverage (BranchGuard + Roles/Public presence) routes without an explicit @Roles()/@Public() decorator are tracked (snapshot) 1`] = `
 {
-  "academic-sessions/academic-sessions.controller.ts": [
-    "Get()",
-    "Get(':id')",
-    "Post()",
-    "Put(':id')",
-    "Patch(':id')",
-    "Delete(':id')",
-    "Get('active')",
-  ],
   "academics/academics.controller.ts": [
     "Get('exports/:id')",
     "Get('compute-status/:jobId')",
