@@ -186,7 +186,19 @@ export class LiveClassesService {
     });
   }
 
-  async getSessionById(id: string) {
+  /** Loads a session scoped to the caller's branch, or throws NotFoundException. */
+  private async findSessionInBranch(id: string, branchId: string) {
+    const session = await this.prisma.liveClassSession.findFirst({
+      where: { id, branchId },
+    });
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+    return session;
+  }
+
+  async getSessionById(id: string, branchId: string) {
+    await this.findSessionInBranch(id, branchId);
     const session = await this.prisma.liveClassSession.findUnique({
       where: { id },
       include: {
@@ -208,7 +220,8 @@ export class LiveClassesService {
     return session;
   }
 
-  async updateSession(id: string, dto: UpdateSessionDto) {
+  async updateSession(id: string, branchId: string, dto: UpdateSessionDto) {
+    await this.findSessionInBranch(id, branchId);
     return this.prisma.liveClassSession.update({
       where: { id },
       data: {
@@ -231,7 +244,8 @@ export class LiveClassesService {
     });
   }
 
-  async startSession(id: string) {
+  async startSession(id: string, branchId: string) {
+    await this.findSessionInBranch(id, branchId);
     return this.prisma.liveClassSession.update({
       where: { id },
       data: {
@@ -241,7 +255,8 @@ export class LiveClassesService {
     });
   }
 
-  async endSession(id: string) {
+  async endSession(id: string, branchId: string) {
+    await this.findSessionInBranch(id, branchId);
     return this.prisma.liveClassSession.update({
       where: { id },
       data: {
@@ -252,13 +267,7 @@ export class LiveClassesService {
   }
 
   async cancelSession(id: string, branchId: string) {
-    const session = await this.prisma.liveClassSession.findUnique({
-      where: { id },
-    });
-
-    if (!session) {
-      throw new NotFoundException('Session not found');
-    }
+    const session = await this.findSessionInBranch(id, branchId);
 
     try {
       await this.googleMeet.deleteMeeting(branchId, session.meetingId);
@@ -367,8 +376,8 @@ export class LiveClassesService {
     });
   }
 
-  async getAttendanceReport(sessionId: string) {
-    const session = await this.getSessionById(sessionId);
+  async getAttendanceReport(sessionId: string, branchId: string) {
+    const session = await this.getSessionById(sessionId, branchId);
     const participants = await this.getParticipants(sessionId);
 
     return {

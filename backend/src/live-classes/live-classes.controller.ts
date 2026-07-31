@@ -13,7 +13,8 @@ import {
 import { LiveClassesService } from './live-classes.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
-import { BranchGuard } from '../auth/branch.guard';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../generated/client/client';
 import {
@@ -127,8 +128,11 @@ export class LiveClassesController {
     UserRole.TEACHER,
     UserRole.STUDENT,
   )
-  getSessionById(@Param('id') id: string) {
-    return this.liveClassesService.getSessionById(id);
+  getSessionById(
+    @Param('id') id: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.liveClassesService.getSessionById(id, ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -137,8 +141,12 @@ export class LiveClassesController {
   @ApiOperation({ summary: 'Update Session' })
   @Patch('sessions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  updateSession(@Param('id') id: string, @Body() dto: UpdateSessionDto) {
-    return this.liveClassesService.updateSession(id, dto);
+  updateSession(
+    @Param('id') id: string,
+    @Body() dto: UpdateSessionDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.liveClassesService.updateSession(id, ctx.branchId!, dto);
   }
 
   @ApiBearerAuth()
@@ -146,8 +154,8 @@ export class LiveClassesController {
   @ApiOperation({ summary: 'Create Start Session' })
   @Post('sessions/:id/start')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  startSession(@Param('id') id: string) {
-    return this.liveClassesService.startSession(id);
+  startSession(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.liveClassesService.startSession(id, ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -155,8 +163,8 @@ export class LiveClassesController {
   @ApiOperation({ summary: 'Create End Session' })
   @Post('sessions/:id/end')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  endSession(@Param('id') id: string) {
-    return this.liveClassesService.endSession(id);
+  endSession(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.liveClassesService.endSession(id, ctx.branchId!);
   }
 
   @ApiBearerAuth()
@@ -164,8 +172,8 @@ export class LiveClassesController {
   @ApiOperation({ summary: 'Delete Session' })
   @Delete('sessions/:id')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  cancelSession(@Param('id') id: string, @Request() req: any) {
-    return this.liveClassesService.cancelSession(id, req.user.branchId);
+  cancelSession(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    return this.liveClassesService.cancelSession(id, ctx.branchId!);
   }
 
   // ==================== Participant Management Endpoints ====================
@@ -175,6 +183,12 @@ export class LiveClassesController {
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create Participant' })
   @Post('sessions/:id/participants')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.BRANCH_ADMIN,
+    UserRole.TEACHER,
+    UserRole.STUDENT,
+  )
   recordParticipant(
     @Param('id') sessionId: string,
     @Body() dto: RecordParticipantDto,
@@ -196,7 +210,10 @@ export class LiveClassesController {
   @ApiOperation({ summary: 'Retrieve Attendance Report' })
   @Get('sessions/:id/attendance')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.TEACHER)
-  getAttendanceReport(@Param('id') sessionId: string) {
-    return this.liveClassesService.getAttendanceReport(sessionId);
+  getAttendanceReport(
+    @Param('id') sessionId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.liveClassesService.getAttendanceReport(sessionId, ctx.branchId!);
   }
 }

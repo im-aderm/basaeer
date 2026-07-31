@@ -67,9 +67,6 @@ exports[`access-control guard coverage (BranchGuard + Roles/Public presence) rou
   "finance/payments.controller.ts": [
     "Post('webhook/paystack')",
   ],
-  "live-classes/live-classes.controller.ts": [
-    "Post('sessions/:id/participants')",
-  ],
   "live-classes/meet-oauth.controller.ts": [
     "Get('google')",
     "Get('google/callback')",
