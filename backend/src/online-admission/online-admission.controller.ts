@@ -22,6 +22,7 @@ import { Throttle } from '@nestjs/throttler';
 import { OnlineAdmissionService } from './online-admission.service';
 import { AdmissionSlipService } from './admission-slip.service';
 import { CreateOnlineAdmissionDto } from './dto/create-online-admission.dto';
+import { PublicCreateOnlineAdmissionDto } from './dto/public-create-online-admission.dto';
 import { UpdateOnlineAdmissionDto } from './dto/update-online-admission.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -51,15 +52,17 @@ export class OnlineAdmissionController {
 
   @Public()
   @Throttle({ default: { limit: 3, ttl: 60000 } })
-  @ApiBody({ type: CreateOnlineAdmissionDto })
+  @ApiBody({ type: PublicCreateOnlineAdmissionDto })
   @ApiResponse({ status: 201, description: 'Operation successful' })
   @ApiOperation({ summary: 'Create resource' })
   @Post()
-  create(@Body() createDto: CreateOnlineAdmissionDto) {
+  create(@Body() createDto: PublicCreateOnlineAdmissionDto) {
     if (!createDto.branchId) {
       throw new BadRequestException('branchId is required');
     }
-    return this.onlineAdmissionService.create(createDto);
+    return this.onlineAdmissionService.create(createDto, null, {
+      isPublicSubmission: true,
+    });
   }
 
   @Public()

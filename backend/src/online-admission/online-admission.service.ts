@@ -33,9 +33,33 @@ export class OnlineAdmissionService {
     private financeService: FinanceService,
   ) {}
 
-  async create(createDto: CreateOnlineAdmissionDto, context?: TenantContext | null) {
+  /** Fields an untrusted (public, unauthenticated) submission must never set directly. */
+  private static readonly PRIVILEGED_FIELDS = [
+    'admissionNumber',
+    'createdByStaffId',
+    'approvalDate',
+    'approvedByStaffId',
+    'studentStatus',
+    'paymentStatus',
+    'parentId',
+  ] as const;
+
+  async create(
+    createDto: CreateOnlineAdmissionDto,
+    context?: TenantContext | null,
+    opts?: { isPublicSubmission?: boolean },
+  ) {
     const branchId = createDto.branchId || context?.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
+
+    // Belt-and-suspenders: PublicCreateOnlineAdmissionDto already omits these
+    // fields at the validation layer, but strip them again here so this
+    // method stays safe even if called with a differently-shaped object.
+    if (opts?.isPublicSubmission ?? true) {
+      for (const field of OnlineAdmissionService.PRIVILEGED_FIELDS) {
+        delete (createDto as any)[field];
+      }
+    }
 
     // Duplicate check: same guardian + same student within 30 days
     if (createDto.guardianEmail) {
