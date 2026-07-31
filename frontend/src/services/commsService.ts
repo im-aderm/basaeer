@@ -42,6 +42,19 @@ export interface AutomationConfig {
     branchId: string;
 }
 
+export interface ScheduledJob {
+    id: string;
+    name: string;
+    cron: string;
+    lastRun: string | null;
+    nextRun: string | null;
+    status: string;
+    lastResult: string | null;
+    errorCount: number;
+    isEnabled: boolean;
+    branchId: string | null;
+}
+
 export interface ProviderHealth {
     email: boolean;
     sms: boolean;
@@ -81,6 +94,11 @@ export const commsService = {
     getAutomationConfigs: () => api.get<AutomationConfig[]>('/automation/configs'),
     upsertAutomationConfig: (data: any) => api.post('/automation/configs', data),
     updateAutomationConfig: (type: string, data: any) => api.put(`/automation/config/${type}`, data),
+
+    // Scheduled jobs (Settings > Cron Jobs)
+    getScheduledJobs: () => api.get<ScheduledJob[]>('/automation/jobs'),
+    toggleScheduledJob: (id: string, isEnabled: boolean) =>
+        api.patch(`/automation/jobs/${id}/toggle`, { isEnabled }),
 
     // Provider Health
     getProviderHealth: () => api.get<ProviderHealth>('/providers/health'),

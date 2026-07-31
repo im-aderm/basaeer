@@ -22,6 +22,8 @@ describe('AutomationWorker tenant context propagation', () => {
       automationExecution: { create: jest.fn() },
       invoice: { findMany: jest.fn() },
       attendance: { findMany: jest.fn() },
+      emailTemplate: { findUnique: jest.fn() },
+      smsTemplate: { findUnique: jest.fn() },
       runInTenantContext: jest.fn((_branchId: any, _sessionId: any, _userId: any, fn: () => any) => fn()),
     };
 
@@ -68,6 +70,101 @@ describe('AutomationWorker tenant context propagation', () => {
       null,
       'system',
       expect.any(Function),
+    );
+  });
+});
+
+/**
+ * Regression tests for the finding that birthday-student/birthday-staff
+ * save a STUDENT_BIRTHDAY/STAFF_BIRTHDAY config with a template reference
+ * like "EMAIL:<id>"/"SMS:<id>", but this worker only ever read the generic
+ * BIRTHDAY_WISH config and treated `template` as literal text — so those
+ * two pages' settings were never read, and even a type-only fix would have
+ * sent the literal string "EMAIL:<uuid>" as the message.
+ */
+describe('AutomationWorker birthday config resolution', () => {
+  let worker: AutomationWorker;
+  let prisma: any;
+  let comms: { sendSms: jest.Mock; sendEmail: jest.Mock };
+
+  beforeEach(async () => {
+    comms = { sendSms: jest.fn(), sendEmail: jest.fn() };
+    prisma = {
+      automationConfig: { findFirst: jest.fn() },
+      emailTemplate: { findUnique: jest.fn() },
+      smsTemplate: { findUnique: jest.fn() },
+    };
+
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        AutomationWorker,
+        { provide: PrismaService, useValue: prisma },
+        { provide: CommsService, useValue: comms },
+        { provide: NotificationsService, useValue: { createNotification: jest.fn() } },
+      ],
+    }).compile();
+
+    worker = module.get<AutomationWorker>(AutomationWorker);
+  });
+
+  const student = {
+    id: 's1',
+    firstName: 'Amina',
+    lastName: 'Bello',
+    email: 'amina@example.com',
+    phone: '+2340000000',
+    branchId: 'branch-1',
+    kind: 'STUDENT' as const,
+  };
+
+  it('prefers the audience-specific config (STUDENT_BIRTHDAY) over the generic BIRTHDAY_WISH', async () => {
+    prisma.automationConfig.findFirst.mockResolvedValueOnce({
+      template: 'Happy day, student!',
+    });
+
+    await (worker as any).dispatchBirthdayWish(student);
+
+    expect(prisma.automationConfig.findFirst).toHaveBeenCalledWith({
+      where: { branchId: 'branch-1', type: 'STUDENT_BIRTHDAY', isEnabled: true },
+    });
+    expect(comms.sendSms).toHaveBeenCalledWith(
+      expect.objectContaining({ message: 'Happy day, student!' }),
+    );
+  });
+
+  it('falls back to BIRTHDAY_WISH when no audience-specific config is enabled', async () => {
+    prisma.automationConfig.findFirst
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ template: 'Generic happy birthday!' });
+
+    await (worker as any).dispatchBirthdayWish(student);
+
+    expect(prisma.automationConfig.findFirst).toHaveBeenNthCalledWith(2, {
+      where: { branchId: 'branch-1', type: 'BIRTHDAY_WISH', isEnabled: true },
+    });
+    expect(comms.sendSms).toHaveBeenCalledWith(
+      expect.objectContaining({ message: 'Generic happy birthday!' }),
+    );
+  });
+
+  it('resolves an EMAIL: template reference to its real content for the email channel', async () => {
+    prisma.automationConfig.findFirst.mockResolvedValueOnce({ template: 'EMAIL:tpl-1' });
+    prisma.emailTemplate.findUnique.mockResolvedValue({ body: 'Real email body for {{name}}' });
+
+    await (worker as any).dispatchBirthdayWish(student);
+
+    expect(prisma.emailTemplate.findUnique).toHaveBeenCalledWith({ where: { id: 'tpl-1' } });
+    expect(comms.sendEmail).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: expect.stringContaining('Real email body for Amina Bello'),
+      }),
+    );
+    // The SMS channel has no SMS: reference to resolve, so it falls back to
+    // the default text rather than sending the literal "EMAIL:tpl-1" string.
+    expect(comms.sendSms).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: expect.not.stringContaining('EMAIL:'),
+      }),
     );
   });
 });

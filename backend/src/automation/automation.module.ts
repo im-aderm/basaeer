@@ -4,7 +4,6 @@ import { BullModule } from '@nestjs/bullmq';
 import { AutomationService } from './automation.service';
 import { AutomationController } from './automation.controller';
 import { AutomationWorker } from './workers/automation.worker';
-import { AutomationRunnerService } from './automation-runner.service';
 import { AutomationHealthController } from './automation-health.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 import { CommsModule } from '../comms/comms.module';
@@ -19,7 +18,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
     BullModule.registerQueue({ name: 'automation' }),
   ],
   controllers: [AutomationController, AutomationHealthController],
-  providers: [AutomationService, AutomationWorker, AutomationRunnerService],
+  providers: [AutomationService, AutomationWorker],
   exports: [AutomationService],
 })
 export class AutomationModule {}

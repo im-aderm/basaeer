@@ -14,6 +14,8 @@ interface BirthdayPerson {
   branchId: string;
 }
 
+type BirthdayPersonWithKind = BirthdayPerson & { kind: 'STUDENT' | 'STAFF' };
+
 interface PendingInvoice {
   id: string;
   invoiceNumber: string;
@@ -62,7 +64,10 @@ export class AutomationWorker {
         AND EXTRACT(DAY FROM u."dateOfBirth") = ${day}
       `;
 
-      const birthdayPeople = [...students, ...staff];
+      const birthdayPeople: BirthdayPersonWithKind[] = [
+        ...students.map((s) => ({ ...s, kind: 'STUDENT' as const })),
+        ...staff.map((s) => ({ ...s, kind: 'STAFF' as const })),
+      ];
       this.logger.log(`Found ${birthdayPeople.length} birthdays today.`);
 
       // These BullMQ/@Cron handlers run outside NestJS's request lifecycle
@@ -92,35 +97,72 @@ export class AutomationWorker {
     }
   }
 
-  private async dispatchBirthdayWish(person: BirthdayPerson) {
-    const config = await this.prisma.automationConfig.findFirst({
-      where: {
-        branchId: person.branchId,
-        type: 'BIRTHDAY_WISH',
-        isEnabled: true,
-      },
+  /**
+   * bulk-comms/birthday-student and birthday-staff save a per-audience
+   * AutomationConfig (type STUDENT_BIRTHDAY/STAFF_BIRTHDAY) with a template
+   * reference like "EMAIL:<templateId>" or "SMS:<templateId>" pointing at a
+   * real EmailTemplate/SmsTemplate row — this worker previously only ever
+   * looked up the generic BIRTHDAY_WISH config (from dashboard/settings/
+   * automation) and treated `template` as literal text, so the two
+   * per-audience pages saved settings that were never read, and even the
+   * type match alone wouldn't have been enough — the template reference
+   * would have been sent as literal "EMAIL:<uuid>" text otherwise.
+   */
+  private async findBirthdayConfig(person: BirthdayPersonWithKind) {
+    const specificType = person.kind === 'STAFF' ? 'STAFF_BIRTHDAY' : 'STUDENT_BIRTHDAY';
+    const specific = await this.prisma.automationConfig.findFirst({
+      where: { branchId: person.branchId, type: specificType, isEnabled: true },
     });
+    if (specific) return specific;
+    return this.prisma.automationConfig.findFirst({
+      where: { branchId: person.branchId, type: 'BIRTHDAY_WISH', isEnabled: true },
+    });
+  }
+
+  private async resolveTemplateText(
+    templateRef: string | null,
+    channel: 'EMAIL' | 'SMS',
+    fallback: string,
+  ): Promise<string> {
+    if (!templateRef) return fallback;
+    if (templateRef.startsWith('EMAIL:')) {
+      if (channel !== 'EMAIL') return fallback;
+      const template = await this.prisma.emailTemplate.findUnique({
+        where: { id: templateRef.slice('EMAIL:'.length) },
+      });
+      return template?.body || fallback;
+    }
+    if (templateRef.startsWith('SMS:')) {
+      if (channel !== 'SMS') return fallback;
+      const template = await this.prisma.smsTemplate.findUnique({
+        where: { id: templateRef.slice('SMS:'.length) },
+      });
+      return template?.content || fallback;
+    }
+    return templateRef; // literal text (BIRTHDAY_WISH's original behavior)
+  }
+
+  private async dispatchBirthdayWish(person: BirthdayPersonWithKind) {
+    const config = await this.findBirthdayConfig(person);
 
     if (!config) {
       this.logger.debug(
-        `BIRTHDAY_WISH automation not enabled for branch ${person.branchId}`,
+        `No enabled birthday automation for ${person.kind.toLowerCase()}s in branch ${person.branchId}`,
       );
       return;
     }
 
     const name = `${person.firstName} ${person.lastName}`;
-    const template =
-      config.template ||
-      `Happy Birthday, ${name}! From all of us at Basaer College.`;
-    const personalizedMessage = template.replace(/\{\{name\}\}/g, name);
+    const defaultText = `Happy Birthday, ${name}! From all of us at Basaer College.`;
 
     const dispatchedChannels: string[] = [];
 
     if (person.phone) {
       try {
+        const smsText = await this.resolveTemplateText(config.template, 'SMS', defaultText);
         await this.commsService.sendSms({
           phone: person.phone,
-          message: personalizedMessage,
+          message: smsText.replace(/\{\{name\}\}/g, name),
           branchId: person.branchId,
         });
         dispatchedChannels.push('SMS');
@@ -133,10 +175,12 @@ export class AutomationWorker {
 
     if (person.email) {
       try {
+        const emailBody = await this.resolveTemplateText(config.template, 'EMAIL', defaultText);
+        const personalizedBody = emailBody.replace(/\{\{name\}\}/g, name);
         await this.commsService.sendEmail({
           email: person.email,
           subject: '🎂 Happy Birthday from Basaer College!',
-          message: `<p>Dear ${name},</p><p>${personalizedMessage}</p><p>Wishing you a wonderful year ahead!</p><p>- Basaer College</p>`,
+          message: `<p>Dear ${name},</p><p>${personalizedBody}</p><p>Wishing you a wonderful year ahead!</p><p>- Basaer College</p>`,
           branchId: person.branchId,
         });
         dispatchedChannels.push('EMAIL');
@@ -151,7 +195,7 @@ export class AutomationWorker {
       await this.notificationsService.createNotification({
         userId: person.id,
         title: '🎂 Happy Birthday!',
-        message: personalizedMessage,
+        message: defaultText,
         type: 'BIRTHDAY_WISH',
         branchId: person.branchId,
       });
