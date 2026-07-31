@@ -44,8 +44,6 @@ export const BRANCH_GUARD_EXEMPT_CONTROLLERS: Record<string, string> = {
 
   // TODO(remediation): remove as each is fixed —
   // see /home/im-adam/.claude/plans/ethereal-dazzling-tide.md Phases 2-3.
-  'sessions/sessions.controller.ts':
-    'TODO(phase 2): findAll/findActive are unauthenticated and unscoped — fix in progress.',
   'users/users.controller.ts':
     'TODO(phase 3): missing BranchGuard causes toggleStatus to 500 and findAll to leak cross-branch — fix in progress.',
   'users/preferences/preferences.controller.ts':

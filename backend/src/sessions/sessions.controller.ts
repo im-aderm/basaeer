@@ -13,7 +13,8 @@ import { Prisma, UserRole } from '../generated/client/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
-import { Public } from '../auth/public.decorator';
+import { BranchGuard, TenantContext } from '../auth/branch.guard';
+import { GetTenantContext } from '../auth/tenant-context.decorator';
 import {
   ApiTags,
   ApiOperation,
@@ -22,7 +23,7 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @ApiTags('Sessions')
 @Controller('sessions')
 export class SessionsController {
@@ -41,26 +42,33 @@ export class SessionsController {
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
-  @Public()
-  findAll() {
-    return this.sessionsService.findAll();
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  findAll(@GetTenantContext() ctx: TenantContext) {
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
+    return this.sessionsService.findAll(branchId);
   }
 
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Active' })
   @Get('active')
-  @Public()
-  findActive() {
-    return this.sessionsService.findActive();
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  findActive(@GetTenantContext() ctx: TenantContext) {
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
+    return this.sessionsService.findActive(branchId);
   }
 
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sessionsService.findOne(id);
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
+    return this.sessionsService.findOne(id, branchId);
   }
 
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Update resource' })
   @Patch(':id')
@@ -68,8 +76,10 @@ export class SessionsController {
   update(
     @Param('id') id: string,
     @Body() data: Prisma.AcademicSessionUpdateInput,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.sessionsService.update(id, data);
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
+    return this.sessionsService.update(id, data, branchId);
   }
 
   @ApiBearerAuth()
@@ -77,7 +87,8 @@ export class SessionsController {
   @ApiOperation({ summary: 'Delete resource' })
   @Delete(':id')
   @Roles(UserRole.SUPER_ADMIN)
-  remove(@Param('id') id: string) {
-    return this.sessionsService.remove(id);
+  remove(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
+    const branchId = ctx.role === UserRole.SUPER_ADMIN ? undefined : (ctx.branchId ?? undefined);
+    return this.sessionsService.remove(id, branchId);
   }
 }

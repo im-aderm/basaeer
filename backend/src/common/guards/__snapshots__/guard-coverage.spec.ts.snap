@@ -99,9 +99,6 @@ exports[`access-control guard coverage (BranchGuard + Roles/Public presence) rou
   "search/search.controller.ts": [
     "Get()",
   ],
-  "sessions/sessions.controller.ts": [
-    "Get(':id')",
-  ],
   "stakeholder/stakeholder.controller.ts": [
     "Post('messaging/conversation')",
     "Post('messaging/send')",
