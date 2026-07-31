@@ -9,6 +9,7 @@ import {
   UseGuards,
   Query,
   Request,
+  ForbiddenException,
 } from '@nestjs/common';
 import { CardsService } from './cards.service';
 import { CreateIdCardTemplateDto } from './dto/create-template.dto';
@@ -34,6 +35,13 @@ import {
 export class CardsController {
   constructor(private readonly cardsService: CardsService) {}
 
+  /** Only a SUPER_ADMIN may target another branch via ?branchId=. */
+  private resolveBranch(ctx: TenantContext, queryBranchId?: string): string {
+    const branchId = ctx.isSuperAdmin ? queryBranchId || ctx.branchId : ctx.branchId;
+    if (!branchId) throw new ForbiddenException('Branch context required');
+    return branchId;
+  }
+
   // Templates
   @ApiBearerAuth()
   @ApiBody({ type: CreateIdCardTemplateDto })
@@ -53,7 +61,7 @@ export class CardsController {
     @Query('branchId') branchId: string,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.cardsService.findAllTemplates(branchId || ctx.branchId!);
+    return this.cardsService.findAllTemplates(this.resolveBranch(ctx, branchId));
   }
 
   @ApiBearerAuth()
@@ -94,8 +102,11 @@ export class CardsController {
   @ApiOperation({ summary: 'Create Generate' })
   @Post('generate')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
-  generate(@Body() generateDto: GenerateIdCardsDto) {
-    return this.cardsService.generateCards(generateDto);
+  generate(
+    @Body() generateDto: GenerateIdCardsDto,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.cardsService.generateCards(generateDto, ctx);
   }
 
   @ApiBearerAuth()
@@ -107,7 +118,7 @@ export class CardsController {
     @Query('sessionId') sessionId: string,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.cardsService.findAllCards(branchId || ctx.branchId!, sessionId);
+    return this.cardsService.findAllCards(this.resolveBranch(ctx, branchId), sessionId);
   }
 
   @ApiBearerAuth()

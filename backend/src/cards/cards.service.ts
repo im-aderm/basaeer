@@ -60,8 +60,12 @@ export class CardsService {
   }
 
   // ID Card Operations
-  async generateCards(dto: GenerateIdCardsDto) {
+  async generateCards(dto: GenerateIdCardsDto, context: TenantContext) {
     const { templateId, sessionId, studentIds, staffIds } = dto;
+    // Non-super-admins may only generate cards for their own branch's
+    // students/staff — a target record belonging to another branch is
+    // silently skipped rather than generated, same handling as "not found".
+    const callerBranchId = context.isSuperAdmin ? null : context.branchId;
 
     return this.prisma.$transaction(async (tx) => {
       const results: any[] = [];
@@ -71,6 +75,7 @@ export class CardsService {
         for (const studentId of studentIds) {
           const student = await tx.student.findUnique({ where: { id: studentId }, select: { branchId: true } });
           if (!student) continue;
+          if (callerBranchId && student.branchId !== callerBranchId) continue;
 
           const card = await tx.idCard.upsert({
             where: {
@@ -111,6 +116,7 @@ export class CardsService {
             include: { user: { select: { branchId: true } } },
           });
           if (!staff || !staff.user?.branchId) continue;
+          if (callerBranchId && staff.user.branchId !== callerBranchId) continue;
 
           const card = await tx.idCard.create({
             data: {
