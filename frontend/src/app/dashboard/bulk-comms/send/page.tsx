@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 import { Send, Mail, MessageSquare, Users, AlertCircle, CheckCircle2 } from "lucide-react";
 import { commsService, EmailTemplate, SmsTemplate } from "@/services/commsService";
 import { useNotification } from '@/context/NotificationContext';
+import { CommsRecipientGroup } from "@basaer/shared-types";
 
 export default function SendCommsPage() {
     const { showSuccess, showError } = useNotification();
     const [type, setType] = useState<"EMAIL" | "SMS">("EMAIL");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");
-    const [recipientGroup, setRecipientGroup] = useState("ALL_STUDENTS");
+    const [recipientGroup, setRecipientGroup] = useState<CommsRecipientGroup>(CommsRecipientGroup.STUDENTS);
     const [loading, setLoading] = useState(false);
     const [templates, setTemplates] = useState<{ email: EmailTemplate[], sms: SmsTemplate[] }>({ email: [], sms: [] });
 
@@ -103,13 +104,14 @@ export default function SendCommsPage() {
                             </label>
                             <select
                                 value={recipientGroup}
-                                onChange={(e) => setRecipientGroup(e.target.value)}
+                                onChange={(e) => setRecipientGroup(e.target.value as CommsRecipientGroup)}
                                 className="w-full rounded-xl border border-primary/90 bg-white/75 shadow-sm focus:border-primary focus:ring-primary h-10 px-3"
                             >
-                                <option value="ALL_STUDENTS">All Students</option>
-                                <option value="ALL_STAFF">All Staff</option>
-                                <option value="PARENTS">Parents / Guardians</option>
-                                <option value="ALUMNI">Alumni</option>
+                                <option value={CommsRecipientGroup.STUDENTS}>All Students</option>
+                                <option value={CommsRecipientGroup.STAFF}>All Staff</option>
+                                <option value={CommsRecipientGroup.PARENTS}>Parents / Guardians</option>
+                                <option value={CommsRecipientGroup.ALUMNI}>Alumni</option>
+                                <option value={CommsRecipientGroup.ALL}>Everyone</option>
                             </select>
                         </div>
 

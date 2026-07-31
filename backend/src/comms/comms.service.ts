@@ -1,10 +1,11 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { BranchBrandingService } from '../branches/branch-branding.service';
+import { CommsRecipientGroup } from '@basaer/shared-types';
 
 const QUEUE_JOB_OPTS = {
   attempts: 3,
@@ -115,6 +116,8 @@ export class CommsService {
     );
 
     for (const recipient of recipients) {
+      if (!recipient.email) continue;
+
       const campaignRecipient = await this.prisma.campaignRecipient.create({
         data: {
           campaignId: campaign.id,
@@ -258,13 +261,24 @@ export class CommsService {
       isActive: true,
     };
 
+    // The frontend's recipient-group selector and this switch previously
+    // used unrelated value sets (ALL_STUDENTS/ALL_STAFF/PARENTS/ALUMNI vs
+    // students/staff/all-by-default) — every campaign silently broadcast
+    // to the whole branch regardless of what was actually selected. Both
+    // sides now import CommsRecipientGroup from @basaer/shared-types, and
+    // an unrecognized value is a hard error instead of a silent fallback.
     switch (group) {
-      case 'students':
+      case CommsRecipientGroup.STUDENTS:
         return this.prisma.user.findMany({
-          where: { ...where, role: { in: ['STUDENT', 'PARENT'] } },
+          where: { ...where, role: 'STUDENT' },
           select: { id: true, email: true, phone: true },
         });
-      case 'staff':
+      case CommsRecipientGroup.PARENTS:
+        return this.prisma.user.findMany({
+          where: { ...where, role: 'PARENT' },
+          select: { id: true, email: true, phone: true },
+        });
+      case CommsRecipientGroup.STAFF:
         return this.prisma.user.findMany({
           where: {
             ...where,
@@ -274,12 +288,28 @@ export class CommsService {
           },
           select: { id: true, email: true, phone: true },
         });
-      case 'all':
-      default:
+      case CommsRecipientGroup.ALUMNI: {
+        const alumni = await this.prisma.alumni.findMany({
+          where: { branchId: branchId || undefined },
+          select: {
+            student: {
+              select: { user: { select: { id: true, email: true, phone: true, isActive: true } } },
+            },
+          },
+        });
+        return alumni
+          .map((a) => a.student?.user)
+          .filter((u): u is { id: string; email: string; phone: string | null; isActive: boolean } => !!u && u.isActive);
+      }
+      case CommsRecipientGroup.ALL:
         return this.prisma.user.findMany({
           where,
           select: { id: true, email: true, phone: true },
         });
+      default:
+        throw new BadRequestException(
+          `Unknown recipient group "${group}". Expected one of: ${Object.values(CommsRecipientGroup).join(', ')}.`,
+        );
     }
   }
 

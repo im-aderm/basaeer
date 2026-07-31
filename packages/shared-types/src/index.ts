@@ -121,3 +121,22 @@ export interface AuditLogEntry {
   createdAt: string;
   ipAddress?: string;
 }
+
+// ── Bulk Communications ─────────────────────────────────────────────────────
+
+/**
+ * Shared by the frontend's recipient-group selector (bulk-comms/send) and
+ * the backend's CommsService.getRecipients — previously the frontend sent
+ * ALL_STUDENTS/ALL_STAFF/PARENTS/ALUMNI while the backend only recognized
+ * students/staff/all, so every campaign silently fell through to
+ * messaging the entire branch regardless of the group actually selected.
+ * Importing this enum from one place on both sides makes that mismatch a
+ * compile error instead of a silent runtime one.
+ */
+export enum CommsRecipientGroup {
+  STUDENTS = 'STUDENTS',
+  STAFF = 'STAFF',
+  PARENTS = 'PARENTS',
+  ALUMNI = 'ALUMNI',
+  ALL = 'ALL',
+}
