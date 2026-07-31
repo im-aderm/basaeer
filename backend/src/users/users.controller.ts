@@ -23,7 +23,7 @@ import {
   ApiBody,
 } from '@nestjs/swagger';
 
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard, RolesGuard, BranchGuard)
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
@@ -35,10 +35,13 @@ export class UsersController {
   @Get()
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(
+    @GetTenantContext() ctx: TenantContext,
     @Query('branchId') branchId?: string,
     @Query('role') role?: UserRole,
   ) {
-    return this.usersService.findAll(branchId, role);
+    const effectiveBranchId =
+      ctx.role === UserRole.SUPER_ADMIN ? branchId : ctx.branchId ?? undefined;
+    return this.usersService.findAll(effectiveBranchId, role);
   }
 
   @ApiBearerAuth()

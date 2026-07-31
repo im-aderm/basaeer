@@ -3,7 +3,7 @@ import { PreferencesService } from './preferences.service';
 import { UpdateUserPreferenceDto } from './dto/update-user-preference.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { GetTenantContext } from '../../auth/tenant-context.decorator';
-import { TenantContext } from '../../auth/branch.guard';
+import { BranchGuard, TenantContext } from '../../auth/branch.guard';
 import {
   ApiTags,
   ApiOperation,
@@ -14,7 +14,7 @@ import {
 
 @ApiTags('User Preferences')
 @Controller('user-preferences')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, BranchGuard)
 export class PreferencesController {
   constructor(private readonly preferencesService: PreferencesService) {}
 
