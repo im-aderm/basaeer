@@ -244,9 +244,10 @@ export class ExamsService {
     sessionId: string,
     term: Term,
     isLocked: boolean,
+    context: TenantContext,
   ) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
       select: { branchId: true },
     });
     if (!student) {
@@ -273,7 +274,16 @@ export class ExamsService {
     sessionId: string,
     term: Term,
     isLocked: boolean,
+    context: TenantContext,
   ) {
+    const section = await this.prisma.section.findFirst({
+      where: TenantHelper.applyIsolation({ id: sectionId }, context),
+      select: { id: true },
+    });
+    if (!section) {
+      throw new NotFoundException(`Section ${sectionId} not found`);
+    }
+
     return this.prisma.resultSummary.updateMany({
       where: {
         student: { sectionId },
@@ -290,7 +300,16 @@ export class ExamsService {
     sessionId: string,
     term: Term,
     isEligible: boolean,
+    context: TenantContext,
   ) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+      select: { id: true },
+    });
+    if (!student) {
+      throw new NotFoundException(`Student ${studentId} not found`);
+    }
+
     return this.prisma.assessmentRecord.update({
       where: {
         studentId_subjectId_sessionId_term: {

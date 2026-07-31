@@ -667,6 +667,7 @@ export class ExamsController {
     @Body('sessionId') sessionId: string,
     @Body('term') term: Term,
     @Body('isEligible') isEligible: boolean,
+    @GetTenantContext() ctx: TenantContext,
   ) {
     return this.examsService.toggleEligibility(
       studentId,
@@ -674,6 +675,7 @@ export class ExamsController {
       sessionId,
       term,
       isEligible,
+      ctx,
     );
   }
 
@@ -687,12 +689,14 @@ export class ExamsController {
     @Body('sessionId') sessionId: string,
     @Body('term') term: Term,
     @Body('isLocked') isLocked: boolean,
+    @GetTenantContext() ctx: TenantContext,
   ) {
     return this.examsService.lockResultsBatch(
       sectionId,
       sessionId,
       term,
       isLocked,
+      ctx,
     );
   }
 
@@ -846,8 +850,9 @@ export class ExamsController {
     @Body('sessionId') sessionId: string,
     @Body('term') term: Term,
     @Body('isLocked') isLocked: boolean,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.examsService.lockResults(studentId, sessionId, term, isLocked);
+    return this.examsService.lockResults(studentId, sessionId, term, isLocked, ctx);
   }
 
   @ApiBearerAuth()
