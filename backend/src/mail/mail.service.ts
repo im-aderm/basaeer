@@ -144,13 +144,20 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#10b981',
-      headerTitle: 'Congratulations!',
-      headerSubtitle: 'Admission Approved for Basaer College',
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Congratulations! | تهانينا',
+      headerSubtitle: 'Admission Approved for Basaer College | تم قبول الطالب في أكاديمية البصائر',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We are delighted to inform you that the admission application for <strong>${this.escapeHtml(studentName)}</strong> has been <strong>APPROVED</strong>.</p>
+        <div dir="rtl">
+          <p>يسعدنا إبلاغكم بأنه قد تمت <strong>الموافقة</strong> على طلب تسجيل الطالب <strong>${name}</strong>.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We are delighted to inform you that the admission application for <strong>${name}</strong> has been <strong>APPROVED</strong>.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -159,17 +166,22 @@ export class MailService implements OnModuleInit {
           borderSide: '2px dashed',
           padding: '20px',
           content: `
-          <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">Student ID / Admission No</p>
-          <p style="margin: 5px 0 0; font-size: 32px; font-weight: 900; color: #064e3b; letter-spacing: 2px;">${this.escapeHtml(studentId)}</p>
+          <div dir="rtl">
+            <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">رقم القيد / التسجيل</p>
+          </div>
+          <p style="margin: 5px 0 0; font-size: 32px; font-weight: 900; color: #064e3b; letter-spacing: 2px; text-align: center;">${this.escapeHtml(studentId)}</p>
+          <div dir="ltr">
+            <p style="margin: 5px 0 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">Student ID / Admission No</p>
+          </div>
         `,
         },
       ],
       footerText:
-        'The student has been successfully enrolled in our system. A parent portal account has been created for you using this email address. Please visit the school office to collect the orientation package and uniform.',
+        'تم تسجيل الطالب بنجاح في نظامنا، وقد تم إنشاء حساب لولي الأمر باستخدام هذا البريد الإلكتروني. يرجى زيارة مكتب المدرسة لاستلام حزمة التوجيه والزي المدرسي. | The student has been successfully enrolled in our system. A parent portal account has been created for you using this email address. Please visit the school office to collect the orientation package and uniform.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Admission Approved: ${studentName}`, html, branchId);
+    return this.sendMail(to, `تم قبول الطلب | Admission Approved: ${studentName}`, html, branchId);
   }
 
   async sendRejectionEmail(to: string, studentName: string, reason: string, branchId?: string) {
@@ -178,14 +190,22 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#ef4444',
-      headerTitle: 'Admission Update',
+      headerTitle: 'Admission Update | تحديث حالة القبول',
       headerSubtitle: '',
-      greeting: 'Hello,',
+      greeting: 'السلام عليكم',
       bodyContent: `
-        <p>Thank you for your interest in Basaer Quranic and Science College.</p>
-        <p>We regret to inform you that we cannot proceed with the admission application for <strong>${this.escapeHtml(studentName)}</strong> at this time.</p>
+        <div dir="rtl">
+          <p>نشكركم على اهتمامكم بأكاديمية البصائر للعلوم القرآنية والعصرية.</p>
+          <p>يؤسفنا إبلاغكم بأنه لا يمكننا المضي قدماً في طلب تسجيل الطالب <strong>${name}</strong> في الوقت الحالي.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Thank you for your interest in Basaer Quranic and Science College.</p>
+          <p>We regret to inform you that we cannot proceed with the admission application for <strong>${name}</strong> at this time.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -194,19 +214,24 @@ export class MailService implements OnModuleInit {
           borderSide: 'left: 4px solid',
           padding: '20px',
           content: `
+          <div dir="rtl">
+            <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">سبب هذا القرار:</p>
+            <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
+          </div>
+          <hr style="margin: 10px 0; border: none; border-top: 1px solid #fecaca;" />
           <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">Reason for this decision:</p>
           <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
         `,
         },
       ],
       footerText:
-        'If this was due to missing documents, you are welcome to submit a new application once you have all the requirements ready.',
+        'في حال كان السبب نقص المستندات، يمكنكم التقدم بطلب جديد بمجرد استكمال جميع المتطلبات. | If this was due to missing documents, you are welcome to submit a new application once you have all the requirements ready.',
     };
 
     const html = this.buildEmailTemplate(template);
     return this.sendMail(
       to,
-      `Update on Admission Application: ${studentName}`,
+      `تحديث طلب التسجيل | Update on Admission Application: ${studentName}`,
       html,
       branchId,
     );
@@ -218,25 +243,39 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = passed
       ? {
           headerColor: '#10b981',
-          headerTitle: 'Interview Completed',
-          headerSubtitle: 'Basaer Quranic and Science College',
-          greeting: 'Assalamu Alaikum,',
+          headerTitle: 'Interview Completed | تمت المقابلة',
+          headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+          greeting: 'السلام عليكم ورحمة الله وبركاته',
           bodyContent: `
-            <p>The interview for <strong>${this.escapeHtml(studentName)}</strong> has been completed successfully. Your application will now proceed to the next stage of review.</p>
+            <div dir="rtl">
+              <p>تمت مقابلة الطالب <strong>${name}</strong> بنجاح. سيتم الآن نقل طلب التسجيل إلى مرحلة المراجعة التالية.</p>
+            </div>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+            <div>
+              <p>The interview for <strong>${name}</strong> has been completed successfully. Your application will now proceed to the next stage of review.</p>
+            </div>
           `,
-          footerText: 'You will be notified of the final admission decision shortly.',
+          footerText: 'سيتم إبلاغكم بقرار القبول النهائي قريباً. | You will be notified of the final admission decision shortly.',
         }
       : {
           headerColor: '#ef4444',
-          headerTitle: 'Interview Outcome',
-          headerSubtitle: 'Basaer Quranic and Science College',
-          greeting: 'Assalamu Alaikum,',
+          headerTitle: 'Interview Outcome | نتيجة المقابلة',
+          headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+          greeting: 'السلام عليكم ورحمة الله وبركاته',
           bodyContent: `
-            <p>Thank you for attending the interview for <strong>${this.escapeHtml(studentName)}</strong>.</p>
-            <p>We regret to inform you that we cannot proceed with this admission application at this time.</p>
+            <div dir="rtl">
+              <p>نشكركم على حضور مقابلة الطالب <strong>${name}</strong>.</p>
+              <p>يؤسفنا إبلاغكم بأنه لا يمكننا المضي قدماً في طلب التسجيل هذا في الوقت الحالي.</p>
+            </div>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+            <div>
+              <p>Thank you for attending the interview for <strong>${name}</strong>.</p>
+              <p>We regret to inform you that we cannot proceed with this admission application at this time.</p>
+            </div>
           `,
           extraBlocks: notes
             ? [
@@ -245,15 +284,15 @@ export class MailService implements OnModuleInit {
                   borderColor: '#ef4444',
                   borderSide: 'left: 4px solid',
                   padding: '20px',
-                  content: `<p style="margin: 0; color: #b91c1c;">${this.escapeHtml(notes)}</p>`,
+                  content: `<p dir="rtl" style="margin: 0; color: #b91c1c;">${this.escapeHtml(notes)}</p><hr style="margin: 10px 0; border: none; border-top: 1px solid #fecaca;" /><p style="margin: 0; color: #b91c1c;">${this.escapeHtml(notes)}</p>`,
                 },
               ]
             : undefined,
-          footerText: 'You are welcome to apply again in a future admission cycle.',
+          footerText: 'يسعدنا استقبال طلبكم مجدداً في دورة قبول قادمة. | You are welcome to apply again in a future admission cycle.',
         };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Interview Outcome: ${studentName}`, html, branchId);
+    return this.sendMail(to, `نتيجة المقابلة | Interview Outcome: ${studentName}`, html, branchId);
   }
 
   async sendInterviewInvitation(to: string, studentName: string, interviewDate: string, venue: string, branchId?: string) {
@@ -262,13 +301,20 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#8b5cf6',
-      headerTitle: 'Interview Invitation',
-      headerSubtitle: 'Basaer Quranic and Science College',
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Interview Invitation | دعوة لمقابلة',
+      headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We are pleased to inform you that your admission application for <strong>${this.escapeHtml(studentName)}</strong> has been reviewed and you have been invited for an interview.</p>
+        <div dir="rtl">
+          <p>يسرنا إبلاغكم بأنه تمت مراجعة طلب تسجيل الطالب <strong>${name}</strong> وقد تمت دعوته لحضور مقابلة شخصية.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We are pleased to inform you that your admission application for <strong>${name}</strong> has been reviewed and you have been invited for an interview.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -277,6 +323,13 @@ export class MailService implements OnModuleInit {
           borderSide: 'left: 4px solid',
           padding: '20px',
           content: `
+            <div dir="rtl">
+              <p style="margin: 0; font-weight: bold; font-size: 14px; color: #6d28d9;">تفاصيل المقابلة:</p>
+              <p style="margin: 10px 0 0;"><strong>التاريخ والوقت:</strong> ${this.escapeHtml(interviewDate)}</p>
+              <p style="margin: 5px 0 0;"><strong>المكان:</strong> ${this.escapeHtml(venue)}</p>
+              <p style="margin: 5px 0 0;"><strong>يرجى إحضار:</strong> المستندات الأصلية، وصور شخصية، وأي شهادات.</p>
+            </div>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd6fe;" />
             <p style="margin: 0; font-weight: bold; font-size: 14px; color: #6d28d9;">Interview Details:</p>
             <p style="margin: 10px 0 0;"><strong>Date & Time:</strong> ${this.escapeHtml(interviewDate)}</p>
             <p style="margin: 5px 0 0;"><strong>Venue:</strong> ${this.escapeHtml(venue)}</p>
@@ -284,11 +337,11 @@ export class MailService implements OnModuleInit {
           `,
         },
       ],
-      footerText: 'Please arrive 15 minutes early. If you need to reschedule, contact the admissions office.',
+      footerText: 'يرجى الحضور قبل 15 دقيقة من الموعد. لإعادة الجدولة، يرجى التواصل مع مكتب القبول. | Please arrive 15 minutes early. If you need to reschedule, contact the admissions office.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Interview Invitation: ${studentName}`, html, branchId);
+    return this.sendMail(to, `دعوة لمقابلة | Interview Invitation: ${studentName}`, html, branchId);
   }
 
   async sendExamInvitation(to: string, studentName: string, examDate: string, venue: string, branchId?: string) {
@@ -297,13 +350,20 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#f59e0b',
-      headerTitle: 'Entrance Exam Invitation',
-      headerSubtitle: 'Basaer Quranic and Science College',
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Entrance Exam Invitation | دعوة لاختبار القبول',
+      headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>Your admission application for <strong>${this.escapeHtml(studentName)}</strong> has progressed to the entrance examination stage.</p>
+        <div dir="rtl">
+          <p>لقد وصل طلب تسجيل الطالب <strong>${name}</strong> إلى مرحلة اختبار القبول.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Your admission application for <strong>${name}</strong> has progressed to the entrance examination stage.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -312,6 +372,13 @@ export class MailService implements OnModuleInit {
           borderSide: 'left: 4px solid',
           padding: '20px',
           content: `
+            <div dir="rtl">
+              <p style="margin: 0; font-weight: bold; font-size: 14px; color: #92400e;">تفاصيل الاختبار:</p>
+              <p style="margin: 10px 0 0;"><strong>التاريخ والوقت:</strong> ${this.escapeHtml(examDate)}</p>
+              <p style="margin: 5px 0 0;"><strong>المكان:</strong> ${this.escapeHtml(venue)}</p>
+              <p style="margin: 5px 0 0;"><strong>يرجى إحضار:</strong> أقلام، ممحاة، وآلة حاسبة (إن سمح بذلك).</p>
+            </div>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #fde68a;" />
             <p style="margin: 0; font-weight: bold; font-size: 14px; color: #92400e;">Exam Details:</p>
             <p style="margin: 10px 0 0;"><strong>Date & Time:</strong> ${this.escapeHtml(examDate)}</p>
             <p style="margin: 5px 0 0;"><strong>Venue:</strong> ${this.escapeHtml(venue)}</p>
@@ -319,11 +386,11 @@ export class MailService implements OnModuleInit {
           `,
         },
       ],
-      footerText: 'Late arrivals will not be permitted. Contact the admissions office for any queries.',
+      footerText: 'لن يُسمح بالدخول بعد بدء الاختبار. لأي استفسار، يرجى التواصل مع مكتب القبول. | Late arrivals will not be permitted. Contact the admissions office for any queries.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Entrance Exam: ${studentName}`, html, branchId);
+    return this.sendMail(to, `اختبار القبول | Entrance Exam: ${studentName}`, html, branchId);
   }
 
   async sendAdmissionOffer(to: string, studentName: string, offeredClass: string, offeredSection: string, deadline: Date, branchId?: string) {
@@ -334,13 +401,20 @@ export class MailService implements OnModuleInit {
 
     const deadlineStr = deadline.toLocaleDateString('en-NG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#10b981',
-      headerTitle: 'Admission Offer',
-      headerSubtitle: 'Congratulations!',
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Admission Offer | عرض القبول',
+      headerSubtitle: 'Congratulations! | تهانينا',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We are delighted to offer admission to <strong>${this.escapeHtml(studentName)}</strong> at Basaer Quranic and Science College.</p>
+        <div dir="rtl">
+          <p>يسعدنا تقديم عرض قبول للطالب <strong>${name}</strong> في أكاديمية البصائر للعلوم القرآنية والعصرية.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We are delighted to offer admission to <strong>${name}</strong> at Basaer Quranic and Science College.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -349,6 +423,13 @@ export class MailService implements OnModuleInit {
           borderSide: '2px dashed',
           padding: '20px',
           content: `
+            <div dir="rtl">
+              <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">تفاصيل العرض</p>
+              <p style="margin: 10px 0 0;"><strong>الصف:</strong> ${this.escapeHtml(offeredClass)}</p>
+              <p style="margin: 5px 0 0;"><strong>الشعبة:</strong> ${this.escapeHtml(offeredSection)}</p>
+              <p style="margin: 5px 0 0;"><strong>آخر موعد للقبول:</strong> ${this.escapeHtml(deadlineStr)}</p>
+            </div>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #bbf7d0;" />
             <p style="margin: 0; font-size: 12px; font-weight: bold; color: #059669; text-transform: uppercase;">Offer Details</p>
             <p style="margin: 10px 0 0;"><strong>Class:</strong> ${this.escapeHtml(offeredClass)}</p>
             <p style="margin: 5px 0 0;"><strong>Section:</strong> ${this.escapeHtml(offeredSection)}</p>
@@ -356,11 +437,11 @@ export class MailService implements OnModuleInit {
           `,
         },
       ],
-      footerText: 'To accept this offer, please visit the admissions office or respond to this email before the deadline.',
+      footerText: 'لقبول هذا العرض، يرجى زيارة مكتب القبول أو الرد على هذا البريد قبل الموعد النهائي. | To accept this offer, please visit the admissions office or respond to this email before the deadline.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Admission Offer: ${studentName}`, html, branchId);
+    return this.sendMail(to, `عرض القبول | Admission Offer: ${studentName}`, html, branchId);
   }
 
   async sendOfferExpired(to: string, studentName: string, branchId?: string) {
@@ -369,20 +450,28 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#ef4444',
-      headerTitle: 'Offer Expired',
-      headerSubtitle: 'Basaer Quranic and Science College',
-      greeting: 'Hello,',
+      headerTitle: 'Offer Expired | انتهت صلاحية العرض',
+      headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+      greeting: 'السلام عليكم',
       bodyContent: `
-        <p>The admission offer for <strong>${this.escapeHtml(studentName)}</strong> has expired as we did not receive a response within the deadline.</p>
-        <p>Your application has been placed on our waitlist. If a spot becomes available, we will contact you with a new offer.</p>
+        <div dir="rtl">
+          <p>لقد انتهت صلاحية عرض القبول للطالب <strong>${name}</strong> نظراً لعدم استلام رد خلال المهلة المحددة.</p>
+          <p>تم وضع الطلب على قائمة الانتظار، وسنتواصل معكم بعرض جديد في حال توفر مقعد.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>The admission offer for <strong>${name}</strong> has expired as we did not receive a response within the deadline.</p>
+          <p>Your application has been placed on our waitlist. If a spot becomes available, we will contact you with a new offer.</p>
+        </div>
       `,
-      footerText: 'If you still wish to proceed, please contact the admissions office.',
+      footerText: 'إذا كنتم ترغبون في المتابعة، يرجى التواصل مع مكتب القبول. | If you still wish to proceed, please contact the admissions office.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Admission Offer Expired: ${studentName}`, html, branchId);
+    return this.sendMail(to, `انتهاء صلاحية عرض القبول | Admission Offer Expired: ${studentName}`, html, branchId);
   }
 
   async sendWaitlistNotification(to: string, studentName: string, position: number, branchId?: string) {
@@ -391,13 +480,20 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
     const template: EmailTemplate = {
       headerColor: '#6366f1',
-      headerTitle: 'Waitlist Notification',
-      headerSubtitle: 'Basaer Quranic and Science College',
-      greeting: 'Hello,',
+      headerTitle: 'Waitlist Notification | إشعار قائمة الانتظار',
+      headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+      greeting: 'السلام عليكم',
       bodyContent: `
-        <p>Thank you for your interest in Basaer Quranic and Science College. Your application for <strong>${this.escapeHtml(studentName)}</strong> has been placed on our waitlist.</p>
+        <div dir="rtl">
+          <p>نشكركم على اهتمامكم بأكاديمية البصائر للعلوم القرآنية والعصرية. تم وضع طلب الطالب <strong>${name}</strong> على قائمة الانتظار.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Thank you for your interest in Basaer Quranic and Science College. Your application for <strong>${name}</strong> has been placed on our waitlist.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -406,16 +502,21 @@ export class MailService implements OnModuleInit {
           borderSide: 'left: 4px solid',
           padding: '20px',
           content: `
+            <div dir="rtl">
+              <p style="margin: 0; font-weight: bold; font-size: 14px; color: #3730a3;">الترتيب في قائمة الانتظار: #${position}</p>
+              <p style="margin: 10px 0 0;">سيتم التواصل معكم في حال توفر مقعد في الصف المطلوب.</p>
+            </div>
+            <hr style="margin: 15px 0; border: none; border-top: 1px solid #c7d2fe;" />
             <p style="margin: 0; font-weight: bold; font-size: 14px; color: #3730a3;">Waitlist Position: #${position}</p>
             <p style="margin: 10px 0 0;">You will be contacted if a spot becomes available in your desired class.</p>
           `,
         },
       ],
-      footerText: 'You may still be contacted for future admission cycles.',
+      footerText: 'قد يتم التواصل معكم أيضاً بخصوص دورات القبول القادمة. | You may still be contacted for future admission cycles.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Waitlist Notification: ${studentName}`, html, branchId);
+    return this.sendMail(to, `إشعار قائمة الانتظار | Waitlist Notification: ${studentName}`, html, branchId);
   }
 
   async sendPasswordReset(to: string, resetLink: string, branchId?: string) {
@@ -426,24 +527,30 @@ export class MailService implements OnModuleInit {
 
     const template: EmailTemplate = {
       headerColor: '#2563EB',
-      headerTitle: 'Basaer Portal',
-      headerSubtitle: 'Raising Leaders through Quran & Science',
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Basaer Portal | بوابة البصائر',
+      headerSubtitle: 'Raising Leaders through Quran & Science | تربية الأجيال على القرآن والعلوم',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We received a request to reset the password for your Basaer account.</p>
-        <p>Please click the button below to reset your password. This link is valid for 15 minutes.</p>
+        <div dir="rtl">
+          <p>تلقينا طلباً لإعادة تعيين كلمة المرور الخاصة بحسابكم في البصائر.</p>
+          <p>يرجى الضغط على الزر أدناه لإعادة تعيين كلمة المرور. هذا الرابط صالح لمدة 15 دقيقة.</p>
+        </div>
         <p style="text-align: center; margin: 30px 0;">
-          <a href="${resetLink}" style="background-color: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">Reset Password</a>
+          <a href="${resetLink}" style="background-color: #2563EB; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">إعادة تعيين كلمة المرور | Reset Password</a>
         </p>
-        <p>If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We received a request to reset the password for your Basaer account.</p>
+          <p>If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
+        </div>
       `,
       footerText:
-        'If the button above does not work, copy and paste this URL into your browser:\n' +
+        'إذا لم يعمل الزر أعلاه، انسخ الرابط التالي والصقه في متصفحك: | If the button above does not work, copy and paste this URL into your browser:\n' +
         resetLink,
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, 'Reset Your Password - Basaer', html, branchId);
+    return this.sendMail(to, 'إعادة تعيين كلمة المرور | Reset Your Password - Basaer', html, branchId);
   }
 
   // ─── Event Application Notification Emails ──────────────────────────────────
@@ -459,21 +566,30 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
+    const title = this.escapeHtml(eventTitle);
     const template: EmailTemplate = {
       headerColor: '#059669',
-      headerTitle: 'Application Approved',
-      headerSubtitle: this.escapeHtml(eventTitle),
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Application Approved | تمت الموافقة على الطلب',
+      headerSubtitle: title,
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>We are pleased to inform you that the application for <strong>${this.escapeHtml(studentName)}</strong> to <strong>${this.escapeHtml(eventTitle)}</strong> has been <strong>APPROVED</strong>.</p>
-        <p>Please find attached the camp requirements and prohibited items documents for your reference. Review them carefully before the event date.</p>
+        <div dir="rtl">
+          <p>يسعدنا إبلاغكم بأنه قد تمت <strong>الموافقة</strong> على طلب اشتراك <strong>${name}</strong> في <strong>${title}</strong>.</p>
+          <p>مرفق مع هذا البريد متطلبات المخيم وقائمة الممنوعات، يرجى مراجعتها بعناية قبل موعد الفعالية.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We are pleased to inform you that the application for <strong>${name}</strong> to <strong>${title}</strong> has been <strong>APPROVED</strong>.</p>
+          <p>Please find attached the camp requirements and prohibited items documents for your reference. Review them carefully before the event date.</p>
+        </div>
       `,
       footerText:
-        'We look forward to seeing you at the event. If you have any questions, please contact the event coordinator.',
+        'نتطلع لرؤيتكم في الفعالية. لأي استفسار، يرجى التواصل مع منسق الفعالية. | We look forward to seeing you at the event. If you have any questions, please contact the event coordinator.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Application Approved: ${studentName} - ${eventTitle}`, html, branchId, [
+    return this.sendMail(to, `تمت الموافقة | Application Approved: ${studentName} - ${eventTitle}`, html, branchId, [
       { filename: 'camp-requirements.pdf', path: this.getDocumentPath('camp-requirements.pdf') },
       { filename: 'prohibited-items.pdf', path: this.getDocumentPath('prohibited-items.pdf') },
     ]);
@@ -491,14 +607,23 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
+    const title = this.escapeHtml(eventTitle);
     const template: EmailTemplate = {
       headerColor: '#dc2626',
-      headerTitle: 'Application Status Update',
-      headerSubtitle: this.escapeHtml(eventTitle),
-      greeting: 'Hello,',
+      headerTitle: 'Application Status Update | تحديث حالة الطلب',
+      headerSubtitle: title,
+      greeting: 'السلام عليكم',
       bodyContent: `
-        <p>Thank you for applying to <strong>${this.escapeHtml(eventTitle)}</strong>.</p>
-        <p>After careful review, we regret to inform you that the application for <strong>${this.escapeHtml(studentName)}</strong> has been <strong>REJECTED</strong>.</p>
+        <div dir="rtl">
+          <p>نشكركم على التقدم بطلب اشتراك في <strong>${title}</strong>.</p>
+          <p>بعد المراجعة الدقيقة، يؤسفنا إبلاغكم بأنه تم <strong>رفض</strong> طلب <strong>${name}</strong>.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Thank you for applying to <strong>${title}</strong>.</p>
+          <p>After careful review, we regret to inform you that the application for <strong>${name}</strong> has been <strong>REJECTED</strong>.</p>
+        </div>
       `,
       extraBlocks: [
         {
@@ -507,17 +632,22 @@ export class MailService implements OnModuleInit {
           borderSide: 'left: 4px solid',
           padding: '20px',
           content: `
+            <div dir="rtl">
+              <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">السبب:</p>
+              <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
+            </div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid #fecaca;" />
             <p style="margin: 0; font-weight: bold; font-size: 14px; color: #991b1b;">Reason:</p>
             <p style="margin: 5px 0 0; color: #b91c1c;">${this.escapeHtml(reason)}</p>
           `,
         },
       ],
       footerText:
-        'You are welcome to apply for future events. Contact support for more information.',
+        'يسعدنا استقبال طلبكم للفعاليات القادمة. للمزيد من المعلومات، يرجى التواصل مع فريق الدعم. | You are welcome to apply for future events. Contact support for more information.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Application Rejected: ${studentName} - ${eventTitle}`, html, branchId);
+    return this.sendMail(to, `تم رفض الطلب | Application Rejected: ${studentName} - ${eventTitle}`, html, branchId);
   }
 
   async sendEventPaymentVerified(
@@ -531,21 +661,30 @@ export class MailService implements OnModuleInit {
       return;
     }
 
+    const name = this.escapeHtml(studentName);
+    const title = this.escapeHtml(eventTitle);
     const template: EmailTemplate = {
       headerColor: '#059669',
-      headerTitle: 'Payment Verified',
-      headerSubtitle: this.escapeHtml(eventTitle),
-      greeting: 'Assalamu Alaikum,',
+      headerTitle: 'Payment Verified | تم التحقق من الدفع',
+      headerSubtitle: title,
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
       bodyContent: `
-        <p>Great news! The payment for <strong>${this.escapeHtml(studentName)}</strong>'s application to <strong>${this.escapeHtml(eventTitle)}</strong> has been <strong>VERIFIED</strong>.</p>
-        <p>Your spot is now confirmed. Please find attached the camp requirements and prohibited items documents.</p>
+        <div dir="rtl">
+          <p>خبر سار! تم <strong>التحقق</strong> من دفعة اشتراك <strong>${name}</strong> في <strong>${title}</strong>.</p>
+          <p>تم تأكيد مقعدكم الآن. مرفق مع هذا البريد متطلبات المخيم وقائمة الممنوعات.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>Great news! The payment for <strong>${name}</strong>'s application to <strong>${title}</strong> has been <strong>VERIFIED</strong>.</p>
+          <p>Your spot is now confirmed. Please find attached the camp requirements and prohibited items documents.</p>
+        </div>
       `,
       footerText:
-        'We look forward to having you at the event. Check the event page for updates and announcements.',
+        'نتطلع لاستضافتكم في الفعالية. تابعوا صفحة الفعالية للاطلاع على آخر التحديثات والإعلانات. | We look forward to having you at the event. Check the event page for updates and announcements.',
     };
 
     const html = this.buildEmailTemplate(template);
-    return this.sendMail(to, `Payment Verified: ${studentName} - ${eventTitle}`, html, branchId, [
+    return this.sendMail(to, `تم التحقق من الدفع | Payment Verified: ${studentName} - ${eventTitle}`, html, branchId, [
       { filename: 'camp-requirements.pdf', path: this.getDocumentPath('camp-requirements.pdf') },
       { filename: 'prohibited-items.pdf', path: this.getDocumentPath('prohibited-items.pdf') },
     ]);
