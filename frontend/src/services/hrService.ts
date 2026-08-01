@@ -83,7 +83,16 @@ export const HRService = {
     },
 
     recordBulkStaffAttendance: async (data: { staffIds: string[]; date: string; status: string }) => {
-        const response = await api.post("/employees/attendance/bulk", data);
+        // POST /employees/attendance/bulk expects { records: [{ staffId, date,
+        // status }] }, not { staffIds, date, status } — sending the latter
+        // 500'd on every call ("Mark All" in dashboard/hr/attendance).
+        const response = await api.post("/employees/attendance/bulk", {
+            records: data.staffIds.map((staffId) => ({
+                staffId,
+                date: data.date,
+                status: data.status,
+            })),
+        });
         return response.data;
     }
 };

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PayrollService } from './payroll.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { RealtimeService } from '../realtime/realtime.service';
 
 describe('PayrollService', () => {
   let service: PayrollService;
@@ -13,7 +14,7 @@ describe('PayrollService', () => {
     role: 'HR' as any,
   };
 
-  const mockPrismaService = {
+  const mockPrismaService: any = {
     staff: {
       findUnique: jest.fn(),
       findMany: jest.fn(),
@@ -28,7 +29,13 @@ describe('PayrollService', () => {
       findMany: jest.fn(),
       update: jest.fn(),
     },
+    advanceSalary: {
+      findMany: jest.fn().mockResolvedValue([]),
+      updateMany: jest.fn(),
+    },
+    $transaction: jest.fn((fn: any) => fn(mockPrismaService)),
   };
+  const mockRealtimeService = { sendToBranch: jest.fn() };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -38,6 +45,7 @@ describe('PayrollService', () => {
           provide: PrismaService,
           useValue: mockPrismaService,
         },
+        { provide: RealtimeService, useValue: mockRealtimeService },
       ],
     }).compile();
 
@@ -109,7 +117,7 @@ describe('PayrollService', () => {
 
       mockPrismaService.staff.findMany.mockResolvedValue(mockStaff);
       mockPrismaService.payroll.findFirst.mockResolvedValue(null);
-      mockPrismaService.payroll.create.mockImplementation((data) =>
+      mockPrismaService.payroll.create.mockImplementation((data: any) =>
         Promise.resolve({ id: 'payroll-123', ...data.data }),
       );
 
@@ -143,6 +151,53 @@ describe('PayrollService', () => {
 
       expect(result.entries).toHaveLength(0);
       expect(mockPrismaService.payroll.create).not.toHaveBeenCalled();
+    });
+
+    it('deducts approved salary advances from the payslip and marks them PAID', async () => {
+      const dto = { branchId: 'branch-123', month: 2, year: 2026 };
+
+      mockPrismaService.staff.findMany.mockResolvedValue([
+        { id: 'staff-1', salaryTemplate: { netSalary: 50000 } },
+      ]);
+      mockPrismaService.payroll.findFirst.mockResolvedValue(null);
+      mockPrismaService.advanceSalary.findMany.mockResolvedValue([
+        { id: 'adv-1', amount: 10000 },
+        { id: 'adv-2', amount: 5000 },
+      ]);
+      mockPrismaService.payroll.create.mockImplementation((data: any) =>
+        Promise.resolve({ id: 'payroll-1', ...data.data }),
+      );
+
+      const result = await service.generateMonthlyPayroll(dto);
+
+      // 50000 net salary - (10000 + 5000) in approved advances = 35000 paid.
+      expect(mockPrismaService.payroll.create).toHaveBeenCalledWith(
+        expect.objectContaining({ data: expect.objectContaining({ amountPaid: 35000 }) }),
+      );
+      expect(mockPrismaService.advanceSalary.updateMany).toHaveBeenCalledWith({
+        where: { id: { in: ['adv-1', 'adv-2'] } },
+        data: { status: 'PAID' },
+      });
+      expect(result.entries[0].amountPaid).toBe(35000);
+    });
+
+    it('never pays a negative amount when advances exceed net salary', async () => {
+      const dto = { branchId: 'branch-123', month: 2, year: 2026 };
+
+      mockPrismaService.staff.findMany.mockResolvedValue([
+        { id: 'staff-1', salaryTemplate: { netSalary: 20000 } },
+      ]);
+      mockPrismaService.payroll.findFirst.mockResolvedValue(null);
+      mockPrismaService.advanceSalary.findMany.mockResolvedValue([
+        { id: 'adv-1', amount: 50000 },
+      ]);
+      mockPrismaService.payroll.create.mockImplementation((data: any) =>
+        Promise.resolve({ id: 'payroll-1', ...data.data }),
+      );
+
+      const result = await service.generateMonthlyPayroll(dto);
+
+      expect(result.entries[0].amountPaid).toBe(0);
     });
 
     it('should throw BadRequestException if no staff with templates', async () => {

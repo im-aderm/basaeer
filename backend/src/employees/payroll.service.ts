@@ -71,15 +71,41 @@ export class PayrollService {
       });
 
       if (!existing) {
-        const payroll = await this.prisma.payroll.create({
-          data: {
-            staffId: staff.id,
-            month: dto.month,
-            year: dto.year,
-            amountPaid: staff.salaryTemplate?.netSalary || 0,
-            status: 'UNPAID',
-            branchId: dto.branchId,
-          },
+        // Approved salary advances were tracked but never reconciled
+        // against the next payslip — money paid out as an advance stayed
+        // outstanding forever instead of being deducted here. Settle every
+        // APPROVED advance for this staff member into this payroll run,
+        // atomically marking each one PAID so it's never deducted twice.
+        const payroll = await this.prisma.$transaction(async (tx) => {
+          const pendingAdvances = await tx.advanceSalary.findMany({
+            where: { staffId: staff.id, status: 'APPROVED' },
+          });
+          const advanceTotal = pendingAdvances.reduce(
+            (sum, a) => sum + Number(a.amount),
+            0,
+          );
+          const netSalary = Number(staff.salaryTemplate?.netSalary || 0);
+          const amountPaid = Math.max(0, netSalary - advanceTotal);
+
+          const created = await tx.payroll.create({
+            data: {
+              staffId: staff.id,
+              month: dto.month,
+              year: dto.year,
+              amountPaid,
+              status: 'UNPAID',
+              branchId: dto.branchId,
+            },
+          });
+
+          if (pendingAdvances.length > 0) {
+            await tx.advanceSalary.updateMany({
+              where: { id: { in: pendingAdvances.map((a) => a.id) } },
+              data: { status: 'PAID' },
+            });
+          }
+
+          return created;
         });
         payrollEntries.push(payroll);
       }

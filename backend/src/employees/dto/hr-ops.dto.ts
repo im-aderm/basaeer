@@ -10,6 +10,7 @@ import {
   IsNotEmpty,
   IsEnum,
 } from 'class-validator';
+import { OmitType } from '@nestjs/mapped-types';
 
 export class CreateSalaryTemplateDto {
   @IsNumber()
@@ -112,3 +113,17 @@ export class RequestAdvanceSalaryDto {
   @IsNotEmpty()
   reason: string;
 }
+
+/**
+ * Self-service variant for POST /advance-salary/request — the caller's own
+ * staffId is derived from their JWT (ctx.userId), never client-supplied, so
+ * this omits it from RequestAdvanceSalaryDto rather than trusting a
+ * staffId in the body. Previously this endpoint read amount/reason via
+ * @Body('amount')/@Body('reason') property decorators, which never runs
+ * through the global ValidationPipe at all — a negative or non-numeric
+ * amount reached the service layer unchecked.
+ */
+export class SelfRequestAdvanceSalaryDto extends OmitType(
+  RequestAdvanceSalaryDto,
+  ['staffId'] as const,
+) {}

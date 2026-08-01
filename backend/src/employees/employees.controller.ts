@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { CreateAwardDto, RequestAdvanceSalaryDto } from './dto/hr-ops.dto';
+import { CreateAwardDto, RequestAdvanceSalaryDto, SelfRequestAdvanceSalaryDto } from './dto/hr-ops.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -268,11 +268,10 @@ export class EmployeesController {
   @Post('advance-salary/request')
   async requestAdvance(
     @GetTenantContext() ctx: TenantContext,
-    @Body('amount') amount: number,
-    @Body('reason') reason: string,
+    @Body() dto: SelfRequestAdvanceSalaryDto,
   ) {
     const staff = await this.employeesService.findByUserId(ctx.userId, ctx);
-    return this.employeesService.requestAdvance(staff.id, amount, reason);
+    return this.employeesService.requestAdvance(staff.id, dto.amount, dto.reason);
   }
 
   @ApiBearerAuth()
