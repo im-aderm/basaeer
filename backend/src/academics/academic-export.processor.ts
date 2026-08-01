@@ -62,6 +62,7 @@ export class AcademicExportProcessor extends WorkerHost {
             exportId,
             parameters,
             branchId,
+            userId,
           );
           break;
         case 'ANALYTICS':
@@ -89,7 +90,7 @@ export class AcademicExportProcessor extends WorkerHost {
 
       if (result.buffer) {
         const extension =
-          type === 'EXCEL'
+          type === 'EXCEL' || type === 'BROADSHEET'
             ? 'xlsx'
             : type === 'CSV'
               ? 'csv'
@@ -164,7 +165,12 @@ export class AcademicExportProcessor extends WorkerHost {
     await this.updateProgress(exportId, 20);
     const ctx: TenantContext = { userId, branchId, sessionId: null, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
     const transcript = await this.transcriptService.generate(studentId, ctx);
-    return { fileName: `transcript-${studentId}.pdf` };
+    await this.updateProgress(exportId, 60);
+    // generate() only creates the Transcript DB record — pdf() renders the
+    // actual downloadable file. This export used to report COMPLETED with
+    // no fileUrl at all, since nothing here ever produced a buffer.
+    const buffer = await this.transcriptService.pdf(transcript.id, ctx);
+    return { buffer, fileName: `transcript-${studentId}.pdf` };
   }
 
   private async updateProgress(exportId: string, progress: number) {
@@ -178,18 +184,30 @@ export class AcademicExportProcessor extends WorkerHost {
     exportId: string,
     params: any,
     branchId: string,
-  ): Promise<{ fileName: string }> {
-    this.logger.log(`Broadsheet export ${exportId} not yet implemented`);
-    return { fileName: `broadsheet-${params.sectionId}.pdf` };
+    userId: string,
+  ): Promise<{ buffer: Buffer; fileName: string }> {
+    const { sectionId, sessionId, term } = params;
+    await this.updateProgress(exportId, 20);
+    const ctx: TenantContext = { userId, branchId, sessionId: null, isSuperAdmin: false, role: UserRole.SUPER_ADMIN };
+    const { headers, rows } = await this.examsService.getBroadsheetData(
+      sectionId,
+      sessionId,
+      term,
+      ctx,
+    );
+    await this.updateProgress(exportId, 70);
+    const buffer = await this.reportingService.generateExcel(headers, rows, 'Broadsheet');
+    return { buffer, fileName: 'Broadsheet.xlsx' };
   }
 
   private async handleAnalyticsExport(
     exportId: string,
     params: any,
     branchId: string,
-  ): Promise<{ fileName: string }> {
-    this.logger.log(`Analytics export ${exportId} not yet implemented`);
-    return { fileName: `analytics-${params.sectionId}.pdf` };
+  ): Promise<{ buffer: Buffer; fileName: string }> {
+    await this.updateProgress(exportId, 20);
+    const buffer = await this.reportingService.exportStudentPerformancePDF(branchId);
+    return { buffer, fileName: 'AcademicAnalytics.pdf' };
   }
 
   private async handleDataExport(
@@ -197,9 +215,22 @@ export class AcademicExportProcessor extends WorkerHost {
     type: string,
     params: any,
     branchId: string,
-  ): Promise<{ fileName: string }> {
-    this.logger.log(`Data export ${exportId} not yet implemented`);
-    return { fileName: `data-export-${exportId}.csv` };
+  ): Promise<{ buffer: Buffer; fileName: string }> {
+    await this.updateProgress(exportId, 20);
+    if (type === 'EXCEL') {
+      const buffer = await this.reportingService.exportStudentPerformanceExcel(branchId);
+      return { buffer, fileName: 'AcademicData.xlsx' };
+    }
+    const data = await this.reportingService.getStudentAnalytics({ branchId } as any);
+    const rows = [
+      ['Total Students', data.total],
+      ['New This Year', data.newThisYear],
+      ['New This Term', data.newThisTerm],
+      ...data.byGender.map((r: any) => [`Gender: ${r.gender ?? 'Unknown'}`, r.count]),
+      ...data.byClass.map((r: any) => [`Class: ${r.className}`, r.count]),
+    ];
+    const buffer = await this.reportingService.generateCsvBuffer(['Metric', 'Value'], rows);
+    return { buffer, fileName: 'AcademicData.csv' };
   }
 
   @OnWorkerEvent('completed')
