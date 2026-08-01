@@ -501,8 +501,10 @@ export class HostelsService {
     if (!allocation) return null;
 
     return {
+      hostelId: allocation.bed.room.hostel.id,
       hostelName: allocation.bed.room.hostel.name,
       hostelType: allocation.bed.room.hostel.type,
+      roomId: allocation.bed.room.id,
       roomNumber: allocation.bed.room.number,
       bedName: allocation.bed.name,
       checkInDate: allocation.checkInDate,

@@ -162,8 +162,10 @@ export const HostelService = {
     },
 
     getMyHostelDetails: async (): Promise<{
+        hostelId: string;
         hostelName: string;
         hostelType: string;
+        roomId: string;
         roomNumber: string;
         bedName: string;
         checkInDate: string;

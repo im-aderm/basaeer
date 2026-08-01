@@ -53,8 +53,8 @@ export default function StudentHostelPage() {
         try {
             const [detailsData, leavesData, maintenanceData] = await Promise.all([
                 HostelService.getMyHostelDetails(),
-                HostelService.getLeaves(),
-                HostelService.getMaintenanceRequests()
+                HostelService.getMyLeaves(),
+                HostelService.getMyMaintenanceRequests()
             ]);
             setMyDetails(detailsData);
             setLeaves(leavesData);
@@ -86,8 +86,13 @@ export default function StudentHostelPage() {
 
     const handleCreateMaintenance = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!myDetails) return;
         try {
-            await HostelService.createMaintenance(maintenanceForm);
+            await HostelService.createMaintenance({
+                ...maintenanceForm,
+                hostelId: myDetails.hostelId,
+                roomId: myDetails.roomId,
+            });
             showSuccess("Maintenance request submitted");
             setIsMaintenanceModalOpen(false);
             setMaintenanceForm({ title: "", description: "", priority: "MEDIUM" });
