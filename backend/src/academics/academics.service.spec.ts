@@ -80,7 +80,7 @@ describe('AcademicsService - Assignments', () => {
       mockPrismaService.staff.findUnique.mockResolvedValue(mockTeacher);
       mockPrismaService.assignment.create.mockResolvedValue(mockAssignment);
 
-      const result = await service.createAssignment(dto);
+      const result = await service.createAssignment(dto, mockContext);
 
       expect(result).toBeDefined();
       expect(result.title).toBe('Math Homework 1');
@@ -150,7 +150,7 @@ describe('AcademicsService - Assignments', () => {
       mockPrismaService.student.findUnique.mockResolvedValue({ id: dto.studentId });
       mockPrismaService.submission.upsert.mockResolvedValue(mockSubmission);
 
-      const result = await service.submitAssignment(dto);
+      const result = await service.submitAssignment(dto, mockContext);
 
       expect(result).toBeDefined();
       expect(result.status).toBe('SUBMITTED');

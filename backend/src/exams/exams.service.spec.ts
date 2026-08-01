@@ -50,12 +50,18 @@ describe('ExamsService grading engine', () => {
     });
   });
 
-  it('rejects scores outside configured grading ranges', () => {
+  it('falls back to an Ungraded result for scores outside configured ranges, rather than failing the whole report', () => {
+    // Deliberately more lenient than ResultComputationService.gradeFor (which
+    // throws) -- this path backs report-card rendering, where a single
+    // out-of-range score shouldn't take down the whole document.
     const scale = [{ minScore: 50, maxScore: 100, grade: 'PASS' }];
 
-    expect(() => (service as any).calculateGradeFromScale(49, scale)).toThrow(
-      BadRequestException,
-    );
+    expect((service as any).calculateGradeFromScale(49, scale)).toEqual({
+      grade: 'Ungraded',
+      remark: 'Score falls outside configured grading ranges',
+      gradePoint: null,
+      classOfResult: null,
+    });
   });
 
   it('calculates CGPA from configured grade points only when all eligible records have points', () => {

@@ -33,6 +33,11 @@ jobs:
           node-version: 22
           cache: "npm"
       - run: npm ci
+      # packages/shared-types' dist/ is gitignored (built fresh on every
+      # install) and consumed by both backend and frontend via `file:`
+      # deps — build it explicitly rather than relying on `--workspaces`
+      # execution order.
+      - run: npm run build --workspace=@basaer/shared-types
       - run: npm run build --workspaces
       - run: npm run lint --workspaces
       # Non-blocking: surfaces advisories without failing the pipeline. There is
@@ -59,6 +64,10 @@ jobs:
           node-version: 22
           cache: "npm"
       - run: npm ci
+      # frontend's own build is scoped to just this workspace (--workspace=frontend),
+      # so it never triggers shared-types' build the way the backend job's
+      # --workspaces (plural) run does — build it explicitly first.
+      - run: npm run build --workspace=@basaer/shared-types
       - run: npm run build --workspace=frontend
       - run: npm run lint --workspace=frontend
       # The frontend "test" script is Playwright e2e, which requires browsers

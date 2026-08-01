@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LeaveService } from './leave.service';
 import { PrismaService } from '../prisma/prisma.service';
+import { LeaveValidationService } from './leave-validation.service';
+import { RealtimeService } from '../realtime/realtime.service';
 
 describe('LeaveService', () => {
   let service: LeaveService;
@@ -27,6 +29,15 @@ describe('LeaveService', () => {
     },
   };
 
+  const mockLeaveValidationService = {
+    validateLeaveRequest: jest.fn(),
+    getAllLeaveBalances: jest.fn(),
+  };
+
+  const mockRealtimeService = {
+    sendToBranch: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -35,11 +46,23 @@ describe('LeaveService', () => {
           provide: PrismaService,
           useValue: mockPrismaService,
         },
+        {
+          provide: LeaveValidationService,
+          useValue: mockLeaveValidationService,
+        },
+        {
+          provide: RealtimeService,
+          useValue: mockRealtimeService,
+        },
       ],
     }).compile();
 
     service = module.get<LeaveService>(LeaveService);
     prisma = module.get<PrismaService>(PrismaService);
+    mockLeaveValidationService.validateLeaveRequest.mockResolvedValue({
+      valid: true,
+      errors: [],
+    });
   });
 
   afterEach(() => {
@@ -79,6 +102,7 @@ describe('LeaveService', () => {
           endDate: new Date(dto.endDate),
           reason: dto.reason,
           status: 'PENDING',
+          branchId: 'branch-test',
         },
       });
     });
@@ -92,6 +116,7 @@ describe('LeaveService', () => {
       const mockRequest = {
         id: requestId,
         status: 'PENDING',
+        staff: { user: { firstName: 'Test', lastName: 'Staff', branchId: 'branch-test' } },
       };
 
       const mockUpdated = {
@@ -118,6 +143,7 @@ describe('LeaveService', () => {
       const mockRequest = {
         id: requestId,
         status: 'PENDING',
+        staff: { user: { firstName: 'Test', lastName: 'Staff', branchId: 'branch-test' } },
       };
 
       const mockUpdated = {

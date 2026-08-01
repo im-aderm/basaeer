@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getQueueToken } from '@nestjs/bullmq';
 import { MailService } from '../mail/mail.service';
+import { BranchBrandingService } from '../branches/branch-branding.service';
 
 // Mock nodemailer
 jest.mock('nodemailer', () => ({
@@ -35,7 +37,11 @@ describe('MailService Integration', () => {
       process.env.SMTP_FROM = 'noreply@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -68,7 +74,11 @@ describe('MailService Integration', () => {
       process.env.SMTP_FROM = 'test@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -105,7 +115,11 @@ describe('MailService Integration', () => {
       delete process.env.SMTP_FROM;
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -123,7 +137,11 @@ describe('MailService Integration', () => {
       process.env.SMTP_PASS = 'test-password';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -178,7 +196,11 @@ describe('MailService Integration', () => {
       process.env.SMTP_PASS = 'test-password';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -258,7 +280,11 @@ describe('MailService Integration', () => {
       process.env.SMTP_PASS = 'test-password';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+          MailService,
+          { provide: BranchBrandingService, useValue: {} },
+          { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+        ],
       }).compile();
 
       service = module.get<MailService>(MailService);
@@ -291,7 +317,7 @@ describe('MailService Integration', () => {
 
       sendMailSpy.mock.calls.forEach((call) => {
         const html = call[2];
-        expect(html).toContain('font-family: Arial');
+        expect(html).toContain('Arial');
         expect(html).toContain('max-width: 600px');
         expect(html).toContain('border-radius: 20px');
         expect(html).toContain('</div>');

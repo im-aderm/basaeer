@@ -72,8 +72,15 @@ describe('ReceptionService', () => {
 
       const result = await service.createEnquiry(dto);
       expect(result).toEqual(dto);
+      // createEnquiry stamps `date` with the current time when the dto
+      // doesn't provide one, and explicitly sets nextFollowUpDate to
+      // undefined rather than omitting it.
       expect(mockPrismaService.admissionEnquiry.create).toHaveBeenCalledWith({
-        data: dto,
+        data: {
+          ...dto,
+          nextFollowUpDate: undefined,
+          date: expect.any(Date),
+        },
       });
     });
   });

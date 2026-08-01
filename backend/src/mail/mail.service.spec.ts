@@ -1,5 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getQueueToken } from '@nestjs/bullmq';
 import { MailService } from '../mail/mail.service';
+import { BranchBrandingService } from '../branches/branch-branding.service';
 import * as nodemailer from 'nodemailer';
 
 // Mock nodemailer at module level
@@ -30,7 +32,11 @@ describe('MailService', () => {
     delete process.env.SMTP_FROM;
 
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MailService],
+      providers: [
+        MailService,
+        { provide: BranchBrandingService, useValue: {} },
+        { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+      ],
     }).compile();
 
     service = module.get<MailService>(MailService);
@@ -58,7 +64,11 @@ describe('MailService', () => {
       process.env.SMTP_FROM = 'noreply@basaer.edu';
 
       const module: TestingModule = await Test.createTestingModule({
-        providers: [MailService],
+        providers: [
+        MailService,
+        { provide: BranchBrandingService, useValue: {} },
+        { provide: getQueueToken('transactional-email'), useValue: { add: jest.fn() } },
+      ],
       }).compile();
 
       const configuredService = module.get<MailService>(MailService);
@@ -87,18 +97,21 @@ describe('MailService', () => {
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         'parent@example.com',
-        'Application Received: John Doe',
+        'تأكيد استلام طلب التسجيل | Application Received: John Doe',
         expect.stringContaining('Basaer College'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('John Doe'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('Next Steps'),
+        undefined,
       );
     });
 
@@ -142,11 +155,13 @@ describe('MailService', () => {
         expect.any(String),
         expect.any(String),
         expect.not.stringContaining('<script>'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('&lt;script&gt;'),
+        undefined,
       );
     });
   });
@@ -167,18 +182,21 @@ describe('MailService', () => {
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         'parent@example.com',
-        'Admission Approved: Jane Smith',
+        'تم قبول الطلب | Admission Approved: Jane Smith',
         expect.stringContaining('Congratulations'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('BMS-2026-0001'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('APPROVED'),
+        undefined,
       );
     });
 
@@ -215,6 +233,7 @@ describe('MailService', () => {
         expect.any(String),
         expect.any(String),
         expect.not.stringContaining('<b>'),
+        undefined,
       );
     });
   });
@@ -235,18 +254,21 @@ describe('MailService', () => {
 
       expect(sendMailSpy).toHaveBeenCalledWith(
         'parent@example.com',
-        'Update on Admission Application: Ahmed Ali',
+        'تحديث طلب التسجيل | Update on Admission Application: Ahmed Ali',
         expect.stringContaining('Admission Update'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('Incomplete documents'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('Reason for this decision'),
+        undefined,
       );
     });
 
@@ -279,11 +301,13 @@ describe('MailService', () => {
         expect.any(String),
         expect.any(String),
         expect.not.stringContaining('<script>'),
+        undefined,
       );
       expect(sendMailSpy).toHaveBeenCalledWith(
         expect.any(String),
         expect.any(String),
         expect.stringContaining('&lt;script&gt;'),
+        undefined,
       );
     });
   });

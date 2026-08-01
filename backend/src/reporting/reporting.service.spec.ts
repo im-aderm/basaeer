@@ -26,6 +26,13 @@ describe('ReportingService', () => {
     },
     staff: {
       count: jest.fn().mockResolvedValue(0),
+      groupBy: jest.fn().mockResolvedValue([]),
+    },
+    department: {
+      findMany: jest.fn().mockResolvedValue([]),
+    },
+    attendance: {
+      groupBy: jest.fn().mockResolvedValue([]),
     },
   };
 
@@ -54,7 +61,10 @@ describe('ReportingService', () => {
       const result = await service.getUnifiedDashboard(branchId);
 
       expect(result).toHaveProperty('summary');
-      expect(result).toHaveProperty('charts');
+      expect(result).toHaveProperty('academic');
+      expect(result).toHaveProperty('hr');
+      expect(result).toHaveProperty('finance');
+      expect(result).toHaveProperty('attendance');
     });
   });
 
@@ -64,8 +74,9 @@ describe('ReportingService', () => {
         branchId: 'test',
       });
 
-      expect(result).toHaveProperty('summary');
-      expect(result).toHaveProperty('charts');
+      expect(result).toHaveProperty('total');
+      expect(result).toHaveProperty('byGender');
+      expect(result).toHaveProperty('byClass');
     });
   });
 

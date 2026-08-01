@@ -75,7 +75,7 @@ describe('InventoryService', () => {
     it('should create a product with costPrice and sellingPrice', async () => {
       const dto = {
         name: 'Test Product',
-        stock: 10,
+        initialStock: 10,
         categoryId: 'cat-1',
         unitId: 'unit-1',
         branchId: 'branch-1',
@@ -88,10 +88,14 @@ describe('InventoryService', () => {
       const result = await service.createProduct(dto);
 
       expect(result).toEqual(dto);
+      // createProduct destructures initialStock out of the dto and sets the
+      // actual `stock` column from it explicitly.
+      const { initialStock, ...rest } = dto;
       expect(mockPrismaService.inventoryProduct.create).toHaveBeenCalledWith({
         data: {
-          ...dto,
+          ...rest,
           branchId: dto.branchId,
+          stock: initialStock,
         },
       });
     });
@@ -115,7 +119,7 @@ describe('InventoryService', () => {
 
       expect(result).toEqual({ id, ...dto });
       expect(mockPrismaService.inventoryProduct.update).toHaveBeenCalledWith({
-        where: { id },
+        where: { id, branchId: mockContext.branchId },
         data: dto,
       });
     });

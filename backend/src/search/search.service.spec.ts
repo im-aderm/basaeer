@@ -12,6 +12,8 @@ describe('SearchService', () => {
     book: { findMany: jest.fn() },
     invoice: { findMany: jest.fn() },
     hostel: { findMany: jest.fn() },
+    class: { findMany: jest.fn() },
+    alumniEvent: { findMany: jest.fn() },
   };
 
   beforeEach(async () => {
@@ -40,6 +42,8 @@ describe('SearchService', () => {
         books: [],
         invoices: [],
         hostel: [],
+        classes: [],
+        events: [],
       });
     });
 
@@ -52,6 +56,8 @@ describe('SearchService', () => {
         books: [],
         invoices: [],
         hostel: [],
+        classes: [],
+        events: [],
       });
     });
 
@@ -77,6 +83,8 @@ describe('SearchService', () => {
       ]);
       mockPrismaService.invoice.findMany.mockResolvedValue([]);
       mockPrismaService.hostel.findMany.mockResolvedValue([]);
+      mockPrismaService.class.findMany.mockResolvedValue([]);
+      mockPrismaService.alumniEvent.findMany.mockResolvedValue([]);
 
       const result = await service.globalSearch(branchId, query);
       expect(result.students).toHaveLength(1);
@@ -93,6 +101,8 @@ describe('SearchService', () => {
       mockPrismaService.book.findMany.mockResolvedValue([]);
       mockPrismaService.invoice.findMany.mockResolvedValue([]);
       mockPrismaService.hostel.findMany.mockResolvedValue([]);
+      mockPrismaService.class.findMany.mockResolvedValue([]);
+      mockPrismaService.alumniEvent.findMany.mockResolvedValue([]);
 
       await service.globalSearch(branchId, query);
 
@@ -117,6 +127,8 @@ describe('SearchService', () => {
       mockPrismaService.book.findMany.mockResolvedValue([]);
       mockPrismaService.invoice.findMany.mockResolvedValue([]);
       mockPrismaService.hostel.findMany.mockResolvedValue([]);
+      mockPrismaService.class.findMany.mockResolvedValue([]);
+      mockPrismaService.alumniEvent.findMany.mockResolvedValue([]);
 
       await service.globalSearch(branchId, query);
 
@@ -136,6 +148,8 @@ describe('SearchService', () => {
       mockPrismaService.book.findMany.mockResolvedValue([]);
       mockPrismaService.invoice.findMany.mockResolvedValue([]);
       mockPrismaService.hostel.findMany.mockResolvedValue([]);
+      mockPrismaService.class.findMany.mockResolvedValue([]);
+      mockPrismaService.alumniEvent.findMany.mockResolvedValue([]);
 
       await expect(service.globalSearch(branchId, 'test')).rejects.toThrow(
         'Database error',
