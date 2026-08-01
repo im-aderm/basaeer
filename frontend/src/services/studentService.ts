@@ -6,7 +6,7 @@ export interface ParentBasicInfo { id?: string; userId?: string; user?: UserBasi
 export interface ClassBasicInfo { id?: string; name: string; gradeLevel?: number; }
 export interface SectionBasicInfo { id?: string; name: string; classId?: string; }
 export interface RouteBasicInfo { id?: string; name: string; }
-export interface VehicleBasicInfo { id?: string; numberPlate: string; }
+export interface VehicleBasicInfo { id?: string; registrationNumber: string; }
 export interface CertificateBasicInfo { id?: string; type: string; certificateNumber: string; issueDate?: string; }
 export interface AttendanceBasicInfo { id?: string; date: string; status: string; }
 export interface StudentStats { total: number; newThisMonth: number; activeClasses: number; attendanceRate: string; }
@@ -49,6 +49,7 @@ export interface Student {
     section?: SectionBasicInfo;
     sectionId?: string;
     transportAssignment?: {
+        id?: string;
         route?: RouteBasicInfo;
         vehicle?: VehicleBasicInfo;
     };

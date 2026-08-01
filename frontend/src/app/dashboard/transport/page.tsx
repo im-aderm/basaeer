@@ -11,37 +11,35 @@ import {
     Plus,
     ArrowRight,
     ShieldCheck,
-    Map
+    Map,
+    RadioTower,
+    ClipboardCheck
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { transportService } from "@/services/transportService";
+import { transportService, LogisticsSummary, Vehicle } from "@/services/transportService";
 
 export default function TransportDashboard() {
-    const [stats, setStats] = useState({
-        totalVehicles: 0,
-        totalRoutes: 0,
-        assignedStudents: 0,
-        activeStatus: "Operational"
-    });
+    const [summary, setSummary] = useState<LogisticsSummary | null>(null);
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         Promise.all([
+            transportService.getLogisticsSummary(),
             transportService.getVehicles(),
-            transportService.getRoutes(),
-            transportService.getAssignmentsCount()
-        ]).then(([vehicles, routes, countData]) => {
-            setStats({
-                totalVehicles: vehicles.length,
-                totalRoutes: routes.length,
-                assignedStudents: countData.count,
-                activeStatus: "Operational"
-            });
+        ]).then(([summaryData, vehicleData]) => {
+            setSummary(summaryData);
+            setVehicles(vehicleData);
             setLoading(false);
         });
     }, []);
+
+    const totalCapacity = vehicles.reduce((acc, v) => acc + (v.capacity || 0), 0);
+    const fleetUtilization = summary && totalCapacity > 0
+        ? Math.round((summary.studentsAssigned / totalCapacity) * 100)
+        : 0;
 
     const transportActions = [
         {
@@ -67,6 +65,22 @@ export default function TransportDashboard() {
             href: "/dashboard/transport/assign",
             color: "text-orange-500",
             bg: "bg-orange-500/10"
+        },
+        {
+            title: "Live Tracking",
+            description: "View real-time vehicle positions",
+            icon: RadioTower,
+            href: "/dashboard/transport/tracking",
+            color: "text-emerald-500",
+            bg: "bg-emerald-500/10"
+        },
+        {
+            title: "Pickup & Dropoff Attendance",
+            description: "Record and review commute attendance",
+            icon: ClipboardCheck,
+            href: "/dashboard/transport/attendance",
+            color: "text-purple-500",
+            bg: "bg-purple-500/10"
         }
     ];
 
@@ -100,10 +114,10 @@ export default function TransportDashboard() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { label: "Active Fleet", value: stats.totalVehicles, icon: Bus, trend: "Units" },
-                    { label: "Total Routes", value: stats.totalRoutes, icon: Map, trend: "Active" },
-                    { label: "Assigned Pupils", value: stats.assignedStudents, icon: Users, trend: "Commuting" },
-                    { label: "Fleet Status", value: stats.activeStatus, icon: ShieldCheck, trend: "Secure" }
+                    { label: "Active Fleet", value: summary?.vehicles ?? 0, icon: Bus, trend: "Units" },
+                    { label: "Total Routes", value: summary?.activeRoutes ?? 0, icon: Map, trend: "Active" },
+                    { label: "Assigned Pupils", value: summary?.studentsAssigned ?? 0, icon: Users, trend: "Commuting" },
+                    { label: "Pickups Today", value: summary?.pickupsToday ?? 0, icon: ShieldCheck, trend: "Confirmed" }
                 ].map((item, i) => (
                     <Card key={i} className="rounded-[2.5rem] border-border/50 shadow-2xl shadow-primary/5 p-8 border-t-8 border-t-primary/10 hover:border-t-primary transition-all group">
                         <div className="flex justify-between items-center mb-4">
@@ -147,11 +161,11 @@ export default function TransportDashboard() {
                         </p>
                         <div className="space-y-4">
                             <div className="h-4 bg-muted/50 rounded-full overflow-hidden">
-                                <div className="w-[85%] h-full bg-primary animate-in slide-in-from-left duration-1000" />
+                                <div style={{ width: `${Math.min(fleetUtilization, 100)}%` }} className="h-full bg-primary transition-all duration-1000" />
                             </div>
                             <div className="flex justify-between text-xs font-semibold uppercase tracking-widest text-muted-foreground px-1">
                                 <span>Fleet Utilization</span>
-                                <span className="text-primary">85% Capacity</span>
+                                <span className="text-primary">{fleetUtilization}% Capacity</span>
                             </div>
                         </div>
                     </div>
@@ -159,9 +173,9 @@ export default function TransportDashboard() {
                         <h4 className="font-semibold text-h3 mb-4">Logistics Summary</h4>
                         <div className="space-y-4">
                             {[
-                                { l: "Avg Trip Duration", v: "42 Mins" },
-                                { l: "Maintenance Checks", v: "4 Pending" },
-                                { l: "Next Route Update", v: "24 Jan 2024" }
+                                { l: "Pickups Today", v: `${summary?.pickupsToday ?? 0}` },
+                                { l: "Dropoffs Today", v: `${summary?.dropoffsToday ?? 0}` },
+                                { l: "Total Fleet Capacity", v: `${totalCapacity} seats` }
                             ].map((row, i) => (
                                 <div key={i} className="flex justify-between items-center py-3 border-b border-border/20 last:border-0">
                                     <span className="text-sm font-bold text-muted-foreground">{row.l}</span>

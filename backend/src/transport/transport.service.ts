@@ -12,6 +12,15 @@ import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { AssignTransportDto } from './dto/assign-transport.dto';
 import { RealtimeService } from '../realtime/realtime.service';
+import { TenantContext } from '../auth/branch.guard';
+import { TenantHelper } from '../prisma/tenant-helper';
+import { UserRole } from '../generated/client/client';
+
+const TRANSPORT_STAFF_ROLES: UserRole[] = [
+  UserRole.SUPER_ADMIN,
+  UserRole.BRANCH_ADMIN,
+  UserRole.TRANSPORT_OFFICER,
+];
 
 @Injectable()
 export class TransportService {
@@ -191,6 +200,22 @@ export class TransportService {
     });
   }
 
+  async getLogisticsSummary(branchId: string) {
+    const [vehicles, routes, studentsAssigned, attendanceToday] = await Promise.all([
+      this.prisma.vehicle.count({ where: { branchId } }),
+      this.prisma.transportRoute.count({ where: { branchId } }),
+      this.prisma.transportAssignment.count({ where: { student: { branchId } } }),
+      this.getBranchAttendanceSummary(branchId),
+    ]);
+
+    return {
+      vehicles,
+      activeRoutes: routes,
+      studentsAssigned,
+      ...attendanceToday,
+    };
+  }
+
   async updateVehicleLocation(
     vehicleId: string,
     lat: number,
@@ -215,6 +240,30 @@ export class TransportService {
       lng: vehicle.currentLng,
       lastPing: vehicle.lastPing,
     };
+  }
+
+  async getAllVehicleLocations(branchId: string) {
+    const vehicles = await this.prisma.vehicle.findMany({
+      where: { branchId },
+      select: {
+        id: true,
+        registrationNumber: true,
+        model: true,
+        driverName: true,
+        currentLat: true,
+        currentLng: true,
+        lastPing: true,
+      },
+    });
+    return vehicles.map((v) => ({
+      vehicleId: v.id,
+      registrationNumber: v.registrationNumber,
+      model: v.model,
+      driverName: v.driverName,
+      lat: v.currentLat,
+      lng: v.currentLng,
+      lastPing: v.lastPing,
+    }));
   }
 
   async recordAttendance(
@@ -249,13 +298,56 @@ export class TransportService {
     });
   }
 
-  async getStudentAttendance(studentId: string, branchId: string) {
+  async getStudentAttendance(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+      select: { userId: true, parentId: true },
+    });
+    if (!student) throw new NotFoundException('Student not found');
+    TenantHelper.assertOwnStudentRecord(student, context, TRANSPORT_STAFF_ROLES);
+
     return this.prisma.transportAttendance.findMany({
-      where: {
-        studentId,
-        student: { branchId },
+      where: TenantHelper.applyNestedIsolation({ studentId }, 'student', context),
+      include: {
+        assignment: { include: { vehicle: true, route: true } },
       },
       orderBy: { date: 'desc' },
     });
+  }
+
+  async getMyTransportAttendance(context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: { userId: context.userId },
+    });
+    if (!student) throw new NotFoundException('Student profile not found');
+    return this.getStudentAttendance(student.id, context);
+  }
+
+  async getBranchAttendanceSummary(branchId: string) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    const [pickupsToday, dropoffsToday] = await Promise.all([
+      this.prisma.transportAttendance.count({
+        where: {
+          type: 'PICKUP',
+          status: 'PRESENT',
+          date: { gte: today, lt: tomorrow },
+          student: { branchId },
+        },
+      }),
+      this.prisma.transportAttendance.count({
+        where: {
+          type: 'DROPOFF',
+          status: 'PRESENT',
+          date: { gte: today, lt: tomorrow },
+          student: { branchId },
+        },
+      }),
+    ]);
+
+    return { pickupsToday, dropoffsToday };
   }
 }

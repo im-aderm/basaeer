@@ -224,7 +224,7 @@ export default function StudentProfilePage() {
                                             <span>Route:</span> <span className="text-blue-500">{student.transportAssignment.route?.name || 'N/A'}</span>
                                         </div>
                                         <div className="p-4 rounded-2xl bg-muted/30 font-bold flex justify-between">
-                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportAssignment.vehicle?.numberPlate || 'Pending'}</span>
+                                            <span>Vehicle:</span> <span className="text-blue-500">{student.transportAssignment.vehicle?.registrationNumber || 'Pending'}</span>
                                         </div>
                                     </div>
                                 ) : (

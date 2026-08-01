@@ -15,6 +15,8 @@ import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
 import { AssignTransportDto } from './dto/assign-transport.dto';
+import { UpdateVehicleLocationDto } from './dto/update-vehicle-location.dto';
+import { RecordTransportAttendanceDto } from './dto/record-attendance.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
@@ -249,5 +251,126 @@ export class TransportController {
   )
   getAssignmentsCount(@GetTenantContext() ctx: TenantContext) {
     return this.transportService.getAssignmentsCount(ctx.branchId || '');
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Logistics Summary' })
+  @Get('stats/summary')
+  @Permissions('transport:read')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+  )
+  getLogisticsSummary(@GetTenantContext() ctx: TenantContext) {
+    return this.transportService.getLogisticsSummary(ctx.branchId || '');
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Vehicle Location' })
+  @Patch('vehicles/:id/location')
+  @Permissions('transport:update')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+  )
+  updateVehicleLocation(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+    @Body() dto: UpdateVehicleLocationDto,
+  ) {
+    return this.transportService.updateVehicleLocation(
+      id,
+      dto.lat,
+      dto.lng,
+      ctx.branchId || '',
+    );
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Vehicle Location' })
+  @Get('vehicles/:id/location')
+  @Permissions('transport:read')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+  )
+  getVehicleLocation(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('id') id: string,
+  ) {
+    return this.transportService.getVehicleLocation(id, ctx.branchId || '');
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve All Vehicle Locations' })
+  @Get('vehicles/locations/live')
+  @Permissions('transport:read')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+  )
+  getAllVehicleLocations(@GetTenantContext() ctx: TenantContext) {
+    return this.transportService.getAllVehicleLocations(ctx.branchId || '');
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Record Transport Attendance' })
+  @Post('attendance')
+  @Permissions('transport:create')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+  )
+  recordAttendance(
+    @GetTenantContext() ctx: TenantContext,
+    @Body() dto: RecordTransportAttendanceDto,
+  ) {
+    return this.transportService.recordAttendance(
+      dto.studentId,
+      dto.assignmentId,
+      dto.type,
+      dto.status,
+      new Date(dto.date),
+      ctx.branchId || '',
+    );
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Student Transport Attendance' })
+  @Get('attendance/student/:studentId')
+  @Permissions('transport:read')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.TRANSPORT_OFFICER,
+    UserRole.BRANCH_ADMIN,
+    UserRole.STUDENT,
+    UserRole.PARENT,
+  )
+  getStudentAttendance(
+    @GetTenantContext() ctx: TenantContext,
+    @Param('studentId') studentId: string,
+  ) {
+    return this.transportService.getStudentAttendance(studentId, ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Transport Attendance' })
+  @Get('attendance/mine')
+  @Permissions('transport:read')
+  @Roles(UserRole.STUDENT)
+  getMyTransportAttendance(@GetTenantContext() ctx: TenantContext) {
+    return this.transportService.getMyTransportAttendance(ctx);
   }
 }

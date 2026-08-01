@@ -34,6 +34,37 @@ export interface TransportAssignment {
   route?: { name: string; startPoint: string; endPoint: string };
 }
 
+export interface VehicleLocation {
+  vehicleId: string;
+  registrationNumber: string;
+  model: string;
+  driverName: string;
+  lat: number | null;
+  lng: number | null;
+  lastPing: string | null;
+}
+
+export interface TransportAttendanceRecord {
+  id: string;
+  studentId: string;
+  assignmentId: string;
+  type: 'PICKUP' | 'DROPOFF';
+  status: 'PRESENT' | 'ABSENT';
+  date: string;
+  assignment?: {
+    vehicle?: { registrationNumber: string; model: string };
+    route?: { name: string };
+  };
+}
+
+export interface LogisticsSummary {
+  vehicles: number;
+  activeRoutes: number;
+  studentsAssigned: number;
+  pickupsToday: number;
+  dropoffsToday: number;
+}
+
 export const transportService = {
   getVehicles: async (): Promise<Vehicle[]> => {
     const res = await api.get('/transport/vehicles');
@@ -92,8 +123,38 @@ export const transportService = {
     await api.delete(`/transport/assign/${studentId}`);
   },
 
-  getAssignmentsCount: async (): Promise<{ count: number }> => {
-    const res = await api.get('/transport/stats/assignments');
+  getLogisticsSummary: async (): Promise<LogisticsSummary> => {
+    const res = await api.get('/transport/stats/summary');
+    return res.data;
+  },
+
+  updateVehicleLocation: async (id: string, lat: number, lng: number): Promise<Vehicle> => {
+    const res = await api.patch(`/transport/vehicles/${id}/location`, { lat, lng });
+    return res.data;
+  },
+
+  getVehicleLocation: async (id: string): Promise<{ lat: number | null; lng: number | null; lastPing: string | null }> => {
+    const res = await api.get(`/transport/vehicles/${id}/location`);
+    return res.data;
+  },
+
+  getAllVehicleLocations: async (): Promise<VehicleLocation[]> => {
+    const res = await api.get('/transport/vehicles/locations/live');
+    return res.data;
+  },
+
+  recordAttendance: async (data: { studentId: string; assignmentId: string; type: 'PICKUP' | 'DROPOFF'; status: 'PRESENT' | 'ABSENT'; date: string }): Promise<TransportAttendanceRecord> => {
+    const res = await api.post('/transport/attendance', data);
+    return res.data;
+  },
+
+  getStudentAttendance: async (studentId: string): Promise<TransportAttendanceRecord[]> => {
+    const res = await api.get(`/transport/attendance/student/${studentId}`);
+    return res.data;
+  },
+
+  getMyTransportAttendance: async (): Promise<TransportAttendanceRecord[]> => {
+    const res = await api.get('/transport/attendance/mine');
     return res.data;
   },
 };
