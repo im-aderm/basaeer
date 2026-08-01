@@ -212,6 +212,50 @@ export class MailService implements OnModuleInit {
     );
   }
 
+  async sendInterviewOutcome(to: string, studentName: string, passed: boolean, notes?: string, branchId?: string) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const template: EmailTemplate = passed
+      ? {
+          headerColor: '#10b981',
+          headerTitle: 'Interview Completed',
+          headerSubtitle: 'Basaer Quranic and Science College',
+          greeting: 'Assalamu Alaikum,',
+          bodyContent: `
+            <p>The interview for <strong>${this.escapeHtml(studentName)}</strong> has been completed successfully. Your application will now proceed to the next stage of review.</p>
+          `,
+          footerText: 'You will be notified of the final admission decision shortly.',
+        }
+      : {
+          headerColor: '#ef4444',
+          headerTitle: 'Interview Outcome',
+          headerSubtitle: 'Basaer Quranic and Science College',
+          greeting: 'Assalamu Alaikum,',
+          bodyContent: `
+            <p>Thank you for attending the interview for <strong>${this.escapeHtml(studentName)}</strong>.</p>
+            <p>We regret to inform you that we cannot proceed with this admission application at this time.</p>
+          `,
+          extraBlocks: notes
+            ? [
+                {
+                  backgroundColor: '#fef2f2',
+                  borderColor: '#ef4444',
+                  borderSide: 'left: 4px solid',
+                  padding: '20px',
+                  content: `<p style="margin: 0; color: #b91c1c;">${this.escapeHtml(notes)}</p>`,
+                },
+              ]
+            : undefined,
+          footerText: 'You are welcome to apply again in a future admission cycle.',
+        };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(to, `Interview Outcome: ${studentName}`, html, branchId);
+  }
+
   async sendInterviewInvitation(to: string, studentName: string, interviewDate: string, venue: string, branchId?: string) {
     if (!this.validateEmail(to)) {
       this.logger.warn(`Invalid email address: ${to}`);

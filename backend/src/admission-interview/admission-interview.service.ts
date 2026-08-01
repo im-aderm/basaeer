@@ -10,12 +10,75 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateAdmissionInterviewDto, UpdateAdmissionInterviewDto, CompleteInterviewDto, BulkScheduleInterviewDto } from './dto/create-admission-interview.dto';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
+import { MailService } from '../mail/mail.service';
+import { CommsService } from '../comms/comms.service';
 
 @Injectable()
 export class AdmissionInterviewService {
   private readonly logger = new Logger(AdmissionInterviewService.name);
 
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private mailService: MailService,
+    private commsService: CommsService,
+  ) {}
+
+  private async sendScheduleNotification(interview: any) {
+    const admission = interview.admission;
+    if (!admission) return;
+    const studentName = `${admission.firstName} ${admission.lastName}`;
+    const interviewDate = new Date(interview.interviewDate).toLocaleString('en-NG', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    try {
+      if (admission.guardianEmail) {
+        await this.mailService.sendInterviewInvitation(
+          admission.guardianEmail,
+          studentName,
+          interviewDate,
+          interview.venue || 'TBA',
+          interview.branchId,
+        );
+      }
+      if (admission.guardianPhone) {
+        await this.commsService.sendSms({
+          phone: admission.guardianPhone,
+          message: `Assalamu Alaikum, an interview has been scheduled for ${studentName} on ${interviewDate} at ${interview.venue || 'TBA'}.`,
+          branchId: interview.branchId,
+        });
+      }
+    } catch (error) {
+      this.logger.error(`Failed to send interview schedule notification`, error);
+    }
+  }
+
+  private async sendCompletionNotification(
+    admission: { firstName: string; lastName: string; guardianEmail: string | null; guardianPhone: string | null },
+    branchId: string,
+    passed: boolean,
+    notes?: string,
+  ) {
+    const studentName = `${admission.firstName} ${admission.lastName}`;
+    try {
+      if (admission.guardianEmail) {
+        await this.mailService.sendInterviewOutcome(admission.guardianEmail, studentName, passed, notes, branchId);
+      }
+      if (admission.guardianPhone) {
+        const message = passed
+          ? `Assalamu Alaikum, the interview for ${studentName} has been completed successfully. Your application proceeds to the next stage.`
+          : `Assalamu Alaikum, thank you for attending the interview for ${studentName}. We cannot proceed with this application at this time.`;
+        await this.commsService.sendSms({ phone: admission.guardianPhone, message, branchId });
+      }
+    } catch (error) {
+      this.logger.error(`Failed to send interview completion notification`, error);
+    }
+  }
 
   async create(createDto: CreateAdmissionInterviewDto, context: TenantContext) {
     const branchId = createDto.branchId || context.branchId;
@@ -37,8 +100,8 @@ export class AdmissionInterviewService {
     });
     if (existing) throw new ConflictException('Interview already scheduled for this admission');
 
-    return this.prisma.$transaction(async (tx) => {
-      const interview = await tx.admissionInterview.create({
+    const interview = await this.prisma.$transaction(async (tx) => {
+      const created = await tx.admissionInterview.create({
         data: {
           ...createDto,
           branchId,
@@ -65,8 +128,12 @@ export class AdmissionInterviewService {
         data: { status: 'INTERVIEW_SCHEDULED' },
       });
 
-      return interview;
+      return created;
     });
+
+    await this.sendScheduleNotification(interview);
+
+    return interview;
   }
 
   async findAll(context: TenantContext, filters?: { status?: string; dateFrom?: string; dateTo?: string }) {
@@ -147,8 +214,8 @@ export class AdmissionInterviewService {
   async complete(id: string, completeDto: CompleteInterviewDto, context: TenantContext) {
     const interview = await this.findOne(id, context);
 
-    return this.prisma.$transaction(async (tx) => {
-      const updated = await tx.admissionInterview.update({
+    const updated = await this.prisma.$transaction(async (tx) => {
+      const result = await tx.admissionInterview.update({
         where: { id },
         data: {
           status: 'COMPLETED' as any,
@@ -171,8 +238,23 @@ export class AdmissionInterviewService {
         },
       });
 
-      return updated;
+      return result;
     });
+
+    const passed = completeDto.outcome !== 'FAIL';
+    await this.sendCompletionNotification(
+      {
+        firstName: interview.admission.firstName,
+        lastName: interview.admission.lastName,
+        guardianEmail: interview.admission.guardianEmail,
+        guardianPhone: interview.admission.guardianPhone,
+      },
+      interview.branchId,
+      passed,
+      completeDto.notes,
+    );
+
+    return updated;
   }
 
   async bulkSchedule(dto: BulkScheduleInterviewDto, context: TenantContext) {
@@ -217,6 +299,13 @@ export class AdmissionInterviewService {
             where: { id: admissionId },
             data: { status: 'INTERVIEW_SCHEDULED' },
           });
+        });
+
+        await this.sendScheduleNotification({
+          admission,
+          branchId,
+          venue: dto.venue,
+          interviewDate: dto.interviewDate,
         });
 
         results.success++;

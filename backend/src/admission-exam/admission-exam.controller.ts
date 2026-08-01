@@ -104,7 +104,7 @@ export class AdmissionExamController {
     @Body() createDto: CreateExamScoreDto,
     @GetTenantContext() context: TenantContext,
   ) {
-    return this.examService.addScore(id, createDto, context);
+    return this.examService.addScore(id, createDto, context, context.userId);
   }
 
   @Post(':id/scores/bulk')
@@ -118,7 +118,7 @@ export class AdmissionExamController {
     @Body() dto: BulkScoreUploadDto,
     @GetTenantContext() context: TenantContext,
   ) {
-    return this.examService.bulkAddScores(id, dto.scores, context);
+    return this.examService.bulkAddScores(id, dto.scores, context, context.userId);
   }
 
   @Post(':id/assign')

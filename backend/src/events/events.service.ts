@@ -738,7 +738,7 @@ export class EventsService {
     // Revenue: aggregate package fees for verified applications
     const verifiedApps = await this.prisma.eventApplication.findMany({
       where: { ...where, paymentStatus: 'VERIFIED' },
-      select: { packageId: true },
+      select: { packageId: true, discountAmount: true },
     });
 
     let revenueGenerated = 0;
@@ -749,10 +749,11 @@ export class EventsService {
         select: { id: true, fee: true },
       });
       const feeMap = new Map(packages.map(p => [p.id, Number(p.fee)]));
-      revenueGenerated = verifiedApps.reduce(
-        (sum, app) => sum + (feeMap.get(app.packageId) || 0),
-        0,
-      );
+      revenueGenerated = verifiedApps.reduce((sum, app) => {
+        const fee = feeMap.get(app.packageId) || 0;
+        const discount = Number(app.discountAmount || 0);
+        return sum + Math.max(fee - discount, 0);
+      }, 0);
     }
 
     // Occupancy rate
