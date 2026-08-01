@@ -60,6 +60,7 @@ export class ReportingService implements OnModuleDestroy {
       // never pulls in puppeteer's ESM entry unless a PDF is actually
       // rendered — jest's default CJS transform can't parse it from
       // node_modules on a static import.
+      // eslint-disable-next-line @typescript-eslint/no-require-imports -- deliberate lazy require, see comment above
       const puppeteer: typeof import('puppeteer') = require('puppeteer');
       this.browserPromise = puppeteer
         .launch({

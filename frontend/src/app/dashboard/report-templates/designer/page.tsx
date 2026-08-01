@@ -82,8 +82,7 @@ export default function TemplateDesignerPage() {
     // would hammer the render endpoint while typing.
     useEffect(() => {
         if (!loading) runPreview();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [loading, template.type]);
+    }, [loading, template.type, runPreview]);
 
     const handleSave = async () => {
         try {

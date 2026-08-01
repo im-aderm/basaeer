@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ResultCheckerService, CheckerResponse, VerifyCodeResponse } from '@/services/resultCheckerService';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +22,14 @@ function downloadBlob(blob: Blob, filename: string) {
 }
 
 export default function ResultCheckerPage() {
+    return (
+        <Suspense fallback={<div className="flex min-h-screen items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>}>
+            <ResultCheckerContent />
+        </Suspense>
+    );
+}
+
+function ResultCheckerContent() {
     const searchParams = useSearchParams();
     const qrCode = searchParams.get('code');
 
