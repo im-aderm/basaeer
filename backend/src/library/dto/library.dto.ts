@@ -6,6 +6,7 @@ import {
   Min,
   IsDateString,
 } from 'class-validator';
+import { PartialType, OmitType } from '@nestjs/mapped-types';
 
 export class CreateBookDto {
   @IsString()
@@ -37,9 +38,13 @@ export class CreateBookDto {
   description?: string;
 
   @IsString()
-  @IsNotEmpty()
-  branchId: string;
+  @IsOptional()
+  branchId?: string;
 }
+
+export class UpdateBookDto extends PartialType(
+  OmitType(CreateBookDto, ['branchId'] as const),
+) {}
 
 export class BorrowBookDto {
   @IsString()
@@ -59,4 +64,50 @@ export class ReturnBookDto {
   @IsString()
   @IsNotEmpty()
   borrowRecordId: string;
+}
+
+export class CreateBookCopyDto {
+  @IsString()
+  @IsNotEmpty()
+  bookId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  barcode: string;
+
+  @IsString()
+  @IsNotEmpty()
+  accessionNumber: string;
+
+  @IsString()
+  @IsOptional()
+  condition?: string;
+}
+
+export class BorrowByBarcodeDto {
+  @IsString()
+  @IsNotEmpty()
+  barcode: string;
+
+  @IsString()
+  @IsNotEmpty()
+  studentId: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  dueDate: string;
+}
+
+export class ReserveBookDto {
+  @IsString()
+  @IsNotEmpty()
+  bookId: string;
+
+  @IsString()
+  @IsOptional()
+  studentId?: string;
+
+  @IsDateString()
+  @IsOptional()
+  expiresAt?: string;
 }

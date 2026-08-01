@@ -294,6 +294,7 @@ const navigation: NavItem[] = [
             { title: "Borrowing History", href: "/dashboard/library/borrowing" },
             { title: "My Issued Book", href: "/dashboard/library/issued", isBeta: true },
             { title: "Book Issue / Return", href: "/dashboard/library/manage", isBeta: true },
+            { title: "Reservations & Copies", href: "/dashboard/library/reservations" },
         ],
     },
     {

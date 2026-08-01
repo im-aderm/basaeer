@@ -143,6 +143,19 @@ export default function LibraryOverviewPage() {
                                 </div>
                             </Card>
                         </Link>
+
+                        <Link href="/dashboard/library/reservations">
+                            <Card className="rounded-[3rem] p-8 border-border/50 shadow-xl hover:shadow-2xl transition-all group bg-gradient-to-br from-card to-muted/30 cursor-pointer h-full border-t-8 border-t-amber-500">
+                                <h3 className="text-h3 font-semibold flex items-center justify-between">
+                                    Reservations & Copies <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                                </h3>
+                                <p className="text-muted-foreground font-medium mt-2 text-sm">Manage the reservation queue and track copies by barcode.</p>
+                                <div className="mt-8 flex gap-2">
+                                    <div className="px-4 py-2 bg-amber-500/10 text-amber-600 rounded-xl text-xs font-semibold">Queue</div>
+                                    <div className="px-4 py-2 bg-amber-500/10 text-amber-600 rounded-xl text-xs font-semibold">Barcode</div>
+                                </div>
+                            </Card>
+                        </Link>
                     </div>
 
                     <Card className="rounded-[3rem] border-border/50 shadow-xl p-10 overflow-hidden">

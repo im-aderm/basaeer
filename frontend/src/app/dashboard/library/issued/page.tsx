@@ -33,7 +33,7 @@ export default function MyIssuedBookPage() {
                 return;
             }
             try {
-                const data = await LibraryService.getStudentHistory(user.student.id);
+                const data = await LibraryService.getMyBorrowHistory();
                 setRecords(data);
             } catch (error) {
                 if (process.env.NODE_ENV === 'development') console.error("Failed to fetch issued books:", error);
