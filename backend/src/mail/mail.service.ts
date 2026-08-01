@@ -754,6 +754,50 @@ export class MailService implements OnModuleInit {
     return require('path').join(__dirname, '..', '..', 'public', 'documents', filename);
   }
 
+  async sendReportCardEmail(
+    to: string,
+    studentName: string,
+    sessionName: string,
+    term: string,
+    pdfBuffer: Buffer,
+    branchId?: string,
+  ) {
+    if (!this.validateEmail(to)) {
+      this.logger.warn(`Invalid email address: ${to}`);
+      return;
+    }
+
+    const name = this.escapeHtml(studentName);
+    const template: EmailTemplate = {
+      headerColor: '#0f766e',
+      headerTitle: 'Report Card Published | تم نشر بطاقة التقرير',
+      headerSubtitle: 'Basaer Quranic and Science College | أكاديمية البصائر للعلوم القرآنية والعصرية',
+      greeting: 'السلام عليكم ورحمة الله وبركاته',
+      bodyContent: `
+        <div dir="rtl">
+          <p>يسرنا إبلاغكم بأن نتيجة الطالب <strong>${name}</strong> لـ <strong>${this.escapeHtml(term)} ${this.escapeHtml(sessionName)}</strong> قد تم نشرها الآن.</p>
+          <p>بطاقة التقرير الكاملة مرفقة بهذه الرسالة، كما يمكن الاطلاع عليها في أي وقت من بوابة الطالب/ولي الأمر.</p>
+        </div>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #e0e0e0;" />
+        <div>
+          <p>We are pleased to inform you that <strong>${name}</strong>'s result for <strong>${this.escapeHtml(term)} Term, ${this.escapeHtml(sessionName)}</strong> has now been published.</p>
+          <p>The full report card is attached to this email, and can also be viewed at any time from the student/parent portal.</p>
+        </div>
+      `,
+      footerText:
+        'للاستفسار حول النتيجة، يُرجى التواصل مع إدارة المدرسة. | For questions about this result, please contact the school office.',
+    };
+
+    const html = this.buildEmailTemplate(template);
+    return this.sendMail(
+      to,
+      `تم نشر بطاقة التقرير | Report Card Published: ${studentName}`,
+      html,
+      branchId,
+      [{ filename: `ReportCard_${studentName.replace(/\s+/g, '_')}.pdf`, content: pdfBuffer }],
+    );
+  }
+
   async sendMailDirect(
     to: string,
     subject: string,
@@ -824,9 +868,19 @@ export class MailService implements OnModuleInit {
       }
     }
 
+    // BullMQ job data is JSON-serialized through Redis — a raw Buffer would
+    // arrive at the processor as a plain {type:'Buffer',data:[...]} object,
+    // not a real Buffer, silently corrupting any attachment. Base64-encode
+    // here; MailProcessor decodes it back before handing off to nodemailer.
+    const serializableAttachments = attachments?.map((a) => ({
+      filename: a.filename,
+      path: a.path,
+      contentBase64: a.content ? a.content.toString('base64') : undefined,
+    }));
+
     const job = await this.mailQueue.add(
       'send-mail',
-      { to, subject, html: brandedHtml, branchId, attachments },
+      { to, subject, html: brandedHtml, branchId, attachments: serializableAttachments },
       {
         attempts: 3,
         backoff: { type: 'exponential', delay: 5000 },

@@ -20,9 +20,17 @@ export class MailProcessor extends WorkerHost {
     subject: string;
     html: string;
     branchId?: string;
-    attachments?: { filename: string; path?: string; content?: Buffer }[];
+    attachments?: { filename: string; path?: string; contentBase64?: string }[];
   }>): Promise<any> {
-    const { to, subject, html, branchId, attachments } = job.data;
+    const { to, subject, html, branchId, attachments: rawAttachments } = job.data;
+    // Reconstruct real Buffers from the base64 form sendMail serialized them
+    // as — BullMQ job data round-trips through JSON/Redis, so a Buffer
+    // wouldn't survive as one otherwise.
+    const attachments = rawAttachments?.map((a) => ({
+      filename: a.filename,
+      path: a.path,
+      content: a.contentBase64 ? Buffer.from(a.contentBase64, 'base64') : undefined,
+    }));
 
     // BullMQ processors run outside NestJS's request lifecycle, so
     // TenantContextInterceptor never runs for them — without this, every

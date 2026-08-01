@@ -7,10 +7,14 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { Term, UserRole } from '../generated/client/client';
+import { ResultDeliveryQueueService } from '../result-delivery/result-delivery-queue.service';
 
 @Injectable()
 export class ResultApprovalService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly resultDeliveryQueueService: ResultDeliveryQueueService,
+  ) {}
 
   private branchId(context: TenantContext) {
     if (!context.branchId)
@@ -174,13 +178,15 @@ export class ResultApprovalService {
       },
     });
 
+    const affectedWhere = {
+      branchId,
+      sessionId: dto.sessionId,
+      term: dto.term,
+      ...(dto.sectionId && { student: { sectionId: dto.sectionId } }),
+    };
+
     await this.prisma.resultSummary.updateMany({
-      where: {
-        branchId,
-        sessionId: dto.sessionId,
-        term: dto.term,
-        ...(dto.sectionId && { student: { sectionId: dto.sectionId } }),
-      },
+      where: affectedWhere,
       data: { isLocked: true },
     });
     await this.prisma.resultApproval.update({
@@ -192,6 +198,23 @@ export class ResultApprovalService {
       'RESULT_PUBLISHED',
       `Published results for session ${dto.sessionId}, term ${dto.term}`,
     );
+
+    // Auto-delivery: generate the report-card PDF, notify the student and
+    // parent in-app, and email the parent — one queued job per student so
+    // this doesn't block the publish request itself.
+    const affectedSummaries = await this.prisma.resultSummary.findMany({
+      where: affectedWhere,
+      select: { studentId: true },
+    });
+    if (affectedSummaries.length) {
+      await this.resultDeliveryQueueService.queueDeliveryForStudents(
+        affectedSummaries.map((s) => s.studentId),
+        dto.sessionId,
+        dto.term,
+        branchId,
+      );
+    }
+
     return publication;
   }
 
