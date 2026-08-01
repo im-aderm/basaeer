@@ -2,22 +2,35 @@
 
 import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { reportTemplateService, ReportTemplate } from '@/services/reportTemplateService';
 import {
     Save,
     ArrowLeft,
-    Plus,
-    Trash2,
-    MoveUp,
-    MoveDown,
-    Settings,
-    FileText,
+    RefreshCw,
     Loader2,
-    Layout
 } from 'lucide-react';
 import { useNotification } from '@/context/NotificationContext';
+
+const REPORT_TYPES = [
+    { value: 'STUDENT_REPORT', label: 'Termly Report Card' },
+    { value: 'ANNUAL_CUMULATIVE', label: 'Annual Cumulative Report' },
+];
+
+const DEFAULT_TEMPLATE: Partial<ReportTemplate> = {
+    name: 'New Template',
+    type: 'STUDENT_REPORT',
+    layout: { html: '<h1>{{studentName}}</h1>\n<p>Start building your report layout here — this is compiled with Handlebars, so {{fields}}, {{#if conditions}} and {{#each loops}} all work exactly as they will on the real generated PDF.</p>' },
+    config: {
+        paperSize: 'A4',
+        landscape: false,
+        showWatermark: true,
+        showLogo: true,
+        showQrCode: true,
+    },
+    isDefault: false,
+};
 
 export default function TemplateDesignerPage() {
     const searchParams = useSearchParams();
@@ -27,22 +40,10 @@ export default function TemplateDesignerPage() {
 
     const [loading, setLoading] = useState(!!id);
     const [saving, setSaving] = useState(false);
-    const [template, setTemplate] = useState<Partial<ReportTemplate>>({
-        name: 'New Template',
-        type: 'STUDENT_REPORT',
-        layout: {
-            sections: [
-                { type: 'HEADER', order: 0 },
-                { type: 'TABLE', title: 'Academic Performance', dataType: 'ACADEMIC_RESULTS', order: 1 },
-                { type: 'SIGNATURES', order: 2 }
-            ]
-        },
-        config: {
-            margins: 50,
-            paperSize: 'A4',
-            watermark: ''
-        }
-    });
+    const [previewing, setPreviewing] = useState(false);
+    const [previewHtml, setPreviewHtml] = useState('');
+    const [previewError, setPreviewError] = useState('');
+    const [template, setTemplate] = useState<Partial<ReportTemplate>>(DEFAULT_TEMPLATE);
 
     useEffect(() => {
         if (id) {
@@ -62,6 +63,28 @@ export default function TemplateDesignerPage() {
         }
     };
 
+    const runPreview = useCallback(async () => {
+        setPreviewing(true);
+        setPreviewError('');
+        try {
+            const html = await reportTemplateService.preview(template.type!, template.layout);
+            setPreviewHtml(html);
+        } catch (error: any) {
+            setPreviewError(error?.response?.data?.message || 'Failed to render preview');
+        } finally {
+            setPreviewing(false);
+        }
+    }, [template.type, template.layout]);
+
+    // Render an initial preview on load and whenever the template type changes
+    // (a fresh sample-data shape) — otherwise the admin edits the preview
+    // explicitly via the Refresh button rather than on every keystroke, which
+    // would hammer the render endpoint while typing.
+    useEffect(() => {
+        if (!loading) runPreview();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, template.type]);
+
     const handleSave = async () => {
         try {
             setSaving(true);
@@ -80,31 +103,8 @@ export default function TemplateDesignerPage() {
         }
     };
 
-    const addSection = (type: string) => {
-        const sections = [...(template.layout.sections || [])];
-        sections.push({
-            type,
-            title: type === 'TEXT' ? 'Remarks' : 'New Section',
-            order: sections.length,
-            content: type === 'TEXT' ? 'Student remarks go here...' : ''
-        });
-        setTemplate({ ...template, layout: { ...template.layout, sections } });
-    };
-
-    const removeSection = (index: number) => {
-        const sections = [...(template.layout.sections || [])];
-        sections.splice(index, 1);
-        setTemplate({ ...template, layout: { ...template.layout, sections } });
-    };
-
-    const moveSection = (index: number, direction: 'up' | 'down') => {
-        const sections = [...(template.layout.sections || [])];
-        if (direction === 'up' && index > 0) {
-            [sections[index], sections[index - 1]] = [sections[index - 1], sections[index]];
-        } else if (direction === 'down' && index < sections.length - 1) {
-            [sections[index], sections[index + 1]] = [sections[index + 1], sections[index]];
-        }
-        setTemplate({ ...template, layout: { ...template.layout, sections } });
+    const updateConfig = (key: string, value: any) => {
+        setTemplate({ ...template, config: { ...template.config, [key]: value } });
     };
 
     if (loading) return <div className="p-20 text-center"><Loader2 className="w-10 h-10 animate-spin mx-auto" /></div>;
@@ -125,10 +125,18 @@ export default function TemplateDesignerPage() {
                             className="bg-transparent border-none focus:ring-0 text-xl font-bold p-0"
                             placeholder="Template Name"
                         />
-                        <p className="text-xs text-gray-500">Editing Layout</p>
+                        <p className="text-xs text-gray-500">Editing report template</p>
                     </div>
                 </div>
                 <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 text-sm">
+                        <input
+                            type="checkbox"
+                            checked={!!template.isDefault}
+                            onChange={(e) => setTemplate({ ...template, isDefault: e.target.checked })}
+                        />
+                        Use as branch default
+                    </label>
                     <button
                         onClick={handleSave}
                         disabled={saving}
@@ -141,148 +149,114 @@ export default function TemplateDesignerPage() {
             </header>
 
             <div className="flex-1 flex overflow-hidden">
-                {/* Elements Sidebar */}
-                <div className="w-64 bg-gray-50 border-r border-primary/60 p-4 space-y-6">
+                {/* Settings sidebar */}
+                <div className="w-64 bg-gray-50 border-r border-primary/60 p-4 space-y-6 overflow-y-auto">
                     <div>
-                        <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">Add Elements</h3>
-                        <div className="grid grid-cols-1 gap-2">
-                            <ElementButton icon={<FileText className="w-4 h-4" />} label="Header" onClick={() => addSection('HEADER')} />
-                            <ElementButton icon={<Layout className="w-4 h-4" />} label="Data Table" onClick={() => addSection('TABLE')} />
-                            <ElementButton icon={<FileText className="w-4 h-4" />} label="Text Block" onClick={() => addSection('TEXT')} />
-                            <ElementButton icon={<Settings className="w-4 h-4" />} label="Signatures" onClick={() => addSection('SIGNATURES')} />
-                        </div>
+                        <label className="text-xs text-gray-500 block mb-1">Report Type</label>
+                        <select
+                            className="w-full text-sm bg-white border border-primary/90 rounded-lg p-2"
+                            value={template.type}
+                            onChange={(e) => setTemplate({ ...template, type: e.target.value })}
+                        >
+                            {REPORT_TYPES.map((t) => (
+                                <option key={t.value} value={t.value}>{t.label}</option>
+                            ))}
+                        </select>
                     </div>
 
-                    <div className="pt-6 border-t border-primary/60">
+                    <div className="pt-4 border-t border-primary/60">
                         <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-4">Page Settings</h3>
                         <div className="space-y-4">
                             <div>
                                 <label className="text-xs text-gray-500 block mb-1">Paper Size</label>
-                                <select 
-                                    className="w-full text-sm bg-white border border-primary/90 rounded-lg"
-                                    value={template.config.paperSize}
-                                    onChange={(e) => setTemplate({...template, config: {...template.config, paperSize: e.target.value}})}
+                                <select
+                                    className="w-full text-sm bg-white border border-primary/90 rounded-lg p-2"
+                                    value={template.config?.paperSize || 'A4'}
+                                    onChange={(e) => updateConfig('paperSize', e.target.value)}
                                 >
                                     <option value="A4">A4 Standard</option>
-                                    <option value="LETTER">US Letter</option>
-                                    <option value="LEGAL">Legal</option>
+                                    <option value="Letter">US Letter</option>
+                                    <option value="Legal">Legal</option>
                                 </select>
                             </div>
-                            <div>
-                                <label className="text-xs text-gray-500 block mb-1">Margins (px)</label>
-                                <input 
-                                    type="number"
-                                    className="w-full text-sm bg-white border border-primary/90 rounded-lg"
-                                    value={template.config.margins}
-                                    onChange={(e) => setTemplate({...template, config: {...template.config, margins: parseInt(e.target.value)}})}
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={!!template.config?.landscape}
+                                    onChange={(e) => updateConfig('landscape', e.target.checked)}
                                 />
-                            </div>
+                                Landscape orientation
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={template.config?.showLogo !== false}
+                                    onChange={(e) => updateConfig('showLogo', e.target.checked)}
+                                />
+                                Show school logo
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={template.config?.showWatermark !== false}
+                                    onChange={(e) => updateConfig('showWatermark', e.target.checked)}
+                                />
+                                Show watermark
+                            </label>
+                            <label className="flex items-center gap-2 text-sm">
+                                <input
+                                    type="checkbox"
+                                    checked={template.config?.showQrCode !== false}
+                                    onChange={(e) => updateConfig('showQrCode', e.target.checked)}
+                                />
+                                Show verification QR code
+                            </label>
                         </div>
+                    </div>
+
+                    <div className="pt-4 border-t border-primary/60 text-xs text-gray-500 space-y-2">
+                        <p>The layout is HTML compiled with Handlebars — the same fields your report data provides (student name, subjects, behavioural ratings, etc.) are available as <code>{'{{placeholders}}'}</code>.</p>
                     </div>
                 </div>
 
-                {/* Canvas */}
-                <div className="flex-1 bg-gray-200 p-8 overflow-auto">
-                    <div className="max-w-[800px] mx-auto bg-white shadow-2xl min-h-[1100px] p-[50px] space-y-8">
-                        {template.layout.sections.map((section: any, idx: number) => (
-                            <div key={idx} className="group relative border-2 border-transparent hover:border-blue-500/50 hover:bg-blue-50/5 p-4 rounded-xl transition-all">
-                                <div className="absolute -left-12 top-0 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <button onClick={() => moveSection(idx, 'up')} className="p-2 bg-white shadow-md rounded-lg hover:text-blue-500"><MoveUp className="w-4 h-4" /></button>
-                                    <button onClick={() => moveSection(idx, 'down')} className="p-2 bg-white shadow-md rounded-lg hover:text-blue-500"><MoveDown className="w-4 h-4" /></button>
-                                    <button onClick={() => removeSection(idx)} className="p-2 bg-white shadow-md rounded-lg hover:text-red-500"><Trash2 className="w-4 h-4" /></button>
-                                </div>
-
-                                {section.type === 'HEADER' && (
-                                    <div className="text-center space-y-2 py-4 border-b-2 border-gray-100">
-                                        <div className="w-20 h-20 bg-gray-100 rounded-xl mx-auto flex items-center justify-center">
-                                            <Layout className="w-8 h-8 text-gray-300" />
-                                        </div>
-                                        <h2 className="text-2xl font-black uppercase tracking-tight">Institution Name</h2>
-                                        <p className="text-sm text-gray-500">Street Address, City, Country</p>
-                                    </div>
-                                )}
-
-                                {section.type === 'TABLE' && (
-                                    <div className="space-y-4">
-                                        <h3 className="text-lg font-bold border-l-4 border-blue-500 pl-3">{section.title}</h3>
-                                        <div className="grid grid-cols-5 bg-gray-100 p-2 rounded-lg font-bold text-xs">
-                                            <span>Subject</span>
-                                            <span>Test 1</span>
-                                            <span>Test 2</span>
-                                            <span>Exam</span>
-                                            <span>Total</span>
-                                        </div>
-                                        <div className="space-y-2 opacity-30">
-                                            {[1, 2, 3].map(i => (
-                                                <div key={i} className="grid grid-cols-5 p-2 text-xs border-b border-gray-100">
-                                                    <span>Mathematics</span>
-                                                    <span>15</span>
-                                                    <span>18</span>
-                                                    <span>52</span>
-                                                    <span className="font-bold">85</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                {section.type === 'TEXT' && (
-                                    <div className="space-y-2">
-                                        <input 
-                                            value={section.title}
-                                            onChange={(e) => {
-                                                const sections = [...template.layout.sections];
-                                                sections[idx].title = e.target.value;
-                                                setTemplate({...template, layout: {...template.layout, sections}});
-                                            }}
-                                            className="text-lg font-bold bg-transparent border-none p-0 focus:ring-0"
-                                        />
-                                        <textarea 
-                                            value={section.content}
-                                            onChange={(e) => {
-                                                const sections = [...template.layout.sections];
-                                                sections[idx].content = e.target.value;
-                                                setTemplate({...template, layout: {...template.layout, sections}});
-                                            }}
-                                            className="w-full text-sm bg-transparent border-none p-0 focus:ring-0 text-gray-600 min-h-[80px]"
-                                        />
-                                    </div>
-                                )}
-
-                                {section.type === 'SIGNATURES' && (
-                                    <div className="flex items-center justify-between pt-12">
-                                        <div className="text-center">
-                                            <div className="w-48 border-b-2 border-gray-900 mb-2" />
-                                            <p className="text-sm font-bold">Class Teacher</p>
-                                        </div>
-                                        <div className="text-center">
-                                            <div className="w-48 border-b-2 border-gray-900 mb-2" />
-                                            <p className="text-sm font-bold">Principal</p>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-
-                        <div className="flex items-center justify-center p-8 border-2 border-dashed border-primary/60 rounded-2xl group-hover:border-blue-500/50 transition-colors">
-                            <p className="text-sm text-gray-400">End of Report Card</p>
+                {/* Editor + Preview */}
+                <div className="flex-1 flex overflow-hidden">
+                    <div className="w-1/2 flex flex-col border-r border-primary/60">
+                        <div className="px-4 py-2 bg-gray-50 border-b border-primary/60 text-xs font-bold uppercase tracking-wider text-primary">
+                            HTML Template Source
                         </div>
+                        <textarea
+                            value={template.layout?.html || ''}
+                            onChange={(e) => setTemplate({ ...template, layout: { ...template.layout, html: e.target.value } })}
+                            className="flex-1 w-full p-4 font-mono text-xs bg-white border-none focus:ring-0 resize-none"
+                            spellCheck={false}
+                        />
+                    </div>
+                    <div className="w-1/2 flex flex-col">
+                        <div className="px-4 py-2 bg-gray-50 border-b border-primary/60 flex items-center justify-between">
+                            <span className="text-xs font-bold uppercase tracking-wider text-primary">Live Preview (sample data)</span>
+                            <button
+                                onClick={runPreview}
+                                disabled={previewing}
+                                className="flex items-center gap-1 text-xs px-2 py-1 bg-white border border-primary/60 rounded-lg hover:border-blue-500 disabled:opacity-50"
+                            >
+                                {previewing ? <Loader2 className="w-3 h-3 animate-spin" /> : <RefreshCw className="w-3 h-3" />}
+                                Refresh
+                            </button>
+                        </div>
+                        {previewError ? (
+                            <div className="flex-1 flex items-center justify-center p-8 text-sm text-red-600 text-center">{previewError}</div>
+                        ) : (
+                            <iframe
+                                title="Template preview"
+                                srcDoc={previewHtml}
+                                className="flex-1 w-full bg-gray-200"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
         </div>
         </RequireBranch>
-    );
-}
-
-function ElementButton({ icon, label, onClick }: { icon: React.ReactNode, label: string, onClick: () => void }) {
-    return (
-        <button
-            onClick={onClick}
-            className="flex items-center gap-3 w-full p-3 bg-white border border-primary/60 rounded-xl text-sm font-medium hover:border-blue-500 hover:text-blue-500 transition-all shadow-sm"
-        >
-            {icon}
-            {label}
-        </button>
     );
 }

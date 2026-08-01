@@ -8,7 +8,9 @@ import {
   Delete,
   UseGuards,
   Req,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { ReportTemplatesService } from './report-templates.service';
 import {
   CreateReportTemplateDto,
@@ -51,16 +53,36 @@ export class ReportTemplatesController {
   }
 
   @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Rendered HTML preview' })
+  @ApiOperation({ summary: 'Preview a draft template against sample data' })
+  @Post('preview')
+  @Permissions('academics:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  async preview(
+    @Body() body: { type: string; layout: any },
+    @Res() res: Response,
+  ) {
+    const html = await this.templatesService.preview(body.type, body.layout);
+    res.set({ 'Content-Type': 'text/html; charset=utf-8' });
+    res.send(html);
+  }
+
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve All' })
   @Get()
+  @Permissions('academics:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findAll(@GetTenantContext() ctx: TenantContext) {
     return this.templatesService.findAll(ctx.branchId!);
   }
 
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve One' })
   @Get(':id')
+  @Permissions('academics:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   findOne(@Param('id') id: string, @GetTenantContext() ctx: TenantContext) {
     return this.templatesService.findOne(id, ctx.branchId!);
   }

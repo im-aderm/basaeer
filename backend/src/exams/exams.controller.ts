@@ -27,8 +27,8 @@ import {
   RecordBehaviouralDto,
 } from './dto/exam-ops.dto';
 import { ReportingService } from '../reporting/reporting.service';
-import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
-import { ANNUAL_CUMULATIVE_TEMPLATE } from '../reporting/templates/annual-cumulative.template';
+import { ReportTemplatesService } from '../report-templates/report-templates.service';
+import { REPORT_TEMPLATE_TYPES } from '../report-templates/built-in-templates';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -61,6 +61,7 @@ export class ExamsController {
     private readonly transcriptService: TranscriptService,
     private readonly tahfeezService: TahfeezService,
     private readonly academicPortalService: AcademicPortalService,
+    private readonly reportTemplatesService: ReportTemplatesService,
   ) {}
 
   @ApiBearerAuth()
@@ -726,11 +727,18 @@ export class ExamsController {
     if (!data) throw new NotFoundException('Report data not found');
 
     const formatted = await this.examsService.formatReportData(data, term);
+    const template = await this.reportTemplatesService.getEffectiveTemplate(
+      REPORT_TEMPLATE_TYPES.STUDENT_REPORT,
+      data.branchId,
+    );
     const html = await this.reportingService.fillTemplate(
-      END_OF_TERM_TEMPLATE,
+      template.html,
       formatted,
     );
-    const pdf = await this.reportingService.generatePdf(html);
+    const pdf = await this.reportingService.generatePdf(html, {
+      format: template.config.paperSize,
+      landscape: template.config.landscape,
+    });
 
     res.set({
       'Content-Type': 'application/pdf',
@@ -766,11 +774,18 @@ export class ExamsController {
     );
     if (!formatted) throw new NotFoundException('Annual report data not found');
 
+    const template = await this.reportTemplatesService.getEffectiveTemplate(
+      REPORT_TEMPLATE_TYPES.ANNUAL_CUMULATIVE,
+      formatted.branchId,
+    );
     const html = await this.reportingService.fillTemplate(
-      ANNUAL_CUMULATIVE_TEMPLATE,
+      template.html,
       formatted,
     );
-    const pdf = await this.reportingService.generatePdf(html);
+    const pdf = await this.reportingService.generatePdf(html, {
+      format: template.config.paperSize,
+      landscape: template.config.landscape,
+    });
 
     res.set({
       'Content-Type': 'application/pdf',

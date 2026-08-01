@@ -14,7 +14,8 @@ import {
 import { Term, ExamTerm } from '../generated/client/client';
 import { ReportingService } from '../reporting/reporting.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
-import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
+import { ReportTemplatesService } from '../report-templates/report-templates.service';
+import { REPORT_TEMPLATE_TYPES } from '../report-templates/built-in-templates';
 import { findGradeMatch } from './grading.util';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -27,6 +28,7 @@ export class ExamsService {
     private readonly prisma: PrismaService,
     private readonly reportingService: ReportingService,
     private readonly branchBrandingService: BranchBrandingService,
+    private readonly reportTemplatesService: ReportTemplatesService,
   ) {}
 
   private async logAction(
@@ -350,6 +352,23 @@ export class ExamsService {
 
     const branding = await this.branchBrandingService.getBranding(student.branchId);
 
+    // The mean of every student's overall average in the section — distinct
+    // from highestAvg/lowestAvg (already stored on ResultSummary) and from
+    // a subject's own classAvg. Computed live since ResultSummary has no
+    // dedicated column for it.
+    let classAverage = '0.0';
+    if (student.sectionId && summary.sessionId) {
+      const agg = await this.prisma.resultSummary.aggregate({
+        where: {
+          student: { sectionId: student.sectionId },
+          sessionId: summary.sessionId,
+          term: currentTerm,
+        },
+        _avg: { average: true },
+      });
+      classAverage = (agg._avg.average || 0).toFixed(1);
+    }
+
     return {
       schoolName: branding.name,
       schoolAddress: branding.address,
@@ -378,6 +397,7 @@ export class ExamsService {
       timesOpen: summary.attendanceOpen || 0,
       timesPresent: summary.attendancePresent || 0,
       timesAbsent: summary.attendanceAbsent || 0,
+      classAverage,
       studentName: `${student.user?.firstName} ${student.user?.lastName}`,
       admissionNo: student.user?.email.split('@')[0].toUpperCase(), // Using email as fallback for Reg No
       gender: student.gender || 'N/A',
@@ -653,6 +673,7 @@ export class ExamsService {
     const branding = await this.branchBrandingService.getBranding(student.branchId);
 
     return {
+      branchId: student.branchId,
       schoolName: branding.name,
       schoolAddress: branding.address,
       schoolLogo: branding.logoUrl || '',
@@ -777,6 +798,16 @@ export class ExamsService {
       include: { user: true },
     });
 
+    // Resolved once for the whole batch — every student in a section is in
+    // the same branch, and re-resolving per student would mean one DB round
+    // trip per PDF instead of one for the whole export.
+    const template = students.length
+      ? await this.reportTemplatesService.getEffectiveTemplate(
+          REPORT_TEMPLATE_TYPES.STUDENT_REPORT,
+          students[0].branchId,
+        )
+      : null;
+
     const exportDir = path.join(process.cwd(), 'public', 'uploads', 'exports');
     if (!fs.existsSync(exportDir)) {
       fs.mkdirSync(exportDir, { recursive: true });
@@ -814,10 +845,13 @@ export class ExamsService {
 
             const formatted = await this.formatReportData(data, term);
             const html = await this.reportingService.fillTemplate(
-              END_OF_TERM_TEMPLATE,
+              template!.html,
               formatted,
             );
-            const pdfBuffer = await this.reportingService.generatePdf(html);
+            const pdfBuffer = await this.reportingService.generatePdf(html, {
+              format: template!.config.paperSize,
+              landscape: template!.config.landscape,
+            });
 
             if (!student.user) continue;
             const pdfName =

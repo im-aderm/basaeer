@@ -2,11 +2,10 @@ import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { AcademicsService } from './academics.service';
 import { AcademicsController } from './academics.controller';
-import { ReportTemplatesService } from './report-templates.service';
-import { ReportTemplatesController } from './report-templates.controller';
 import { PrismaModule } from '../prisma/prisma.module';
 import { ReportingModule } from '../reporting/reporting.module';
 import { ExamsModule } from '../exams/exams.module';
+import { ReportTemplatesModule } from '../report-templates/report-templates.module';
 import { ExportQueueService } from './export-queue.service';
 import { AcademicExportProcessor } from './academic-export.processor';
 import { ComputationQueueService } from './computation-queue.service';
@@ -21,6 +20,7 @@ import { AssessmentController } from './assessment.controller';
     PrismaModule,
     ReportingModule,
     ExamsModule,
+    ReportTemplatesModule,
     BullModule.registerQueue(
       { name: 'academic-exports' },
       { name: 'academic-computations' },
@@ -28,7 +28,6 @@ import { AssessmentController } from './assessment.controller';
   ],
   controllers: [
     AcademicsController,
-    ReportTemplatesController,
     AssessmentController,
   ],
   providers: [
@@ -36,7 +35,6 @@ import { AssessmentController } from './assessment.controller';
     AssessmentService,
     ExportQueueService,
     AcademicExportProcessor,
-    ReportTemplatesService,
     ComputationQueueService,
     AcademicComputationProcessor,
     ExportCleanupService,
@@ -45,7 +43,6 @@ import { AssessmentController } from './assessment.controller';
     AcademicsService,
     AssessmentService,
     ExportQueueService,
-    ReportTemplatesService,
     ComputationQueueService,
   ],
 })

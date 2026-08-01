@@ -37,4 +37,11 @@ export const reportTemplateService = {
     deleteTemplate: async (id: string): Promise<void> => {
         await api.delete(`/academics/templates/${id}`);
     },
+
+    preview: async (type: string, layout: any): Promise<string> => {
+        const response = await api.post("/academics/templates/preview", { type, layout }, {
+            responseType: "text",
+        });
+        return response.data;
+    },
 };

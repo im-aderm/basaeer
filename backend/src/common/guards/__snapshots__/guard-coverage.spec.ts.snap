@@ -6,10 +6,6 @@ exports[`access-control guard coverage (BranchGuard + Roles/Public presence) rou
     "Get('exports/:id')",
     "Get('compute-status/:jobId')",
   ],
-  "academics/report-templates.controller.ts": [
-    "Get()",
-    "Get(':id')",
-  ],
   "access-control/access-control.controller.ts": [
     "Get('my-logs')",
   ],

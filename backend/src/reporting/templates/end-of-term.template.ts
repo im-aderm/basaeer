@@ -112,7 +112,7 @@ export const END_OF_TERM_TEMPLATE = `
             <tr>
                 <td class="label">Term:</td><td class="value">{{termName}}</td>
                 <td class="label">Times Present:</td><td class="value">{{timesPresent}}</td>
-                <td class="label">Class Average:</td><td class="value">57.4</td> <!-- Placeholder for class avg of all students -->
+                <td class="label">Class Average:</td><td class="value">{{classAverage}}</td>
             </tr>
             <tr>
                 <td class="label">Session:</td><td class="value">{{sessionName}}</td>
