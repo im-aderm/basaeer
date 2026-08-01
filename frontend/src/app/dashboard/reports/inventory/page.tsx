@@ -9,11 +9,12 @@ import { Package, AlertTriangle, Box, AlertCircle, Loader2 } from "lucide-react"
 import api from "@/lib/api";
 
 export default function InventoryReportsPage() {
-  const { user, resolvedBranchId } = useAuth();
+  const { user } = useAuth();
   const [data, setData] = useState<{
-    totalProducts?: number;
-    lowStockItems?: number;
-    totalUnits?: number;
+    totalProducts: number;
+    lowStockItems: number;
+    totalUnits: number;
+    stockByCategory: { name: string; value: number }[];
   } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,10 +24,10 @@ export default function InventoryReportsPage() {
     try {
       setLoading(true);
       setError(null);
-      const response = await api.get("/reporting/dashboard");
-      setData(response.data?.inventory ?? null);
+      const response = await api.get("/reporting/inventory");
+      setData(response.data);
     } catch {
-      setData(null);
+      setError("Failed to load inventory report");
     } finally {
       setLoading(false);
     }
@@ -60,11 +61,6 @@ export default function InventoryReportsPage() {
         <p className="text-muted-foreground font-medium mt-1">Stock levels, asset management, and procurement</p>
       </div>
 
-      {/*
-        Placeholder until a dedicated inventory analytics endpoint is built.
-        Data is fetched from the legacy /reporting/dashboard route.
-      */}
-
       <DashboardGrid cols={3}>
         <StatCardWidget
           title="Products"
@@ -88,8 +84,8 @@ export default function InventoryReportsPage() {
 
       <ChartWidget
         title="Stock by Category"
-        description="Distribution of assets across departments"
-        data={[]}
+        description="Distribution of stock units across inventory categories"
+        data={data?.stockByCategory ?? []}
         type="bar"
         dataKey="value"
         nameKey="name"

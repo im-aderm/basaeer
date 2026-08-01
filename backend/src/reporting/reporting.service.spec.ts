@@ -5,18 +5,27 @@ import { PrismaService } from '../prisma/prisma.service';
 describe('ReportingService', () => {
   let service: ReportingService;
 
-  const mockPrismaService = {
+  const mockPrismaService: any = {
     invoice: {
-      aggregate: jest.fn(),
+      aggregate: jest.fn().mockResolvedValue({ _sum: { balance: null } }),
     },
     payment: {
-      aggregate: jest.fn(),
+      aggregate: jest.fn().mockResolvedValue({ _sum: { amount: null } }),
+      findMany: jest.fn().mockResolvedValue([]),
+    },
+    voucher: {
+      aggregate: jest.fn().mockResolvedValue({ _sum: { amount: null } }),
     },
     student: {
-      count: jest.fn(),
+      count: jest.fn().mockResolvedValue(0),
+      groupBy: jest.fn().mockResolvedValue([]),
+    },
+    class: {
+      count: jest.fn().mockResolvedValue(0),
+      findMany: jest.fn().mockResolvedValue([]),
     },
     staff: {
-      count: jest.fn(),
+      count: jest.fn().mockResolvedValue(0),
     },
   };
 

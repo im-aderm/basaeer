@@ -133,14 +133,40 @@ export class ReportingController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Inventory Analytics' })
+  @Get('inventory')
+  @Permissions('reporting:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  getInventoryAnalytics(
+    @GetTenantContext() ctx: TenantContext,
+    @Query() query: ReportQueryDto,
+  ) {
+    return this.reportingService.getInventoryAnalytics({
+      branchId:
+        ctx.role === UserRole.SUPER_ADMIN ? query.branchId : ctx.branchId!,
+    });
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve Export Performance' })
   @Get('export/performance')
   @Permissions('reporting:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
   async exportPerformance(
     @GetTenantContext() ctx: TenantContext,
+    @Query('format') format: string | undefined,
     @Res() res: Response,
   ) {
+    if (format === 'excel') {
+      const buffer = await this.reportingService.exportStudentPerformanceExcel(ctx.branchId!);
+      res.set({
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': 'attachment; filename=performance_report.xlsx',
+        'Content-Length': buffer.length,
+      });
+      return res.end(buffer);
+    }
     const buffer = await this.reportingService.exportStudentPerformancePDF(
       ctx.branchId!,
     );
@@ -162,16 +188,82 @@ export class ReportingController {
     @GetTenantContext() ctx: TenantContext,
     @Query('start') start: string,
     @Query('end') end: string,
+    @Query('format') format: string | undefined,
     @Res() res: Response,
   ) {
-    const buffer = await this.reportingService.exportFeesPDF(
-      ctx.branchId!,
-      start ? new Date(start) : undefined,
-      end ? new Date(end) : undefined,
-    );
+    const startDate = start ? new Date(start) : undefined;
+    const endDate = end ? new Date(end) : undefined;
+    if (format === 'excel') {
+      const buffer = await this.reportingService.exportFeesExcel(ctx.branchId!, startDate, endDate);
+      res.set({
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': 'attachment; filename=finance_report.xlsx',
+        'Content-Length': buffer.length,
+      });
+      return res.end(buffer);
+    }
+    const buffer = await this.reportingService.exportFeesPDF(ctx.branchId!, startDate, endDate);
     res.set({
       'Content-Type': 'application/pdf',
       'Content-Disposition': 'attachment; filename=finance_report.pdf',
+      'Content-Length': buffer.length,
+    });
+    res.end(buffer);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export HR' })
+  @Get('export/hr')
+  @Permissions('reporting:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN, UserRole.HR)
+  async exportHR(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('format') format: string | undefined,
+    @Res() res: Response,
+  ) {
+    if (format === 'excel') {
+      const buffer = await this.reportingService.exportHRExcel(ctx.branchId!);
+      res.set({
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': 'attachment; filename=hr_report.xlsx',
+        'Content-Length': buffer.length,
+      });
+      return res.end(buffer);
+    }
+    const buffer = await this.reportingService.exportHRPDF(ctx.branchId!);
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename=hr_report.pdf',
+      'Content-Length': buffer.length,
+    });
+    res.end(buffer);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Export Inventory' })
+  @Get('export/inventory')
+  @Permissions('reporting:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
+  async exportInventory(
+    @GetTenantContext() ctx: TenantContext,
+    @Query('format') format: string | undefined,
+    @Res() res: Response,
+  ) {
+    if (format === 'excel') {
+      const buffer = await this.reportingService.exportInventoryExcel(ctx.branchId!);
+      res.set({
+        'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'Content-Disposition': 'attachment; filename=inventory_report.xlsx',
+        'Content-Length': buffer.length,
+      });
+      return res.end(buffer);
+    }
+    const buffer = await this.reportingService.exportInventoryPDF(ctx.branchId!);
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': 'attachment; filename=inventory_report.pdf',
       'Content-Length': buffer.length,
     });
     res.end(buffer);

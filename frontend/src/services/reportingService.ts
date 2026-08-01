@@ -1,5 +1,4 @@
 import api from '@/lib/api';
-import { devLog } from '@/lib/dev-log';
 import type { DashboardData } from '@/types/dashboard';
 
 // Legacy type for the reports page (uses old data shape)
@@ -88,13 +87,8 @@ export const reportingService = {
     },
 
     getInventoryReport: async () => {
-        // Backend endpoint does not exist yet — return empty data
-        try {
-            const response = await api.get('/reporting/inventory');
-            return response.data;
-        } catch {
-            return { products: [], totalProducts: 0, totalValue: 0, lowStockItems: [] };
-        }
+        const response = await api.get('/reporting/inventory');
+        return response.data;
     },
 
     getHRReport: async () => {
@@ -112,16 +106,11 @@ export const reportingService = {
     },
 
     exportStudentPerformanceExcel: async () => {
-        // Backend does not have an Excel export endpoint yet
-        try {
-            const response = await api.get('/reporting/export/performance', {
-                params: { format: 'excel' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'student-performance.xlsx');
-        } catch {
-            devLog.warn('Excel export endpoint not available');
-        }
+        const response = await api.get('/reporting/export/performance', {
+            params: { format: 'excel' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'student-performance.xlsx');
     },
 
     exportFeesPDF: async (startDate?: string, endDate?: string) => {
@@ -135,68 +124,45 @@ export const reportingService = {
     },
 
     exportFeesExcel: async (startDate?: string, endDate?: string) => {
-        // Backend does not have a finance Excel export endpoint yet
         const params = new URLSearchParams();
         if (startDate) params.append('start', startDate);
         if (endDate) params.append('end', endDate);
-        try {
-            const response = await api.get(`/reporting/export/finance?${params.toString()}`, {
-                params: { format: 'excel' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'fees-report.xlsx');
-        } catch {
-            devLog.warn('Fees Excel export endpoint not available');
-        }
+        const response = await api.get(`/reporting/export/finance?${params.toString()}`, {
+            params: { format: 'excel' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'fees-report.xlsx');
     },
 
     exportHRPDF: async () => {
-        // Backend does not have an HR PDF export endpoint yet
-        try {
-            const response = await api.get('/reporting/export/hr', {
-                params: { format: 'pdf' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'hr-report.pdf');
-        } catch {
-            devLog.warn('HR export endpoint not available');
-        }
+        const response = await api.get('/reporting/export/hr', {
+            params: { format: 'pdf' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'hr-report.pdf');
     },
 
     exportHRExcel: async () => {
-        try {
-            const response = await api.get('/reporting/export/hr', {
-                params: { format: 'excel' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'hr-report.xlsx');
-        } catch {
-            devLog.warn('HR Excel export endpoint not available');
-        }
+        const response = await api.get('/reporting/export/hr', {
+            params: { format: 'excel' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'hr-report.xlsx');
     },
 
     exportInventoryPDF: async () => {
-        // Backend does not have an inventory export endpoint yet
-        try {
-            const response = await api.get('/reporting/export/inventory', {
-                params: { format: 'pdf' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'inventory-report.pdf');
-        } catch {
-            devLog.warn('Inventory export endpoint not available');
-        }
+        const response = await api.get('/reporting/export/inventory', {
+            params: { format: 'pdf' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'inventory-report.pdf');
     },
 
     exportInventoryExcel: async () => {
-        try {
-            const response = await api.get('/reporting/export/inventory', {
-                params: { format: 'excel' },
-                responseType: 'blob'
-            });
-            downloadBlob(response, 'inventory-report.xlsx');
-        } catch {
-            devLog.warn('Inventory Excel export endpoint not available');
-        }
+        const response = await api.get('/reporting/export/inventory', {
+            params: { format: 'excel' },
+            responseType: 'blob'
+        });
+        downloadBlob(response, 'inventory-report.xlsx');
     },
 };

@@ -331,7 +331,9 @@ export class ReportingService {
           amount: true,
           invoice: {
             select: {
-              items: { select: { categoryId: true } },
+              items: {
+                select: { amount: true, category: { select: { name: true } } },
+              },
             },
           },
         },
@@ -345,6 +347,31 @@ export class ReportingService {
     const totalRevenue = revenueAgg._sum.amount?.toNumber() ?? 0;
     const totalOutstanding = outstandingAgg._sum.balance?.toNumber() ?? 0;
     const totalExpenses = expensesAgg._sum.amount?.toNumber() ?? 0;
+
+    // Revenue by fee category: a payment is recorded against a whole
+    // invoice, not a specific line item, and an invoice can span multiple
+    // categories — so each payment's amount is allocated across the
+    // invoice's categories in proportion to their share of the invoice's
+    // total item amount. categoryAgg was previously fetched and then
+    // discarded (byCategory always returned []).
+    const categoryTotals = new Map<string, number>();
+    for (const payment of categoryAgg) {
+      const items = payment.invoice?.items ?? [];
+      const invoiceTotal = items.reduce((sum, item) => sum + item.amount.toNumber(), 0);
+      if (invoiceTotal <= 0) continue;
+      const paymentAmount = payment.amount.toNumber();
+      for (const item of items) {
+        const share = item.amount.toNumber() / invoiceTotal;
+        const categoryName = item.category?.name ?? 'Uncategorized';
+        categoryTotals.set(
+          categoryName,
+          (categoryTotals.get(categoryName) ?? 0) + paymentAmount * share,
+        );
+      }
+    }
+    const byCategory = Array.from(categoryTotals.entries())
+      .map(([category, amount]) => ({ category, amount: Math.round(amount * 100) / 100 }))
+      .sort((a, b) => b.amount - a.amount);
     const collectionRate = (totalRevenue + totalOutstanding) > 0
       ? Math.round((totalRevenue / (totalRevenue + totalOutstanding)) * 100)
       : 0;
@@ -382,7 +409,7 @@ export class ReportingService {
       totalRevenue,
       totalOutstanding,
       collectionRate,
-      byCategory: [],
+      byCategory,
       monthlyCashflow,
     };
   }
@@ -522,30 +549,283 @@ export class ReportingService {
     return { todayRate, weeklyTrend, monthlySummary };
   }
 
+  /**
+   * dashboard/reports/inventory/page.tsx read response.data.inventory from
+   * GET /reporting/dashboard, a field that endpoint never returned — the
+   * page could never show real data. This is a real, dedicated inventory
+   * analytics endpoint instead.
+   */
+  async getInventoryAnalytics(query: { branchId?: string | null }) {
+    const branchId = query?.branchId || null;
+    const bWhere = branchId ? { branchId } : {};
+
+    const [totalProducts, stockAgg, stockLevels, byCategory] = await Promise.all([
+      this.prisma.inventoryProduct.count({ where: bWhere }),
+      this.prisma.inventoryProduct.aggregate({
+        where: bWhere,
+        _sum: { stock: true },
+      }),
+      // Prisma's query builder can't compare one column to another (stock
+      // vs lowStockThreshold) in a `where` filter, so the low-stock count
+      // is computed in application code over the (small) stock/threshold
+      // projection rather than a raw SQL query.
+      this.prisma.inventoryProduct.findMany({
+        where: bWhere,
+        select: { stock: true, lowStockThreshold: true },
+      }),
+      this.prisma.inventoryProduct.groupBy({
+        by: ['categoryId'],
+        where: bWhere,
+        _sum: { stock: true },
+      }),
+    ]);
+    const lowStockItems = stockLevels.filter((p) => p.stock <= p.lowStockThreshold).length;
+
+    const categories = await this.prisma.inventoryCategory.findMany({
+      where: { id: { in: byCategory.map((c) => c.categoryId) } },
+      select: { id: true, name: true },
+    });
+    const categoryNameById = new Map(categories.map((c) => [c.id, c.name]));
+
+    return {
+      totalProducts,
+      totalUnits: stockAgg._sum.stock ?? 0,
+      lowStockItems,
+      stockByCategory: byCategory.map((c) => ({
+        name: categoryNameById.get(c.categoryId) ?? 'Uncategorized',
+        value: c._sum.stock ?? 0,
+      })),
+    };
+  }
+
+  /**
+   * Previously rendered only a "Financial Report" title with no actual
+   * numbers — real, downloadable-looking, but empty. Now renders the same
+   * figures getFinanceAnalytics computes for the dashboard.
+   */
   async exportFeesPDF(
     branchId: string,
     start?: Date,
     end?: Date,
   ): Promise<Buffer> {
-    const doc = new PDFDocument();
+    const data = await this.getFinanceAnalytics({
+      branchId,
+      startDate: start?.toISOString(),
+      endDate: end?.toISOString(),
+    } as FinanceReportQueryDto);
+
+    const doc = new PDFDocument({ margin: 50 });
     const chunks: Buffer[] = [];
     doc.on('data', (chunk) => chunks.push(chunk));
     return new Promise((resolve) => {
       doc.on('end', () => resolve(Buffer.concat(chunks)));
+
       doc.fontSize(20).text('Financial Report', { align: 'center' });
+      if (start && end) {
+        doc.fontSize(10).fillColor('#666').text(
+          `${start.toLocaleDateString()} — ${end.toLocaleDateString()}`,
+          { align: 'center' },
+        );
+      }
+      doc.moveDown(1.5).fillColor('#000');
+
+      doc.fontSize(13).text(`Total Revenue: ${data.totalRevenue.toLocaleString()}`);
+      doc.text(`Total Outstanding: ${data.totalOutstanding.toLocaleString()}`);
+      doc.text(`Collection Rate: ${data.collectionRate}%`);
+      doc.moveDown();
+
+      doc.fontSize(15).text('Revenue by Category');
+      doc.moveDown(0.5);
+      if (data.byCategory.length === 0) {
+        doc.fontSize(11).fillColor('#666').text('No categorized revenue in this period.');
+      } else {
+        data.byCategory.forEach((row) => {
+          doc.fontSize(11).fillColor('#000').text(`${row.category}: ${row.amount.toLocaleString()}`);
+        });
+      }
+      doc.moveDown().fillColor('#000');
+
+      doc.fontSize(15).text('Monthly Cashflow (last 6 months)');
+      doc.moveDown(0.5);
+      data.monthlyCashflow.forEach((row) => {
+        doc.fontSize(11).text(
+          `${row.month} — Income: ${row.income.toLocaleString()}, Expenses: ${row.expenses.toLocaleString()}`,
+        );
+      });
+
       doc.end();
     });
   }
 
+  async exportFeesExcel(
+    branchId: string,
+    start?: Date,
+    end?: Date,
+  ): Promise<Buffer> {
+    const data = await this.getFinanceAnalytics({
+      branchId,
+      startDate: start?.toISOString(),
+      endDate: end?.toISOString(),
+    } as FinanceReportQueryDto);
+    const rows = [
+      ['Total Revenue', data.totalRevenue],
+      ['Total Outstanding', data.totalOutstanding],
+      ['Collection Rate (%)', data.collectionRate],
+      ...data.byCategory.map((r) => [`Category: ${r.category}`, r.amount]),
+      ...data.monthlyCashflow.flatMap((r) => [
+        [`${r.month} Income`, r.income],
+        [`${r.month} Expenses`, r.expenses],
+      ]),
+    ];
+    return this.generateExcel(['Metric', 'Value'], rows, 'Finance Report');
+  }
+
+  /**
+   * Previously rendered only a "Performance Report" title with no data.
+   * Renders real enrollment/demographic analytics (the same data the
+   * dashboard's student analytics widget shows) — full academic
+   * performance (grades/GPA) reporting lives in the exams module's
+   * report-card/broadsheet generation, which is a larger, separate report.
+   */
   async exportStudentPerformancePDF(branchId: string): Promise<Buffer> {
-    const doc = new PDFDocument();
+    const data = await this.getStudentAnalytics({ branchId } as StudentReportQueryDto);
+
+    const doc = new PDFDocument({ margin: 50 });
     const chunks: Buffer[] = [];
     doc.on('data', (chunk) => chunks.push(chunk));
     return new Promise((resolve) => {
       doc.on('end', () => resolve(Buffer.concat(chunks)));
-      doc.fontSize(20).text('Performance Report', { align: 'center' });
+
+      doc.fontSize(20).text('Student Performance Report', { align: 'center' });
+      doc.moveDown(1.5);
+
+      doc.fontSize(13).text(`Total Students: ${data.total}`);
+      doc.text(`New This Year: ${data.newThisYear}`);
+      doc.text(`New This Term: ${data.newThisTerm}`);
+      doc.moveDown();
+
+      doc.fontSize(15).text('By Gender');
+      doc.moveDown(0.5);
+      data.byGender.forEach((row: any) => {
+        doc.fontSize(11).text(`${row.gender ?? 'Unknown'}: ${row.count}`);
+      });
+      doc.moveDown();
+
+      doc.fontSize(15).text('By Class');
+      doc.moveDown(0.5);
+      if (data.byClass.length === 0) {
+        doc.fontSize(11).fillColor('#666').text('No class data available.');
+      } else {
+        data.byClass.forEach((row: any) => {
+          doc.fontSize(11).fillColor('#000').text(`${row.className}: ${row.count}`);
+        });
+      }
+
       doc.end();
     });
+  }
+
+  async exportStudentPerformanceExcel(branchId: string): Promise<Buffer> {
+    const data = await this.getStudentAnalytics({ branchId } as StudentReportQueryDto);
+    const rows = [
+      ['Total Students', data.total],
+      ['New This Year', data.newThisYear],
+      ['New This Term', data.newThisTerm],
+      ...data.byGender.map((r: any) => [`Gender: ${r.gender ?? 'Unknown'}`, r.count]),
+      ...data.byClass.map((r: any) => [`Class: ${r.className}`, r.count]),
+    ];
+    return this.generateExcel(['Metric', 'Value'], rows, 'Performance Report');
+  }
+
+  /**
+   * The frontend's HR export buttons called GET /reporting/export/hr,
+   * which never existed on the backend — silently failing (caught and
+   * only console-logged). getHRAnalytics already computes real figures for
+   * the HR dashboard; these reuse it instead of building a separate query.
+   */
+  async exportHRPDF(branchId: string): Promise<Buffer> {
+    const data = await this.getHRAnalytics({ branchId });
+
+    const doc = new PDFDocument({ margin: 50 });
+    const chunks: Buffer[] = [];
+    doc.on('data', (chunk) => chunks.push(chunk));
+    return new Promise((resolve) => {
+      doc.on('end', () => resolve(Buffer.concat(chunks)));
+
+      doc.fontSize(20).text('HR Report', { align: 'center' });
+      doc.moveDown(1.5);
+
+      doc.fontSize(13).text(`Total Staff: ${data.totalStaff}`);
+      doc.text(`Payroll Total (current period): ${data.payrollTotal.toLocaleString()}`);
+      doc.text(`Payroll Pending: ${data.payrollPending.toLocaleString()}`);
+      doc.moveDown();
+
+      doc.fontSize(15).text('By Status');
+      doc.moveDown(0.5);
+      data.byStatus.forEach((row) => {
+        doc.fontSize(11).text(`${row.status}: ${row.count}`);
+      });
+      doc.moveDown();
+
+      doc.fontSize(15).text('By Department');
+      doc.moveDown(0.5);
+      if (data.byDepartment.length === 0) {
+        doc.fontSize(11).fillColor('#666').text('No department data available.');
+      } else {
+        data.byDepartment.forEach((row) => {
+          doc.fontSize(11).fillColor('#000').text(`${row.department}: ${row.count}`);
+        });
+      }
+
+      doc.end();
+    });
+  }
+
+  async exportHRExcel(branchId: string): Promise<Buffer> {
+    const data = await this.getHRAnalytics({ branchId });
+    const rows = [
+      ...data.byStatus.map((r) => ['Status', r.status, r.count]),
+      ...data.byDepartment.map((r) => ['Department', r.department, r.count]),
+    ];
+    return this.generateExcel(['Breakdown', 'Label', 'Count'], rows, 'HR Report');
+  }
+
+  /** Same "called a route that didn't exist" gap as exportHRPDF/Excel above. */
+  async exportInventoryPDF(branchId: string): Promise<Buffer> {
+    const data = await this.getInventoryAnalytics({ branchId });
+
+    const doc = new PDFDocument({ margin: 50 });
+    const chunks: Buffer[] = [];
+    doc.on('data', (chunk) => chunks.push(chunk));
+    return new Promise((resolve) => {
+      doc.on('end', () => resolve(Buffer.concat(chunks)));
+
+      doc.fontSize(20).text('Inventory Report', { align: 'center' });
+      doc.moveDown(1.5);
+
+      doc.fontSize(13).text(`Total Products: ${data.totalProducts}`);
+      doc.text(`Total Units in Stock: ${data.totalUnits}`);
+      doc.text(`Low Stock Items: ${data.lowStockItems}`);
+      doc.moveDown();
+
+      doc.fontSize(15).text('Stock by Category');
+      doc.moveDown(0.5);
+      if (data.stockByCategory.length === 0) {
+        doc.fontSize(11).fillColor('#666').text('No category data available.');
+      } else {
+        data.stockByCategory.forEach((row) => {
+          doc.fontSize(11).fillColor('#000').text(`${row.name}: ${row.value}`);
+        });
+      }
+
+      doc.end();
+    });
+  }
+
+  async exportInventoryExcel(branchId: string): Promise<Buffer> {
+    const data = await this.getInventoryAnalytics({ branchId });
+    const rows = data.stockByCategory.map((r) => [r.name, r.value]);
+    return this.generateExcel(['Category', 'Stock'], rows, 'Inventory Report');
   }
 
   async generateExcel(
