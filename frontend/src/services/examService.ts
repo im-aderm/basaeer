@@ -91,5 +91,28 @@ export const ExamService = {
             responseType: 'blob'
         });
         return response.data;
-    }
+    },
+
+    // Academic portal — student/parent-facing published results
+    getMyPublishedResults: async (studentId: string) => {
+        const response = await api.get(`/exams/portal/results/${studentId}`);
+        return response.data;
+    },
+
+    getPublishedResult: async (studentId: string, sessionId: string, term: Term) => {
+        const response = await api.get(`/exams/portal/results/${studentId}/${sessionId}/${term}`);
+        return response.data;
+    },
+
+    getPerformanceTrend: async (studentId: string) => {
+        const response = await api.get(`/exams/portal/performance/${studentId}`);
+        return response.data;
+    },
+
+    downloadReportCard: async (studentId: string, sessionId: string, term: Term) => {
+        const response = await api.get(`/exams/report/${studentId}/${sessionId}/${term}`, {
+            responseType: 'blob'
+        });
+        return response.data;
+    },
 };

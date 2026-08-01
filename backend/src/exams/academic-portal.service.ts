@@ -29,6 +29,43 @@ export class AcademicPortalService {
     return student;
   }
 
+  /**
+   * Every published (session, term) result for this student — the listing
+   * screen a student/parent lands on before drilling into a specific
+   * term's full breakdown via result().
+   */
+  async listResults(studentId: string, context: TenantContext) {
+    const student = await this.assertAccess(studentId, context);
+    const branchId = this.branchId(context);
+
+    const summaries = await this.prisma.resultSummary.findMany({
+      where: { studentId },
+      include: { session: true },
+      orderBy: [{ session: { startDate: 'desc' } }, { term: 'desc' }],
+    });
+    if (!summaries.length) return [];
+
+    const publications = await this.prisma.resultPublication.findMany({
+      where: {
+        branchId,
+        isPublished: true,
+        OR: summaries.map((s) => ({ sessionId: s.sessionId, term: s.term })),
+      },
+    });
+    const publishedKeys = new Set(publications.map((p) => `${p.sessionId}::${p.term}`));
+
+    return summaries
+      .filter((s) => publishedKeys.has(`${s.sessionId}::${s.term}`))
+      .map((s) => ({
+        sessionId: s.sessionId,
+        sessionName: s.session.name,
+        term: s.term,
+        average: s.average,
+        finalGrade: s.finalGrade,
+        classPosition: s.classPosition,
+      }));
+  }
+
   async result(
     studentId: string,
     sessionId: string,

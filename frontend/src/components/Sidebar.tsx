@@ -365,6 +365,7 @@ const navigation: NavItem[] = [
         icon: UserCheck,
         roles: ["STUDENT"],
         children: [
+            { title: "My Results", href: "/dashboard/student/results" },
             { title: "My Certificates", href: "/dashboard/student/certificates" },
             { title: "My Hostel", href: "/dashboard/student/hostel" },
         ],

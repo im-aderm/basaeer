@@ -14,29 +14,53 @@ import {
     CheckCircle2,
     FileText,
     TrendingUp,
-    AlertCircle
+    AlertCircle,
+    Download,
+    Loader2,
+    ChevronDown,
+    ChevronUp,
 } from 'lucide-react';
 import { StakeholderService } from '@/services/stakeholderService';
+import { ExamService } from '@/services/examService';
 import { useNotification } from '@/context/NotificationContext';
 import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS, STAT_CARD, STAT_LABEL, STAT_VALUE } from '@/lib/table-styles';
+
+interface PublishedResultRow {
+    sessionId: string;
+    sessionName: string;
+    term: string;
+    average: number | null;
+    finalGrade: string | null;
+    classPosition: number | null;
+}
 
 export default function ChildAcademicsPage() {
     const { id } = useParams();
     const router = useRouter();
     const { showError } = useNotification();
     const [homework, setHomework] = useState<any[]>([]);
-    const [exams, setExams] = useState<any[]>([]);
+    const [results, setResults] = useState<PublishedResultRow[]>([]);
     const [loading, setLoading] = useState(true);
+    const [expanded, setExpanded] = useState<string | null>(null);
+    const [detail, setDetail] = useState<any>(null);
+    const [detailLoading, setDetailLoading] = useState(false);
+    const [downloadingKey, setDownloadingKey] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [homeworkData, examsData] = await Promise.all([
+                // Published, publish-gate-checked results — this used to call
+                // StakeholderService.getChildExams, which returned raw
+                // AssessmentRecord rows with no ResultPublication check, so a
+                // parent could see a child's unpublished/still-being-graded
+                // scores. Now it's the exact same publish-gated data the
+                // student portal and public checker show.
+                const [homeworkData, resultsData] = await Promise.all([
                     StakeholderService.getChildHomework(id as string),
-                    StakeholderService.getChildExams(id as string)
+                    ExamService.getMyPublishedResults(id as string),
                 ]);
                 setHomework(homeworkData);
-                setExams(examsData);
+                setResults(resultsData);
             } catch (error) {
                 showError('Failed to load academic records');
             } finally {
@@ -45,6 +69,47 @@ export default function ChildAcademicsPage() {
         };
         fetchData();
     }, [id]);
+
+    const rowKey = (row: PublishedResultRow) => `${row.sessionId}::${row.term}`;
+
+    const toggleExpand = async (row: PublishedResultRow) => {
+        const key = rowKey(row);
+        if (expanded === key) {
+            setExpanded(null);
+            return;
+        }
+        setExpanded(key);
+        setDetail(null);
+        setDetailLoading(true);
+        try {
+            const data = await ExamService.getPublishedResult(id as string, row.sessionId, row.term as any);
+            setDetail(data);
+        } catch {
+            showError('Failed to load result detail');
+        } finally {
+            setDetailLoading(false);
+        }
+    };
+
+    const handleDownload = async (row: PublishedResultRow) => {
+        const key = rowKey(row);
+        setDownloadingKey(key);
+        try {
+            const blob = await ExamService.downloadReportCard(id as string, row.sessionId, row.term as any);
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `ReportCard_${row.sessionName}_${row.term}.pdf`.replace(/\s+/g, '_');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch {
+            showError('Failed to download report card');
+        } finally {
+            setDownloadingKey(null);
+        }
+    };
 
     if (loading) return <div className="flex h-96 items-center justify-center font-semibold animate-pulse">Loading Academics...</div>;
 
@@ -115,55 +180,93 @@ export default function ChildAcademicsPage() {
                 </TabsContent>
 
                 <TabsContent value="exams" className="space-y-6">
-                    <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden">
-                        <CardHeader className="p-4 border-b border-primary/20">
-                            <CardTitle className="text-[14px] font-semibold uppercase flex items-center gap-3">
-                                <TrendingUp className="h-5 w-5 text-primary" />
-                                Assessment Record
-                            </CardTitle>
-                            <CardDescription className="font-bold text-[12px]">Summary of performance across all terms.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="p-0">
-                            <div className="overflow-x-auto">
-                                <table className={TABLE_ROOT}>
-                                    <thead className={TABLE_HEADER}>
-                                        <tr>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Subject</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Term</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Test 1</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Test 2</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Exam</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Total</th>
-                                            <th className={TABLE_HEADER_CELL_NO_SORT}>Grade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className={TABLE_BODY}>
-                                        {exams.length > 0 ? exams.map((record) => (
-                                            <tr key={record.id} className={TABLE_ROW}>
-                                                <td className={TABLE_CELL_PRIMARY}>{record.subject?.name}</td>
-                                                <td className={TABLE_CELL + " text-foreground/60"}>{record.term} {record.session?.name}</td>
-                                                <td className={TABLE_CELL}>{(record.test1 || 0) + (record.asgn1 || 0)}</td>
-                                                <td className={TABLE_CELL}>{(record.test2 || 0) + (record.asgn2 || 0)}</td>
-                                                <td className={TABLE_CELL}>{record.examScore || 0}</td>
-                                                <td className={TABLE_CELL + " text-primary font-semibold"}>{record.total || 0}</td>
-                                                <td className={TABLE_CELL}>
-                                                    <Badge className="rounded-lg font-semibold px-3 py-1 bg-primary text-white text-[12px]">
-                                                        {record.grade || 'N/A'}
-                                                    </Badge>
-                                                </td>
-                                            </tr>
-                                        )) : (
-                                            <tr>
-                                                <td colSpan={7} className="py-12 text-center font-semibold uppercase text-foreground/60 text-[12px]">
-                                                    No exam records available
-                                                </td>
-                                            </tr>
+                    {results.length === 0 ? (
+                        <Card className="rounded-2xl border-primary/20 shadow-2xl bg-background">
+                            <CardContent className="py-16 text-center text-foreground/60 font-semibold uppercase text-[12px]">
+                                No published results yet
+                            </CardContent>
+                        </Card>
+                    ) : (
+                        <div className="space-y-4">
+                            {results.map((row) => {
+                                const key = rowKey(row);
+                                const isOpen = expanded === key;
+                                return (
+                                    <Card key={key} className="rounded-2xl border-primary/20 shadow-2xl bg-background overflow-hidden">
+                                        <CardHeader
+                                            className="p-4 border-b border-primary/20 cursor-pointer"
+                                            onClick={() => toggleExpand(row)}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <div>
+                                                    <CardTitle className="text-[14px] font-semibold uppercase flex items-center gap-3">
+                                                        <TrendingUp className="h-5 w-5 text-primary" />
+                                                        {row.sessionName} — {row.term} Term
+                                                    </CardTitle>
+                                                    <CardDescription className="font-bold text-[12px]">
+                                                        Average: {row.average != null ? Number(row.average).toFixed(1) : '—'} · Grade: {row.finalGrade ?? '—'} · Position: {row.classPosition ?? '—'}
+                                                    </CardDescription>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        className="rounded-xl font-bold text-xs"
+                                                        disabled={downloadingKey === key}
+                                                        onClick={(e) => { e.stopPropagation(); handleDownload(row); }}
+                                                    >
+                                                        {downloadingKey === key ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Download className="h-4 w-4 mr-2" />}
+                                                        PDF
+                                                    </Button>
+                                                    {isOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                        {isOpen && (
+                                            <CardContent className="p-0">
+                                                {detailLoading ? (
+                                                    <div className="py-12 text-center"><Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" /></div>
+                                                ) : (
+                                                    <div className="overflow-x-auto">
+                                                        <table className={TABLE_ROOT}>
+                                                            <thead className={TABLE_HEADER}>
+                                                                <tr>
+                                                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Subject</th>
+                                                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Total</th>
+                                                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Grade</th>
+                                                                    <th className={TABLE_HEADER_CELL_NO_SORT}>Position</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody className={TABLE_BODY}>
+                                                                {detail?.records?.length > 0 ? detail.records.map((record: any) => (
+                                                                    <tr key={record.id} className={TABLE_ROW}>
+                                                                        <td className={TABLE_CELL_PRIMARY}>{record.subject?.name}</td>
+                                                                        <td className={TABLE_CELL + " text-primary font-semibold"}>{Number(record.total || 0).toFixed(1)}</td>
+                                                                        <td className={TABLE_CELL}>
+                                                                            <Badge className="rounded-lg font-semibold px-3 py-1 bg-primary text-white text-[12px]">
+                                                                                {record.grade || 'N/A'}
+                                                                            </Badge>
+                                                                        </td>
+                                                                        <td className={TABLE_CELL}>{record.position || '-'}</td>
+                                                                    </tr>
+                                                                )) : (
+                                                                    <tr>
+                                                                        <td colSpan={4} className="py-12 text-center font-semibold uppercase text-foreground/60 text-[12px]">
+                                                                            No subject breakdown available
+                                                                        </td>
+                                                                    </tr>
+                                                                )}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                )}
+                                            </CardContent>
                                         )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </CardContent>
-                    </Card>
+                                    </Card>
+                                );
+                            })}
+                        </div>
+                    )}
                 </TabsContent>
             </Tabs>
         </div>

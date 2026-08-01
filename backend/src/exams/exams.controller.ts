@@ -573,6 +573,29 @@ export class ExamsController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'List every published result for a student' })
+  @Get('portal/results/:studentId')
+  @Permissions('exams:read')
+  @Roles(
+    UserRole.SUPER_ADMIN,
+    UserRole.BRANCH_ADMIN,
+    UserRole.TEACHER,
+    UserRole.HOD,
+    UserRole.PRINCIPAL,
+    UserRole.EXAM_OFFICER,
+    UserRole.ACADEMIC_OFFICER,
+    UserRole.STUDENT,
+    UserRole.PARENT,
+  )
+  portalListResults(
+    @Param('studentId') studentId: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.academicPortalService.listResults(studentId, ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('portal/results/:studentId/:sessionId/:term')
   @Permissions('exams:read')
