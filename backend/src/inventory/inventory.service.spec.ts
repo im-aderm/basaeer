@@ -23,7 +23,9 @@ const mockPrismaService = {
     create: jest.fn(),
     findMany: jest.fn(),
     findFirst: jest.fn(),
+    findUnique: jest.fn(),
     update: jest.fn(),
+    updateMany: jest.fn(),
     delete: jest.fn(),
   },
   inventoryPurchase: {
@@ -116,6 +118,78 @@ describe('InventoryService', () => {
         where: { id },
         data: dto,
       });
+    });
+  });
+
+  /**
+   * Regression tests for the finding that stock-sufficiency checks read
+   * product.stock via a plain findUnique then decremented separately —
+   * under concurrent requests this could let stock go negative. Both now
+   * use an atomic updateMany({ where: { stock: { gte } } }) so Postgres
+   * serializes concurrent decrements against the same row.
+   */
+  describe('issueItem / createSale stock race protection', () => {
+    it('issueItem throws and never creates a record when the atomic decrement matches zero rows', async () => {
+      (mockPrismaService.inventoryProduct.updateMany as jest.Mock).mockResolvedValue({ count: 0 });
+
+      await expect(
+        service.issueItem({
+          productId: 'prod-1',
+          branchId: 'branch-1',
+          quantity: 5,
+        } as any),
+      ).rejects.toThrow('Insufficient stock or product not found');
+
+      expect(mockPrismaService.inventoryProduct.updateMany).toHaveBeenCalledWith({
+        where: { id: 'prod-1', branchId: 'branch-1', stock: { gte: 5 } },
+        data: { stock: { decrement: 5 } },
+      });
+      expect(mockPrismaService.inventoryIssue.create).not.toHaveBeenCalled();
+    });
+
+    it('issueItem creates the issue once stock is atomically confirmed and decremented', async () => {
+      (mockPrismaService.inventoryProduct.updateMany as jest.Mock).mockResolvedValue({ count: 1 });
+      (mockPrismaService.inventoryIssue.create as jest.Mock).mockResolvedValue({ id: 'issue-1' });
+
+      const result = await service.issueItem({
+        productId: 'prod-1',
+        branchId: 'branch-1',
+        quantity: 5,
+      } as any);
+
+      expect(result).toEqual({ id: 'issue-1' });
+      expect(mockPrismaService.inventoryIssue.create).toHaveBeenCalled();
+    });
+
+    it('createSale throws when the atomic decrement matches zero rows', async () => {
+      (mockPrismaService.inventoryProduct.updateMany as jest.Mock).mockResolvedValue({ count: 0 });
+
+      await expect(
+        service.createSale({
+          productId: 'prod-1',
+          branchId: 'branch-1',
+          quantity: 3,
+          unitPrice: 10,
+        } as any),
+      ).rejects.toThrow('Insufficient stock');
+      expect(mockPrismaService.inventorySale.create).not.toHaveBeenCalled();
+    });
+
+    it('createSale computes totalPrice via Decimal, not floating-point Number multiplication', async () => {
+      (mockPrismaService.inventoryProduct.updateMany as jest.Mock).mockResolvedValue({ count: 1 });
+      (mockPrismaService.inventorySale.create as jest.Mock).mockImplementation((args: any) =>
+        Promise.resolve({ id: 'sale-1', ...args.data }),
+      );
+
+      await service.createSale({
+        productId: 'prod-1',
+        branchId: 'branch-1',
+        quantity: 3,
+        unitPrice: 10.1,
+      } as any);
+
+      const createArgs = (mockPrismaService.inventorySale.create as jest.Mock).mock.calls[0][0];
+      expect(createArgs.data.totalPrice.toString()).toBe('30.3');
     });
   });
 });

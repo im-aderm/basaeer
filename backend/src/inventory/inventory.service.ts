@@ -1,4 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { Decimal } from '@prisma/client/runtime/library';
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
@@ -100,7 +101,7 @@ export class InventoryService {
           date: dto.date ? new Date(dto.date) : undefined,
           quantity: Number(dto.quantity),
           unitPrice: Number(dto.unitPrice),
-          totalPrice: Number(dto.quantity) * Number(dto.unitPrice),
+          totalPrice: new Decimal(dto.quantity).mul(dto.unitPrice),
         },
       });
 
@@ -117,11 +118,20 @@ export class InventoryService {
   // Transactions (Issue - Decreases Stock)
   async issueItem(dto: IssueItemDto) {
     return this.prisma.$transaction(async (tx) => {
-      const product = await tx.inventoryProduct.findUnique({
-        where: { id: dto.productId, branchId: dto.branchId },
+      // Atomic compare-and-decrement: the WHERE clause re-checks stock is
+      // still sufficient as part of the same UPDATE statement, so Postgres
+      // serializes concurrent issues against this row instead of letting
+      // two requests both read "enough stock" before either commits and
+      // driving stock negative.
+      const { count } = await tx.inventoryProduct.updateMany({
+        where: {
+          id: dto.productId,
+          branchId: dto.branchId,
+          stock: { gte: dto.quantity },
+        },
+        data: { stock: { decrement: dto.quantity } },
       });
-
-      if (!product || product.stock < dto.quantity) {
+      if (count === 0) {
         throw new BadRequestException(
           'Insufficient stock or product not found',
         );
@@ -133,12 +143,6 @@ export class InventoryService {
           branchId: dto.branchId!,
           status: 'ISSUED',
         },
-      });
-
-      // Update product stock
-      await tx.inventoryProduct.update({
-        where: { id: dto.productId, branchId: dto.branchId },
-        data: { stock: { decrement: dto.quantity } },
       });
 
       return issue;
@@ -249,10 +253,16 @@ export class InventoryService {
   // Sales
   async createSale(dto: CreateInventorySaleDto) {
     return this.prisma.$transaction(async (tx) => {
-      const product = await tx.inventoryProduct.findUnique({
-        where: { id: dto.productId, branchId: dto.branchId },
+      // Same atomic compare-and-decrement as issueItem — see comment there.
+      const { count } = await tx.inventoryProduct.updateMany({
+        where: {
+          id: dto.productId,
+          branchId: dto.branchId,
+          stock: { gte: dto.quantity },
+        },
+        data: { stock: { decrement: dto.quantity } },
       });
-      if (!product || product.stock < dto.quantity) {
+      if (count === 0) {
         throw new BadRequestException('Insufficient stock');
       }
 
@@ -261,13 +271,8 @@ export class InventoryService {
           ...dto,
           branchId: dto.branchId!,
           date: dto.date ? new Date(dto.date) : undefined,
-          totalPrice: Number(dto.quantity) * Number(dto.unitPrice),
+          totalPrice: new Decimal(dto.quantity).mul(dto.unitPrice),
         },
-      });
-
-      await tx.inventoryProduct.update({
-        where: { id: dto.productId, branchId: dto.branchId },
-        data: { stock: { decrement: dto.quantity } },
       });
 
       return sale;
