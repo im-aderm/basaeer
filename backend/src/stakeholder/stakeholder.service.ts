@@ -90,14 +90,16 @@ export class StakeholderService {
     });
   }
 
-  async getChildExams(studentId: string, parentId: string) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
+  async getChildExams(studentId: string, context: TenantContext) {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
     });
-    if (!student || student.parentId !== parentId)
-      throw new ForbiddenException();
+    if (!student) throw new NotFoundException('Student not found');
+    // Parent-only route — no staff-role bypass, a parent must be the exact
+    // linked guardian.
+    TenantHelper.assertOwnStudentRecord(student, context, []);
 
-    return this.prisma.assessmentRecord.findMany({
+    const records = await this.prisma.assessmentRecord.findMany({
       where: { studentId },
       include: {
         subject: true,
@@ -105,6 +107,29 @@ export class StakeholderService {
       },
       orderBy: [{ sessionId: 'desc' }, { term: 'desc' }],
     });
+    if (!records.length) return records;
+
+    // Only surface results the school has actually published — this used to
+    // return raw scores regardless of ResultPublication, letting a parent
+    // see a child's unpublished/still-being-graded scores.
+    const publications = await this.prisma.resultPublication.findMany({
+      where: {
+        branchId: student.branchId,
+        isPublished: true,
+        OR: Array.from(
+          new Set(records.map((r) => `${r.sessionId}::${r.term}`)),
+        ).map((key) => {
+          const [sessionId, term] = key.split('::');
+          return { sessionId, term: term as any };
+        }),
+      },
+    });
+    const publishedKeys = new Set(
+      publications.map((p) => `${p.sessionId}::${p.term}`),
+    );
+    return records.filter((r) =>
+      publishedKeys.has(`${r.sessionId}::${r.term}`),
+    );
   }
 
   async getParentEvents(parentId: string) {

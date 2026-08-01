@@ -7,6 +7,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
+import { findGradeMatch } from './grading.util';
 
 @Injectable()
 export class TahfeezService {
@@ -33,9 +34,7 @@ export class TahfeezService {
       throw new BadRequestException(
         'No grading scale configured for Tahfeez assessment',
       );
-    const match = scale.find(
-      (row) => score >= row.minScore.toNumber() && score <= row.maxScore.toNumber(),
-    );
+    const match = findGradeMatch(score, scale);
     if (!match)
       throw new BadRequestException(
         `Score ${score} is outside configured grading ranges`,

@@ -2,7 +2,7 @@ import { Processor, WorkerHost, OnWorkerEvent } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { ExamsService } from '../exams/exams.service';
+import { ResultComputationService } from '../exams/result-computation.service';
 
 @Processor('academic-computations')
 export class AcademicComputationProcessor extends WorkerHost {
@@ -10,7 +10,7 @@ export class AcademicComputationProcessor extends WorkerHost {
 
   constructor(
     private readonly prisma: PrismaService,
-    private readonly examsService: ExamsService,
+    private readonly resultComputationService: ResultComputationService,
   ) {
     super();
   }
@@ -33,7 +33,7 @@ export class AcademicComputationProcessor extends WorkerHost {
       });
 
       // Execute computation
-      await this.examsService.computeSectionResults(
+      await this.resultComputationService.computeSection(
         sectionId,
         sessionId,
         term,

@@ -110,7 +110,7 @@ export class StakeholderController {
     @Param('id') studentId: string,
     @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.stakeholderService.getChildExams(studentId, ctx.userId);
+    return this.stakeholderService.getChildExams(studentId, ctx);
   }
 
   @ApiBearerAuth()

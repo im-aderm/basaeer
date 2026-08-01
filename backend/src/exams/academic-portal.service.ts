@@ -6,6 +6,7 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { Term, UserRole } from '../generated/client/client';
+import { TenantHelper } from '../prisma/tenant-helper';
 
 @Injectable()
 export class AcademicPortalService {
@@ -24,23 +25,8 @@ export class AcademicPortalService {
       include: { user: true },
     });
     if (!student) throw new NotFoundException('Student not found');
-    const staffRoles: UserRole[] = [
-      UserRole.SUPER_ADMIN,
-      UserRole.BRANCH_ADMIN,
-      UserRole.PRINCIPAL,
-      UserRole.EXAM_OFFICER,
-      UserRole.ACADEMIC_OFFICER,
-      UserRole.HOD,
-      UserRole.TEACHER,
-    ];
-    if (staffRoles.includes(context.role)) return student;
-    if (context.role === UserRole.STUDENT && student.userId === context.userId)
-      return student;
-    if (context.role === UserRole.PARENT && student.parentId === context.userId)
-      return student;
-    throw new ForbiddenException(
-      'You are not authorized to access this student result',
-    );
+    TenantHelper.assertOwnStudentRecord(student, context);
+    return student;
   }
 
   async result(

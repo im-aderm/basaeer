@@ -15,6 +15,7 @@ import { Term, ExamTerm } from '../generated/client/client';
 import { ReportingService } from '../reporting/reporting.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
 import { END_OF_TERM_TEMPLATE } from '../reporting/templates/end-of-term.template';
+import { findGradeMatch } from './grading.util';
 import * as fs from 'fs';
 import * as path from 'path';
 import archiver from 'archiver';
@@ -203,7 +204,7 @@ export class ExamsService {
     classOfResult: string | null;
   } {
     this.assertCompleteGradingScale(scale);
-    const match = scale.find((s) => total >= s.minScore && total <= s.maxScore);
+    const match = findGradeMatch(total, scale);
     if (!match) {
       return {
         grade: 'Ungraded',
@@ -318,230 +319,28 @@ export class ExamsService {
     });
   }
 
-  async computeSectionResults(
-    sectionId: string,
-    sessionId: string,
-    term: Term,
-    context: TenantContext,
-  ) {
-    const students = await this.prisma.student.findMany({
-      where: TenantHelper.applyIsolation({ sectionId }, context),
-      select: { id: true, branchId: true },
-    });
-
-    // The term summary computation is lightweight enough to do sequentially or in chunks
-    // It's mostly database reads and aggregates, then one upsert.
-    // Doing them all concurrently could overload Prisma connection pool, so chunk them.
-    const chunkSize = 20;
-    for (let i = 0; i < students.length; i += chunkSize) {
-      const chunk = students.slice(i, i + chunkSize);
-      await Promise.all(
-        chunk.map((student) =>
-          this.generateTermSummary(
-            student.id,
-            sessionId,
-            term,
-            ExamTerm.END_OF_SESSION,
-          ),
-        ),
-      );
-    }
-
-    return { success: true, count: students.length };
-  }
-
-  async generateTermSummary(
+  /**
+   * Resolves the section a student is currently in, with tenant isolation
+   * applied. Used to redirect single-student "recompute my summary" actions
+   * onto the whole-section computation in ResultComputationService, since a
+   * lone AssessmentRecord is not a complete picture — one student's score
+   * changing shifts everyone else's class position too.
+   */
+  async resolveStudentSection(
     studentId: string,
-    sessionId: string,
-    term: Term,
-    examTerm: ExamTerm,
-  ) {
-    return this.prisma.$transaction(async (tx) => {
-      const student = await tx.student.findUnique({
-        where: { id: studentId },
-        select: { branchId: true },
-      });
-      if (!student) {
-        throw new NotFoundException(`Student ${studentId} not found`);
-      }
-      const branchId = student.branchId;
-
-      const studentRecords = await tx.assessmentRecord.findMany({
-        where: { studentId, sessionId, term },
-      });
-
-      if (studentRecords.length === 0) return null;
-
-      // Batch fetch all scores for all records of this student
-      const recordIds = studentRecords.map((r) => r.id);
-      const allScores = await tx.assessmentScore.findMany({
-        where: { recordId: { in: recordIds } },
-        include: { component: true },
-      });
-
-      const scoresByRecord = allScores.reduce((acc: Record<string, any[]>, s: any) => {
-        if (!acc[s.recordId]) acc[s.recordId] = [];
-        acc[s.recordId].push(s);
-        return acc;
-      }, {});
-
-      // Update all record totals dynamically before aggregating
-      for (const record of studentRecords) {
-        const scores = scoresByRecord[record.id] || [];
-
-        if (scores.length > 0) {
-          const total = scores.reduce((sum: number, s: any) => {
-            const weight = s.component.weight || 0;
-            const maxScore = s.component.maxScore || 100;
-            const normalizedScore = maxScore > 0 ? (s.score / maxScore) * 100 : 0;
-            return sum + (normalizedScore * (weight / 100));
-          }, 0);
-          
-          const roundedTotal = Math.round(total * 100) / 100;
-          await tx.assessmentRecord.update({
-            where: { id: record.id },
-            data: { total: roundedTotal },
-          });
-          (record as any).total = roundedTotal; // Update local object for aggregation below
-        }
-      }
-
-      const totalScore = studentRecords.reduce(
-        (acc, r) => acc + Number(r.total || 0),
-        0,
-      );
-      const average = totalScore / studentRecords.length;
-      const gradingScale = await tx.gradingScale.findMany({
-        where: { branchId },
-        orderBy: { minScore: 'desc' },
-      });
-      const finalGrade = this.calculateGradeFromScale(average, gradingScale);
-      const cgpa = this.calculateAverageGradePoint(
-        studentRecords,
-        gradingScale,
-      );
-
-      // Calculate Attendance Stats
-      // We'll fetch all attendance records for this student in this session
-      const session = await tx.academicSession.findUnique({
-        where: { id: sessionId },
-      });
-      if (!session) {
-        // Should not happen if foreign keys are enforced, but good for safety
-        throw new Error(`Session ${sessionId} not found`);
-      }
-
-      const attendanceRecords = await tx.attendance.findMany({
-        where: {
-          studentId,
-          date: {
-            gte: session.startDate,
-            lte: session.endDate,
-          },
-        },
-      });
-
-      const attendancePresent = attendanceRecords.filter(
-        (a) => a.status === 'PRESENT' || a.status === 'LATE',
-      ).length;
-      const attendanceAbsent = attendanceRecords.filter(
-        (a) => a.status === 'ABSENT',
-      ).length;
-      const attendanceOpen = attendanceRecords.length;
-
-      const summary = await tx.resultSummary.upsert({
-        where: {
-          studentId_sessionId_term: { studentId, sessionId, term },
-        },
-        update: {
-          totalScore,
-          average,
-          examTerm,
-          finalGrade: finalGrade.grade,
-          finalRemark: finalGrade.remark,
-          cgpa,
-          classOfResult: finalGrade.classOfResult,
-          promotionStatus: average >= 50 ? 'PROMOTED' : 'REQUIRES_REVIEW',
-          attendancePresent,
-          attendanceAbsent,
-          attendanceOpen,
-          branchId,
-        },
-        create: {
-          studentId,
-          sessionId,
-          term,
-          totalScore,
-          average,
-          examTerm,
-          finalGrade: finalGrade.grade,
-          finalRemark: finalGrade.remark,
-          cgpa,
-          classOfResult: finalGrade.classOfResult,
-          promotionStatus: average >= 50 ? 'PROMOTED' : 'REQUIRES_REVIEW',
-          attendancePresent,
-          attendanceAbsent,
-          attendanceOpen,
-          branchId,
-        },
-      });
-
-      // After updating this student, refresh class rankings for the summary
-      if (studentRecords[0].sectionId) {
-        await this.updateClassRanking(
-          tx,
-          studentRecords[0].sectionId,
-          sessionId,
-          term,
-        );
-      }
-
-      return summary;
+    context: TenantContext,
+  ): Promise<string> {
+    const student = await this.prisma.student.findFirst({
+      where: TenantHelper.applyIsolation({ id: studentId }, context),
+      select: { sectionId: true },
     });
-  }
-
-  async updateClassRanking(
-    tx: any,
-    sectionId: string,
-    sessionId: string,
-    term: Term,
-  ) {
-    const summaries = await tx.resultSummary.findMany({
-      where: {
-        student: { sectionId },
-        sessionId,
-        term,
-      },
-      orderBy: { average: 'desc' },
-    });
-
-    const countInClass = summaries.length;
-    if (countInClass === 0) return;
-
-    const averages = summaries.map((s: any) => s.average || 0);
-    const highestAvg = Math.max(...averages);
-    const lowestAvg = Math.min(...averages);
-
-    let rank = 1;
-    let prevAvg = -1;
-
-    for (let i = 0; i < summaries.length; i++) {
-      const s = summaries[i];
-      if (s.average < prevAvg) {
-        rank = i + 1;
-      }
-
-      await tx.resultSummary.update({
-        where: { id: s.id },
-        data: {
-          classPosition: rank,
-          countInClass,
-          highestAvg,
-          lowestAvg,
-        },
-      });
-      prevAvg = s.average || 0;
+    if (!student) {
+      throw new NotFoundException(`Student ${studentId} not found`);
     }
+    if (!student.sectionId) {
+      throw new BadRequestException('Student is not assigned to a section');
+    }
+    return student.sectionId;
   }
 
   async formatReportData(dbData: any, currentTerm: Term) {

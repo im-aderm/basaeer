@@ -7,6 +7,13 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { TenantContext } from '../auth/branch.guard';
 import { ExamTerm, Term } from '../generated/client/client';
+import { findGradeMatch } from './grading.util';
+
+const EXAM_TERM_BY_TERM: Record<Term, ExamTerm> = {
+  FIRST: ExamTerm.FIRST_TERM,
+  SECOND: ExamTerm.SECOND_TERM,
+  THIRD: ExamTerm.THIRD_TERM,
+};
 
 @Injectable()
 export class ResultComputationService {
@@ -42,9 +49,7 @@ export class ResultComputationService {
   }
 
   private gradeFor(score: number, scale: any[]) {
-    const match = scale.find(
-      (row) => score >= row.minScore && score <= row.maxScore,
-    );
+    const match = findGradeMatch(score, scale);
     if (!match)
       throw new BadRequestException(
         `Score ${score} is outside configured grading ranges`,
@@ -144,7 +149,7 @@ export class ResultComputationService {
             classOfResult: grade.classOfResult,
             promotionStatus:
               grade.classOfResult === 'FAIL' ? 'REQUIRES_REVIEW' : 'PROMOTED',
-            examTerm: ExamTerm.END_OF_SESSION,
+            examTerm: EXAM_TERM_BY_TERM[term],
             branchId,
           },
           create: {
@@ -159,7 +164,7 @@ export class ResultComputationService {
             classOfResult: grade.classOfResult,
             promotionStatus:
               grade.classOfResult === 'FAIL' ? 'REQUIRES_REVIEW' : 'PROMOTED',
-            examTerm: ExamTerm.END_OF_SESSION,
+            examTerm: EXAM_TERM_BY_TERM[term],
             branchId,
           },
         });

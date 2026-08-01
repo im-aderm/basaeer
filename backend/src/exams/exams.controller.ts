@@ -37,7 +37,7 @@ import { GetTenantContext } from '../auth/tenant-context.decorator';
 import { TenantContext } from '../auth/branch.guard';
 import { Roles } from '../auth/roles.decorator';
 import { Permissions } from '../auth/permissions.decorator';
-import { UserRole, Term, ExamTerm } from '../generated/client/client';
+import { UserRole, Term } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
 import {
   ApiTags,
@@ -676,17 +676,25 @@ export class ExamsController {
   @Post('summarize/:studentId')
   @Permissions('exams:create')
   @Roles(UserRole.SUPER_ADMIN, UserRole.TEACHER, UserRole.BRANCH_ADMIN)
-  summarizeTerm(
+  async summarizeTerm(
     @Param('studentId') studentId: string,
     @Body('sessionId') sessionId: string,
     @Body('term') term: Term,
-    @Body('examTerm') examTerm: ExamTerm,
+    @GetTenantContext() ctx: TenantContext,
   ) {
-    return this.examsService.generateTermSummary(
+    // A single student's summary can't be recomputed in isolation — their
+    // score shifts everyone else's class position, so this delegates to the
+    // whole-section computation (the one canonical grading/ranking engine)
+    // rather than the old standalone per-student summary path.
+    const sectionId = await this.examsService.resolveStudentSection(
       studentId,
+      ctx,
+    );
+    return this.resultComputationService.computeSection(
+      sectionId,
       sessionId,
       term,
-      examTerm,
+      ctx,
     );
   }
 
