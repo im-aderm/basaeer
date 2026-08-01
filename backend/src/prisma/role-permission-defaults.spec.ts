@@ -26,16 +26,13 @@ describe('DEFAULT_ROLE_PERMISSIONS', () => {
 
   it('every entry has a non-empty module and a known action', () => {
     // Four CRUD defaults, plus specific high-risk actions called out in the
-    // remediation plan (finance:apply-discount, exams:lock-results,
-    // exams:toggle-eligibility, users:deactivate, cards:generate).
+    // remediation plan (finance:apply-discount, users:deactivate, cards:generate).
     const knownActions = new Set([
       'create',
       'read',
       'update',
       'delete',
       'apply-discount',
-      'lock-results',
-      'toggle-eligibility',
       'deactivate',
       'generate',
     ]);

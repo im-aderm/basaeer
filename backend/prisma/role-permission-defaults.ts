@@ -35,10 +35,6 @@ export const DEFAULT_ROLE_PERMISSIONS: Array<{
   // to match — same roles as before, just a more legible permission name.
   { role: UserRole.SUPER_ADMIN, module: 'finance', action: 'apply-discount' },
   { role: UserRole.BRANCH_ADMIN, module: 'finance', action: 'apply-discount' },
-  { role: UserRole.SUPER_ADMIN, module: 'exams', action: 'lock-results' },
-  { role: UserRole.BRANCH_ADMIN, module: 'exams', action: 'lock-results' },
-  { role: UserRole.SUPER_ADMIN, module: 'exams', action: 'toggle-eligibility' },
-  { role: UserRole.BRANCH_ADMIN, module: 'exams', action: 'toggle-eligibility' },
   { role: UserRole.SUPER_ADMIN, module: 'users', action: 'deactivate' },
   { role: UserRole.BRANCH_ADMIN, module: 'users', action: 'deactivate' },
   { role: UserRole.SUPER_ADMIN, module: 'cards', action: 'generate' },

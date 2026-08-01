@@ -63,16 +63,6 @@ export const ExamService = {
         return response.data;
     },
 
-    toggleEligibility: async (studentId: string, data: { subjectId: string; sessionId: string; term: Term; isEligible: boolean }) => {
-        const response = await api.post(`/exams/eligibility/${studentId}`, data);
-        return response.data;
-    },
-
-    publishResults: async (data: { sectionId: string; sessionId: string; term: Term; isLocked: boolean }) => {
-        const response = await api.post("/exams/publish", data);
-        return response.data;
-    },
-
     // Broadsheet
     getBroadsheet: async (sectionId: string, sessionId: string, term: Term) => {
         const response = await api.get(`/exams/broadsheet/${sectionId}/${sessionId}/${term}`, {

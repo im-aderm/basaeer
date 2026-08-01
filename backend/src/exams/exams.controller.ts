@@ -691,52 +691,6 @@ export class ExamsController {
   }
 
   @ApiBearerAuth()
-  @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Toggle Eligibility' })
-  @Post('eligibility/:studentId')
-  @Permissions('exams:toggle-eligibility')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  toggleEligibility(
-    @Param('studentId') studentId: string,
-    @Body('subjectId') subjectId: string,
-    @Body('sessionId') sessionId: string,
-    @Body('term') term: Term,
-    @Body('isEligible') isEligible: boolean,
-    @GetTenantContext() ctx: TenantContext,
-  ) {
-    return this.examsService.toggleEligibility(
-      studentId,
-      subjectId,
-      sessionId,
-      term,
-      isEligible,
-      ctx,
-    );
-  }
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Publish Results' })
-  @Post('publish')
-  @Permissions('exams:lock-results')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  publishResults(
-    @Body('sectionId') sectionId: string,
-    @Body('sessionId') sessionId: string,
-    @Body('term') term: Term,
-    @Body('isLocked') isLocked: boolean,
-    @GetTenantContext() ctx: TenantContext,
-  ) {
-    return this.examsService.lockResultsBatch(
-      sectionId,
-      sessionId,
-      term,
-      isLocked,
-      ctx,
-    );
-  }
-
-  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
   @ApiOperation({ summary: 'Retrieve resource' })
   @Get('report/:studentId/:sessionId/:term')
@@ -880,21 +834,6 @@ export class ExamsController {
     readStream.pipe(res);
   }
 
-  @ApiBearerAuth()
-  @ApiResponse({ status: 201, description: 'Operation successful' })
-  @ApiOperation({ summary: 'Create Lock Result' })
-  @Post('lock/:studentId')
-  @Permissions('exams:lock-results')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.BRANCH_ADMIN)
-  lockResult(
-    @Param('studentId') studentId: string,
-    @Body('sessionId') sessionId: string,
-    @Body('term') term: Term,
-    @Body('isLocked') isLocked: boolean,
-    @GetTenantContext() ctx: TenantContext,
-  ) {
-    return this.examsService.lockResults(studentId, sessionId, term, isLocked, ctx);
-  }
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'Operation successful' })
