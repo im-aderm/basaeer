@@ -69,7 +69,7 @@ export class HealthController {
     const [pg, rd, bq] = await Promise.all([
       this.checkPostgres(),
       this.checkRedis(),
-      { status: 'unknown' },
+      Promise.resolve({ status: 'unknown' }),
     ]);
 
     const services = {

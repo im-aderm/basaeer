@@ -44,7 +44,7 @@ export function computeDiscount(
     }
     if (caps.maxPercent != null && value.gt(caps.maxPercent)) {
       throw new BadRequestException(
-        `Discount of ${value}% exceeds the maximum allowed ${caps.maxPercent}%.`,
+        `Discount of ${value.toString()}% exceeds the maximum allowed ${caps.maxPercent.toString()}%.`,
       );
     }
     discountAmount = gross.mul(value).div(100);
@@ -59,7 +59,7 @@ export function computeDiscount(
   }
   if (caps.maxAmount != null && discountAmount.gt(caps.maxAmount)) {
     throw new BadRequestException(
-      `Discount amount exceeds the maximum allowed (${caps.maxAmount}).`,
+      `Discount amount exceeds the maximum allowed (${caps.maxAmount.toString()}).`,
     );
   }
 

@@ -86,7 +86,7 @@ async function main() {
 
   for (const { model, label } of tablesToCheck) {
     try {
-      // @ts-ignore - dynamic model access
+      // @ts-expect-error - dynamic model access
       const records = await prisma[model].findMany({
         select: { id: true, branchId: true },
       });
@@ -143,7 +143,7 @@ async function main() {
     console.log('\n⚠️  DELETING orphaned records...\n');
     for (const { model } of tablesToCheck) {
       try {
-        // @ts-ignore
+        // @ts-expect-error - dynamic model access
         const records = await prisma[model].findMany({
           select: { id: true, branchId: true },
         });
@@ -155,7 +155,7 @@ async function main() {
           .map((r: { id: string }) => r.id);
 
         if (orphanedIds.length > 0) {
-          // @ts-ignore
+          // @ts-expect-error - dynamic model access
           await prisma[model].deleteMany({ where: { id: { in: orphanedIds } } });
           console.log(`  Deleted ${orphanedIds.length} from ${model}`);
         }
@@ -176,7 +176,7 @@ async function main() {
     );
     for (const { model } of tablesToCheck) {
       try {
-        // @ts-ignore
+        // @ts-expect-error - dynamic model access
         const records = await prisma[model].findMany({
           select: { id: true, branchId: true },
         });
@@ -188,7 +188,7 @@ async function main() {
           .map((r: { id: string }) => r.id);
 
         if (orphanedIds.length > 0) {
-          // @ts-ignore
+          // @ts-expect-error - dynamic model access
           await prisma[model].updateMany({
             where: { id: { in: orphanedIds } },
             data: { branchId: targetBranchId },

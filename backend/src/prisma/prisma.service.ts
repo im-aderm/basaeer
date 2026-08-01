@@ -66,6 +66,7 @@ export class PrismaService
     // client instance whose $transaction() actually works, used inside
     // $allOperations to pin the branch/session GUC and the operation itself
     // to the same physical connection (see the comment further down).
+    // eslint-disable-next-line @typescript-eslint/no-this-alias -- deliberate: captures the un-extended client before $extends() below wraps `this` in a Proxy, so $allOperations can reach a real client whose $transaction() works (see comment above).
     const rawClient: PrismaClient = this;
 
     this.xprisma = this.$extends({

@@ -298,7 +298,7 @@ export class AssessmentService {
 
     const maxScore = existing.component.maxScore;
     if (score < 0 || score > maxScore.toNumber()) {
-      throw new BadRequestException(`Score must be between 0 and ${maxScore}`);
+      throw new BadRequestException(`Score must be between 0 and ${maxScore.toString()}`);
     }
 
     const result = await this.prisma.assessmentScore.update({

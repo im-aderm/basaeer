@@ -187,7 +187,10 @@ export default function AdmissionsManagementPage() {
         }
     };
 
-    const SortIndicator = ({ field }: { field: SortField }) => {
+    // A plain function (called as {renderSortIndicator(...)}, not <SortIndicator />)
+    // rather than a component defined inside render, which React flags since it
+    // would be recreated — and lose any state — on every render.
+    const renderSortIndicator = (field: SortField) => {
         if (sortField !== field) return <span className={SORT_ICON}>↕</span>;
         return <span className={SORT_ICON}>{sortDirection === "asc" ? <ArrowUp size={10} /> : <ArrowDown size={10} />}</span>;
     };
@@ -326,22 +329,22 @@ export default function AdmissionsManagementPage() {
                             <thead>
                                 <tr className={TABLE_HEADER}>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("name")}>
-                                        Applicant <SortIndicator field="name" />
+                                        Applicant {renderSortIndicator("name")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("class")}>
-                                        Class <SortIndicator field="class" />
+                                        Class {renderSortIndicator("class")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("guardian")}>
-                                        Guardian <SortIndicator field="guardian" />
+                                        Guardian {renderSortIndicator("guardian")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("status")}>
-                                        Status <SortIndicator field="status" />
+                                        Status {renderSortIndicator("status")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("payment")}>
-                                        Payment <SortIndicator field="payment" />
+                                        Payment {renderSortIndicator("payment")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("date")}>
-                                        Date <SortIndicator field="date" />
+                                        Date {renderSortIndicator("date")}
                                     </th>
                                     <th className={TABLE_HEADER_CELL + " text-right"}>Actions</th>
                                 </tr>

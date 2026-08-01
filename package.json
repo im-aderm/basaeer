@@ -2,9 +2,9 @@
   "name": "basaer-monorepo",
   "private": true,
   "workspaces": [
+    "packages/*",
     "backend",
-    "frontend",
-    "packages/*"
+    "frontend"
   ],
   "scripts": {
     "build": "npm run build --workspaces",

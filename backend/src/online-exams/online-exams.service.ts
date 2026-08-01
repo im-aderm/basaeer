@@ -388,7 +388,7 @@ export class OnlineExamsService {
       if (!question) throw new NotFoundException('Question not found');
       if (marks > Number(question.marks)) {
         throw new BadRequestException(
-          `Marks awarded (${marks}) cannot exceed maximum allowed marks (${question.marks})`,
+          `Marks awarded (${marks}) cannot exceed maximum allowed marks (${question.marks.toString()})`,
         );
       }
 

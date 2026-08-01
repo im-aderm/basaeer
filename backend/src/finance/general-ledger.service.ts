@@ -127,10 +127,10 @@ export class GeneralLedgerService {
 
     if (!totalDebits.eq(totalCredits)) {
       this.logger.error(
-        `Unbalanced journal: debits=${totalDebits}, credits=${totalCredits} for ref=${referenceId}`,
+        `Unbalanced journal: debits=${totalDebits.toString()}, credits=${totalCredits.toString()} for ref=${referenceId}`,
       );
       throw new Error(
-        `Journal entry is not balanced. Debits: ${totalDebits}, Credits: ${totalCredits}`,
+        `Journal entry is not balanced. Debits: ${totalDebits.toString()}, Credits: ${totalCredits.toString()}`,
       );
     }
 

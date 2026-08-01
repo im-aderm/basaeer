@@ -37,11 +37,11 @@ export default function BookIssueReturnPage() {
     const [submitting, setSubmitting] = useState(false);
     const [search, setSearch] = useState("");
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState(() => ({
         bookId: "",
         studentId: "",
         dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split("T")[0],
-    });
+    }));
 
     const fetchData = async () => {
         setLoading(true);

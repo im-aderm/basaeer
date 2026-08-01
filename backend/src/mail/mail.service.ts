@@ -1,5 +1,6 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import * as path from 'path';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { BranchBrandingService } from '../branches/branch-branding.service';
@@ -751,7 +752,7 @@ export class MailService implements OnModuleInit {
   }
 
   private getDocumentPath(filename: string): string {
-    return require('path').join(__dirname, '..', '..', 'public', 'documents', filename);
+    return path.join(__dirname, '..', '..', 'public', 'documents', filename);
   }
 
   async sendReportCardEmail(

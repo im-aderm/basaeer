@@ -41,11 +41,11 @@ export default function LibraryReservationsPage() {
     const [isCopyOpen, setIsCopyOpen] = useState(false);
     const [copyForm, setCopyForm] = useState({ bookId: "", barcode: "", accessionNumber: "" });
 
-    const [barcodeForm, setBarcodeForm] = useState({
+    const [barcodeForm, setBarcodeForm] = useState(() => ({
         barcode: "",
         studentId: "",
         dueDate: new Date(Date.now() + 14 * 86400000).toISOString().split("T")[0],
-    });
+    }));
 
     const fetchData = async () => {
         setLoading(true);

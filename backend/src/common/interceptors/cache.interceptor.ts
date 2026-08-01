@@ -34,12 +34,16 @@ export class CacheInterceptor implements NestInterceptor {
     }
 
     return next.handle().pipe(
-      tap(async (data) => {
-        try {
-          await this.redis.setex(key, ttlSeconds, JSON.stringify(data));
-        } catch {
-          // Silently fail if Redis is down
-        }
+      tap((data) => {
+        // Fire-and-forget: the response pipeline shouldn't wait on the
+        // cache write, so this is a floating promise on purpose.
+        void (async () => {
+          try {
+            await this.redis.setex(key, ttlSeconds, JSON.stringify(data));
+          } catch {
+            // Silently fail if Redis is down
+          }
+        })();
       }),
     );
   }

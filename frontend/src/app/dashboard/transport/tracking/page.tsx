@@ -15,6 +15,10 @@ export default function TransportTrackingPage() {
     const { showError } = useNotification();
     const [locations, setLocations] = useState<VehicleLocation[]>([]);
     const [loading, setLoading] = useState(true);
+    // Tracked as state (updated on the same poll cadence) rather than read
+    // directly during render, which would call the impure Date.now() on
+    // every render pass.
+    const [now, setNow] = useState(() => Date.now());
 
     const fetchLocations = useCallback(async () => {
         try {
@@ -30,13 +34,16 @@ export default function TransportTrackingPage() {
 
     useEffect(() => {
         fetchLocations();
-        const interval = setInterval(fetchLocations, POLL_INTERVAL_MS);
+        const interval = setInterval(() => {
+            fetchLocations();
+            setNow(Date.now());
+        }, POLL_INTERVAL_MS);
         return () => clearInterval(interval);
     }, [fetchLocations]);
 
     const isStale = (lastPing: string | null) => {
         if (!lastPing) return true;
-        return Date.now() - new Date(lastPing).getTime() > 30 * 60 * 1000;
+        return now - new Date(lastPing).getTime() > 30 * 60 * 1000;
     };
 
     if (loading) return (
