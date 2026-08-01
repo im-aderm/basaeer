@@ -39,6 +39,7 @@ import { Roles } from '../auth/roles.decorator';
 import { Permissions } from '../auth/permissions.decorator';
 import { UserRole, Term } from '../generated/client/client';
 import { Public } from '../auth/public.decorator';
+import { Throttle } from '@nestjs/throttler';
 import {
   ApiTags,
   ApiOperation,
@@ -497,6 +498,15 @@ export class ExamsController {
   @Get('verify/transcript/:code')
   verifyTranscript(@Param('code') code: string) {
     return this.transcriptService.verify(code);
+  }
+
+  @Public()
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Verify a report-card QR/link code' })
+  @Get('verify/result/:code')
+  verifyResult(@Param('code') code: string) {
+    return this.examsService.verifyResultCode(code);
   }
 
   @ApiResponse({ status: 201, description: 'Operation successful' })

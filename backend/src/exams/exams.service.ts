@@ -16,6 +16,8 @@ import { ReportingService } from '../reporting/reporting.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
 import { ReportTemplatesService } from '../report-templates/report-templates.service';
 import { REPORT_TEMPLATE_TYPES } from '../report-templates/built-in-templates';
+import { ResultVerificationService } from './result-verification.service';
+import * as QRCode from 'qrcode';
 import { findGradeMatch } from './grading.util';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -29,6 +31,7 @@ export class ExamsService {
     private readonly reportingService: ReportingService,
     private readonly branchBrandingService: BranchBrandingService,
     private readonly reportTemplatesService: ReportTemplatesService,
+    private readonly resultVerificationService: ResultVerificationService,
   ) {}
 
   private async logAction(
@@ -369,6 +372,19 @@ export class ExamsService {
       classAverage = (agg._avg.average || 0).toFixed(1);
     }
 
+    // Lets anyone who scans the printed report verify it against the live
+    // record (Phase 3/4 of the reporting refactor) — the code itself is
+    // stateless (see ResultVerificationService), so this needs no DB write.
+    let qrCodeDataUrl = '';
+    if (summary.sessionId) {
+      const verificationUrl = this.resultVerificationService.verificationUrl(
+        student.id,
+        summary.sessionId,
+        currentTerm,
+      );
+      qrCodeDataUrl = await QRCode.toDataURL(verificationUrl, { margin: 1, width: 160 });
+    }
+
     return {
       schoolName: branding.name,
       schoolAddress: branding.address,
@@ -398,6 +414,7 @@ export class ExamsService {
       timesPresent: summary.attendancePresent || 0,
       timesAbsent: summary.attendanceAbsent || 0,
       classAverage,
+      qrCodeDataUrl,
       studentName: `${student.user?.firstName} ${student.user?.lastName}`,
       admissionNo: student.user?.email.split('@')[0].toUpperCase(), // Using email as fallback for Reg No
       gender: student.gender || 'N/A',
@@ -769,6 +786,66 @@ export class ExamsService {
     });
 
     return { headers, rows };
+  }
+
+  /**
+   * Public/unauthenticated lookup behind the QR code on a report card and
+   * the result-checker page's `?code=` fast path. Returns a minimal safe
+   * payload only if the code's signature is valid AND the result is
+   * currently published — never raw per-subject scores.
+   */
+  async verifyResultCode(code: string) {
+    const decoded = this.resultVerificationService.verifyCode(code);
+    if (!decoded) {
+      return { valid: false, reason: 'Invalid or tampered verification code' };
+    }
+    const { studentId, sessionId, term } = decoded;
+    if (!Object.values(Term).includes(term as Term)) {
+      return { valid: false, reason: 'Invalid or tampered verification code' };
+    }
+
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId },
+      include: { user: true, class: true, section: true },
+    });
+    if (!student) {
+      return { valid: false, reason: 'Student record not found' };
+    }
+
+    const publication = await this.prisma.resultPublication.findFirst({
+      where: {
+        branchId: student.branchId,
+        sessionId,
+        term: term as Term,
+        isPublished: true,
+      },
+    });
+    if (!publication) {
+      return { valid: false, reason: 'Result has not been published' };
+    }
+
+    const [summary, session] = await Promise.all([
+      this.prisma.resultSummary.findUnique({
+        where: { studentId_sessionId_term: { studentId, sessionId, term: term as Term } },
+      }),
+      this.prisma.academicSession.findUnique({ where: { id: sessionId } }),
+    ]);
+    if (!summary) {
+      return { valid: false, reason: 'Result summary not found' };
+    }
+
+    return {
+      valid: true,
+      studentName: `${student.user?.firstName || student.firstName} ${student.user?.lastName || student.lastName}`,
+      className: student.class?.name || 'N/A',
+      sectionName: student.section?.name || '',
+      sessionName: session?.name || '',
+      term,
+      average: summary.average != null ? Number(summary.average).toFixed(1) : null,
+      finalGrade: summary.finalGrade || null,
+      classPosition: summary.classPosition ? this.ordinal(summary.classPosition) : null,
+      publishedAt: publication.publishedAt,
+    };
   }
 
   async getGradingScales(branchId: string) {

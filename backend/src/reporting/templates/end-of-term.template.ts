@@ -205,6 +205,13 @@ export const END_OF_TERM_TEMPLATE = `
             <div class="sig-box">Form Teacher's Signature</div>
             <div class="sig-box">Principal's Signature</div>
         </div>
+
+        {{#if qrCodeDataUrl}}
+        <div style="text-align: center; margin-top: 15px;">
+            <img src="{{qrCodeDataUrl}}" width="70" height="70" />
+            <div style="font-size: 7pt; color: #666;">Scan to verify this result</div>
+        </div>
+        {{/if}}
     </div>
 </body>
 </html>

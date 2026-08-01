@@ -11,6 +11,7 @@ import { ResultApprovalService } from './result-approval.service';
 import { TranscriptService } from './transcript.service';
 import { TahfeezService } from './tahfeez.service';
 import { AcademicPortalService } from './academic-portal.service';
+import { ResultVerificationService } from './result-verification.service';
 
 @Module({
   imports: [PrismaModule, ReportingModule, BranchesModule, ReportTemplatesModule],
@@ -23,6 +24,7 @@ import { AcademicPortalService } from './academic-portal.service';
     TranscriptService,
     TahfeezService,
     AcademicPortalService,
+    ResultVerificationService,
   ],
   exports: [
     ExamsService,
@@ -32,6 +34,7 @@ import { AcademicPortalService } from './academic-portal.service';
     TranscriptService,
     TahfeezService,
     AcademicPortalService,
+    ResultVerificationService,
   ],
 })
 export class ExamsModule {}
