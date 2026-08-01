@@ -348,18 +348,17 @@ export class ExamsService {
     const summary = student.resultSummaries[0] || {};
     const rating = student.behaviouralRatings[0] || {};
 
-    const schoolLogoSetting = await this.prisma.globalSetting.findFirst({
-      where: { key: 'SCHOOL_LOGO', branchId: student.branchId },
-    });
-    const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({
-      where: { key: 'SCHOOL_WATERMARK', branchId: student.branchId },
-    });
+    const branding = await this.branchBrandingService.getBranding(student.branchId);
 
     return {
-      schoolName: student.branch?.name || '',
-      schoolAddress: student.branch?.address || '',
-      schoolLogo: schoolLogoSetting?.value || '',
-      schoolWatermark: schoolWatermarkSetting?.value || '',
+      schoolName: branding.name,
+      schoolAddress: branding.address,
+      schoolLogo: branding.logoUrl || '',
+      // No dedicated watermark asset exists on Branch — a faded school logo
+      // doubles as the watermark, matching how the physical report cards use
+      // their own crest as the page seal.
+      schoolWatermark: branding.logoUrl || '',
+      primaryColor: branding.primaryColor,
       studentPhoto: student.passportPhoto || '',
       reportType:
         currentTerm === Term.THIRD
@@ -491,10 +490,7 @@ export class ExamsService {
       },
     });
 
-    if (!student) return null;
-
-    const branding = await this.branchBrandingService.getBranding(student.branchId);
-    return { ...student, branding };
+    return student;
   }
 
   async generateAnnualCumulative(studentId: string, sessionId: string) {
@@ -596,19 +592,17 @@ export class ExamsService {
           where: { sessionId, examTerm: ExamTerm.ANNUAL_CUMULATIVE },
           include: { session: true },
         },
+        behaviouralRatings: {
+          where: { sessionId, term: Term.THIRD },
+        },
       },
     });
 
     if (!student) return null;
 
     const summary = student.resultSummaries[0] || {};
+    const rating = student.behaviouralRatings[0] || {};
 
-    const schoolLogoSetting = await this.prisma.globalSetting.findFirst({
-      where: { key: 'SCHOOL_LOGO', branchId: student.branchId },
-    });
-    const schoolWatermarkSetting = await this.prisma.globalSetting.findFirst({
-      where: { key: 'SCHOOL_WATERMARK', branchId: student.branchId },
-    });
     const gradingScale = await this.prisma.gradingScale.findMany({
       where: { branchId: student.branchId },
       orderBy: { minScore: 'desc' },
@@ -656,22 +650,30 @@ export class ExamsService {
       };
     });
 
-    let branding = null;
-    if (student.branchId) {
-      branding = await this.branchBrandingService.getBranding(student.branchId);
-    }
+    const branding = await this.branchBrandingService.getBranding(student.branchId);
 
     return {
-      schoolName: student.branch?.name || '',
-      schoolLogo: schoolLogoSetting?.value || '',
-      schoolWatermark: schoolWatermarkSetting?.value || '',
-      logoUrl: branding?.logoUrl || schoolLogoSetting?.value || null,
-      primaryColor: branding?.primaryColor || '#2563EB',
+      schoolName: branding.name,
+      schoolAddress: branding.address,
+      schoolLogo: branding.logoUrl || '',
+      schoolWatermark: branding.logoUrl || '',
+      logoUrl: branding.logoUrl || null,
+      primaryColor: branding.primaryColor,
       sessionName: student.assessmentRecords[0]?.session?.name || '',
       studentName: `${student.user?.firstName} ${student.user?.lastName}`,
       studentPhoto: student.passportPhoto || null,
       className: student.class?.name || 'N/A',
       classPosition: this.ordinal(summary.classPosition || 0),
+      behaviouralRatings: {
+        punctuality: rating.punctuality || '-',
+        classAttendance: rating.classAttendance || '-',
+        attentiveness: rating.attentiveness || '-',
+        carryingOutAssignments: rating.carryingOutAssignments || '-',
+        participation: rating.participation || '-',
+        neatness: rating.neatness || '-',
+        honesty: rating.honesty || '-',
+        selfControl: rating.selfControl || '-',
+      },
       totalAnnualScore: subjects
         .reduce((acc, s) => acc + parseFloat(s.annualAvg), 0)
         .toFixed(1),
@@ -745,12 +747,7 @@ export class ExamsService {
       return studentRow;
     });
 
-    let branding = null;
-    if (students.length > 0) {
-      branding = await this.branchBrandingService.getBranding(students[0].branchId);
-    }
-
-    return { headers, rows, branding };
+    return { headers, rows };
   }
 
   async getGradingScales(branchId: string) {

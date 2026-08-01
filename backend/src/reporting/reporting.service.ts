@@ -1,9 +1,11 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import PDFDocument from 'pdfkit';
 import * as ExcelJS from 'exceljs';
 import * as fs from 'fs';
 import * as path from 'path';
+import type { Browser } from 'puppeteer';
+import Handlebars from 'handlebars';
 import {
   StudentReportQueryDto,
   FinanceReportQueryDto,
@@ -31,7 +33,7 @@ import {
 } from 'date-fns';
 
 @Injectable()
-export class ReportingService {
+export class ReportingService implements OnModuleDestroy {
   private readonly logger = new Logger(ReportingService.name);
   private readonly exportDir = path.join(
     process.cwd(),
@@ -40,9 +42,51 @@ export class ReportingService {
     'exports',
   );
 
+  // One headless Chromium instance is launched lazily and reused across every
+  // PDF render — launching a fresh browser per request (~300-500ms + a new
+  // process) doesn't scale under real concurrency (batch/bulk exports can
+  // render dozens of PDFs back to back).
+  private browserPromise: Promise<Browser> | null = null;
+
   constructor(private prisma: PrismaService) {
     if (!fs.existsSync(this.exportDir)) {
       fs.mkdirSync(this.exportDir, { recursive: true });
+    }
+  }
+
+  private async getBrowser(): Promise<Browser> {
+    if (!this.browserPromise) {
+      // Lazily required (not statically imported) so importing this service
+      // never pulls in puppeteer's ESM entry unless a PDF is actually
+      // rendered — jest's default CJS transform can't parse it from
+      // node_modules on a static import.
+      const puppeteer: typeof import('puppeteer') = require('puppeteer');
+      this.browserPromise = puppeteer
+        .launch({
+          headless: true,
+          // Containers typically run as root with no setuid sandbox helper
+          // available — the standard flags for running Chromium in Docker.
+          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        })
+        .then((browser: Browser) => {
+          browser.on('disconnected', () => {
+            this.logger.warn('Puppeteer browser disconnected, will relaunch on next render');
+            this.browserPromise = null;
+          });
+          return browser;
+        })
+        .catch((error: unknown) => {
+          this.browserPromise = null;
+          throw error;
+        });
+    }
+    return this.browserPromise as Promise<Browser>;
+  }
+
+  async onModuleDestroy() {
+    if (this.browserPromise) {
+      const browser = await this.browserPromise.catch(() => null);
+      await browser?.close();
     }
   }
 
@@ -63,18 +107,36 @@ export class ReportingService {
   }
 
   async fillTemplate(template: string, data: any): Promise<string> {
-    return this.resolvePlaceholders(template, data);
+    const compiled = Handlebars.compile(template, { noEscape: true });
+    return compiled(data);
   }
 
-  async generatePdf(content: string): Promise<Buffer> {
-    const doc = new PDFDocument();
-    const chunks: Buffer[] = [];
-    doc.on('data', (chunk) => chunks.push(chunk));
-    return new Promise((resolve) => {
-      doc.on('end', () => resolve(Buffer.concat(chunks)));
-      doc.text(content);
-      doc.end();
-    });
+  /**
+   * Renders an HTML string to a PDF buffer via headless Chromium. This used
+   * to call pdfkit's doc.text(content), which dumped the raw HTML string
+   * (tags and all) as plain text — none of the CSS/table layout in the
+   * report templates was ever actually rendered. Real HTML/CSS is what lets
+   * admins customize a report template (layout, colors, watermark, logo) and
+   * see it reflected exactly in the generated PDF.
+   */
+  async generatePdf(
+    html: string,
+    options?: { format?: 'A4' | 'Letter' | 'Legal'; landscape?: boolean },
+  ): Promise<Buffer> {
+    const browser = await this.getBrowser();
+    const page = await browser.newPage();
+    try {
+      await page.setContent(html, { waitUntil: 'load' });
+      const pdf = await page.pdf({
+        format: options?.format || 'A4',
+        landscape: options?.landscape || false,
+        printBackground: true,
+        preferCSSPageSize: true,
+      });
+      return Buffer.from(pdf);
+    } finally {
+      await page.close();
+    }
   }
 
   async getUnifiedDashboard(branchId: string | null): Promise<DashboardData> {
@@ -854,153 +916,4 @@ export class ReportingService {
     return `${headerRow}\n${dataRows}`;
   }
 
-  async generateReportCardFromTemplate(
-    data: any,
-    template: any,
-  ): Promise<Buffer> {
-    const doc = new PDFDocument({
-      margin: template.config?.margins || 50,
-      size: template.config?.paperSize || 'A4',
-    });
-    const chunks: Buffer[] = [];
-    doc.on('data', (chunk) => chunks.push(chunk));
-
-    return new Promise((resolve, reject) => {
-      doc.on('end', () => resolve(Buffer.concat(chunks)));
-      doc.on('error', reject);
-
-      if (template.config?.watermark) {
-        this.renderWatermark(doc, template.config.watermark);
-      }
-
-      const sections = template.layout?.sections || [];
-      sections.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
-
-      sections.forEach((section: any) => {
-        this.renderSection(doc, section, data);
-        doc.moveDown();
-      });
-
-      doc.end();
-    });
-  }
-
-  private renderWatermark(doc: any, text: string) {
-    doc.save();
-    doc.opacity(0.1);
-    doc.fontSize(60).text(text, 100, 300, { rotation: 45 });
-    doc.restore();
-  }
-
-  private renderSection(doc: any, section: any, data: any) {
-    switch (section.type) {
-      case 'HEADER':
-        this.renderHeader(doc, section, data);
-        break;
-      case 'GRID':
-        this.renderGrid(doc, section, data);
-        break;
-      case 'TABLE':
-        this.renderTable(doc, section, data);
-        break;
-      case 'TEXT':
-        this.renderText(doc, section, data);
-        break;
-      case 'SIGNATURES':
-        this.renderSignatures(doc, section, data);
-        break;
-    }
-  }
-
-  private renderHeader(doc: any, section: any, data: any) {
-    doc
-      .fontSize(18)
-      .text(data.schoolName || 'Institution Name', { align: 'center' });
-    doc.fontSize(10).text(data.schoolAddress || '', { align: 'center' });
-    doc.moveDown();
-    doc.fontSize(14).text(data.reportType || 'Report Card', {
-      align: 'center',
-      underline: true,
-    });
-    doc.moveDown();
-
-    doc.fontSize(10);
-    doc.text(`Name: ${data.studentName}`, 50, doc.y);
-    doc.text(`Class: ${data.className}`, 300, doc.y - 12);
-    doc.text(`ID: ${data.admissionNo}`, 50, doc.y);
-    doc.text(`Term: ${data.termName}`, 300, doc.y - 12);
-  }
-
-  private renderTable(doc: any, section: any, data: any) {
-    if (section.dataType === 'ACADEMIC_RESULTS') {
-      const subjects = data.subjects || [];
-      const headers = data.assessmentHeaders || [];
-      doc
-        .fontSize(12)
-        .text(section.title || 'Academic Results', { underline: true });
-      doc.moveDown(0.5);
-
-      const startY = doc.y;
-      doc.fontSize(8).font('Helvetica-Bold');
-      doc.text('Subject', 50, startY);
-
-      let currentX = 150;
-      headers.forEach((h: string) => {
-        doc.text(h, currentX, startY, { width: 40, align: 'center' });
-        currentX += 45;
-      });
-
-      doc.text('Total', currentX, startY, { width: 40, align: 'center' });
-      doc.text('Grade', currentX + 45, startY, { width: 40, align: 'center' });
-      doc.text('Pos', currentX + 90, startY, { width: 40, align: 'center' });
-      doc.moveDown(0.5);
-      doc.font('Helvetica');
-
-      subjects.forEach((s: any) => {
-        const rowY = doc.y;
-        doc.text(s.name, 50, rowY, { width: 95 });
-
-        let scoreX = 150;
-        headers.forEach((h: string) => {
-          const score = s.dynamicScores?.[h] ?? '-';
-          doc.text(score.toString(), scoreX, rowY, { width: 40, align: 'center' });
-          scoreX += 45;
-        });
-
-        doc.text(s.total, scoreX, rowY, { width: 40, align: 'center' });
-        doc.text(s.grade, scoreX + 45, rowY, { width: 40, align: 'center' });
-        doc.text(s.position, scoreX + 90, rowY, { width: 40, align: 'center' });
-        doc.moveDown(0.3);
-      });
-    }
-  }
-
-  private renderText(doc: any, section: any, data: any) {
-    const content = this.resolvePlaceholders(section.content || '', data);
-    doc.fontSize(10).text(content);
-  }
-
-  private renderGrid(doc: any, section: any, data: any) {
-    doc
-      .fontSize(12)
-      .text(section.title || 'Other Assessments', { underline: true });
-  }
-
-  private renderSignatures(doc: any, section: any, data: any) {
-    doc.moveDown(2);
-    doc.text('____________________', 50, doc.y);
-    doc.text('____________________', 350, doc.y - 12);
-    doc.text('Form Teacher', 50, doc.y);
-    doc.text('Principal', 350, doc.y - 12);
-  }
-
-  private resolvePlaceholders(text: string, data: any): string {
-    return text.replace(/\{\{([^}]+)\}\}/g, (match, path) => {
-      return (
-        path
-          .split('.')
-          .reduce((acc: any, part: string) => acc && acc[part], data) || ''
-      );
-    });
-  }
 }
