@@ -14,6 +14,6 @@ export class CreateHostelDto {
   address?: string;
 
   @IsString()
-  @IsNotEmpty()
-  branchId: string;
+  @IsOptional()
+  branchId?: string;
 }

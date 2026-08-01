@@ -12,6 +12,7 @@ import { AllocateBedDto } from './dto/allocate-bed.dto';
 import { BedStatus } from '../generated/client/client';
 import { UpdateHostelDto } from './dto/update-hostel.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
+import { CreateHostelLeaveDto, CreateMaintenanceRequestDto } from './dto/hostel-ops.dto';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { AuditService } from '../audit/audit.service';
@@ -42,6 +43,9 @@ export class HostelsService {
   async createHostel(dto: CreateHostelDto, context: TenantContext) {
     const branchId = dto.branchId || context.branchId;
     if (!branchId) throw new ForbiddenException('Branch context required');
+    if (!context.isSuperAdmin && context.branchId !== branchId) {
+      throw new ForbiddenException('You do not have access to this branch');
+    }
 
     const hostel = await this.prisma.hostel.create({
       data: { ...dto, branchId },
@@ -351,18 +355,25 @@ export class HostelsService {
     };
   }
 
-  async createLeave(dto: any, context: TenantContext) {
+  async createLeave(dto: CreateHostelLeaveDto, context: TenantContext) {
+    let studentId = dto.studentId;
     if (context.role === 'STUDENT') {
       const student = await this.prisma.student.findUnique({
         where: { userId: context.userId },
       });
       if (!student) throw new NotFoundException('Student profile not found');
-      dto.studentId = student.id;
+      studentId = student.id;
     }
+    if (!studentId) throw new BadRequestException('studentId is required');
+
+    const branchId = dto.branchId || context.branchId;
+    if (!branchId) throw new ForbiddenException('Branch context required');
 
     return this.prisma.hostelLeave.create({
       data: {
-        ...dto,
+        studentId,
+        branchId,
+        reason: dto.reason,
         startDate: new Date(dto.startDate),
         endDate: new Date(dto.endDate),
       },
@@ -402,7 +413,7 @@ export class HostelsService {
     });
   }
 
-  async createMaintenanceRequest(dto: any, context: TenantContext) {
+  async createMaintenanceRequest(dto: CreateMaintenanceRequestDto, context: TenantContext) {
     let reportedBy = context.userId;
     if (context.role === 'STUDENT') {
       const student = await this.prisma.student.findUnique({
@@ -413,12 +424,14 @@ export class HostelsService {
       }
     }
 
+    await this.findHostel(dto.hostelId, context);
+
     return this.prisma.hostelMaintenanceTicket.create({
       data: {
         title: dto.title,
         description: dto.description,
         status: 'OPEN',
-        priority: dto.priority || 'MEDIUM',
+        priority: (dto.priority || 'MEDIUM') as any,
         hostelId: dto.hostelId,
         roomId: dto.roomId,
         reportedBy,
@@ -428,21 +441,20 @@ export class HostelsService {
   }
 
   async getMaintenanceRequests(context: TenantContext) {
+    if (context.role === 'STUDENT') {
+      const student = await this.prisma.student.findUnique({
+        where: { userId: context.userId },
+      });
+      if (!student) return [];
+      return this.prisma.hostelMaintenanceTicket.findMany({
+        where: { reportedBy: student.id },
+        include: { hostel: true },
+        orderBy: { createdAt: 'desc' },
+      });
+    }
+
     return this.prisma.hostelMaintenanceTicket.findMany({
-      where: {
-        hostel: {
-          branchId: context.branchId!,
-        },
-        ...(context.role === 'STUDENT'
-          ? {
-              reportedBy: (
-                await this.prisma.student.findUnique({
-                  where: { userId: context.userId },
-                })
-              )?.id,
-            }
-          : {}),
-      },
+      where: TenantHelper.applyIsolation({}, context),
       include: { hostel: true },
       orderBy: { createdAt: 'desc' },
     });
@@ -454,10 +466,7 @@ export class HostelsService {
     context: TenantContext,
   ) {
     const request = await this.prisma.hostelMaintenanceTicket.findFirst({
-      where: {
-        id,
-        hostel: { branchId: context.branchId! },
-      },
+      where: TenantHelper.applyIsolation({ id }, context),
     });
 
     if (!request) throw new NotFoundException('Maintenance request not found');
@@ -512,17 +521,9 @@ export class HostelsService {
   }
 
   async getBranchMaintenance(context: TenantContext) {
-    if (context.isSuperAdmin) {
-      return this.prisma.maintenanceRequest.findMany({
-        include: { bed: { include: { room: true } } },
-        orderBy: { createdAt: 'desc' },
-      });
-    }
-    return this.prisma.maintenanceRequest.findMany({
-      where: {
-        bed: { room: { hostel: { branchId: context.branchId || '' } } },
-      },
-      include: { bed: { include: { room: true } } },
+    return this.prisma.hostelMaintenanceTicket.findMany({
+      where: TenantHelper.applyIsolation({}, context),
+      include: { hostel: true },
       orderBy: { createdAt: 'desc' },
     });
   }

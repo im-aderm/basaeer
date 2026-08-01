@@ -34,12 +34,14 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useNotification } from '@/context/NotificationContext';
+import { useAuth } from "@/context/AuthContext";
 import { HostelService, Hostel, MaintenanceRequest } from "@/services/hostelService";
 import Link from "next/link";
 import { format } from "date-fns";
 
 export default function HostelOverviewPage() {
     const { showSuccess, showError } = useNotification();
+    const { activeBranchId } = useAuth();
     const [hostels, setHostels] = useState<Hostel[]>([]);
     const [stats, setStats] = useState<any>(null);
     const [maintenanceRequests, setMaintenanceRequests] = useState<MaintenanceRequest[]>([]);
@@ -83,7 +85,7 @@ export default function HostelOverviewPage() {
     const handleCreateHostel = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            await HostelService.createHostel(formData);
+            await HostelService.createHostel({ ...formData, branchId: activeBranchId });
             showSuccess("Hostel registered successfully");
             setIsCreateModalOpen(false);
             setFormData({ id: "", name: "", type: "COED", address: "" });
@@ -384,19 +386,16 @@ export default function HostelOverviewPage() {
                                             <h3 className="text-xl font-bold">{req.title}</h3>
                                             <p className="text-muted-foreground">{req.description}</p>
                                             <div className="flex items-center gap-4 text-xs font-bold text-muted-foreground/70 pt-2">
-                                                {req.bed && (
+                                                {req.hostel && (
                                                     <span className="flex items-center gap-1.5 bg-background px-3 py-1.5 rounded-lg border">
-                                                        <Bed size={14} /> {req.bed.name} • Room {req.bed.room?.number}
+                                                        <Home size={14} /> {req.hostel.name}
                                                     </span>
                                                 )}
-                                                {!req.bed && req.roomId && (
+                                                {req.roomId && (
                                                     <span className="flex items-center gap-1.5 bg-background px-3 py-1.5 rounded-lg border">
-                                                        <Home size={14} /> Room ID: {req.roomId}
+                                                        <Bed size={14} /> Room ID: {req.roomId}
                                                     </span>
                                                 )}
-                                                {/* <span className="flex items-center gap-1.5">
-                                                    <Clock size={14} /> {format(new Date(req.createdAt), 'MMM dd, yyyy')}
-                                                </span> */}
                                             </div>
                                         </div>
                                         <div className="flex items-center gap-3 shrink-0">

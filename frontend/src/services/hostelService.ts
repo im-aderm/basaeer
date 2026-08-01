@@ -53,9 +53,9 @@ export interface MaintenanceRequest {
     description: string;
     status: 'OPEN' | 'IN_PROGRESS' | 'RESOLVED';
     priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
-    bedId?: string;
+    hostelId: string;
     roomId?: string;
-    bed?: Bed & { room?: Room };
+    hostel?: Hostel;
 }
 
 export const HostelService = {
@@ -115,7 +115,7 @@ export const HostelService = {
     },
 
     getVacancies: async (): Promise<any[]> => {
-        const response = await api.get("/hostels/stats");
+        const response = await api.get("/hostels/vacancies");
         return response.data;
     },
 
@@ -127,6 +127,11 @@ export const HostelService = {
 
     getLeaves: async (): Promise<HostelLeave[]> => {
         const response = await api.get("/hostels/leaves/branch");
+        return response.data;
+    },
+
+    getMyLeaves: async (): Promise<HostelLeave[]> => {
+        const response = await api.get("/hostels/leaves/mine");
         return response.data;
     },
 
@@ -146,13 +151,24 @@ export const HostelService = {
         return response.data;
     },
 
+    getMyMaintenanceRequests: async (): Promise<MaintenanceRequest[]> => {
+        const response = await api.get("/hostels/maintenance/mine");
+        return response.data;
+    },
+
     updateMaintenanceStatus: async (id: string, status: string): Promise<MaintenanceRequest> => {
         const response = await api.patch(`/hostels/maintenance/${id}/status`, { status });
         return response.data;
     },
 
-    getMyHostelDetails: async (): Promise<any> => {
-        const response = await api.get("/hostels/stats");
+    getMyHostelDetails: async (): Promise<{
+        hostelName: string;
+        hostelType: string;
+        roomNumber: string;
+        bedName: string;
+        checkInDate: string;
+    } | null> => {
+        const response = await api.get("/hostels/me");
         return response.data;
     }
 };

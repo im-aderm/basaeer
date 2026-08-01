@@ -12,6 +12,7 @@ import { HostelsService } from './hostels.service';
 import { CreateHostelDto } from './dto/create-hostel.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { AllocateBedDto } from './dto/allocate-bed.dto';
+import { CreateHostelLeaveDto, CreateMaintenanceRequestDto } from './dto/hostel-ops.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { BranchGuard, TenantContext } from '../auth/branch.guard';
@@ -64,7 +65,27 @@ export class HostelsController {
   @Permissions('hostels:read')
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   getStats(@GetTenantContext() ctx: TenantContext) {
+    return this.hostelsService.getStats(ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve Vacancies' })
+  @Get('vacancies')
+  @Permissions('hostels:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
+  getVacancies(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.getVacancies(ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Hostel Details' })
+  @Get('me')
+  @Permissions('hostels:read')
+  @Roles(UserRole.STUDENT)
+  getMyHostelDetails(@GetTenantContext() ctx: TenantContext) {
+    return this.hostelsService.getMyHostelDetails(ctx);
   }
 
   @ApiBearerAuth()
@@ -183,9 +204,19 @@ export class HostelsController {
   @ApiOperation({ summary: 'Create Leave' })
   @Post('leave')
   @Permissions('hostels:create')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-  createLeave(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.STUDENT)
+  createLeave(@Body() dto: CreateHostelLeaveDto, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.createLeave(dto, ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Leaves' })
+  @Get('leaves/mine')
+  @Permissions('hostels:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
+  getMyLeaves(@GetTenantContext() ctx: TenantContext) {
+    return this.hostelsService.getLeaves(ctx);
   }
 
   @ApiBearerAuth()
@@ -217,9 +248,19 @@ export class HostelsController {
   @ApiOperation({ summary: 'Create Maintenance' })
   @Post('maintenance')
   @Permissions('hostels:create')
-  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
-  createMaintenance(@Body() dto: any, @GetTenantContext() ctx: TenantContext) {
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.STUDENT)
+  createMaintenance(@Body() dto: CreateMaintenanceRequestDto, @GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.createMaintenanceRequest(dto, ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Retrieve My Maintenance Requests' })
+  @Get('maintenance/mine')
+  @Permissions('hostels:read')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN, UserRole.STUDENT)
+  getMyMaintenanceRequests(@GetTenantContext() ctx: TenantContext) {
+    return this.hostelsService.getMaintenanceRequests(ctx);
   }
 
   @ApiBearerAuth()
@@ -230,5 +271,19 @@ export class HostelsController {
   @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN, UserRole.BRANCH_ADMIN)
   getBranchMaintenance(@GetTenantContext() ctx: TenantContext) {
     return this.hostelsService.getBranchMaintenance(ctx);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Update Maintenance Status' })
+  @Patch('maintenance/:id/status')
+  @Permissions('hostels:update')
+  @Roles(UserRole.SUPER_ADMIN, UserRole.HOSTEL_ADMIN)
+  updateMaintenanceStatus(
+    @Param('id') id: string,
+    @Body('status') status: string,
+    @GetTenantContext() ctx: TenantContext,
+  ) {
+    return this.hostelsService.updateMaintenanceStatus(id, status, ctx);
   }
 }
