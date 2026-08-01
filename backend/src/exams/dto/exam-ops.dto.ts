@@ -159,3 +159,13 @@ export class RecordBehaviouralDto {
   @IsOptional()
   branchId?: string;
 }
+
+export class PublicResultCheckerDto {
+  @ApiProperty()
+  @IsString()
+  admissionNumber: string;
+
+  @ApiProperty({ description: 'Date of birth, ISO 8601' })
+  @IsISO8601()
+  dob: string;
+}

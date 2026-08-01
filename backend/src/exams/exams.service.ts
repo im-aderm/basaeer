@@ -11,7 +11,7 @@ import {
   BulkSubmitScoresDto,
   RecordBehaviouralDto,
 } from './dto/exam-ops.dto';
-import { Term, ExamTerm } from '../generated/client/client';
+import { Term, ExamTerm, UserRole } from '../generated/client/client';
 import { ReportingService } from '../reporting/reporting.service';
 import { BranchBrandingService } from '../branches/branch-branding.service';
 import { ReportTemplatesService } from '../report-templates/report-templates.service';
@@ -496,6 +496,34 @@ export class ExamsService {
     };
   }
 
+  /**
+   * The shared "resolve data -> format -> pick template -> render PDF"
+   * sequence, used by both the authenticated report-card download route and
+   * the public result-checker's PDF download — one rendering path so a
+   * parent/student and someone using the public checker always see byte-
+   * identical PDFs.
+   */
+  async renderReportCardPdf(
+    studentId: string,
+    sessionId: string,
+    term: Term,
+    context: TenantContext,
+  ): Promise<Buffer | null> {
+    const data = await this.getFullReportData(studentId, sessionId, term, context);
+    if (!data) return null;
+
+    const formatted = await this.formatReportData(data, term);
+    const template = await this.reportTemplatesService.getEffectiveTemplate(
+      REPORT_TEMPLATE_TYPES.STUDENT_REPORT,
+      data.branchId,
+    );
+    const html = await this.reportingService.fillTemplate(template.html, formatted);
+    return this.reportingService.generatePdf(html, {
+      format: template.config.paperSize,
+      landscape: template.config.landscape,
+    });
+  }
+
   private ordinal(n: number): string {
     if (n === 0) return '-';
     const s = ['th', 'st', 'nd', 'rd'],
@@ -846,6 +874,102 @@ export class ExamsService {
       classPosition: summary.classPosition ? this.ordinal(summary.classPosition) : null,
       publishedAt: publication.publishedAt,
     };
+  }
+
+  /**
+   * The manual-entry path on the public result-checker page (the QR/link
+   * fast path goes through verifyResultCode instead). Two factors already
+   * on every Student record — admission number and date of birth — rather
+   * than a new scratch-card/PIN system this app has no infrastructure for.
+   * Returns a signed code per published result so the frontend can request
+   * the PDF without ever exposing the raw studentId.
+   */
+  async publicCheckByAdmissionNumber(admissionNumber: string, dob: string) {
+    const generic = { found: false as const, message: 'No matching student record found. Check the admission number and date of birth and try again.' };
+
+    const student = await this.prisma.student.findUnique({
+      where: { admissionNumber },
+      include: { user: true, class: true, section: true },
+    });
+    if (!student || !student.dob) return generic;
+
+    const providedDob = new Date(dob);
+    if (Number.isNaN(providedDob.getTime())) return generic;
+    const sameDay =
+      student.dob.toISOString().slice(0, 10) === providedDob.toISOString().slice(0, 10);
+    if (!sameDay) return generic;
+
+    const summaries = await this.prisma.resultSummary.findMany({
+      where: { studentId: student.id },
+      include: { session: true },
+      orderBy: [{ session: { startDate: 'desc' } }, { term: 'desc' }],
+    });
+    if (!summaries.length) {
+      return {
+        found: true as const,
+        studentName: `${student.user?.firstName || student.firstName} ${student.user?.lastName || student.lastName}`,
+        className: student.class?.name || 'N/A',
+        results: [],
+      };
+    }
+
+    const publications = await this.prisma.resultPublication.findMany({
+      where: {
+        branchId: student.branchId,
+        isPublished: true,
+        OR: summaries.map((s) => ({ sessionId: s.sessionId, term: s.term })),
+      },
+    });
+    const publishedKeys = new Set(publications.map((p) => `${p.sessionId}::${p.term}`));
+
+    const results = summaries
+      .filter((s) => publishedKeys.has(`${s.sessionId}::${s.term}`))
+      .map((s) => ({
+        sessionName: s.session.name,
+        term: s.term,
+        average: s.average != null ? Number(s.average).toFixed(1) : null,
+        finalGrade: s.finalGrade || null,
+        classPosition: s.classPosition ? this.ordinal(s.classPosition) : null,
+        code: this.resultVerificationService.generateCode(student.id, s.sessionId, s.term),
+      }));
+
+    return {
+      found: true as const,
+      studentName: `${student.user?.firstName || student.firstName} ${student.user?.lastName || student.lastName}`,
+      className: student.class?.name || 'N/A',
+      results,
+    };
+  }
+
+  /**
+   * PDF download for the public checker — reuses the signed code from
+   * publicCheckByAdmissionNumber/verifyResultCode rather than trusting a raw
+   * studentId, and re-checks publication before rendering anything.
+   */
+  async getPublicReportPdfByCode(code: string): Promise<Buffer | null> {
+    const decoded = this.resultVerificationService.verifyCode(code);
+    if (!decoded) return null;
+    const { studentId, sessionId, term } = decoded;
+    if (!Object.values(Term).includes(term as Term)) return null;
+
+    const student = await this.prisma.student.findUnique({
+      where: { id: studentId },
+      select: { branchId: true },
+    });
+    if (!student) return null;
+
+    const publication = await this.prisma.resultPublication.findFirst({
+      where: { branchId: student.branchId, sessionId, term: term as Term, isPublished: true },
+    });
+    if (!publication) return null;
+
+    const publicContext: TenantContext = {
+      userId: 'public-result-checker',
+      branchId: student.branchId,
+      isSuperAdmin: true,
+      role: UserRole.SUPER_ADMIN,
+    };
+    return this.renderReportCardPdf(studentId, sessionId, term as Term, publicContext);
   }
 
   async getGradingScales(branchId: string) {

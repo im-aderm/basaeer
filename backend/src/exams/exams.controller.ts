@@ -25,6 +25,7 @@ import {
   CreateAcademicSessionDto,
   BulkSubmitScoresDto,
   RecordBehaviouralDto,
+  PublicResultCheckerDto,
 } from './dto/exam-ops.dto';
 import { ReportingService } from '../reporting/reporting.service';
 import { ReportTemplatesService } from '../report-templates/report-templates.service';
@@ -616,6 +617,37 @@ export class ExamsController {
     @GetTenantContext() ctx: TenantContext,
   ) {
     return this.academicPortalService.performance(studentId, ctx);
+  }
+
+  @Public()
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Public result checker (admission number + DOB)' })
+  @Post('portal/checker')
+  async publicChecker(@Body() dto: PublicResultCheckerDto) {
+    return this.examsService.publicCheckByAdmissionNumber(
+      dto.admissionNumber,
+      dto.dob,
+    );
+  }
+
+  @Public()
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
+  @ApiResponse({ status: 200, description: 'Operation successful' })
+  @ApiOperation({ summary: 'Download a report card via the public checker' })
+  @Get('portal/checker/:code/pdf')
+  async publicCheckerPdf(
+    @Param('code') code: string,
+    @Res() res: Response,
+  ) {
+    const pdf = await this.examsService.getPublicReportPdfByCode(code);
+    if (!pdf) throw new NotFoundException('Report not available');
+    res.set({
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `attachment; filename=ReportCard.pdf`,
+      'Content-Length': pdf.length,
+    });
+    res.end(pdf);
   }
 
   @ApiBearerAuth()

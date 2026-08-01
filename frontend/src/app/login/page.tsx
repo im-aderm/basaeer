@@ -144,6 +144,12 @@ export default function LoginPage() {
               )}
             </button>
 
+            <div className="text-center">
+              <Link href="/result-checker" className="text-xs font-bold text-primary-light hover:underline">
+                Check a student&apos;s result
+              </Link>
+            </div>
+
             <div className="flex items-center justify-center gap-3 pt-2 text-text-secondary/40 border-t border-border">
               <Fingerprint size={24} className="text-primary-light/40" />
               <p className="text-xs italic text-text-secondary opacity-60">Biometric Secure Entry Available</p>
