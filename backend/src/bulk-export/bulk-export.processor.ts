@@ -15,6 +15,7 @@ interface ExportItem {
 }
 
 const MAX_ITEMS = 500; // hard cap so one job cannot run away
+const MAX_SHEET_ITEMS = 5000; // spreadsheets are cheap; allow a larger cap
 
 /**
  * Generates a ZIP of per-item PDFs off the request thread. A generator is
@@ -64,6 +65,16 @@ export class BulkExportProcessor extends WorkerHost {
         isSuperAdmin: false,
         role: UserRole.SUPER_ADMIN,
       };
+
+      // Spreadsheet types produce a single file, not a ZIP of PDFs.
+      if (type === 'ADMISSION_LIST_EXCEL' || type === 'ADMISSION_LIST_CSV') {
+        return this.handleSheetExport(
+          exportId,
+          type,
+          filters || {},
+          branchId,
+        );
+      }
 
       const items = await this.fetchItems(type, filters || {}, branchId);
       if (!items.length) {
@@ -182,6 +193,183 @@ export class BulkExportProcessor extends WorkerHost {
       default:
         throw new Error(`Unsupported bulk export type: ${type}`);
     }
+  }
+
+  // ── Single-file spreadsheet exports (admission record lists) ──────────────
+
+  private async handleSheetExport(
+    exportId: string,
+    type: 'ADMISSION_LIST_EXCEL' | 'ADMISSION_LIST_CSV',
+    filters: any,
+    branchId: string,
+  ): Promise<{
+    fileUrl: string;
+    fileSize: number;
+    fileName: string;
+    count: number;
+  }> {
+    const ids: string[] | undefined = Array.isArray(filters.ids) && filters.ids.length
+      ? filters.ids
+      : undefined;
+
+    const where: any = { branchId };
+    if (ids) where.id = { in: ids };
+    if (filters.status) where.status = filters.status;
+    if (filters.sessionId) where.academicSessionId = filters.sessionId;
+    if (filters.search) {
+      const s = filters.search;
+      where.OR = [
+        { firstName: { contains: s, mode: 'insensitive' } },
+        { lastName: { contains: s, mode: 'insensitive' } },
+        { otherNames: { contains: s, mode: 'insensitive' } },
+        { admissionNumber: { contains: s, mode: 'insensitive' } },
+        { guardianName: { contains: s, mode: 'insensitive' } },
+        { guardianEmail: { contains: s, mode: 'insensitive' } },
+        { guardianPhone: { contains: s } },
+      ];
+    }
+
+    const rows = await this.prisma.onlineAdmission.findMany({
+      where,
+      include: {
+        desiredClass: true,
+        desiredSection: true,
+        academicSession: true,
+      },
+      take: MAX_SHEET_ITEMS,
+      orderBy: { createdAt: 'desc' },
+    });
+
+    if (!rows.length) {
+      throw new Error('No admissions matched the selection.');
+    }
+
+    const headers = this.sheetHeaders();
+    const data = rows.map((r) => this.mapSheetRow(r));
+
+    const buffer =
+      type === 'ADMISSION_LIST_EXCEL'
+        ? await this.reporting.generateExcel(headers, data, 'Admissions')
+        : await this.reporting.generateCsvBuffer(headers, data);
+
+    const extension = type === 'ADMISSION_LIST_EXCEL' ? 'xlsx' : 'csv';
+    const fileName = `admissions_${exportId}.${extension}`;
+    const saved = await this.reporting.saveExportBuffer(buffer, fileName);
+
+    await this.prisma.academicExport.update({
+      where: { id: exportId },
+      data: {
+        status: 'COMPLETED',
+        progress: 100,
+        fileUrl: saved.fileUrl,
+        fileName,
+        fileSize: saved.fileSize,
+        expiresAt: new Date(Date.now() + 48 * 60 * 60 * 1000),
+      },
+    });
+
+    this.logger.log(
+      `Admission list export ${exportId} completed: ${rows.length} records`,
+    );
+    return { fileUrl: saved.fileUrl, fileSize: saved.fileSize, fileName, count: rows.length };
+  }
+
+  private sheetHeaders(): string[] {
+    return [
+      'Admission No',
+      'Surname',
+      'First Name',
+      'Other Names',
+      'Gender',
+      'Date of Birth',
+      'Age',
+      'Status',
+      'Student Status',
+      'Desired Class',
+      'Desired Section',
+      'Academic Session',
+      'Admission Type',
+      'Assessment Score',
+      'Guardian Name',
+      'Guardian Relation',
+      'Guardian Phone',
+      'Guardian Email',
+      'Guardian Occupation',
+      'Father Name',
+      'Father Phone',
+      'Mother Name',
+      'Mother Phone',
+      'Address',
+      'City',
+      'State',
+      'Country',
+      'NIN',
+      'Religion',
+      'Blood Group',
+      'Genotype',
+      'Medical Conditions',
+      'Transport Required',
+      'Hostel Required',
+      'Referral Source',
+      'Payment Status',
+      'Submitted At',
+      'Admission Date',
+      'Approval Date',
+    ];
+  }
+
+  private mapSheetRow(r: any): any[] {
+    return [
+      r.admissionNumber ?? '',
+      r.lastName ?? '',
+      r.firstName ?? '',
+      r.otherNames ?? '',
+      r.gender ?? '',
+      r.dateOfBirth ? this.toDate(r.dateOfBirth) : '',
+      r.age ?? '',
+      r.status ?? '',
+      r.studentStatus ?? '',
+      r.desiredClass?.name ?? '',
+      r.desiredSection?.name ?? '',
+      r.academicSession?.name ?? '',
+      r.admissionType ?? '',
+      r.assessmentScore != null ? Number(r.assessmentScore) : '',
+      r.guardianName ?? '',
+      r.guardianRelation ?? '',
+      r.guardianPhone ?? '',
+      r.guardianEmail ?? '',
+      r.guardianOccupation ?? '',
+      r.fatherName ?? '',
+      r.fatherPhone ?? '',
+      r.motherName ?? '',
+      r.motherPhone ?? '',
+      r.address ?? '',
+      r.city ?? '',
+      r.state ?? '',
+      r.country ?? '',
+      r.ninNumber ?? '',
+      r.religion ?? '',
+      r.bloodGroup ?? '',
+      r.genotype ?? '',
+      r.medicalConditions ?? '',
+      r.transportRequired ? 'Yes' : 'No',
+      r.hostelRequired ? 'Yes' : 'No',
+      r.referralSource ?? '',
+      r.paymentStatus ?? '',
+      r.createdAt ? this.toDateTime(r.createdAt) : '',
+      r.admissionDate ? this.toDate(r.admissionDate) : '',
+      r.approvalDate ? this.toDate(r.approvalDate) : '',
+    ];
+  }
+
+  private toDate(d: Date): string {
+    const dt = d instanceof Date ? d : new Date(d);
+    return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}-${String(dt.getDate()).padStart(2, '0')}`;
+  }
+
+  private toDateTime(d: Date): string {
+    const dt = d instanceof Date ? d : new Date(d);
+    return `${this.toDate(dt)} ${String(dt.getHours()).padStart(2, '0')}:${String(dt.getMinutes()).padStart(2, '0')}`;
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────

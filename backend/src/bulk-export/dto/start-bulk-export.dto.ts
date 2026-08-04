@@ -1,7 +1,15 @@
 import { IsArray, IsIn, IsObject, IsOptional, IsString } from 'class-validator';
 
-/** Document types that can be bulk-exported as a ZIP of per-item PDFs. */
-export const BULK_EXPORT_TYPES = ['ADMISSION_SLIP', 'CERTIFICATE'] as const;
+/**
+ * Document types that can be bulk-exported. ZIP types bundle one PDF per item;
+ * ADMISSION_LIST_* types produce a single spreadsheet of the matching records.
+ */
+export const BULK_EXPORT_TYPES = [
+  'ADMISSION_SLIP',
+  'CERTIFICATE',
+  'ADMISSION_LIST_EXCEL',
+  'ADMISSION_LIST_CSV',
+] as const;
 export type BulkExportType = (typeof BULK_EXPORT_TYPES)[number];
 
 export class BulkExportFilters {
@@ -11,7 +19,7 @@ export class BulkExportFilters {
   @IsString({ each: true })
   ids?: string[];
 
-  /** Admission slips: filter by application status. */
+  /** Admission records: filter by application status. */
   @IsOptional()
   @IsString()
   status?: string;
@@ -20,6 +28,11 @@ export class BulkExportFilters {
   @IsOptional()
   @IsString()
   sessionId?: string;
+
+  /** Admission lists: free-text search across student and guardian fields. */
+  @IsOptional()
+  @IsString()
+  search?: string;
 }
 
 export class StartBulkExportDto {

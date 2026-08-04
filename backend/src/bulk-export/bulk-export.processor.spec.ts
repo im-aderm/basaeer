@@ -25,6 +25,8 @@ describe('BulkExportProcessor', () => {
         savedBuffer = buffer;
         return Promise.resolve({ fileUrl: '/exports/x.zip', fileSize: buffer.length });
       }),
+      generateExcel: jest.fn(async () => Buffer.from('XLSX')),
+      generateCsvBuffer: jest.fn(async () => Buffer.from('CSV')),
     } as any;
 
     const admissionSlip = {
@@ -81,5 +83,55 @@ describe('BulkExportProcessor', () => {
     ).rejects.toThrow(/No documents matched/);
 
     expect(updates[updates.length - 1].status).toBe('FAILED');
+  });
+
+  it('produces a single Excel file with a row per admission and completes', async () => {
+    const { processor, prisma, reporting, updates, getSaved } = makeDeps();
+    prisma.onlineAdmission.findMany.mockResolvedValue([
+      { id: 'a1', admissionNumber: 'ADM-1', firstName: 'A', lastName: 'B', gender: 'Male', dateOfBirth: new Date('2015-01-01'), status: 'PENDING', guardianName: 'G1', guardianPhone: '111', createdAt: new Date('2025-01-01'), desiredClass: { name: 'JSS1' }, desiredSection: { name: 'A' }, academicSession: { name: '2024/2025' } },
+    ]);
+
+    const result = await processor.process({
+      data: {
+        exportId: 'exp-3',
+        type: 'ADMISSION_LIST_EXCEL',
+        filters: { status: 'PENDING', search: 'A' },
+        userId: 'u1',
+        branchId: 'branch-1',
+      },
+    } as any);
+
+    expect(reporting.generateExcel).toHaveBeenCalledTimes(1);
+    expect(reporting.generateExcel).toHaveBeenCalledWith(
+      expect.arrayContaining(['Admission No', 'Guardian Phone', 'Status']),
+      expect.arrayContaining([expect.arrayContaining(['ADM-1', 'A', 'B'])]),
+      'Admissions',
+    );
+    expect(reporting.saveExportBuffer).toHaveBeenCalledTimes(1);
+    const final = updates[updates.length - 1];
+    expect(final.status).toBe('COMPLETED');
+    expect(final.fileName).toMatch(/\.xlsx$/);
+    expect(result.count).toBe(1);
+    expect(getSaved()).not.toBeNull();
+  });
+
+  it('produces a CSV file for ADMISSION_LIST_CSV', async () => {
+    const { processor, reporting, updates } = makeDeps();
+
+    const result = await processor.process({
+      data: {
+        exportId: 'exp-4',
+        type: 'ADMISSION_LIST_CSV',
+        filters: {},
+        userId: 'u1',
+        branchId: 'branch-1',
+      },
+    } as any);
+
+    expect(reporting.generateCsvBuffer).toHaveBeenCalledTimes(1);
+    const final = updates[updates.length - 1];
+    expect(final.status).toBe('COMPLETED');
+    expect(final.fileName).toMatch(/\.csv$/);
+    expect(result.count).toBe(2);
   });
 });

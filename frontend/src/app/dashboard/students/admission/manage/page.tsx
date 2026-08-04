@@ -22,6 +22,8 @@ import {
     ArrowDown,
     FileDown,
     Archive,
+    FileSpreadsheet,
+    ChevronDown,
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useNotification } from '@/context/NotificationContext';
@@ -55,6 +57,8 @@ export default function AdmissionsManagementPage() {
     const [showRejectDialog, setShowRejectDialog] = useState(false);
     const [sortField, setSortField] = useState<SortField>("date");
     const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+    const [selectedIds, setSelectedIds] = useState<string[]>([]);
+    const [sheetMenuOpen, setSheetMenuOpen] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -97,6 +101,47 @@ export default function AdmissionsManagementPage() {
             // Exports the most recent admission slips for the active branch as a ZIP.
             await BulkExportService.runAndDownload("ADMISSION_SLIP", {}, setBulkProgress);
             showSuccess("Admission slips downloaded.");
+        } catch (e: any) {
+            showError(e?.message || "Bulk download failed. Please try again.");
+        } finally {
+            setBulkExporting(false);
+            setBulkProgress(0);
+        }
+    };
+
+    const toggleSelect = (id: string) => {
+        setSelectedIds(prev =>
+            prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+        );
+    };
+
+    const toggleSelectAll = () => {
+        const visible = sortedAdmissions.map(a => a.id);
+        const allSelected = visible.every(id => selectedIds.includes(id));
+        setSelectedIds(prev => {
+            const base = prev.filter(id => !visible.includes(id));
+            return allSelected ? base : [...base, ...visible];
+        });
+    };
+
+    const clearSelection = () => setSelectedIds([]);
+
+    const handleBulkDownloadList = async (format: "EXCEL" | "CSV") => {
+        setSheetMenuOpen(false);
+        setBulkExporting(true);
+        setBulkProgress(0);
+        try {
+            const filters: any = {};
+            if (selectedIds.length > 0) {
+                filters.ids = selectedIds;
+            } else {
+                if (statusFilter !== "ALL") filters.status = statusFilter;
+                if (searchTerm.trim()) filters.search = searchTerm.trim();
+            }
+            const type = format === "EXCEL" ? "ADMISSION_LIST_EXCEL" : "ADMISSION_LIST_CSV";
+            await BulkExportService.runAndDownload(type, filters, setBulkProgress);
+            showSuccess(`${selectedIds.length > 0 ? selectedIds.length : "All matching"} admission${selectedIds.length === 1 ? "" : "s"} downloaded as ${format}.`);
+            setSelectedIds([]);
         } catch (e: any) {
             showError(e?.message || "Bulk download failed. Please try again.");
         } finally {
@@ -302,6 +347,36 @@ export default function AdmissionsManagementPage() {
                                 </>
                             )}
                         </button>
+                        <div className="relative">
+                            <button
+                                onClick={() => setSheetMenuOpen(o => !o)}
+                                disabled={bulkExporting}
+                                className="inline-flex items-center gap-1.5 px-3.5 py-2.5 bg-white border-2 border-primary/40 text-primary hover:bg-primary/5 disabled:opacity-60 rounded-xl text-[12px] font-semibold transition-all whitespace-nowrap"
+                                title="Download admission records as a spreadsheet (Excel or CSV)"
+                            >
+                                <FileSpreadsheet size={14} /> Download List
+                                <ChevronDown size={14} className={`transition-transform ${sheetMenuOpen ? "rotate-180" : ""}`} />
+                            </button>
+                            {sheetMenuOpen && (
+                                <>
+                                    <div className="fixed inset-0 z-30" onClick={() => setSheetMenuOpen(false)} />
+                                    <div className="absolute right-0 top-full mt-1.5 z-40 bg-white border border-primary/20 rounded-xl shadow-lg overflow-hidden w-44">
+                                        <button
+                                            onClick={() => handleBulkDownloadList("EXCEL")}
+                                            className="w-full flex items-center gap-2 px-3.5 py-2.5 text-left text-[12px] font-semibold hover:bg-primary/5 transition-all"
+                                        >
+                                            <FileSpreadsheet size={14} className="text-emerald-600" /> Excel (.xlsx)
+                                        </button>
+                                        <button
+                                            onClick={() => handleBulkDownloadList("CSV")}
+                                            className="w-full flex items-center gap-2 px-3.5 py-2.5 text-left text-[12px] font-semibold hover:bg-primary/5 transition-all border-t border-primary/10"
+                                        >
+                                            <FileSpreadsheet size={14} className="text-blue-600" /> CSV (.csv)
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
                 </div>
 
@@ -324,10 +399,37 @@ export default function AdmissionsManagementPage() {
 
                 {/* Table */}
                 <div className="bg-white/75 border border-primary/20 rounded-2xl shadow-sm overflow-hidden">
+                    <div className="px-4 py-2 flex items-center justify-between bg-primary/5 border-b border-primary/10">
+                        <label className="inline-flex items-center gap-2 text-[12px] font-medium text-foreground/70 cursor-pointer select-none">
+                            <input
+                                type="checkbox"
+                                checked={sortedAdmissions.length > 0 && sortedAdmissions.every(a => selectedIds.includes(a.id))}
+                                onChange={toggleSelectAll}
+                                className="w-4 h-4 accent-primary rounded"
+                            />
+                            Select all / none
+                        </label>
+                        <div className="flex items-center gap-3">
+                            {selectedIds.length > 0 && (
+                                <button
+                                    onClick={clearSelection}
+                                    className="text-[11px] font-semibold text-primary hover:underline"
+                                >
+                                    Clear selection ({selectedIds.length})
+                                </button>
+                            )}
+                            <span className="text-[11px] text-foreground/50 font-medium">
+                                {selectedIds.length > 0
+                                    ? `${selectedIds.length} selected — Downloads use only these`
+                                    : "No selection — Download List uses current filters"}
+                            </span>
+                        </div>
+                    </div>
                     <div className="overflow-x-auto">
                         <table className={TABLE_ROOT}>
                             <thead>
                                 <tr className={TABLE_HEADER}>
+                                    <th className={TABLE_HEADER_CELL + " w-10"}></th>
                                     <th className={TABLE_HEADER_CELL} onClick={() => handleSort("name")}>
                                         Applicant {renderSortIndicator("name")}
                                     </th>
@@ -352,7 +454,7 @@ export default function AdmissionsManagementPage() {
                             <tbody className={TABLE_BODY}>
                                 {sortedAdmissions.length === 0 ? (
                                     <tr>
-                                        <td colSpan={7} className="px-6 py-16 text-center text-foreground/50 text-[12px]">
+                                        <td colSpan={8} className="px-6 py-16 text-center text-foreground/50 text-[12px]">
                                             <div className="flex flex-col items-center gap-2">
                                                 <Users size={24} className="text-foreground/20" />
                                                 <p>No applications found.</p>
@@ -362,6 +464,14 @@ export default function AdmissionsManagementPage() {
                                 ) : (
                                     sortedAdmissions.map(adm => (
                                         <tr key={adm.id} className={TABLE_ROW + " group"}>
+                                            <td className={TABLE_CELL + " w-10"}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedIds.includes(adm.id)}
+                                                    onChange={() => toggleSelect(adm.id)}
+                                                    className="w-4 h-4 accent-primary rounded"
+                                                />
+                                            </td>
                                             <td className={TABLE_CELL_PRIMARY}>
                                                 <div className="flex items-center gap-2.5">
                                                     <div className="w-7 h-7 rounded-md bg-primary/10 flex items-center justify-center text-primary font-semibold text-[11px] shrink-0">

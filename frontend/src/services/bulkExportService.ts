@@ -1,11 +1,12 @@
 import api from "@/lib/api";
 
-export type BulkExportType = "ADMISSION_SLIP" | "CERTIFICATE";
+export type BulkExportType = "ADMISSION_SLIP" | "CERTIFICATE" | "ADMISSION_LIST_EXCEL" | "ADMISSION_LIST_CSV";
 
 export interface BulkExportFilters {
   ids?: string[];
   status?: string;
   sessionId?: string;
+  search?: string;
 }
 
 export interface BulkExportJob {

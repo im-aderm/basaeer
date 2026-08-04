@@ -3,13 +3,40 @@
 import RequireBranch from "@/components/RequireBranch";
 import BranchContextBanner from "@/components/BranchContextBanner";
 import { useAuth } from "@/context/AuthContext";
-import { FileSpreadsheet, Link, ArrowRight, AlertCircle, UserPlus } from "lucide-react";
+import { FileSpreadsheet, Link, ArrowRight, AlertCircle, UserPlus, FileDown, Loader2, ChevronDown } from "lucide-react";
 import NextLink from "next/link";
 import SharableLink from "@/components/admission/SharableLink";
+import { BulkExportService } from "@/services/bulkExportService";
+import { useNotification } from '@/context/NotificationContext';
+import { useState } from "react";
 
 export default function AdmissionPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
+    const [exporting, setExporting] = useState(false);
+    const [progress, setProgress] = useState(0);
+    const [menuOpen, setMenuOpen] = useState(false);
     const isAdmin = user?.role === 'SUPER_ADMIN' || user?.role === 'BRANCH_ADMIN';
+
+    const handleDownload = async (format: "EXCEL" | "CSV") => {
+        setMenuOpen(false);
+        if (!resolvedBranchId) {
+            showError("Select a branch to download admissions.");
+            return;
+        }
+        setExporting(true);
+        setProgress(0);
+        try {
+            const type = format === "EXCEL" ? "ADMISSION_LIST_EXCEL" : "ADMISSION_LIST_CSV";
+            await BulkExportService.runAndDownload(type, {}, setProgress);
+            showSuccess(`Admissions downloaded as ${format}.`);
+        } catch (e: any) {
+            showError(e?.message || "Bulk download failed. Please try again.");
+        } finally {
+            setExporting(false);
+            setProgress(0);
+        }
+    };
 
     return (
         <RequireBranch requireSpecificBranch>
@@ -63,6 +90,59 @@ export default function AdmissionPage() {
                     )}
                 </div>
             </div>
+
+            {/* Bulk Download Card */}
+            {isAdmin && resolvedBranchId && (
+                <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm space-y-6">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                            <FileDown size={24} />
+                        </div>
+                        <h2 className="text-h2 font-bold tracking-tight text-primary">Download Admissions</h2>
+                    </div>
+                    <p className="text-muted-foreground font-medium">
+                        Export all applications for the current branch as a spreadsheet for offline review or reporting.
+                    </p>
+                    <div className="relative inline-block">
+                        <button
+                            onClick={() => setMenuOpen(o => !o)}
+                            disabled={exporting}
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-60 rounded-2xl font-semibold text-sm transition-all"
+                        >
+                            {exporting ? (
+                                <>
+                                    <Loader2 size={16} className="animate-spin" />
+                                    {progress > 0 ? `${progress}%` : "Preparing…"}
+                                </>
+                            ) : (
+                                <>
+                                    <FileSpreadsheet size={16} /> Download List
+                                    <ChevronDown size={16} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} />
+                                </>
+                            )}
+                        </button>
+                        {menuOpen && (
+                            <>
+                                <div className="fixed inset-0 z-30" onClick={() => setMenuOpen(false)} />
+                                <div className="absolute left-0 top-full mt-2 z-40 bg-white border border-border rounded-2xl shadow-lg overflow-hidden w-48">
+                                    <button
+                                        onClick={() => handleDownload("EXCEL")}
+                                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-sm font-semibold hover:bg-muted transition-all"
+                                    >
+                                        <FileSpreadsheet size={15} className="text-emerald-600" /> Excel (.xlsx)
+                                    </button>
+                                    <button
+                                        onClick={() => handleDownload("CSV")}
+                                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-sm font-semibold hover:bg-muted transition-all border-t border-border"
+                                    >
+                                        <FileSpreadsheet size={15} className="text-blue-600" /> CSV (.csv)
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+            )}
 
             <div className="p-10 bg-muted/20 border border-border rounded-[3rem] space-y-6">
                 <div className="flex items-center gap-4">
