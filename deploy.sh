@@ -45,6 +45,7 @@ ln -sf ../.env backend/.env
 cd backend
 npx prisma db push
 npx prisma db seed
+npm run seed:permissions
 cd ..
 echo ""
 

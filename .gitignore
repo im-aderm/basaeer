@@ -36,3 +36,4 @@ coverage/
 # Prisma
 backend/src/generated/
 backend/src/prisma/generated/
+backups/

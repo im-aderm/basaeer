@@ -133,7 +133,7 @@ export default function ContextErrorModal() {
                                     <Building2 className="w-10 h-10 text-muted-foreground/40 mx-auto mb-3" />
                                     <p className="text-sm text-muted-foreground mb-4">No branches available</p>
                                     <Link
-                                        href="/dashboard/branches/new"
+                                        href="/dashboard/branches/create"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
                                         onClick={dismissError}
                                     >

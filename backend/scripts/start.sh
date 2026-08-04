@@ -33,5 +33,13 @@ if [ $MIGRATE_EXIT -ne 0 ]; then
   fi
 fi
 
+echo "Seeding role permissions (idempotent)..."
+npm run seed:permissions --workspace=backend
+SEED_EXIT=$?
+
+if [ $SEED_EXIT -ne 0 ]; then
+  echo "WARNING: Role permission seed failed (exit code $SEED_EXIT) - permission-protected routes may be inaccessible"
+fi
+
 echo "Starting application..."
 exec node backend/dist/main.js
