@@ -20,6 +20,7 @@ import {
   VoucherType,
 } from '../generated/client/client';
 import { Decimal } from '@prisma/client/runtime/library';
+import { Prisma } from '../generated/client/client';
 import { TenantContext } from '../auth/branch.guard';
 import { TenantHelper } from '../prisma/tenant-helper';
 import { RealtimeService } from '../realtime/realtime.service';
@@ -458,12 +459,15 @@ export class FinanceService {
   }
 
   async getBranchFinancials(context: TenantContext) {
+    const branchFilter = context.branchId
+      ? Prisma.sql`WHERE "branchId" = ${context.branchId}`
+      : Prisma.empty;
     const invoices = await this.prisma.$queryRaw<{ totalInvoiced: number; totalOutstanding: number }[]>`
       SELECT 
         COALESCE(SUM("totalAmount"), 0)::FLOAT as "totalInvoiced",
         COALESCE(SUM("balance"), 0)::FLOAT as "totalOutstanding"
       FROM "Invoice"
-      WHERE "branchId" = ${context.branchId || ''}
+      ${branchFilter}
     `;
 
     const totals = invoices[0];

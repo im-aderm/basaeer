@@ -23,6 +23,7 @@ import {
     BookOpen,
     Brain,
     Globe,
+    BookMarked,
     Bus,
     Clock,
     QrCode,
@@ -230,6 +231,15 @@ const navigation: NavItem[] = [
             { title: "Marks Entry", href: "/dashboard/academics/exams/marks" },
             { title: "Exam Schedule", href: "/dashboard/exams/schedule" },
             { title: "Report Cards", href: "/dashboard/academics/exams/reports" },
+        ],
+    },
+    {
+        title: "Tahfeez Tracker",
+        icon: BookMarked,
+        children: [
+            { title: "Assessments", href: "/dashboard/tahfeez/assessments" },
+            { title: "Progress", href: "/dashboard/tahfeez/progress" },
+            { title: "Reports", href: "/dashboard/tahfeez/reports" },
         ],
     },
     {

@@ -114,6 +114,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [refreshKey, setRefreshKey] = useState(0);
     const router = useRouter();
 
+    // Load branches for SUPER_ADMIN and default to All Campuses when none saved.
+    // Also handles validating a saved branch against the fresh list.
+    const loadBranchesForSuperAdmin = useCallback(async (): Promise<AuthBranch[]> => {
+        try {
+            const branches = await api.get("/branches");
+            const branchList = branches.data || [];
+            setAvailableBranches(branchList);
+
+            const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+            const branchIds = new Set(branchList.map((b: AuthBranch) => b.id));
+
+            if (savedBranch && savedBranch !== ALL_CAMPUSES && !branchIds.has(savedBranch)) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(SESSION_KEY);
+                setActiveBranchId(ALL_CAMPUSES);
+                setActiveSessionId(null);
+                setApiBranchContext(null);
+            } else if (!savedBranch || savedBranch === ALL_CAMPUSES) {
+                setActiveBranchId(ALL_CAMPUSES);
+                setApiBranchContext(null);
+            } else {
+                setActiveBranchId(savedBranch);
+                setApiBranchContext(savedBranch);
+            }
+            return branchList;
+        } catch {
+            return [];
+        }
+    }, []);
+
     // Restore saved branch and session on mount
     useEffect(() => {
         const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
@@ -168,32 +198,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     return;
                 }
                 if (res.data.role === "SUPER_ADMIN") {
-                    try {
-                        const branches = await api.get("/branches");
-                        const branchList = branches.data || [];
-                        setAvailableBranches(branchList);
-
-                        // Validate saved branch: clear if it no longer exists in the branch list
-                        const savedBranch = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-                        const savedSession = typeof window !== "undefined" ? localStorage.getItem(SESSION_KEY) : null;
-                        const branchIds = new Set(branchList.map((b: AuthBranch) => b.id));
-
-                        if (savedBranch && savedBranch !== ALL_CAMPUSES && !branchIds.has(savedBranch)) {
-                            localStorage.removeItem(STORAGE_KEY);
-                            localStorage.removeItem(SESSION_KEY);
-                            setActiveBranchId(null);
-                            setActiveSessionId(null);
-                            setApiBranchContext(null);
-                        }
-
-                        // Auto-select first branch for SA if none saved (or saved was invalid)
-                        const currentSaved = typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
-                        if (!currentSaved && branchList.length > 0) {
-                            const firstBranch = branchList[0];
-                            setActiveBranchId(firstBranch.id);
-                            setApiBranchContext(firstBranch.id);
-                        }
-                    } catch {}
+                    await loadBranchesForSuperAdmin();
                 } else if (res.data.branchId) {
                     setAvailableBranches([{
                         id: res.data.branchId,
@@ -301,6 +306,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 return;
             }
             setUser(res.data);
+            if (res.data.role === "SUPER_ADMIN") {
+                await loadBranchesForSuperAdmin();
+            }
         } catch {}
         router.push("/dashboard");
     };
