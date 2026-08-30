@@ -104,7 +104,13 @@ export function PaymentStep() {
       const formDataUpload = new FormData();
       formDataUpload.append("file", file);
 
-      const response = await api.post("/upload/payment-proof", formDataUpload);
+      // Public admissions are submitted before an applicant has an account.
+      // Use the public document endpoint, keeping payment evidence in the
+      // same `payments` storage prefix used by the authenticated endpoint.
+      const response = await api.post(
+        "/upload/admission-document?category=payments",
+        formDataUpload,
+      );
 
       if (response.data.success) {
         const fileUrl = response.data.url;
