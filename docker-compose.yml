@@ -83,7 +83,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD is required}
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV:-production}
       PORT: 3001
       FRONTEND_URL: ${FRONTEND_URL:-https://basaerschools.com.ng}
       CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-https://basaerschools.com.ng}
