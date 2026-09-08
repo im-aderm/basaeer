@@ -12,15 +12,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TABLE_ROOT, TABLE_HEADER, TABLE_HEADER_CELL_NO_SORT, TABLE_BODY, TABLE_ROW, TABLE_CELL, TABLE_CELL_PRIMARY, TABLE_CELL_ACTIONS } from '@/lib/table-styles';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Plus, Check, X } from 'lucide-react';
+import { Plus, Check, X, Tag } from 'lucide-react';
 import api from '@/lib/api';
+import { useNotification } from '@/context/NotificationContext';
 
 export default function ExpensesPage() {
     const { user, resolvedBranchId } = useAuth();
+    const { showSuccess, showError } = useNotification();
     const [vouchers, setVouchers] = useState<any[]>([]);
     const [categories, setCategories] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [newCategoryName, setNewCategoryName] = useState('');
+    const [newCategoryDesc, setNewCategoryDesc] = useState('');
+    const [creatingCategory, setCreatingCategory] = useState(false);
 
     const [formData, setFormData] = useState({
         amount: '',
@@ -51,12 +56,45 @@ export default function ExpensesPage() {
         }
     }, [user]);
 
+    const handleCreateCategory = async () => {
+        if (!newCategoryName.trim()) {
+            showError('Category name is required');
+            return;
+        }
+        if (!resolvedBranchId) {
+            showError('Select a branch first');
+            return;
+        }
+        setCreatingCategory(true);
+        try {
+            const res = await api.post('/finance/expense-categories', {
+                name: newCategoryName.trim(),
+                description: newCategoryDesc.trim() || undefined,
+                branchId: resolvedBranchId,
+            });
+            setCategories((prev) => [...prev, res.data]);
+            setFormData((prev) => ({ ...prev, expenseCategoryId: res.data.id }));
+            setNewCategoryName('');
+            setNewCategoryDesc('');
+            showSuccess('Category created');
+        } catch (err: any) {
+            showError(err?.response?.data?.message || 'Failed to create category');
+        } finally {
+            setCreatingCategory(false);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (!resolvedBranchId) {
+            showError('Branch context required');
+            return;
+        }
         try {
             await api.post('/finance/vouchers', {
                 ...formData,
-                amount: parseFloat(formData.amount)
+                amount: parseFloat(formData.amount),
+                branchId: resolvedBranchId,
             });
             setIsDialogOpen(false);
             fetchData();
@@ -124,7 +162,10 @@ export default function ExpensesPage() {
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium">Category</label>
+                                <div className="flex items-center justify-between">
+                                    <label className="text-sm font-medium">Category</label>
+                                    <span className="text-[11px] text-muted-foreground">{categories.length} categories</span>
+                                </div>
                                 <Select
                                     onValueChange={(val) => setFormData({ ...formData, expenseCategoryId: val })}
                                     value={formData.expenseCategoryId}
@@ -133,11 +174,35 @@ export default function ExpensesPage() {
                                         <SelectValue placeholder="Select category" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {categories.map((cat: any) => (
-                                            <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-                                        ))}
+                                        {categories.length === 0 ? (
+                                            <div className="px-3 py-6 text-center text-[12px] text-muted-foreground">No categories yet — create one below</div>
+                                        ) : (
+                                            categories.map((cat: any) => (
+                                                <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                                            ))
+                                        )}
                                     </SelectContent>
                                 </Select>
+                                <div className="p-3 bg-muted/20 border rounded-xl space-y-2">
+                                    <p className="text-[12px] font-medium flex items-center gap-1.5"><Tag size={12} /> Add new category</p>
+                                    <div className="flex gap-2">
+                                        <Input
+                                            placeholder="Category name *"
+                                            value={newCategoryName}
+                                            onChange={(e) => setNewCategoryName(e.target.value)}
+                                            className="h-9 text-[12px]"
+                                        />
+                                        <Button type="button" size="sm" onClick={handleCreateCategory} disabled={creatingCategory || !newCategoryName.trim()} className="shrink-0">
+                                            {creatingCategory ? 'Adding…' : 'Add'}
+                                        </Button>
+                                    </div>
+                                    <Input
+                                        placeholder="Description (optional)"
+                                        value={newCategoryDesc}
+                                        onChange={(e) => setNewCategoryDesc(e.target.value)}
+                                        className="h-9 text-[12px]"
+                                    />
+                                </div>
                             </div>
 
                             <div className="space-y-2">

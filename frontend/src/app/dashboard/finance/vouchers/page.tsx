@@ -8,9 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Check, X, Loader2 } from 'lucide-react';
+import { Plus, Check, X, Loader2, Tag } from 'lucide-react';
 import { useNotification } from '@/context/NotificationContext';
 import { financeService, Voucher } from '@/services/financeService';
+import { useAuth } from '@/context/AuthContext';
 
 const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
   APPROVED: 'default',
@@ -20,11 +21,15 @@ const statusVariant: Record<string, 'default' | 'secondary' | 'destructive' | 'o
 
 export default function VoucherManagementPage() {
   const { showSuccess, showError } = useNotification();
+  const { resolvedBranchId } = useAuth();
 
   const [vouchers, setVouchers] = useState<Voucher[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [newCategoryDesc, setNewCategoryDesc] = useState('');
+  const [creatingCategory, setCreatingCategory] = useState(false);
 
   const [formData, setFormData] = useState({
     amount: '',
@@ -52,13 +57,45 @@ export default function VoucherManagementPage() {
 
   useEffect(() => { fetchData(); }, []);
 
+  const handleCreateCategory = async () => {
+    if (!newCategoryName.trim()) {
+      showError('Category name is required');
+      return;
+    }
+    if (!resolvedBranchId) {
+      showError('Select a branch first');
+      return;
+    }
+    setCreatingCategory(true);
+    try {
+      const cat = await financeService.createExpenseCategory({
+        name: newCategoryName.trim(),
+        description: newCategoryDesc.trim() || undefined,
+        branchId: resolvedBranchId,
+      });
+      setCategories((prev) => [...prev, cat]);
+      setFormData((prev) => ({ ...prev, expenseCategoryId: (cat as any).id }));
+      setNewCategoryName('');
+      setNewCategoryDesc('');
+      showSuccess('Category created');
+    } catch (err: any) {
+      showError(err?.response?.data?.message || 'Failed to create category');
+    } finally {
+      setCreatingCategory(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!resolvedBranchId) {
+      showError('Branch context required');
+      return;
+    }
     try {
       await financeService.createVoucher({
         ...formData,
         amount: parseFloat(formData.amount),
-        branchId: '',
+        branchId: resolvedBranchId,
       });
       setIsDialogOpen(false);
       setFormData({ amount: '', description: '', expenseCategoryId: '', paidTo: '', date: new Date().toISOString().split('T')[0] });
@@ -105,13 +142,40 @@ export default function VoucherManagementPage() {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Category</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium">Category</label>
+                  <span className="text-[11px] text-muted-foreground">{categories.length} categories</span>
+                </div>
                 <Select onValueChange={(val) => setFormData({ ...formData, expenseCategoryId: val })} value={formData.expenseCategoryId}>
                   <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                   <SelectContent>
-                    {categories.map((cat) => (<SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>))}
+                    {categories.length === 0 ? (
+                      <div className="px-3 py-6 text-center text-[12px] text-muted-foreground">No categories yet — create one below</div>
+                    ) : (
+                      categories.map((cat) => (<SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>))
+                    )}
                   </SelectContent>
                 </Select>
+                <div className="p-3 bg-muted/20 border rounded-xl space-y-2">
+                  <p className="text-[12px] font-medium flex items-center gap-1.5"><Tag size={12} /> Add new category</p>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Category name *"
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      className="h-9 text-[12px]"
+                    />
+                    <Button type="button" size="sm" onClick={handleCreateCategory} disabled={creatingCategory || !newCategoryName.trim()} className="shrink-0">
+                      {creatingCategory ? 'Adding…' : 'Add'}
+                    </Button>
+                  </div>
+                  <Input
+                    placeholder="Description (optional)"
+                    value={newCategoryDesc}
+                    onChange={(e) => setNewCategoryDesc(e.target.value)}
+                    className="h-9 text-[12px]"
+                  />
+                </div>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium">Paid To</label>

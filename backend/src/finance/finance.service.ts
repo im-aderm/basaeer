@@ -530,6 +530,7 @@ export class FinanceService {
       return tx.voucher.create({
         data: {
           ...dto,
+          date: dto.date ? new Date(dto.date) : new Date(),
           branchId,
           voucherNumber,
           type: dto.type || VoucherType.EXPENSE,
