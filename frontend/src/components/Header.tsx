@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, Bell, Search, User } from "lucide-react";
+import { LogOut, Bell, Search, User, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useCallback, useRef } from "react";
 import GlobalSearch from "@/components/GlobalSearch";
@@ -9,10 +9,12 @@ import BranchSelector from "@/components/BranchSelector";
 import SessionSelector from "@/components/SessionSelector";
 import { useRealtimeEvent } from "@/hooks/useRealtime";
 import { useNotification } from '@/context/NotificationContext';
+import { useSidebarStore } from "@/stores/sidebarStore";
 
 export function Header() {
     const { user, logout } = useAuth();
     const { showInfo } = useNotification();
+    const { isCollapsed, toggle } = useSidebarStore();
     const [searchOpen, setSearchOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
     const [profileMenuOpen, setProfileMenuOpen] = useState(false);
@@ -56,7 +58,15 @@ export function Header() {
 
     return (
         <>
-            <header className="h-16 border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-30 flex items-center px-4 md:px-8 gap-6 w-full">
+            <header className="h-16 border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-30 flex items-center px-4 md:px-8 gap-4 w-full">
+                <button
+                    onClick={toggle}
+                    className="hidden md:inline-flex p-2 hover:bg-muted rounded-xl text-muted-foreground hover:text-foreground shrink-0"
+                    aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                    title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                >
+                    {isCollapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+                </button>
                 <div className="flex-1 flex items-center gap-4">
                     {/* Search trigger — opens GlobalSearch modal */}
                     <button
