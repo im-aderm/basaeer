@@ -31,6 +31,8 @@ export interface User {
     firstName: string;
     lastName: string;
     role: string;
+    roleId?: string | null;
+    permissions?: string[];
     branchId?: string;
     phone?: string;
     isActive?: boolean;
@@ -81,6 +83,8 @@ interface AuthContextType {
     refreshBranches: () => Promise<void>;
     login: (userData: User) => Promise<void>;
     logout: () => void;
+    hasPermission: (permission: string) => boolean;
+    hasRole: (role: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -102,6 +106,8 @@ const AuthContext = createContext<AuthContextType>({
     refreshBranches: async () => {},
     login: async () => {},
     logout: () => {},
+    hasPermission: () => false,
+    hasRole: () => false,
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -326,6 +332,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
+    const hasPermission = useCallback((permission: string): boolean => {
+        if (!user) return false;
+        // SUPER_ADMIN bypass
+        if (user.role === "SUPER_ADMIN") return true;
+        const perms = (user as any).permissions as string[] | undefined;
+        if (!perms || perms.length === 0) return false;
+        return perms.includes(permission);
+    }, [user]);
+
+    const hasRole = useCallback((role: string): boolean => {
+        if (!user) return false;
+        return user.role === role;
+    }, [user]);
+
     // resolvedBranchId is undefined for "All Campuses" mode — backend returns ALL data
     const resolvedBranchId = activeBranchId && activeBranchId !== ALL_CAMPUSES
         ? activeBranchId
@@ -355,7 +375,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         refreshBranches,
         login,
         logout,
-    }), [user, loading, activeBranchId, activeSessionId, resolvedBranchId, resolvedSessionId, isAllCampusesMode, isAllSessionsMode, availableBranches, availableSessions, refreshKey, switchBranch, switchSession, refreshSessions, refreshBranches]);
+        hasPermission,
+        hasRole,
+    }), [user, loading, activeBranchId, activeSessionId, resolvedBranchId, resolvedSessionId, isAllCampusesMode, isAllSessionsMode, availableBranches, availableSessions, refreshKey, switchBranch, switchSession, refreshSessions, refreshBranches, hasPermission, hasRole]);
 
     return (
         <AuthContext.Provider value={contextValue}>

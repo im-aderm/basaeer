@@ -66,6 +66,7 @@ export class AuthService {
       email: user.email,
       sub: user.id,
       role: user.role,
+      roleId: user.roleId || null,
       branchId: user.branchId,
       selectedBranchId: user.selectedBranchId || null,
       selectedSessionId: user.selectedSessionId || null,
@@ -93,6 +94,7 @@ export class AuthService {
         firstName: user.firstName,
         lastName: user.lastName,
         role: user.role,
+        roleId: user.roleId || null,
         branchId: user.branchId,
         mustChangePassword: user.mustChangePassword || false,
         branding,
@@ -103,7 +105,28 @@ export class AuthService {
   async getFullProfile(userId: string, context: TenantContext) {
     const user = await this.usersService.findById(userId, context);
     if (user) {
-      const { password, resetTokenHash, resetTokenExpires, ...result } = user;
+      const { password, resetTokenHash, resetTokenExpires, ...result } = user as any;
+      // Attach effective permissions for frontend gating
+      try {
+        const rolePerms = await this.prisma.rolePermission.findMany({
+          where: { role: (user as any).role, isAllowed: true },
+          select: { module: true, action: true },
+        });
+        const customPerms = (user as any).roleId
+          ? await this.prisma.customRolePermission.findMany({
+              where: { roleId: (user as any).roleId, isAllowed: true },
+              select: { module: true, action: true },
+            })
+          : [];
+        const perms = [
+          ...rolePerms.map((p) => `${p.module}:${p.action}`),
+          ...customPerms.map((p) => `${p.module}:${p.action}`),
+        ];
+        (result as any).permissions = Array.from(new Set(perms));
+        (result as any).roleId = (user as any).roleId || null;
+      } catch {
+        (result as any).permissions = [];
+      }
       return result;
     }
     return null;
@@ -143,6 +166,7 @@ export class AuthService {
       email: user.email,
       sub: user.id,
       role: user.role,
+      roleId: (user as any).roleId || null,
       branchId: user.branchId,
       selectedBranchId,
       jti: crypto.randomUUID(),
@@ -173,6 +197,7 @@ export class AuthService {
       email: user.email,
       sub: user.id,
       role: user.role,
+      roleId: (user as any).roleId || null,
       branchId: user.branchId,
       selectedBranchId: context.selectedBranchId || null,
       selectedSessionId,

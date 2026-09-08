@@ -44,7 +44,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     //    immediately instead of lingering for the token's full lifetime.
     const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
-      select: { id: true, email: true, role: true, branchId: true, isActive: true },
+      select: { id: true, email: true, role: true, roleId: true, branchId: true, isActive: true },
     });
 
     if (!user || !user.isActive) {
@@ -55,6 +55,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       id: user.id,
       email: user.email,
       role: user.role,
+      roleId: user.roleId || null,
       branchId: user.branchId,
       // Super-admin UI context selections live only in the token, not on the
       // user row, so they are preserved from the payload.
