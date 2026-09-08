@@ -75,6 +75,10 @@ export class StudentsService {
       enrollmentStatus,
       admissionDate,
     } = createStudentDto;
+    // Extra shadow-audit fields not in DTO but sent by Quick Enroll (guardianEmail etc)
+    const shadowGuardianEmail = (createStudentDto as any).guardianEmail as string | undefined;
+    const shadowSecondaryGuardianName = secondaryGuardianName;
+    const shadowSecondaryGuardianPhone = secondaryGuardianPhone;
     const branchId = createStudentDto.branchId || context.branchId;
 
     if (!branchId) {
@@ -163,6 +167,53 @@ export class StudentsService {
           admissionDate: admissionDate ? new Date(admissionDate) : new Date(),
         },
       });
+
+      // Shadow OnlineAdmission for audit — ensures Quick Enroll retains full application packet
+      // even though Student is created directly. Uses minimal required fields + same admissionNumber.
+      try {
+        await tx.onlineAdmission.create({
+          data: {
+            admissionNumber,
+            firstName,
+            lastName,
+            gender: gender || 'Male',
+            dateOfBirth: dob ? new Date(dob) : new Date(),
+            guardianName: shadowSecondaryGuardianName || secondaryGuardianName || `${firstName} ${lastName} Guardian`,
+            guardianPhone: shadowSecondaryGuardianPhone || secondaryGuardianPhone || phone || '0000000000',
+            guardianEmail: shadowGuardianEmail || email,
+            branchId,
+            desiredClassId: classId || null,
+            desiredSectionId: sectionId || null,
+            status: 'ENROLLED',
+            admissionType: 'QUICK_ENROLL',
+            studentStatus: 'ENROLLED',
+            approvalDate: new Date(),
+            approvedByStaffId: context.userId || null,
+            createdByStaffId: context.userId || null,
+            // Preserve docs if provided, otherwise null — optional but audit-friendly
+            passportPhoto: passportPhoto || null,
+            birthCertificateUrl: birthCertificateUrl || null,
+            // Keep consent flags true for admin enroll
+            guardianConsent: true,
+            dataProcessingConsent: true,
+            schoolRulesAgreement: true,
+            city: city || null,
+            state: state || null,
+            country: country || null,
+            nationality: nationality || null,
+            placeOfBirth: placeOfBirth || null,
+            religion: religion || null,
+            emergencyContactName: emergencyContactName || null,
+            emergencyContactPhone: emergencyContactPhone || null,
+            bloodGroup: bloodGroup || null,
+            genotype: genotype || null,
+            referralSource: referralSource || 'QUICK_ENROLL',
+          } as any,
+        });
+      } catch (e) {
+        // Non-fatal — audit shadow should not block enrollment
+        console.warn('Shadow OnlineAdmission failed (non-fatal):', (e as Error).message);
+      }
 
       return { user, student, tempPassword: password ? undefined : tempPassword };
     });

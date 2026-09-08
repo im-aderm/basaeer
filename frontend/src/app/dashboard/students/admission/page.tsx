@@ -9,6 +9,8 @@ import SharableLink from "@/components/admission/SharableLink";
 import { BulkExportService } from "@/services/bulkExportService";
 import { useNotification } from '@/context/NotificationContext';
 import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export default function AdmissionPage() {
     const { user, resolvedBranchId } = useAuth();
@@ -40,135 +42,162 @@ export default function AdmissionPage() {
 
     return (
         <RequireBranch requireSpecificBranch>
-            <div className="max-w-4xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-700 pb-20 px-4 md:px-0">
+            <div className="max-w-5xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-300 pb-8 px-4">
             <BranchContextBanner />
-            <div className="space-y-4">
-                <h1 className="text-h1 font-bold tracking-tight text-primary">Student Admission</h1>
-                <p className="text-muted-foreground text-xl font-medium">Direct admission creation is disabled. Use one of the methods below.</p>
+            <div className="space-y-1.5">
+                <h1 className="text-[20px] md:text-[22px] font-bold tracking-tight text-primary">Student Admission</h1>
+                <p className="text-muted-foreground text-[13px] font-normal">Choose how to onboard students — quick enroll, bulk import, or share the online form.</p>
             </div>
 
-            <div className="p-8 bg-amber-500/5 border-2 border-amber-500/20 rounded-[2rem] flex items-start gap-4">
-                <AlertCircle className="h-6 w-6 text-amber-500 shrink-0 mt-1" />
-                <div className="space-y-2">
-                    <h3 className="font-bold text-amber-600">Administrative Policy</h3>
-                    <p className="text-sm text-amber-600/80 font-medium">All admissions must be processed through bulk CSV import or the online admission form link. This ensures data consistency and proper document handling.</p>
+            <div className="p-4 bg-amber-500/5 border border-amber-500/20 rounded-2xl flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                    <h3 className="font-semibold text-[13px] text-amber-700">Administrative Policy</h3>
+                    <p className="text-[12px] text-amber-600/80 leading-relaxed">All admissions should be processed through Quick Enroll, bulk CSV import, or the online form link. This ensures data consistency and proper document handling.</p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {/* Quick Enroll Card — new primary */}
+                <NextLink href="/dashboard/students/admission/enroll" className="group">
+                    <Card className="p-6 h-full hover:border-emerald-500/30 hover:shadow-md transition-all border-emerald-500/20 bg-emerald-50/40">
+                        <CardContent className="p-0 space-y-4">
+                            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition-transform">
+                                <UserPlus size={22} />
+                            </div>
+                            <div className="space-y-2">
+                                <h2 className="text-[14px] font-semibold tracking-tight text-primary">Quick Enroll</h2>
+                                <p className="text-[12px] text-muted-foreground leading-relaxed font-normal">Enroll a student directly in-app — full form with instant portal account.</p>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-emerald-600 font-semibold text-[12px] group-hover:gap-3 transition-all">
+                                Enroll Now <ArrowRight size={14} />
+                            </div>
+                        </CardContent>
+                    </Card>
+                </NextLink>
+
                 {/* Bulk Import Card */}
                 {isAdmin && (
                     <NextLink href="/dashboard/students/import" className="group">
-                        <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm hover:border-primary/60 hover:shadow-xl transition-all space-y-6">
-                            <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <FileSpreadsheet size={32} />
-                            </div>
-                            <div className="space-y-3">
-                                <h2 className="text-h2 font-bold tracking-tight text-primary">Bulk CSV Import</h2>
-                                <p className="text-muted-foreground font-medium">Import multiple admissions at once with documents via ZIP file. Requires admin privileges.</p>
-                            </div>
-                            <div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all">
-                                Go to Import <ArrowRight size={16} />
-                            </div>
-                        </div>
+                        <Card className="p-6 h-full hover:border-primary/30 hover:shadow-md transition-all">
+                            <CardContent className="p-0 space-y-4">
+                                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+                                    <FileSpreadsheet size={22} />
+                                </div>
+                                <div className="space-y-2">
+                                    <h2 className="text-[14px] font-semibold tracking-tight text-primary">Bulk CSV Import</h2>
+                                    <p className="text-[12px] text-muted-foreground leading-relaxed font-normal">Import multiple admissions at once with documents via ZIP file.</p>
+                                </div>
+                                <div className="flex items-center gap-1.5 text-primary font-semibold text-[12px] group-hover:gap-3 transition-all">
+                                    Go to Import <ArrowRight size={14} />
+                                </div>
+                            </CardContent>
+                        </Card>
                     </NextLink>
                 )}
 
                 {/* Online Form Card */}
-                <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm space-y-6">
-                    <div className="w-16 h-16 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                        <Link size={32} />
-                    </div>
-                    <div className="space-y-3">
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Online Admission Form</h2>
-                        <p className="text-muted-foreground font-medium">Share this link with parents to submit applications online.</p>
-                    </div>
-                    {resolvedBranchId ? (
-                        <SharableLink branchId={resolvedBranchId} />
-                    ) : (
-                        <p className="text-sm text-muted-foreground">Select a branch to generate the link.</p>
-                    )}
-                </div>
+                <Card className="p-6 h-full">
+                    <CardContent className="p-0 space-y-4">
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                            <Link size={22} />
+                        </div>
+                        <div className="space-y-2">
+                            <h2 className="text-[14px] font-semibold tracking-tight text-primary">Online Admission Form</h2>
+                            <p className="text-[12px] text-muted-foreground leading-relaxed font-normal">Share this link with parents to submit applications online.</p>
+                        </div>
+                        {resolvedBranchId ? (
+                            <SharableLink branchId={resolvedBranchId} />
+                        ) : (
+                            <p className="text-[12px] text-muted-foreground">Select a branch to generate the link.</p>
+                        )}
+                    </CardContent>
+                </Card>
             </div>
 
             {/* Bulk Download Card */}
             {isAdmin && resolvedBranchId && (
-                <div className="p-10 bg-white/75 border-2 border-border rounded-[3rem] shadow-sm space-y-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                            <FileDown size={24} />
+                <Card className="p-6">
+                    <CardContent className="p-0 space-y-4">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                            <FileDown size={20} />
                         </div>
-                        <h2 className="text-h2 font-bold tracking-tight text-primary">Download Admissions</h2>
+                        <h2 className="text-[14px] font-semibold tracking-tight text-primary">Download Admissions</h2>
                     </div>
-                    <p className="text-muted-foreground font-medium">
+                    <p className="text-[12px] text-muted-foreground leading-relaxed font-normal">
                         Export all applications for the current branch as a spreadsheet for offline review or reporting.
                     </p>
                     <div className="relative inline-block">
-                        <button
+                        <Button
                             onClick={() => setMenuOpen(o => !o)}
                             disabled={exporting}
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-60 rounded-2xl font-semibold text-sm transition-all"
+                            size="sm"
+                            className="rounded-xl text-[12px]"
                         >
                             {exporting ? (
                                 <>
-                                    <Loader2 size={16} className="animate-spin" />
+                                    <Loader2 size={14} className="animate-spin" />
                                     {progress > 0 ? `${progress}%` : "Preparing…"}
                                 </>
                             ) : (
                                 <>
-                                    <FileSpreadsheet size={16} /> Download List
-                                    <ChevronDown size={16} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} />
+                                    <FileSpreadsheet size={14} /> Download List
+                                    <ChevronDown size={14} className={`transition-transform ${menuOpen ? "rotate-180" : ""}`} />
                                 </>
                             )}
-                        </button>
+                        </Button>
                         {menuOpen && (
                             <>
                                 <div className="fixed inset-0 z-30" onClick={() => setMenuOpen(false)} />
-                                <div className="absolute left-0 top-full mt-2 z-40 bg-white border border-border rounded-2xl shadow-lg overflow-hidden w-48">
+                                <div className="absolute left-0 top-full mt-2 z-40 bg-white border border-border rounded-xl shadow-lg overflow-hidden w-44">
                                     <button
                                         onClick={() => handleDownload("EXCEL")}
-                                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-sm font-semibold hover:bg-muted transition-all"
+                                        className="w-full flex items-center gap-2 px-3 py-2.5 text-left text-[12px] font-medium hover:bg-muted transition-colors"
                                     >
-                                        <FileSpreadsheet size={15} className="text-emerald-600" /> Excel (.xlsx)
+                                        <FileSpreadsheet size={14} className="text-emerald-600" /> Excel (.xlsx)
                                     </button>
                                     <button
                                         onClick={() => handleDownload("CSV")}
-                                        className="w-full flex items-center gap-2 px-4 py-3 text-left text-sm font-semibold hover:bg-muted transition-all border-t border-border"
+                                        className="w-full flex items-center gap-2 px-3 py-2.5 text-left text-[12px] font-medium hover:bg-muted transition-colors border-t border-border"
                                     >
-                                        <FileSpreadsheet size={15} className="text-blue-600" /> CSV (.csv)
+                                        <FileSpreadsheet size={14} className="text-blue-600" /> CSV (.csv)
                                     </button>
                                 </div>
                             </>
                         )}
                     </div>
-                </div>
+                    </CardContent>
+                </Card>
             )}
 
-            <div className="p-10 bg-muted/20 border border-border rounded-[3rem] space-y-6">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                        <UserPlus size={24} />
+            <Card className="p-6 bg-muted/10">
+                <CardContent className="p-0 space-y-4">
+                <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                        <UserPlus size={18} />
                     </div>
-                    <h2 className="text-h2 font-bold tracking-tight text-primary">Quick Guide</h2>
+                    <h2 className="text-[14px] font-semibold tracking-tight text-primary">Quick Guide</h2>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="space-y-2">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">1</div>
-                        <h4 className="font-semibold text-sm">Prepare ZIP File</h4>
-                        <p className="text-xs text-muted-foreground">Download the sample CSV, fill in student details, and organize documents in a <code className="bg-muted px-1 rounded">documents/</code> folder.</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="space-y-1.5">
+                        <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[11px]">1</div>
+                        <h4 className="font-semibold text-[12px]">Prepare ZIP File</h4>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed">Download the sample CSV, fill in student details, and organize documents in a <code className="bg-muted px-1 rounded text-[11px]">documents/</code> folder.</p>
                     </div>
-                    <div className="space-y-2">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">2</div>
-                        <h4 className="font-semibold text-sm">Upload & Process</h4>
-                        <p className="text-xs text-muted-foreground">Upload the ZIP file to the bulk import page. The system will process everything in the background.</p>
+                    <div className="space-y-1.5">
+                        <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[11px]">2</div>
+                        <h4 className="font-semibold text-[12px]">Upload & Process</h4>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed">Upload the ZIP file to the bulk import page. The system will process everything in the background.</p>
                     </div>
-                    <div className="space-y-2">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">3</div>
-                        <h4 className="font-semibold text-sm">Review & Approve</h4>
-                        <p className="text-xs text-muted-foreground">Check imported applications in Admission Management. Verify documents and approve to enroll students.</p>
+                    <div className="space-y-1.5">
+                        <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[11px]">3</div>
+                        <h4 className="font-semibold text-[12px]">Review & Approve</h4>
+                        <p className="text-[12px] text-muted-foreground leading-relaxed">Check imported applications in Admission Management. Verify documents and approve to enroll students.</p>
                     </div>
                 </div>
-            </div>
+                </CardContent>
+            </Card>
             </div>
         </RequireBranch>
     );

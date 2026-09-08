@@ -191,6 +191,11 @@ export class CreateStudentDto {
 
   @IsOptional()
   @IsString()
+  @IsEmail()
+  guardianEmail?: string;
+
+  @IsOptional()
+  @IsString()
   enrollmentStatus?: string;
 
   @IsOptional()
