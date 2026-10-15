@@ -4,7 +4,8 @@
   "workspaces": [
     "packages/*",
     "backend",
-    "frontend"
+    "frontend",
+    "apps/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",

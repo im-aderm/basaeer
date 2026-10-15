@@ -18,6 +18,8 @@ const links = [
   { name: "Contact", href: "/contact" },
 ];
 
+const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-school";
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -102,7 +104,7 @@ export function Navbar() {
                 transition={{ repeat: Infinity, duration: 1.2, repeatDelay: 0.3, ease: "easeInOut" }}
               />
               <Link
-                href="/login"
+                href={LOGIN_URL}
                 className="relative px-7 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/60 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase transition-all duration-300 z-10 block"
               >
                 Login
@@ -166,7 +168,7 @@ export function Navbar() {
               </div>
 
               <Link
-                href="/login"
+                href={LOGIN_URL}
                 onClick={() => setIsMobileOpen(false)}
                 className="w-full text-center py-3.5 rounded-full bg-gradient-to-r from-primary to-primary-light border border-primary/60 text-white font-heading font-extrabold text-xs tracking-[0.12em] uppercase shadow-lg block mt-2"
               >

@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Send, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { useNotification } from "@/context/NotificationContext";
 
+const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-school";
+
 export function Footer() {
   const { showSuccess } = useNotification();
   return (
@@ -54,7 +56,7 @@ export function Footer() {
             <h3 className="font-heading font-semibold text-text-primary text-base mb-6">Quick Links</h3>
             <ul className="space-y-4 text-sm font-medium">
               {[
-                { name: "Student Portal", href: "/login" },
+                { name: "Student Portal", href: LOGIN_URL },
                 { name: "Admissions", href: "/admission" },
                 { name: "Careers", href: "/careers" },
                 { name: "FAQ", href: "/faq" },
