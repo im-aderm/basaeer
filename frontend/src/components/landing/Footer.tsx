@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Send, Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { useNotification } from "@/context/NotificationContext";
 
-const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-school";
+const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-schools";
 
 export function Footer() {
   const { showSuccess } = useNotification();

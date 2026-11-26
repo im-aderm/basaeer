@@ -18,7 +18,7 @@ const links = [
   { name: "Contact", href: "/contact" },
 ];
 
-const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-school";
+const LOGIN_URL = process.env.NEXT_PUBLIC_LOGIN_URL || "https://app.ischools.ng/login/basaer-schools";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
